@@ -2,6 +2,12 @@ package com.mygdx.game;
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.Input;
+
+
 import com.mygdx.game.AI.AIControlManager;
 import com.mygdx.game.Collisions.CollisionManager;
 import com.mygdx.game.Controls.ControlManager;
@@ -9,6 +15,10 @@ import com.mygdx.game.Entity.EntityManager;
 import com.mygdx.game.InputOutput.InputOutputManager;
 import com.mygdx.game.Scenes.SceneManager;
 import com.mygdx.game.Simulation.SimulationManager;
+
+import com.mygdx.game.Scenes.StartScene;
+import com.mygdx.game.Scenes.EndScene;
+
 
 public class GameMaster extends ApplicationAdapter {
     // Declaring of variables
@@ -21,6 +31,12 @@ public class GameMaster extends ApplicationAdapter {
     private CollisionManager collisionManager;
     private SpriteBatch batch;
 
+    // screens
+    private StartScene startScene;
+    private EndScene endScene;
+    private boolean gameEnd = true;
+    private Screen currentScene;
+
     @Override
     public void create() {
         // Loading of Managers and Batch
@@ -32,25 +48,47 @@ public class GameMaster extends ApplicationAdapter {
         controlManager = new ControlManager();
         aiControlManager = new AIControlManager();
         collisionManager = new CollisionManager();
+
+        // Screens
+        startScene = new StartScene();
+        endScene = new EndScene();
+        currentScene = startScene;
     }
 
     @Override
     public void render() {
-        ScreenUtils.clear(0, 0, 0.2f, 1);
+        // commented out the current logic to test out the screens hehe - dinie
+
+        /* ScreenUtils.clear(0, 0, 0.2f, 1);
         batch.begin();
-            // put here for now for testing
-            inputOutputManager.updateKeys();
-            entityManager.drawEntities(batch);
+        // put here for now for testing
+        inputOutputManager.updateKeys();
+        entityManager.drawEntities(batch);
         batch.end();
 
         // Initialise Movement
-        entityManager.movePlayerEntity(inputOutputManager.getKeyboardMouse(), controlManager.getPlayerControls());
+        entityManager.movePlayerEntity(inputOutputManager.getKeyboardMouse(), controlManager.getPlayerControls()); */
+
+        // start scene to end scene
+        float delta = Gdx.graphics.getDeltaTime();
+
+        if (currentScene == startScene && Gdx.input.isKeyJustPressed(Input.Keys.N)) {
+            // transition from the green screen (startScene) to the red screen (endScene)
+            currentScene = endScene;
+        }
+
+        if (currentScene != null) {
+            currentScene.render(delta);
+        }
 
     }
 
     @Override
     public void dispose() {
-        batch.dispose();
-        entityManager.disposeEntities();
+        /* batch.dispose();
+        entityManager.disposeEntities(); */
+        if (startScene != null) startScene.dispose();
+        if (endScene != null) endScene.dispose();
+        if (batch != null) batch.dispose();
     }
 }
