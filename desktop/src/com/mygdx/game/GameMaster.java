@@ -13,6 +13,7 @@ import com.mygdx.game.Collisions.CollisionManager;
 import com.mygdx.game.Controls.ControlManager;
 import com.mygdx.game.Entity.EntityManager;
 import com.mygdx.game.InputOutput.InputOutputManager;
+import com.mygdx.game.Scenes.GameScene;
 import com.mygdx.game.Scenes.SceneManager;
 import com.mygdx.game.Simulation.SimulationManager;
 
@@ -33,6 +34,7 @@ public class GameMaster extends ApplicationAdapter {
 
     // screens
     private StartScene startScene;
+    private GameScene gameScene;
     private EndScene endScene;
     private boolean gameEnd = true;
     private Screen currentScene;
@@ -51,13 +53,15 @@ public class GameMaster extends ApplicationAdapter {
 
         // Screens
         startScene = new StartScene();
+        gameScene = new GameScene();
+        gameScene.show();
         endScene = new EndScene();
         currentScene = startScene;
     }
 
     @Override
     public void render() {
-        // commented out the current logic to test out the screens hehe - dinie
+        // commented out the current logic to test out the screens - dinie
 
         /* ScreenUtils.clear(0, 0, 0.2f, 1);
         batch.begin();
@@ -69,9 +73,13 @@ public class GameMaster extends ApplicationAdapter {
         // Initialise Movement
         entityManager.movePlayerEntity(inputOutputManager.getKeyboardMouse(), controlManager.getPlayerControls()); */
 
-        // start scene to end scene
         float delta = Gdx.graphics.getDeltaTime();
 
+
+        // game scene
+        gameScene.render(delta);
+
+        // start scene to end scene
         if (currentScene == startScene && Gdx.input.isKeyJustPressed(Input.Keys.N)) {
             // transition from the green screen (startScene) to the red screen (endScene)
             currentScene = endScene;
@@ -89,6 +97,7 @@ public class GameMaster extends ApplicationAdapter {
         entityManager.disposeEntities(); */
         if (startScene != null) startScene.dispose();
         if (endScene != null) endScene.dispose();
+        if (gameScene != null) gameScene.dispose();
         if (batch != null) batch.dispose();
     }
 }

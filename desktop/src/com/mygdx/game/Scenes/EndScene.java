@@ -4,28 +4,49 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 
-public class EndScene implements Screen {
-    @Override
-    public void show() {}
+public class EndScene extends Scene implements Screen {
 
-    @Override
-    public void render(float delta) {
-        Gdx.gl.glClearColor(1, 0, 0, 1); // set clear color to red
-        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT); // clear the screen
+    public EndScene() {
+        super(3, false, "endScene");
     }
 
     @Override
-    public void resize(int width, int height) {}
+    public void show() {
+        // Call to super if needed, and any additional show logic
+    }
 
     @Override
-    public void pause() {}
+    public void render(float delta) {
+        Gdx.gl.glClearColor(1, 0, 0, 1); // setting clear color to green
+        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT); // clear screen
+
+        // Call render from Scene if needed and any additional render logic
+    }
+
+    // Implement or override other methods from Scene if needed
 
     @Override
-    public void resume() {}
+    public void resize(int width, int height) {
+        // Any resize logic
+    }
 
     @Override
-    public void hide() {}
+    public void pause() {
+        // Any pause logic
+    }
 
     @Override
-    public void dispose() {}
+    public void resume() {
+        // Any resume logic
+    }
+
+    @Override
+    public void hide() {
+        // Any hide logic
+    }
+
+    @Override
+    public void dispose() {
+        // Any dispose logic
+    }
 }
