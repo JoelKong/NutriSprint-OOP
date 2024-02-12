@@ -13,6 +13,9 @@ public abstract class Scene implements Screen {
         this.sceneName = sceneName;
     }
 
+    // Override purposes
+    public void render() {};
+
     public int getSceneId() {
         return sceneId;
     }
