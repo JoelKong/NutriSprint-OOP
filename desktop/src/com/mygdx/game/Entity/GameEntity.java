@@ -56,7 +56,7 @@ public abstract class GameEntity implements Cloneable {
     abstract protected void draw(SpriteBatch sb);
 
     // Empty movement class to overload
-    protected void movement(KeyboardMouse input, PlayerControls controls) {}
+    protected void movement() {}
 
     @Override
     // Deep Clone GameEntity to reinitialise random x and y and hitbox

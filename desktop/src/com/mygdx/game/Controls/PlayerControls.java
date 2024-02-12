@@ -3,7 +3,7 @@ import com.badlogic.gdx.Gdx;
 import com.mygdx.game.Entity.Player;
 
 // Player Controls Class
-public class PlayerControls {
+public class PlayerControls implements Controls {
     // Default Constructor for player control
     public PlayerControls() {}
 

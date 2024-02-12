@@ -61,6 +61,8 @@ public class GameMaster extends ApplicationAdapter {
 
     @Override
     public void render() {
+        simulationManager.initialiseSimulation();
+        simulationManager.updateSimulation();
         // commented out the current logic to test out the screens - dinie
 
         /* ScreenUtils.clear(0, 0, 0.2f, 1);

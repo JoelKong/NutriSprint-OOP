@@ -7,6 +7,7 @@ import com.mygdx.game.Controls.ControlManager;
 import com.mygdx.game.Entity.EntityManager;
 import com.mygdx.game.InputOutput.InputOutputManager;
 import com.mygdx.game.Scenes.GameScene;
+import com.mygdx.game.Scenes.Scene;
 import com.mygdx.game.Scenes.SceneManager;
 import com.mygdx.game.Scenes.StartScene;
 
@@ -20,21 +21,22 @@ public class SimulationManager {
     private CollisionManager collisionManager;
     private SpriteBatch batch;
 
-    batch = new SpriteBatch();
-    entityManager = new EntityManager();
-    sceneManager = new SceneManager();
-    inputOutputManager = new InputOutputManager();
-    controlManager = new ControlManager();
-    aiControlManager = new AIControlManager();
-    collisionManager = new CollisionManager();
-
+    public SimulationManager() {
+        batch = new SpriteBatch();
+        entityManager = new EntityManager();
+        sceneManager = new SceneManager();
+        inputOutputManager = new InputOutputManager();
+        controlManager = new ControlManager();
+        aiControlManager = new AIControlManager();
+        collisionManager = new CollisionManager();
+    }
 
     public void initialiseSimulation() {
-        sceneManager.loadScreen(sceneManager.getStartScreen);
+        sceneManager.loadScreen(sceneManager.getCurrentScene());
     }
 
     public void updateSimulation() {
-        currentScene = sceneManager.getCurrentScene;
+        Scene currentScene = sceneManager.getCurrentScene();
         sceneManager.loadScreen(currentScene);
         if (currentScene instanceof StartScene) {
             controlManager.mapControls(currentScene);

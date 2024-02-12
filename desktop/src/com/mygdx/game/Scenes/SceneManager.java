@@ -1,5 +1,7 @@
 package com.mygdx.game.Scenes;
 
+import com.mygdx.game.Entity.EntityManager;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -20,7 +22,10 @@ public class SceneManager {
         scene.render();
     }
 
-    public void loadScreen(Scene scene, )
+    public void loadScreen(Scene scene, EntityManager entityManager) {
+        scene.render();
+        // add entity
+    }
 
     public Scene getCurrentScene() {
         return currentScene;

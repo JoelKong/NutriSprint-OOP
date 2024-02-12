@@ -54,7 +54,8 @@ public class EntityManager {
 
     // Moving of player
     public void movePlayerEntity(KeyboardMouse commandInput, PlayerControls playerControls) {
-        for (GameEntity player: entityMap.get("player")) {
+        for (GameEntity entity: entityMap.get("player")) {
+            Player player = (Player) entity;
             player.movement(commandInput, playerControls);
         }
     }
