@@ -3,8 +3,6 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Rectangle;
-import com.mygdx.game.Controls.PlayerControls;
-import com.mygdx.game.InputOutput.KeyboardMouse;
 import java.util.Random;
 
 // GameEntity abstract class

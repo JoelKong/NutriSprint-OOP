@@ -1,13 +1,13 @@
 package com.mygdx.game.Scenes;
-
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 
-public class StartScene extends Scene implements Screen {
+// Start Scene class inherited from Scenes
+public class StartScene extends Scenes implements Screen {
 
     public StartScene() {
-        super(1, true, "startScene");
+        super(1, "startScene");
     }
 
     @Override
@@ -23,6 +23,7 @@ public class StartScene extends Scene implements Screen {
     }
 
     // Implement or override other methods from Scene if needed
+
 
     @Override
     public void resize(int width, int height) {

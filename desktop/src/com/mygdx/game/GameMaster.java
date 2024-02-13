@@ -1,6 +1,5 @@
 package com.mygdx.game;
 import com.badlogic.gdx.ApplicationAdapter;
-import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 import com.badlogic.gdx.Gdx;
@@ -10,7 +9,7 @@ import com.badlogic.gdx.Input;
 
 import com.mygdx.game.AI.AIControlManager;
 import com.mygdx.game.Collisions.CollisionManager;
-import com.mygdx.game.Controls.ControlManager;
+import com.mygdx.game.Controls.PlayerControlManager;
 import com.mygdx.game.Entity.EntityManager;
 import com.mygdx.game.InputOutput.InputOutputManager;
 import com.mygdx.game.Scenes.GameScene;
@@ -27,7 +26,7 @@ public class GameMaster extends ApplicationAdapter {
     private EntityManager entityManager;
     private SceneManager sceneManager;
     private InputOutputManager inputOutputManager;
-    private ControlManager controlManager;
+    private PlayerControlManager controlManager;
     private AIControlManager aiControlManager;
     private CollisionManager collisionManager;
     private SpriteBatch batch;
@@ -42,27 +41,26 @@ public class GameMaster extends ApplicationAdapter {
     @Override
     public void create() {
         // Loading of Managers and Batch
-        batch = new SpriteBatch();
+//        batch = new SpriteBatch();
         simulationManager = new SimulationManager();
-        entityManager = new EntityManager();
-        sceneManager = new SceneManager();
-        inputOutputManager = new InputOutputManager();
-        controlManager = new ControlManager();
-        aiControlManager = new AIControlManager();
-        collisionManager = new CollisionManager();
-
-        // Screens
-        startScene = new StartScene();
-        gameScene = new GameScene();
-        gameScene.show();
-        endScene = new EndScene();
-        currentScene = startScene;
+//        entityManager = new EntityManager();
+//        sceneManager = new SceneManager();
+//        inputOutputManager = new InputOutputManager();
+//        controlManager = new PlayerControlManager();
+//        aiControlManager = new AIControlManager();
+//        collisionManager = new CollisionManager();
+//
+//        // Screens
+//        startScene = new StartScene();
+//        gameScene = new GameScene();
+//        gameScene.show();
+//        endScene = new EndScene();
+//        currentScene = startScene;
     }
 
     @Override
     public void render() {
-        simulationManager.initialiseSimulation();
-        simulationManager.updateSimulation();
+        simulationManager.startSimulation();
         // commented out the current logic to test out the screens - dinie
 
         /* ScreenUtils.clear(0, 0, 0.2f, 1);
@@ -75,21 +73,21 @@ public class GameMaster extends ApplicationAdapter {
         // Initialise Movement
         entityManager.movePlayerEntity(inputOutputManager.getKeyboardMouse(), controlManager.getPlayerControls()); */
 
-        float delta = Gdx.graphics.getDeltaTime();
-
-
-        // game scene
-        gameScene.render(delta);
-
-        // start scene to end scene
-        if (currentScene == startScene && Gdx.input.isKeyJustPressed(Input.Keys.N)) {
-            // transition from the green screen (startScene) to the red screen (endScene)
-            currentScene = endScene;
-        }
-
-        if (currentScene != null) {
-            currentScene.render(delta);
-        }
+//        float delta = Gdx.graphics.getDeltaTime();
+//
+//
+//        // game scene
+//        gameScene.render(delta);
+//
+//        // start scene to end scene
+//        if (currentScene == startScene && Gdx.input.isKeyJustPressed(Input.Keys.N)) {
+//            // transition from the green screen (startScene) to the red screen (endScene)
+//            currentScene = endScene;
+//        }
+//
+//        if (currentScene != null) {
+//            currentScene.render(delta);
+//        }
 
     }
 
@@ -97,9 +95,9 @@ public class GameMaster extends ApplicationAdapter {
     public void dispose() {
         /* batch.dispose();
         entityManager.disposeEntities(); */
-        if (startScene != null) startScene.dispose();
-        if (endScene != null) endScene.dispose();
-        if (gameScene != null) gameScene.dispose();
-        if (batch != null) batch.dispose();
+//        if (startScene != null) startScene.dispose();
+//        if (endScene != null) endScene.dispose();
+//        if (gameScene != null) gameScene.dispose();
+//        if (batch != null) batch.dispose();
     }
 }

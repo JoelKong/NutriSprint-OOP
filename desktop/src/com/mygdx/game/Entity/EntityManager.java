@@ -3,7 +3,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Rectangle;
 import com.mygdx.game.Collisions.Collide;
 import com.mygdx.game.Controls.PlayerControls;
-import com.mygdx.game.InputOutput.KeyboardMouse;
+import com.mygdx.game.InputOutput.Inputs;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -28,7 +28,7 @@ public class EntityManager {
         entityMap.put("player", playersList);
         entityMap.put("spawnables", spawnablesList);
         try {
-            initializeSpawnables(10, new AI() , entityMap.get("player").get(0));
+            initializeSpawnables(10, new AI());
         } catch (CloneNotSupportedException e) {
             throw new RuntimeException(e);
         }
@@ -53,7 +53,7 @@ public class EntityManager {
     }
 
     // Moving of player
-    public void movePlayerEntity(KeyboardMouse commandInput, PlayerControls playerControls) {
+    public void movePlayerEntity(Inputs commandInput, PlayerControls playerControls) {
         for (GameEntity entity: entityMap.get("player")) {
             Player player = (Player) entity;
             player.movement(commandInput, playerControls);
@@ -61,7 +61,7 @@ public class EntityManager {
     }
 
     // Initialize spawnables in random position, checking if spawn clashes with any other entity
-    public void initializeSpawnables(int numberOfEntities, GameEntity clonePrototype, GameEntity entity) throws CloneNotSupportedException {
+    public void initializeSpawnables(int numberOfEntities, GameEntity clonePrototype) throws CloneNotSupportedException {
         List<GameEntity> spawnables = entityMap.get("spawnables");
 
         for (int i = 0; i < numberOfEntities;) {
@@ -73,8 +73,9 @@ public class EntityManager {
                     spawnable.getHitbox().width + 44,
                     spawnable.getHitbox().height + 44
             );
+            GameEntity player = entityMap.get("player").get(0);
 
-            boolean clash = extendedHitbox.overlaps(entity.getHitbox()); // Check if clash with player
+            boolean clash = extendedHitbox.overlaps(player.getHitbox()); // Check if clash with player
             for (Rectangle existingSpawnable : spawnableHitboxList) { // Check if clash with other AI
                 if (extendedHitbox.overlaps(existingSpawnable)) {
                     clash = true;

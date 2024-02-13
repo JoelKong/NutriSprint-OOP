@@ -4,10 +4,10 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 
-public class EndScene extends Scene implements Screen {
+public class EndScene extends Scenes implements Screen {
 
     public EndScene() {
-        super(3, false, "endScene");
+        super(3, "endScene");
     }
 
     @Override

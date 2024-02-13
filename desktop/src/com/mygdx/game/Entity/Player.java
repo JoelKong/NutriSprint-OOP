@@ -1,7 +1,9 @@
 package com.mygdx.game.Entity;
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.mygdx.game.Controls.PlayerControls;
+import com.mygdx.game.InputOutput.Inputs;
 import com.mygdx.game.InputOutput.KeyboardMouse;
 
 // Player class inherited from GameEntity
@@ -28,17 +30,17 @@ public class Player extends GameEntity {
     }
 
     // Movement of Player
-    protected void movement(KeyboardMouse keys, PlayerControls playerInput) {
-        if (keys.getUpKey()) {
+    protected void movement(Inputs keys, PlayerControls playerInput) {
+        if (Gdx.input.isKeyPressed(keys.getUpKey())) {
             playerInput.moveUp(this);
         }
-        if (keys.getDownKey()) {
+        if (Gdx.input.isKeyPressed(keys.getDownKey())) {
             playerInput.moveDown(this);
         }
-        if (keys.getLeftKey()) {
+        if (Gdx.input.isKeyPressed(keys.getLeftKey())) {
             playerInput.moveLeft(this);
         }
-        if (keys.getRightKey()) {
+        if (Gdx.input.isKeyPressed(keys.getRightKey())) {
             playerInput.moveRight(this);
         }
     }

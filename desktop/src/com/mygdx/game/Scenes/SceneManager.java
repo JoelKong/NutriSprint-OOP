@@ -1,37 +1,45 @@
 package com.mygdx.game.Scenes;
-
-import com.mygdx.game.Entity.EntityManager;
-
+import com.badlogic.gdx.Gdx;
 import java.util.HashMap;
 import java.util.Map;
 
+// SceneManager class
 public class SceneManager {
-    private Map<String, Scene> sceneMap;
-    private Scene currentScene;
+    // Declare Variables
+    private Map<String, Scenes> sceneMap;
+    private Scenes currentScene;
 
+    // Store all scenes in a hashmap on initialisation and initialise current scene to start
     public SceneManager() {
         this.sceneMap = new HashMap<>();
-        this.currentScene = new StartScene();
         sceneMap.put("start", new StartScene());
         sceneMap.put("game", new GameScene());
         sceneMap.put("end", new EndScene());
+        this.currentScene = sceneMap.get("start");
     }
 
-    // Load Screens that dont require entities
-    public void loadScreen(Scene scene) {
-        scene.render();
+    // Load a specific scene
+    public void loadScene(Scenes scene) {
+        scene.render(Gdx.graphics.getDeltaTime());
     }
 
-    public void loadScreen(Scene scene, EntityManager entityManager) {
-        scene.render();
-        // add entity
-    }
-
-    public Scene getCurrentScene() {
+    // Get Current Scene
+    public Scenes getCurrentScene() {
         return currentScene;
     }
 
-    public void setCurrentScene(Scene scene) {
+    // Set Current Scene
+    public void setCurrentScene(Scenes scene) {
         this.currentScene = scene;
+    }
+
+    // Get Scene Map
+    public Map<String, Scenes> getSceneMap() {
+        return sceneMap;
+    }
+
+    // Set Scene Map
+    public void setSceneMap(Map<String, Scenes> sceneMap) {
+        this.sceneMap = sceneMap;
     }
 }

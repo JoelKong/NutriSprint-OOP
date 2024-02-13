@@ -1,41 +1,37 @@
 package com.mygdx.game.Scenes;
-
 import com.badlogic.gdx.Screen;
 
-public abstract class Scene implements Screen {
+// Abstract class Scene implementing LibGDX Screen interface
+public abstract class Scenes implements Screen {
+    // Declare variables
     private int sceneId;
-    private boolean isLoaded;
     private String sceneName;
 
-    public Scene(int sceneId, boolean isLoaded, String sceneName) {
+    // Parameterized constructor to specify details of scenes
+    public Scenes(int sceneId, String sceneName) {
         this.sceneId = sceneId;
-        this.isLoaded = isLoaded;
         this.sceneName = sceneName;
     }
 
-    // Override purposes
-    public void render() {};
+    // Abstract method that all scenes must have
+    abstract public void render(float delta);
 
+    // Get Scene ID
     public int getSceneId() {
         return sceneId;
     }
 
+    // Set Scene ID
     public void setSceneId(int sceneId) {
         this.sceneId = sceneId;
     }
 
-    public boolean isLoaded() {
-        return isLoaded;
-    }
-
-    public void setLoaded(boolean loaded) {
-        isLoaded = loaded;
-    }
-
+    // Get Scene Name
     public String getSceneName() {
         return sceneName;
     }
 
+    // Set Scene Name
     public void setSceneName(String sceneName) {
         this.sceneName = sceneName;
     }
