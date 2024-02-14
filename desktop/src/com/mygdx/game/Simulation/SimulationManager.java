@@ -38,15 +38,17 @@ public class SimulationManager {
 
         if (currentScene instanceof StartScene) { // Start Scene
             if (Gdx.input.isKeyPressed(preferredControls.getStartKey())) {
+                entityManager.initializeEntities();
                 sceneManager.setCurrentScene(sceneManager.getSceneMap().get("game"));
             }
 
         } else if (currentScene instanceof GameScene) { // Game Scene
             entityManager.movePlayerEntity(preferredControls, controlManager.getPlayerControls());
+            aiControlManager.enableAIBehavior(entityManager.getEntityMap());
             batch.begin();
             entityManager.drawEntities(batch);
-            // for now for testing
             batch.end();
+            // for now for testing
             if ((Gdx.input.isKeyPressed(preferredControls.getUpKey()))) {
                 sceneManager.setCurrentScene(sceneManager.getSceneMap().get("end"));
             }
@@ -55,6 +57,7 @@ public class SimulationManager {
 
         } else if (currentScene instanceof EndScene) { // End Scene
             if (Gdx.input.isKeyPressed(preferredControls.getRestartKey())) {
+                entityManager.initializeEntities();
                 sceneManager.setCurrentScene(sceneManager.getSceneMap().get("game"));
             } else if (Gdx.input.isKeyPressed(preferredControls.getMenuKey())) {
                 sceneManager.setCurrentScene(sceneManager.getSceneMap().get("start"));

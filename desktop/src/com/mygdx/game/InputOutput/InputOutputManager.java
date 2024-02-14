@@ -19,7 +19,7 @@ public class InputOutputManager {
     }
 
     // Set Preferred Controls
-    public void setPreferredControls(Inputs setPreferredControls) {
+    public void setPreferredControls(Inputs preferredControls) {
         this.preferredControls = preferredControls;
     }
 }

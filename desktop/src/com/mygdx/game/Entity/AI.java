@@ -11,12 +11,14 @@ public class AI extends GameEntity{
     protected AI() {
         super(new Texture("droplet.png"));
         this.AIID = 1;
+        this.setSpeed(2);
     }
 
     // Parameterized constructor with customised NPC
     protected AI(Texture texture, int npcID) {
         super(texture);
         this.AIID = npcID;
+        this.setSpeed(2);
     }
 
     @Override
@@ -25,9 +27,13 @@ public class AI extends GameEntity{
     };
 
     public void behavior() {
-        setPosY(getPosY() - getSpeed());
-        if (getPosY() <= 0) {
-            setPosY(400);
+        this.setPosY(this.getPosY() - this.getSpeed());
+        if (this.getPosY() < 0) {
+            this.setPosY(400);
+            this.setSpeed(this.getSpeed() + 2);
+        }
+        if (this.getSpeed() > 10) {
+            this.setSpeed(2);
         }
     }
 

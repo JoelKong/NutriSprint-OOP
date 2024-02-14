@@ -23,7 +23,14 @@ public class EntityManager {
         this.spawnableHitboxList = new ArrayList<>();
         this.playersList = new ArrayList<>();
         this.spawnablesList = new ArrayList<>();
+    }
 
+    // Initialization of Entities
+    public void initializeEntities() {
+        entityMap.clear();
+        playersList.clear();
+        spawnablesList.clear();
+        spawnableHitboxList.clear();
         playersList.add(new Player());
         entityMap.put("player", playersList);
         entityMap.put("spawnables", spawnablesList);
@@ -57,14 +64,6 @@ public class EntityManager {
         for (GameEntity entity: entityMap.get("player")) {
             Player player = (Player) entity;
             player.movement(commandInput, playerControls);
-        }
-    }
-
-    // Moving of AI entities
-    public void moveAIEntity() {
-        for (GameEntity entity: entityMap.get("ai")) {
-            AI ai = (AI) entity;
-            ai.behavior();
         }
     }
 
