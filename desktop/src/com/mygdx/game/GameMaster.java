@@ -16,7 +16,11 @@ public class GameMaster extends ApplicationAdapter {
     @Override
     public void render() {
         // Start Simulation Loop
-        simulationManager.startSimulation();
+        try {
+            simulationManager.startSimulation();
+        } catch (CloneNotSupportedException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     @Override

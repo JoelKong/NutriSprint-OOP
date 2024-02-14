@@ -1,7 +1,6 @@
 package com.mygdx.game.Entity;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Rectangle;
-import com.mygdx.game.AI.AI;
 import com.mygdx.game.Collisions.Collision;
 import com.mygdx.game.Controls.PlayerControls;
 import com.mygdx.game.InputOutput.Inputs;

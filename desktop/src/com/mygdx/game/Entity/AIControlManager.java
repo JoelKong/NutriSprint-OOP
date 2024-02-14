@@ -1,5 +1,4 @@
-package com.mygdx.game.AI;
-import com.mygdx.game.Entity.GameEntity;
+package com.mygdx.game.Entity;
 import java.util.List;
 import java.util.Map;
 
