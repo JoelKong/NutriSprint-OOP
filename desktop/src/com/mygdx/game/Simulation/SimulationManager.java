@@ -31,7 +31,7 @@ public class SimulationManager {
     }
 
     // Start the simulation and listen to requests that needs to be looped
-    public void startSimulation() {
+    public void startSimulation() throws CloneNotSupportedException {
         Inputs preferredControls = inputOutputManager.getPreferredControls();
         Scenes currentScene = sceneManager.getCurrentScene();
         sceneManager.loadScene(currentScene);
@@ -43,8 +43,8 @@ public class SimulationManager {
             }
 
         } else if (currentScene instanceof GameScene) { // Game Scene
-            entityManager.movePlayerEntity(preferredControls, controlManager.getPlayerControls());
-            aiControlManager.enableAIBehavior(entityManager.getEntityMap());
+            entityManager.initializePlayerMovement(preferredControls, controlManager.getPlayerControls());
+            aiControlManager.initializeAIBehavior(entityManager.getEntityMap());
             batch.begin();
             entityManager.drawEntities(batch);
             batch.end();

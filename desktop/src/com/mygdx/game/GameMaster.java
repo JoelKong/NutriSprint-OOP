@@ -2,9 +2,9 @@ package com.mygdx.game;
 import com.badlogic.gdx.ApplicationAdapter;
 import com.mygdx.game.Simulation.SimulationManager;
 
-
+// GameMaster Class
 public class GameMaster extends ApplicationAdapter {
-    // Declaring of variables
+    // Declaring of attributes
     private SimulationManager simulationManager;
 
     @Override
@@ -15,7 +15,7 @@ public class GameMaster extends ApplicationAdapter {
 
     @Override
     public void render() {
-        // Start Simulation
+        // Start Simulation Loop
         simulationManager.startSimulation();
     }
 

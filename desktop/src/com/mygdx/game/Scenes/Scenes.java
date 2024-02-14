@@ -1,8 +1,5 @@
 package com.mygdx.game.Scenes;
 import com.badlogic.gdx.Screen;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-
-import java.util.function.Consumer;
 
 // Abstract class Scene implementing LibGDX Screen interface
 public abstract class Scenes implements Screen {

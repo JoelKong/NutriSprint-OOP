@@ -4,11 +4,10 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.mygdx.game.Controls.PlayerControls;
 import com.mygdx.game.InputOutput.Inputs;
-import com.mygdx.game.InputOutput.KeyboardMouse;
 
 // Player class inherited from GameEntity
 public class Player extends GameEntity {
-    // Declare Variables
+    // Declare Attributes
     private int playerID;
 
     // Default Constructor

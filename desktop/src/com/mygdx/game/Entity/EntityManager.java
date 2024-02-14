@@ -1,7 +1,8 @@
 package com.mygdx.game.Entity;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Rectangle;
-import com.mygdx.game.Collisions.Collide;
+import com.mygdx.game.AI.AI;
+import com.mygdx.game.Collisions.Collision;
 import com.mygdx.game.Controls.PlayerControls;
 import com.mygdx.game.InputOutput.Inputs;
 import java.util.ArrayList;
@@ -29,7 +30,7 @@ public class EntityManager {
     }
 
     // Initialization of Entities
-    public void initializeEntities() {
+    public void initializeEntities() throws CloneNotSupportedException {
         entityMap.clear();
         playersList.clear();
         spawnablesList.clear();
@@ -37,11 +38,7 @@ public class EntityManager {
         playersList.add(new Player());
         entityMap.put("player", playersList);
         entityMap.put("spawnables", spawnablesList);
-        try {
-            initializeSpawnables(10, new AI());
-        } catch (CloneNotSupportedException e) {
-            throw new RuntimeException(e);
-        }
+        initializeSpawnables(10, new AI());
     }
 
     // Drawing of Entities
@@ -63,7 +60,7 @@ public class EntityManager {
     }
 
     // Moving of player
-    public void movePlayerEntity(Inputs commandInput, PlayerControls playerControls) {
+    public void initializePlayerMovement(Inputs commandInput, PlayerControls playerControls) {
         for (GameEntity entity: entityMap.get("player")) {
             Player player = (Player) entity;
             player.movement(commandInput, playerControls);
@@ -104,7 +101,7 @@ public class EntityManager {
     }
 
     // Colliding of AI with player (put this function in collision portion)
-    public void handleCollidePlayerAI(Player entity, AI ai, Collide collide) {}
+    public void handleCollidePlayerAI(Player entity, AI ai, Collision collide) {}
 
     // Get Entity Map
     public Map<String, List<GameEntity>> getEntityMap() {

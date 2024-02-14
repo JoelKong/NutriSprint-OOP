@@ -2,14 +2,8 @@ package com.mygdx.game.Scenes;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.ScreenUtils;
-import com.mygdx.game.Controls.PlayerControlManager;
-import com.mygdx.game.Entity.EntityManager;
-import com.mygdx.game.InputOutput.InputOutputManager;
 
 public class GameScene extends Scenes implements Screen {
-    private InputOutputManager inputOutputManager;
-    private EntityManager entityManager;
-    private PlayerControlManager controlManager;
     private SpriteBatch batch;
 
     public GameScene() {
@@ -19,9 +13,6 @@ public class GameScene extends Scenes implements Screen {
     @Override
     public void show() {
         batch = new SpriteBatch();
-        entityManager = new EntityManager();
-        inputOutputManager = new InputOutputManager();
-        controlManager = new PlayerControlManager();
     }
 
     @Override

@@ -1,13 +1,14 @@
-package com.mygdx.game.Entity;
+package com.mygdx.game.AI;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.mygdx.game.Entity.GameEntity;
 
 // NPC Class inherited from GameEntity
-public class AI extends GameEntity{
-    // Declare Variables
+public class AI extends GameEntity {
+    // Declare Attributes
     private int AIID;
 
-    // Default Constructor defaulting to enemy
+    // Default Constructor defaulting to AI
     protected AI() {
         super(new Texture("droplet.png"));
         this.AIID = 1;
@@ -22,11 +23,13 @@ public class AI extends GameEntity{
     }
 
     @Override
+    // Draw AI
     protected void draw(SpriteBatch sb) {
         sb.draw(this.getTexture(), this.getPosX(), this.getPosY(), this.getWidth(), this.getHeight());
     };
 
-    public void behavior() {
+    // AI behavior
+    protected void behavior() {
         this.setPosY(this.getPosY() - this.getSpeed());
         if (this.getPosY() < 0) {
             this.setPosY(400);
@@ -36,7 +39,6 @@ public class AI extends GameEntity{
             this.setSpeed(2);
         }
     }
-
 
     // Get Npc ID
     public int getNpcID() {

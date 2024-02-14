@@ -2,7 +2,7 @@ package com.mygdx.game.Controls;
 
 // Control Manager Class
 public class PlayerControlManager {
-    // Declare Variables
+    // Declare Attributes
     private PlayerControls playerControls;
 
     // Default Constructor to initialise player controls

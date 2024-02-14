@@ -5,7 +5,7 @@ import java.util.Map;
 
 // SceneManager class
 public class SceneManager {
-    // Declare Variables
+    // Declare Attributes
     private Map<String, Scenes> sceneMap;
     private Scenes currentScene;
 

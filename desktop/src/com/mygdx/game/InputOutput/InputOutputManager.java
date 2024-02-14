@@ -2,10 +2,10 @@ package com.mygdx.game.InputOutput;
 
 // Input Manager Class
 public class InputOutputManager {
-    // Declare Variables
+    // Declare Attributes
     private Inputs preferredControls;
 
-    // Default Constructor to initialise preferred control to keyboard
+    // Default Constructor to initialise preferred control to keyboard by default
     public InputOutputManager() {
         this.preferredControls = new KeyboardMouse();
     }

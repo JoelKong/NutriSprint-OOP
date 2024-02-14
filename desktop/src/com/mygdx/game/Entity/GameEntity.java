@@ -7,7 +7,7 @@ import java.util.Random;
 
 // GameEntity abstract class
 public abstract class GameEntity implements Cloneable {
-    // Declare variables
+    // Declare Attributes
     private Texture texture;
     private float xPosition;
     private float yPosition;
@@ -53,7 +53,7 @@ public abstract class GameEntity implements Cloneable {
     // All children must have a draw method
     abstract protected void draw(SpriteBatch sb);
 
-    // Empty movement class to overload
+    // Empty movement class to override
     protected void movement() {}
 
     @Override

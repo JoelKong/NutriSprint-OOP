@@ -3,7 +3,7 @@ import com.badlogic.gdx.Input;
 
 // KeyboardMouse Class
 public class KeyboardMouse implements Inputs {
-    // Declare Variables
+    // Declare Attributes
     private int leftKey;
     private int rightKey;
     private int upKey;
@@ -18,7 +18,7 @@ public class KeyboardMouse implements Inputs {
         this.rightKey = Input.Keys.D;
         this.upKey = Input.Keys.W;
         this.downKey = Input.Keys.S;
-        this.startKey = Input.Keys.ENTER; // Assuming ENTER is the start key
+        this.startKey = Input.Keys.ENTER;
         this.restartKey = Input.Keys.R;
         this.menuKey = Input.Keys.M;
     }

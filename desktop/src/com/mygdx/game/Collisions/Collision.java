@@ -1,4 +1,4 @@
 package com.mygdx.game.Collisions;
 
-public class Collisions {
+public class Collision {
 }
