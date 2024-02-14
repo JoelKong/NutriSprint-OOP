@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.function.Consumer;
 
 // Entity Manager Class
 public class EntityManager {
@@ -16,6 +17,7 @@ public class EntityManager {
     private List<Rectangle> spawnableHitboxList;
     private List<GameEntity> spawnablesList;
     private List<GameEntity> playersList;
+    private Consumer<SpriteBatch> drawEntitiesMethod; // proof of concept to pass methods as params
 
     // Default Constructor class to initialise entities
     public EntityManager() {
@@ -23,6 +25,7 @@ public class EntityManager {
         this.spawnableHitboxList = new ArrayList<>();
         this.playersList = new ArrayList<>();
         this.spawnablesList = new ArrayList<>();
+        this.drawEntitiesMethod = this::drawEntities;
     }
 
     // Initialization of Entities
@@ -141,5 +144,15 @@ public class EntityManager {
     // Set Spawnables List
     public void setSpawnablesList(List<GameEntity> spawnablesList) {
         this.spawnablesList = spawnablesList;
+    }
+
+    // Get Draw Entities Method
+    public Consumer<SpriteBatch> getDrawEntitiesMethod() {
+        return drawEntitiesMethod;
+    }
+
+    // Set Draw Entities Method
+    public void setDrawEntitiesMethod(Consumer<SpriteBatch> drawEntitiesMethod) {
+        this.drawEntitiesMethod = drawEntitiesMethod;
     }
 }
