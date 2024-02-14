@@ -60,6 +60,14 @@ public class EntityManager {
         }
     }
 
+    // Moving of AI entities
+    public void moveAIEntity() {
+        for (GameEntity entity: entityMap.get("ai")) {
+            AI ai = (AI) entity;
+            ai.behavior();
+        }
+    }
+
     // Initialize spawnables in random position, checking if spawn clashes with any other entity
     public void initializeSpawnables(int numberOfEntities, GameEntity clonePrototype) throws CloneNotSupportedException {
         List<GameEntity> spawnables = entityMap.get("spawnables");

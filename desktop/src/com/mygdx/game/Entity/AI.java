@@ -24,6 +24,14 @@ public class AI extends GameEntity{
         sb.draw(this.getTexture(), this.getPosX(), this.getPosY(), this.getWidth(), this.getHeight());
     };
 
+    public void behavior() {
+        setPosY(getPosY() - getSpeed());
+        if (getPosY() <= 0) {
+            setPosY(400);
+        }
+    }
+
+
     // Get Npc ID
     public int getNpcID() {
         return AIID;
