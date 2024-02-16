@@ -3,14 +3,16 @@ import com.badlogic.gdx.Gdx;
 import com.mygdx.game.Entity.AI;
 import com.mygdx.game.Entity.GameEntity;
 import com.mygdx.game.Entity.Player;
-
 import java.util.List;
 import java.util.Map;
 
+// Collision class for all kinds of collisions
 public class Collision {
 
+    // Default Constructor
     public Collision() {}
 
+    // Collision of Player with AI
     protected void collidePlayerAI(Map<String,List<GameEntity>> entityMap) {
         for (GameEntity playerEntity: entityMap.get("player")) {
             Player player = (Player) playerEntity;
@@ -23,6 +25,7 @@ public class Collision {
         }
     };
 
+    // Collision of Player with the Game Window
     protected void collidePlayerGameWindow(Map<String,List<GameEntity>> entityMap) {
         for (GameEntity playerEntity: entityMap.get("player")) {
             // Left Boundary

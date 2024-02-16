@@ -1,7 +1,6 @@
 package com.mygdx.game.Simulation;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.math.Rectangle;
 import com.mygdx.game.Entity.AI;
 import com.mygdx.game.Entity.AIControlManager;
 import com.mygdx.game.Collisions.CollisionManager;
@@ -37,6 +36,7 @@ public class SimulationManager {
         this.pauseState = false;
     }
 
+    // Victory Condition
     public boolean victoryCondition() {
         for (GameEntity aiEntity: entityManager.getEntityMap().get("spawnables")) {
             AI ai = (AI) aiEntity;
@@ -60,11 +60,14 @@ public class SimulationManager {
             }
 
         } else if (currentScene instanceof GameScene) { // Game Scene
+            // If not paused, initialise all forms of behavior and movement
             if (!pauseState) {
                 entityManager.initializePlayerMovement(preferredControls, controlManager.getPlayerControls());
                 aiControlManager.initializeAIBehavior(entityManager.getEntityMap());
+                collisionManager.initializeCollisions(entityManager.getEntityMap());
             }
-            collisionManager.initializeCollisions(entityManager.getEntityMap());
+
+            // Draw entities on screen
             batch.begin();
             entityManager.drawEntities(batch);
             batch.end();
@@ -74,7 +77,7 @@ public class SimulationManager {
                 pauseState = !pauseState;
             }
 
-            // Check if all drops are gone
+            // Check if all drops are gone then end game
             if (victoryCondition()) {
                 sceneManager.setCurrentScene(sceneManager.getSceneMap().get("end"));
             }
@@ -91,7 +94,14 @@ public class SimulationManager {
 
     // Ends the simulation and disposes everything used
     public void endSimulation() {
-        //dispose
+        for (List<GameEntity> entities: entityManager.getEntityMap().values()) {
+            for (GameEntity entity: entities) {
+                entity.getTexture().dispose();
+            }
+        }
+        for (Scenes scenes: sceneManager.getSceneMap().values()) {
+            scenes.dispose();
+        }
     }
 
     // Get Pause State
