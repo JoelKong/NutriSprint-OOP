@@ -32,7 +32,7 @@ public class EndScene extends Scenes implements Screen {
         Gdx.gl.glClearColor(1, 0, 0, 1); // setting clear color to green
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT); // clear screen
 
-        layout.setText(font, "Game Ended");
+        layout.setText(font, "Game Ended, press 'R' to restart.");
 
         float textWidth = layout.width;
         float textHeight = layout.height;

@@ -1,13 +1,28 @@
 package com.mygdx.game.Scenes;
+
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.ScreenUtils;
 
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.GlyphLayout;
+
+
+import com.badlogic.gdx.scenes.scene2d.Stage;
+
 public class GameScene extends Scenes implements Screen {
     private SpriteBatch batch;
+    private Stage stage;
+    private BitmapFont font;
+    private GlyphLayout layout;
 
     public GameScene() {
         super(2, "gameScreen");
+        font = new BitmapFont();
+        batch = new SpriteBatch();
+        layout = new GlyphLayout();
     }
 
     @Override
@@ -18,13 +33,19 @@ public class GameScene extends Scenes implements Screen {
     @Override
     public void render(float delta) {
         ScreenUtils.clear(0, 0, 0.2f, 1);
-//        batch.begin();
-//        inputOutputManager.updateKeys();
-//        entityManager.drawEntities(batch);
-//        batch.end();
 
-//        entityManager.movePlayerEntity(inputOutputManager.getKeyboardMouse(), controlManager.getPlayerControls());
-        // Additional render logic, if needed
+        layout.setText(font, "Press 'P' to pause game.");
+
+        float textWidth = layout.width;
+        float textHeight = layout.height;
+
+        float x = (Gdx.graphics.getWidth() - textWidth) / 2;
+        float margin = 20;
+        float y = Gdx.graphics.getHeight() - margin;
+
+        batch.begin();
+            font.draw(batch, layout, x, y);
+        batch.end();
     }
 
     @Override
@@ -34,7 +55,18 @@ public class GameScene extends Scenes implements Screen {
 
     @Override
     public void pause() {
+        layout.setText(font, "Game Paused");
 
+        float textWidth = layout.width;
+        float textHeight = layout.height;
+
+        float x = (Gdx.graphics.getWidth() - textWidth) / 2;
+        float margin = 20;
+        float y = Gdx.graphics.getHeight() - margin;
+
+        batch.begin();
+        font.draw(batch, layout, x, y);
+        batch.end();
     }
 
     @Override
