@@ -15,6 +15,7 @@ public abstract class GameEntity implements Cloneable {
     private int width;
     private int height;
     private Rectangle hitbox;
+    private boolean popFromScreen;
 
     // Default Constructor to player character
     protected GameEntity() {
@@ -25,6 +26,7 @@ public abstract class GameEntity implements Cloneable {
         this.width = 32;
         this.height = 32;
         this.hitbox = new Rectangle(xPosition, yPosition, width, height);
+        this.popFromScreen = false;
     }
 
     // Parameterized Constructor
@@ -36,6 +38,7 @@ public abstract class GameEntity implements Cloneable {
         this.width = 32;
         this.height = 32;
         this.hitbox = new Rectangle(xPosition, yPosition, width, height);
+        this.popFromScreen = false;
     }
 
     // Constructor only accepting texture
@@ -48,6 +51,7 @@ public abstract class GameEntity implements Cloneable {
         this.width = 32;
         this.height = 32;
         this.hitbox = new Rectangle(xPosition, yPosition, width, height);
+        this.popFromScreen = false;
     }
 
     // All children must have a draw method
@@ -135,5 +139,15 @@ public abstract class GameEntity implements Cloneable {
     // Set Hitbox
     public void setHitbox(Rectangle hitbox) {
         this.hitbox = hitbox;
+    }
+
+    // Get pop from screen
+    public boolean getPopFromScreen() {
+        return popFromScreen;
+    }
+
+    // Set pop from screen
+    public void setPopFromScreen(boolean popFromScreen) {
+        this.popFromScreen = popFromScreen;
     }
 }

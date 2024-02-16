@@ -44,7 +44,9 @@ public class EntityManager {
     public void drawEntities(SpriteBatch sb) {
         for (List<GameEntity> entities: entityMap.values()) {
             for (GameEntity entity: entities) {
-                entity.draw(sb);
+                if (!entity.getPopFromScreen()) {
+                    entity.draw(sb);
+                }
             }
         }
     }
@@ -113,12 +115,12 @@ public class EntityManager {
     }
 
     // Get Spawnable Hitbox List
-    public List<com.badlogic.gdx.math.Rectangle> getSpawnableHitboxList() {
+    public List<Rectangle> getSpawnableHitboxList() {
         return spawnableHitboxList;
     }
 
     // Set Spawnable Hitbox List
-    public void setSpawnableHitboxList(List<com.badlogic.gdx.math.Rectangle> spawnableHitboxList) {
+    public void setSpawnableHitboxList(List<Rectangle> spawnableHitboxList) {
         this.spawnableHitboxList = spawnableHitboxList;
     }
 
