@@ -11,6 +11,7 @@ import com.mygdx.game.Scenes.*;
 
 public class SimulationManager {
     // Declare Variables
+    private boolean pauseState;
     private EntityManager entityManager;
     private SceneManager sceneManager;
     private InputOutputManager inputOutputManager;
@@ -28,6 +29,7 @@ public class SimulationManager {
         controlManager = new PlayerControlManager();
         aiControlManager = new AIControlManager();
         collisionManager = new CollisionManager();
+        this.pauseState = false;
     }
 
     // Start the simulation and listen to requests that needs to be looped
@@ -43,14 +45,17 @@ public class SimulationManager {
             }
 
         } else if (currentScene instanceof GameScene) { // Game Scene
-            entityManager.initializePlayerMovement(preferredControls, controlManager.getPlayerControls());
-            aiControlManager.initializeAIBehavior(entityManager.getEntityMap());
+            if (!pauseState) {
+                entityManager.initializePlayerMovement(preferredControls, controlManager.getPlayerControls());
+                aiControlManager.initializeAIBehavior(entityManager.getEntityMap());
+            }
             batch.begin();
             entityManager.drawEntities(batch);
             batch.end();
-            // for now for testing
-            if ((Gdx.input.isKeyPressed(preferredControls.getUpKey()))) {
-                sceneManager.setCurrentScene(sceneManager.getSceneMap().get("end"));
+
+            // Pause and Resume Game
+            if ((Gdx.input.isKeyJustPressed(preferredControls.getPauseKey()))) {
+                pauseState = !pauseState;
             }
             // check collision function from collision class
             // sceneManager.setCurrentScene(sceneManager.getSceneMap().get("end"));
@@ -68,5 +73,15 @@ public class SimulationManager {
     // Ends the simulation and disposes everything used
     public void endSimulation() {
         //dispose
+    }
+
+    // Get Pause State
+    public boolean getPauseState() {
+        return pauseState;
+    }
+
+    // Set Pause State
+    public void setPauseState(boolean pauseState) {
+        this.pauseState = pauseState;
     }
 }

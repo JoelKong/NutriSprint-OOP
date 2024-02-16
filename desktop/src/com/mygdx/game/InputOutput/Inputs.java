@@ -16,4 +16,6 @@ public interface Inputs {
     void setRestartKey(int restartKey);
     int getMenuKey();
     void setMenuKey(int menuKey);
+    int getPauseKey();
+    void setPauseKey(int pauseKey);
 }

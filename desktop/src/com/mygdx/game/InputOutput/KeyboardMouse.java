@@ -11,6 +11,7 @@ public class KeyboardMouse implements Inputs {
     private int startKey;
     private int restartKey;
     private int menuKey;
+    private int pauseKey;
 
     // Default Constructor
     protected KeyboardMouse() {
@@ -21,6 +22,7 @@ public class KeyboardMouse implements Inputs {
         this.startKey = Input.Keys.ENTER;
         this.restartKey = Input.Keys.R;
         this.menuKey = Input.Keys.M;
+        this.pauseKey = Input.Keys.P;
     }
 
     // Get Left Key
@@ -82,4 +84,10 @@ public class KeyboardMouse implements Inputs {
 
     // Set Menu Key
     public void setMenuKey(int menuKey) { this.menuKey = menuKey; }
+
+    // Get Pause Key
+    public int getPauseKey() { return pauseKey; }
+
+    // Set Pause Key
+    public void setPauseKey(int pauseKey) { this.pauseKey = pauseKey; }
 }
