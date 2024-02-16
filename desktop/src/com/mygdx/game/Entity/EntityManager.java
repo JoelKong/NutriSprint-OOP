@@ -37,7 +37,7 @@ public class EntityManager {
         playersList.add(new Player());
         entityMap.put("player", playersList);
         entityMap.put("spawnables", spawnablesList);
-        initializeSpawnables(10, new AI());
+        randomSpawnablesPosition(10, new AI());
     }
 
     // Drawing of Entities
@@ -69,7 +69,7 @@ public class EntityManager {
     }
 
     // Initialize spawnables in random position, checking if spawn clashes with any other entity
-    public void initializeSpawnables(int numberOfEntities, GameEntity clonePrototype) throws CloneNotSupportedException {
+    public void randomSpawnablesPosition(int numberOfEntities, GameEntity clonePrototype) throws CloneNotSupportedException {
         List<GameEntity> spawnables = entityMap.get("spawnables");
 
         for (int i = 0; i < numberOfEntities;) {
