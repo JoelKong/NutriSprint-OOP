@@ -37,7 +37,7 @@ public class EntityManager {
         playersList.add(new Player());
         entityMap.put("player", playersList);
         entityMap.put("spawnables", spawnablesList);
-        randomSpawnablesPosition(10, new AI());
+        randomSpawnablesPosition(7, new AI());
     }
 
     // Drawing of Entities
@@ -46,6 +46,10 @@ public class EntityManager {
             for (GameEntity entity: entities) {
                 if (!entity.getPopFromScreen()) {
                     entity.draw(sb);
+                    Rectangle hitbox = entity.getHitbox();
+                    hitbox.setX(entity.getPosX());
+                    hitbox.setY(entity.getPosY());
+                    entity.setHitbox(hitbox);
                 }
             }
         }

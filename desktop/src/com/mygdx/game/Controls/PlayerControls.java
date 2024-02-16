@@ -1,6 +1,9 @@
 package com.mygdx.game.Controls;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.math.Rectangle;
 import com.mygdx.game.Entity.Player;
+
+import java.awt.*;
 
 // Player Controls Class
 public class PlayerControls {

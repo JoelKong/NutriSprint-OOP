@@ -1,13 +1,18 @@
 package com.mygdx.game.Simulation;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.math.Rectangle;
+import com.mygdx.game.Entity.AI;
 import com.mygdx.game.Entity.AIControlManager;
 import com.mygdx.game.Collisions.CollisionManager;
 import com.mygdx.game.Controls.PlayerControlManager;
 import com.mygdx.game.Entity.EntityManager;
+import com.mygdx.game.Entity.GameEntity;
 import com.mygdx.game.InputOutput.InputOutputManager;
 import com.mygdx.game.InputOutput.Inputs;
 import com.mygdx.game.Scenes.*;
+
+import java.util.List;
 
 public class SimulationManager {
     // Declare Variables
@@ -32,6 +37,16 @@ public class SimulationManager {
         this.pauseState = false;
     }
 
+    public boolean victoryCondition() {
+        for (GameEntity aiEntity: entityManager.getEntityMap().get("spawnables")) {
+            AI ai = (AI) aiEntity;
+            if (!ai.getPopFromScreen()) {
+                return false;
+            }
+        }
+        return true;
+    }
+
     // Start the simulation and listen to requests that needs to be looped
     public void startSimulation() throws CloneNotSupportedException {
         Inputs preferredControls = inputOutputManager.getPreferredControls();
@@ -49,6 +64,7 @@ public class SimulationManager {
                 entityManager.initializePlayerMovement(preferredControls, controlManager.getPlayerControls());
                 aiControlManager.initializeAIBehavior(entityManager.getEntityMap());
             }
+            collisionManager.initializeCollisions(entityManager.getEntityMap());
             batch.begin();
             entityManager.drawEntities(batch);
             batch.end();
@@ -57,8 +73,11 @@ public class SimulationManager {
             if ((Gdx.input.isKeyJustPressed(preferredControls.getPauseKey()))) {
                 pauseState = !pauseState;
             }
-            // check collision function from collision class
-            // sceneManager.setCurrentScene(sceneManager.getSceneMap().get("end"));
+
+            // Check if all drops are gone
+            if (victoryCondition()) {
+                sceneManager.setCurrentScene(sceneManager.getSceneMap().get("end"));
+            }
 
         } else if (currentScene instanceof EndScene) { // End Scene
             if (Gdx.input.isKeyPressed(preferredControls.getRestartKey())) {
