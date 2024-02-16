@@ -15,81 +15,28 @@ import java.util.List;
 
 public class SimulationManager {
     // Declare Variables
-    private boolean pauseState;
     private EntityManager entityManager;
     private SceneManager sceneManager;
     private InputOutputManager inputOutputManager;
-    private PlayerControlManager controlManager;
+    private PlayerControlManager playerControlManager;
     private AIControlManager aiControlManager;
     private CollisionManager collisionManager;
-    private SpriteBatch batch;
+    private LevelManager levelManager;
 
     // Initialise all managers when simulation is created
     public SimulationManager() {
-        batch = new SpriteBatch();
-        entityManager = new EntityManager();
-        sceneManager = new SceneManager();
-        inputOutputManager = new InputOutputManager();
-        controlManager = new PlayerControlManager();
-        aiControlManager = new AIControlManager();
-        collisionManager = new CollisionManager();
-        this.pauseState = false;
-    }
-
-    // Victory Condition
-    public boolean victoryCondition() {
-        for (GameEntity aiEntity: entityManager.getEntityMap().get("spawnables")) {
-            AI ai = (AI) aiEntity;
-            if (!ai.getPopFromScreen()) {
-                return false;
-            }
-        }
-        return true;
+        this.sceneManager = new SceneManager();
+        this.inputOutputManager = new InputOutputManager();
+        this.playerControlManager = new PlayerControlManager();
+        this.aiControlManager = new AIControlManager();
+        this.collisionManager = new CollisionManager();
+        this.entityManager = new EntityManager();
+        this.levelManager = new LevelManager();
     }
 
     // Start the simulation and listen to requests that needs to be looped
-    public void startSimulation() throws CloneNotSupportedException {
-        Inputs preferredControls = inputOutputManager.getPreferredControls();
-        Scenes currentScene = sceneManager.getCurrentScene();
-        sceneManager.loadScene(currentScene);
-
-        if (currentScene instanceof StartScene) { // Start Scene
-            if (Gdx.input.isKeyPressed(preferredControls.getStartKey())) {
-                entityManager.initializeEntities();
-                sceneManager.setCurrentScene(sceneManager.getSceneMap().get("game"));
-            }
-
-        } else if (currentScene instanceof GameScene) { // Game Scene
-            // If not paused, initialise all forms of behavior and movement
-            if (!pauseState) {
-                entityManager.initializePlayerMovement(preferredControls, controlManager.getPlayerControls());
-                aiControlManager.initializeAIBehavior(entityManager.getEntityMap());
-                collisionManager.initializeCollisions(entityManager.getEntityMap());
-            }
-
-            // Draw entities on screen
-            batch.begin();
-            entityManager.drawEntities(batch);
-            batch.end();
-
-            // Pause and Resume Game
-            if ((Gdx.input.isKeyJustPressed(preferredControls.getPauseKey()))) {
-                pauseState = !pauseState;
-            }
-
-            // Check if all drops are gone then end game
-            if (victoryCondition()) {
-                sceneManager.setCurrentScene(sceneManager.getSceneMap().get("end"));
-            }
-
-        } else if (currentScene instanceof EndScene) { // End Scene
-            if (Gdx.input.isKeyPressed(preferredControls.getRestartKey())) {
-                entityManager.initializeEntities();
-                sceneManager.setCurrentScene(sceneManager.getSceneMap().get("game"));
-            } else if (Gdx.input.isKeyPressed(preferredControls.getMenuKey())) {
-                sceneManager.setCurrentScene(sceneManager.getSceneMap().get("start"));
-            }
-        }
+    public void startSimulation() {
+        sceneManager.initializeScenes(entityManager, collisionManager, aiControlManager, inputOutputManager, playerControlManager, levelManager);
     }
 
     // Ends the simulation and disposes everything used
@@ -102,15 +49,5 @@ public class SimulationManager {
         for (Scenes scenes: sceneManager.getSceneMap().values()) {
             scenes.dispose();
         }
-    }
-
-    // Get Pause State
-    public boolean getPauseState() {
-        return pauseState;
-    }
-
-    // Set Pause State
-    public void setPauseState(boolean pauseState) {
-        this.pauseState = pauseState;
     }
 }

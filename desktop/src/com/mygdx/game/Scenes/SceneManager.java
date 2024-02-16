@@ -1,5 +1,12 @@
 package com.mygdx.game.Scenes;
 import com.badlogic.gdx.Gdx;
+import com.mygdx.game.Collisions.CollisionManager;
+import com.mygdx.game.Controls.PlayerControlManager;
+import com.mygdx.game.Controls.PlayerControls;
+import com.mygdx.game.Entity.AIControlManager;
+import com.mygdx.game.Entity.EntityManager;
+import com.mygdx.game.InputOutput.InputOutputManager;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -7,29 +14,38 @@ import java.util.Map;
 public class SceneManager {
     // Declare Attributes
     private Map<String, Scenes> sceneMap;
-    private Scenes currentScene;
+    private String currentScene;
 
-    // Store all scenes in a hashmap on initialisation and initialise current scene to start
+
+    // Store all scenes in a hashmap on initialisation and initialise current scene to start and load managers for game scene
     public SceneManager() {
         this.sceneMap = new HashMap<>();
         sceneMap.put("start", new StartScene());
         sceneMap.put("game", new GameScene());
         sceneMap.put("end", new EndScene());
-        this.currentScene = sceneMap.get("start");
+        this.currentScene = sceneMap.get("start").getSceneName();
     }
 
-    // Load a specific scene
-    public void loadScene(Scenes scene) {
-        scene.render(Gdx.graphics.getDeltaTime());
+    // Load a scene starting with the start scene
+    public void initializeScenes(EntityManager entityManager, CollisionManager collisionManager, AIControlManager aiControlManager,
+                                InputOutputManager inputOutputManager, PlayerControlManager playerControlManager, LevelManager levelManager) {
+
+        Scenes scene = sceneMap.get(currentScene);
+        if (scene instanceof StartScene || scene instanceof EndScene) {
+            scene.render(this, entityManager, inputOutputManager);
+        } else {
+            scene.render(this, entityManager, collisionManager, aiControlManager, inputOutputManager, playerControlManager, levelManager);
+        }
+
     }
 
     // Get Current Scene
-    public Scenes getCurrentScene() {
+    public String getCurrentScene() {
         return currentScene;
     }
 
     // Set Current Scene
-    public void setCurrentScene(Scenes scene) {
+    public void setCurrentScene(String scene) {
         this.currentScene = scene;
     }
 

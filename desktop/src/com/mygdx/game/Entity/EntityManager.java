@@ -17,7 +17,6 @@ public class EntityManager {
     private List<Rectangle> spawnableHitboxList;
     private List<GameEntity> spawnablesList;
     private List<GameEntity> playersList;
-    private Consumer<SpriteBatch> drawEntitiesMethod; // proof of concept to pass methods as params
 
     // Default Constructor class to initialise entities
     public EntityManager() {
@@ -25,11 +24,10 @@ public class EntityManager {
         this.spawnableHitboxList = new ArrayList<>();
         this.playersList = new ArrayList<>();
         this.spawnablesList = new ArrayList<>();
-        this.drawEntitiesMethod = this::drawEntities;
     }
 
     // Initialization of Entities
-    public void initializeEntities() throws CloneNotSupportedException {
+    public void initializeEntities() {
         entityMap.clear();
         playersList.clear();
         spawnablesList.clear();
@@ -37,7 +35,11 @@ public class EntityManager {
         playersList.add(new Player());
         entityMap.put("player", playersList);
         entityMap.put("spawnables", spawnablesList);
-        randomSpawnablesPosition(7, new AI());
+        try {
+            randomSpawnablesPosition(7, new AI());
+        } catch (CloneNotSupportedException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     // Drawing of Entities
@@ -105,9 +107,6 @@ public class EntityManager {
         entityMap.put("spawnables", spawnables);
     }
 
-    // Colliding of AI with player (put this function in collision portion)
-    public void handleCollidePlayerAI(Player entity, AI ai, Collision collide) {}
-
     // Get Entity Map
     public Map<String, List<GameEntity>> getEntityMap() {
         return entityMap;
@@ -146,15 +145,5 @@ public class EntityManager {
     // Set Spawnables List
     public void setSpawnablesList(List<GameEntity> spawnablesList) {
         this.spawnablesList = spawnablesList;
-    }
-
-    // Get Draw Entities Method
-    public Consumer<SpriteBatch> getDrawEntitiesMethod() {
-        return drawEntitiesMethod;
-    }
-
-    // Set Draw Entities Method
-    public void setDrawEntitiesMethod(Consumer<SpriteBatch> drawEntitiesMethod) {
-        this.drawEntitiesMethod = drawEntitiesMethod;
     }
 }

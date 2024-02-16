@@ -8,6 +8,8 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.GlyphLayout;
 
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.mygdx.game.Entity.EntityManager;
+import com.mygdx.game.InputOutput.InputOutputManager;
 
 public class EndScene extends Scenes implements Screen {
     private Stage stage;
@@ -16,10 +18,10 @@ public class EndScene extends Scenes implements Screen {
     private GlyphLayout layout;
 
     public EndScene() {
-        super(3, "endScene");
-        font = new BitmapFont();
-        batch = new SpriteBatch();
-        layout = new GlyphLayout();
+        super(3, "end");
+        this.font = new BitmapFont();
+        this.batch = new SpriteBatch();
+        this.layout = new GlyphLayout();
     }
 
     @Override
@@ -28,7 +30,14 @@ public class EndScene extends Scenes implements Screen {
     }
 
     @Override
-    public void render(float delta) {
+    public void render(SceneManager sceneManager,EntityManager entityManager, InputOutputManager inputOutputManager) {
+        if (Gdx.input.isKeyPressed(inputOutputManager.getPreferredControls().getRestartKey())) {
+            entityManager.initializeEntities(); // add level stuff here, pass in Level as object then inside entities will parse as parameterized constructor
+            sceneManager.setCurrentScene("game");
+        } else if (Gdx.input.isKeyPressed(inputOutputManager.getPreferredControls().getMenuKey())) {
+            sceneManager.setCurrentScene("start");
+        }
+
         Gdx.gl.glClearColor(1, 0, 0, 1); // setting clear color to green
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT); // clear screen
 

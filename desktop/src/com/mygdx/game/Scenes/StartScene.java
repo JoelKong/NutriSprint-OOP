@@ -7,6 +7,8 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.GlyphLayout;
 
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.mygdx.game.Entity.EntityManager;
+import com.mygdx.game.InputOutput.InputOutputManager;
 
 // Start Scene class inherited from Scenes
 public class StartScene extends Scenes implements Screen {
@@ -16,10 +18,10 @@ public class StartScene extends Scenes implements Screen {
     private GlyphLayout layout;
 
     public StartScene() {
-        super(1, "startScene");
-        font = new BitmapFont();
-        batch = new SpriteBatch();
-        layout = new GlyphLayout();
+        super(1, "start");
+        this.font = new BitmapFont();
+        this.batch = new SpriteBatch();
+        this.layout = new GlyphLayout();
     }
 
     @Override
@@ -28,7 +30,12 @@ public class StartScene extends Scenes implements Screen {
     }
 
     @Override
-    public void render(float delta) {
+    public void render(SceneManager sceneManager, EntityManager entityManager, InputOutputManager inputOutputManager) {
+        if (Gdx.input.isKeyPressed(inputOutputManager.getPreferredControls().getStartKey())) {
+            entityManager.initializeEntities(); // add level stuff here, pass in Level as object then inside entities will parse as parameterized constructor
+            sceneManager.setCurrentScene("game");
+        }
+
         Gdx.gl.glClearColor(0, 1, 0, 1); // setting clear color to green
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT); // clear screen
         // Call render from Scene if needed and any additional render logic

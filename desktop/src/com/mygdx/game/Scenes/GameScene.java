@@ -11,18 +11,42 @@ import com.badlogic.gdx.graphics.g2d.GlyphLayout;
 
 
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.mygdx.game.Collisions.CollisionManager;
+import com.mygdx.game.Controls.PlayerControlManager;
+import com.mygdx.game.Controls.PlayerControls;
+import com.mygdx.game.Entity.AI;
+import com.mygdx.game.Entity.AIControlManager;
+import com.mygdx.game.Entity.EntityManager;
+import com.mygdx.game.Entity.GameEntity;
+import com.mygdx.game.InputOutput.InputOutputManager;
+import com.mygdx.game.InputOutput.Inputs;
+
+import java.util.List;
+import java.util.Map;
 
 public class GameScene extends Scenes implements Screen {
     private SpriteBatch batch;
     private Stage stage;
     private BitmapFont font;
     private GlyphLayout layout;
+    private boolean pauseState;
 
     public GameScene() {
-        super(2, "gameScreen");
-        font = new BitmapFont();
-        batch = new SpriteBatch();
-        layout = new GlyphLayout();
+        super(2, "game");
+        this.font = new BitmapFont();
+        this.batch = new SpriteBatch();
+        this.layout = new GlyphLayout();
+        this.pauseState = false;
+    }
+
+    public boolean victoryCondition(Map<String, List<GameEntity>> entityMap) {
+        for (GameEntity aiEntity: entityMap.get("spawnables")) {
+            AI ai = (AI) aiEntity;
+            if (!ai.getPopFromScreen()) {
+                return false;
+            }
+        }
+        return true;
     }
 
     @Override
@@ -31,21 +55,47 @@ public class GameScene extends Scenes implements Screen {
     }
 
     @Override
-    public void render(float delta) {
+    public void render(SceneManager sceneManager, EntityManager entityManager, CollisionManager collisionManager, AIControlManager aiControlManager,
+                       InputOutputManager inputOutputManager, PlayerControlManager playerControlManager, LevelManager levelManager) {
         ScreenUtils.clear(0, 0, 0.2f, 1);
+//        Object level = levelManager.getLevelsPackage().get(levelManager.getLevelNumber());
+//        if (!level) { sceneManager.setCurrentScene("end"); }
 
+        // Get user device and controls
+        Inputs preferredControls = inputOutputManager.getPreferredControls();
+        PlayerControls playerControls = playerControlManager.getPlayerControls();
+
+        // If not paused, initialise all forms of behavior and movement
+        if (!pauseState) {
+            entityManager.initializePlayerMovement(preferredControls, playerControls);
+            aiControlManager.initializeAIBehavior(entityManager.getEntityMap());
+            collisionManager.initializeCollisions(entityManager.getEntityMap());
+        }
+
+        // Text layout
         layout.setText(font, "Press 'P' to pause game.");
-
         float textWidth = layout.width;
         float textHeight = layout.height;
-
-        float x = (Gdx.graphics.getWidth() - textWidth) / 2;
+        float screenTextX = (Gdx.graphics.getWidth() - textWidth) / 2;
         float margin = 20;
-        float y = Gdx.graphics.getHeight() - margin;
+        float screenTextY = Gdx.graphics.getHeight() - margin;
 
+        // Draw entities and text
         batch.begin();
-            font.draw(batch, layout, x, y);
+            entityManager.drawEntities(batch);
+            font.draw(batch, layout, screenTextX, screenTextY);
         batch.end();
+
+        // Pause and Resume Game
+        if ((Gdx.input.isKeyJustPressed(preferredControls.getPauseKey()))) {
+            pauseState = !pauseState;
+        }
+
+        // Advance to next level condition
+        if (victoryCondition(entityManager.getEntityMap())) {
+            sceneManager.setCurrentScene("end"); // for now
+            levelManager.setLevelNumber(levelManager.getLevelNumber() + 1);
+        }
     }
 
     @Override
