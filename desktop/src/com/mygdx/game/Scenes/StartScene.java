@@ -9,6 +9,7 @@ import com.badlogic.gdx.graphics.g2d.GlyphLayout;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.mygdx.game.Entity.EntityManager;
 import com.mygdx.game.InputOutput.InputOutputManager;
+import com.mygdx.game.InputOutput.Inputs;
 
 // Start Scene class inherited from Scenes
 public class StartScene extends Scenes implements Screen {
@@ -31,8 +32,10 @@ public class StartScene extends Scenes implements Screen {
 
     @Override
     public void render(SceneManager sceneManager, EntityManager entityManager, InputOutputManager inputOutputManager) {
-        if (Gdx.input.isKeyPressed(inputOutputManager.getPreferredControls().getStartKey())) {
-            entityManager.initializeEntities(); // add level stuff here, pass in Level as object then inside entities will parse as parameterized constructor
+        Inputs preferredControls = inputOutputManager.getPreferredControls();
+
+        if (preferredControls.getStartKey()) {
+            entityManager.initializeEntities();
             sceneManager.setCurrentScene("game");
         }
 

@@ -1,4 +1,5 @@
 package com.mygdx.game.InputOutput;
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 
 // KeyboardMouse Class
@@ -26,8 +27,8 @@ public class KeyboardMouse implements Inputs {
     }
 
     // Get Left Key
-    public int getLeftKey() {
-        return leftKey;
+    public boolean getLeftKey() {
+        return Gdx.input.isKeyPressed(leftKey);
     }
 
     // Set Left Key
@@ -36,8 +37,8 @@ public class KeyboardMouse implements Inputs {
     }
 
     // Get Right Key
-    public int getRightKey() {
-        return rightKey;
+    public boolean getRightKey() {
+        return Gdx.input.isKeyPressed(rightKey);
     }
 
     // Set Right Key
@@ -46,8 +47,8 @@ public class KeyboardMouse implements Inputs {
     }
 
     // Get Up Key
-    public int getUpKey() {
-        return upKey;
+    public boolean getUpKey() {
+        return Gdx.input.isKeyPressed(upKey);
     }
 
     // Set Up Key
@@ -56,8 +57,8 @@ public class KeyboardMouse implements Inputs {
     }
 
     // Get Down Key
-    public int getDownKey() {
-        return downKey;
+    public boolean getDownKey() {
+        return Gdx.input.isKeyPressed(downKey);
     }
 
     // Set Down Key
@@ -66,13 +67,15 @@ public class KeyboardMouse implements Inputs {
     }
 
     // Get Start Key
-    public int getStartKey() { return startKey; }
+    public boolean getStartKey() {
+        return Gdx.input.isKeyJustPressed(startKey);
+    }
 
     // Set Start Key
     public void setStartKey(int startKey) { this.startKey = startKey; }
 
     // Get Restart Key
-    public int getRestartKey() { return restartKey; }
+    public boolean getRestartKey() { return Gdx.input.isKeyJustPressed(restartKey); }
 
     // Set Restart Key
     public void setRestartKey(int restartKey) {
@@ -80,13 +83,13 @@ public class KeyboardMouse implements Inputs {
     }
 
     // Get Menu Key
-    public int getMenuKey() { return menuKey; }
+    public boolean getMenuKey() { return Gdx.input.isKeyJustPressed(menuKey); }
 
     // Set Menu Key
     public void setMenuKey(int menuKey) { this.menuKey = menuKey; }
 
     // Get Pause Key
-    public int getPauseKey() { return pauseKey; }
+    public boolean getPauseKey() { return Gdx.input.isKeyJustPressed(pauseKey); }
 
     // Set Pause Key
     public void setPauseKey(int pauseKey) { this.pauseKey = pauseKey; }

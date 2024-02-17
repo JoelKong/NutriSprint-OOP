@@ -17,7 +17,7 @@ public class SceneManager {
     private String currentScene;
 
 
-    // Store all scenes in a hashmap on initialisation and initialise current scene to start and load managers for game scene
+    // Store all scenes in a hashmap on initialisation and initialise current scene to start scene
     public SceneManager() {
         this.sceneMap = new HashMap<>();
         sceneMap.put("start", new StartScene());

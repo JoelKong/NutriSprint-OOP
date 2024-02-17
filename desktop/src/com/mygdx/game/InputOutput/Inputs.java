@@ -2,20 +2,20 @@ package com.mygdx.game.InputOutput;
 
 // Input interface where all kinds of input devices must have the following key bindings
 public interface Inputs {
-    int getLeftKey();
+    boolean getLeftKey();
     void setLeftKey(int leftKey);
-    int getRightKey();
+    boolean getRightKey();
     void setRightKey(int rightKey);
-    int getUpKey();
+    boolean getUpKey();
     void setUpKey(int upKey);
-    int getDownKey();
+    boolean getDownKey();
     void setDownKey(int downKey);
-    int getStartKey();
+    boolean getStartKey();
     void setStartKey(int startKey);
-    int getRestartKey();
+    boolean getRestartKey();
     void setRestartKey(int restartKey);
-    int getMenuKey();
+    boolean getMenuKey();
     void setMenuKey(int menuKey);
-    int getPauseKey();
+    boolean getPauseKey();
     void setPauseKey(int pauseKey);
 }

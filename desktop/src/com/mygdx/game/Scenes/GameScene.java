@@ -57,7 +57,7 @@ public class GameScene extends Scenes implements Screen {
     @Override
     public void render(SceneManager sceneManager, EntityManager entityManager, CollisionManager collisionManager, AIControlManager aiControlManager,
                        InputOutputManager inputOutputManager, PlayerControlManager playerControlManager, LevelManager levelManager) {
-        ScreenUtils.clear(0, 0, 0.2f, 1);
+
 //        Object level = levelManager.getLevelsPackage().get(levelManager.getLevelNumber());
 //        if (!level) { sceneManager.setCurrentScene("end"); }
 
@@ -65,12 +65,7 @@ public class GameScene extends Scenes implements Screen {
         Inputs preferredControls = inputOutputManager.getPreferredControls();
         PlayerControls playerControls = playerControlManager.getPlayerControls();
 
-        // If not paused, initialise all forms of behavior and movement
-        if (!pauseState) {
-            entityManager.initializePlayerMovement(preferredControls, playerControls);
-            aiControlManager.initializeAIBehavior(entityManager.getEntityMap());
-            collisionManager.initializeCollisions(entityManager.getEntityMap());
-        }
+        ScreenUtils.clear(0, 0, 0.2f, 1);
 
         // Text layout
         layout.setText(font, "Press 'P' to pause game.");
@@ -87,14 +82,22 @@ public class GameScene extends Scenes implements Screen {
         batch.end();
 
         // Pause and Resume Game
-        if ((Gdx.input.isKeyJustPressed(preferredControls.getPauseKey()))) {
+        if (preferredControls.getPauseKey()) {
             pauseState = !pauseState;
+        }
+
+        // If not paused, initialise all forms of behavior and movement
+        if (!pauseState) {
+            entityManager.initializePlayerMovement(preferredControls, playerControls);
+            aiControlManager.initializeAIBehavior(entityManager.getEntityMap());
+            collisionManager.initializeCollisions(entityManager.getEntityMap());
         }
 
         // Advance to next level condition
         if (victoryCondition(entityManager.getEntityMap())) {
             sceneManager.setCurrentScene("end"); // for now
             levelManager.setLevelNumber(levelManager.getLevelNumber() + 1);
+//            if (level exists) { reinitialise entities(Level) }
         }
     }
 

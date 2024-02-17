@@ -12,13 +12,13 @@ public abstract class Scenes implements Screen {
     private int sceneId;
     private String sceneName;
 
-    // Parameterized constructor to specify details of scenes and load managers for children
+    // Parameterized constructor to specify details of scenes
     public Scenes(int sceneId, String sceneName) {
         this.sceneId = sceneId;
         this.sceneName = sceneName;
     }
 
-    // Abstract method that all scenes must have
+    // Render overloads
     public void render(SceneManager sceneManager, EntityManager entityManager, CollisionManager collisionManager, AIControlManager aiControlManager,
                                 InputOutputManager inputOutputManager, PlayerControlManager playerControlManager, LevelManager levelManager) {};
 

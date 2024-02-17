@@ -30,16 +30,16 @@ public class Player extends GameEntity {
 
     // Movement of Player
     protected void movement(Inputs keys, PlayerControls playerInput) {
-        if (Gdx.input.isKeyPressed(keys.getUpKey())) {
+        if (keys.getUpKey()) {
             playerInput.moveUp(this);
         }
-        if (Gdx.input.isKeyPressed(keys.getDownKey())) {
+        if (keys.getDownKey()) {
             playerInput.moveDown(this);
         }
-        if (Gdx.input.isKeyPressed(keys.getLeftKey())) {
+        if (keys.getLeftKey()) {
             playerInput.moveLeft(this);
         }
-        if (Gdx.input.isKeyPressed(keys.getRightKey())) {
+        if (keys.getRightKey()) {
             playerInput.moveRight(this);
         }
     }
