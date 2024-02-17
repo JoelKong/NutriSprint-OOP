@@ -10,6 +10,7 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.mygdx.game.Entity.EntityManager;
 import com.mygdx.game.InputOutput.InputOutputManager;
 import com.mygdx.game.InputOutput.Inputs;
+import com.mygdx.game.Levels.LevelManager;
 
 // Start Scene class inherited from Scenes
 public class StartScene extends Scenes implements Screen {
@@ -31,11 +32,11 @@ public class StartScene extends Scenes implements Screen {
     }
 
     @Override
-    public void render(SceneManager sceneManager, EntityManager entityManager, InputOutputManager inputOutputManager) {
+    public void render(SceneManager sceneManager, EntityManager entityManager, InputOutputManager inputOutputManager, LevelManager levelManager) {
         Inputs preferredControls = inputOutputManager.getPreferredControls();
 
         if (preferredControls.getStartKey()) {
-            entityManager.initializeEntities();
+            entityManager.initializeEntities(levelManager.retrieveCurrentLevelAssets());
             sceneManager.setCurrentScene("game");
         }
 

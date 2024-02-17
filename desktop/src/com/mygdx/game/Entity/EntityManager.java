@@ -4,6 +4,8 @@ import com.badlogic.gdx.math.Rectangle;
 import com.mygdx.game.Collisions.Collision;
 import com.mygdx.game.Controls.PlayerControls;
 import com.mygdx.game.InputOutput.Inputs;
+import com.mygdx.game.Levels.Levels;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -26,8 +28,8 @@ public class EntityManager {
         this.spawnablesList = new ArrayList<>();
     }
 
-    // Initialization of Entities
-    public void initializeEntities() {
+    // Default Initialization of Entities
+    public void initializeEntities(Levels level) {
         entityMap.clear();
         playersList.clear();
         spawnablesList.clear();
@@ -36,7 +38,7 @@ public class EntityManager {
         entityMap.put("player", playersList);
         entityMap.put("spawnables", spawnablesList);
         try {
-            randomSpawnablesPosition(7, new AI());
+            randomSpawnablesPosition(level.numberOfEnemies, new AI());
         } catch (CloneNotSupportedException e) {
             throw new RuntimeException(e);
         }

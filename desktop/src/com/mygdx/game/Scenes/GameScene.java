@@ -31,6 +31,7 @@ public class GameScene extends Scenes implements Screen {
     private BitmapFont font;
     private GlyphLayout layout;
     private boolean pauseState;
+    private Levels levelAssets;
 
     public GameScene() {
         super(2, "game");
@@ -59,11 +60,6 @@ public class GameScene extends Scenes implements Screen {
     public void render(SceneManager sceneManager, EntityManager entityManager, CollisionManager collisionManager, AIControlManager aiControlManager,
                        InputOutputManager inputOutputManager, PlayerControlManager playerControlManager, LevelManager levelManager) {
 
-        Levels levelAssets = levelManager.getCurrentLevelAssets();
-
-//        Object level = levelManager.getLevelsPackage().get(levelManager.getLevelNumber());
-//        if (!level) { sceneManager.setCurrentScene("end"); }
-
         // Get user device and controls
         Inputs preferredControls = inputOutputManager.getPreferredControls();
         PlayerControls playerControls = playerControlManager.getPlayerControls();
@@ -80,8 +76,8 @@ public class GameScene extends Scenes implements Screen {
 
         // Draw entities and text
         batch.begin();
-            entityManager.drawEntities(batch);
-            font.draw(batch, layout, screenTextX, screenTextY);
+        entityManager.drawEntities(batch);
+        font.draw(batch, layout, screenTextX, screenTextY);
         batch.end();
 
         // Pause and Resume Game
@@ -96,11 +92,15 @@ public class GameScene extends Scenes implements Screen {
             collisionManager.initializeCollisions(entityManager.getEntityMap());
         }
 
-        // Advance to next level condition
+        // Advance to next level or end condition
         if (victoryCondition(entityManager.getEntityMap())) {
-            sceneManager.setCurrentScene("end"); // for now
-            levelManager.setLevelNumber(levelManager.getLevelNumber() + 1);
-//            if (level exists) { reinitialise entities(Level) }
+            if (levelManager.doesNextLevelExist()) {
+                levelManager.setLevelNumber(levelManager.getLevelNumber() + 1);
+                this.levelAssets = levelManager.retrieveCurrentLevelAssets();
+                entityManager.initializeEntities(this.levelAssets);
+            } else {
+                sceneManager.setCurrentScene("end");
+            }
         }
     }
 

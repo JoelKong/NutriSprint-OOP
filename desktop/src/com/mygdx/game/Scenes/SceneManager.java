@@ -31,7 +31,7 @@ public class SceneManager {
 
         Scenes scene = sceneMap.get(currentScene);
         if (scene instanceof StartScene || scene instanceof EndScene) {
-            scene.render(this, entityManager, inputOutputManager);
+            scene.render(this, entityManager, inputOutputManager, levelManager);
         } else {
             scene.render(this, entityManager, collisionManager, aiControlManager, inputOutputManager, playerControlManager, levelManager);
         }

@@ -11,6 +11,7 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.mygdx.game.Entity.EntityManager;
 import com.mygdx.game.InputOutput.InputOutputManager;
 import com.mygdx.game.InputOutput.Inputs;
+import com.mygdx.game.Levels.LevelManager;
 
 public class EndScene extends Scenes implements Screen {
     private Stage stage;
@@ -31,14 +32,16 @@ public class EndScene extends Scenes implements Screen {
     }
 
     @Override
-    public void render(SceneManager sceneManager,EntityManager entityManager, InputOutputManager inputOutputManager) {
+    public void render(SceneManager sceneManager, EntityManager entityManager, InputOutputManager inputOutputManager, LevelManager levelManager) {
         Inputs preferredControls = inputOutputManager.getPreferredControls();
 
         if (preferredControls.getRestartKey()) {
-            entityManager.initializeEntities();
+            levelManager.setLevelNumber(1);
+            entityManager.initializeEntities(levelManager.retrieveCurrentLevelAssets());
             sceneManager.setCurrentScene("game");
 
         } else if (preferredControls.getMenuKey()) {
+            levelManager.setLevelNumber(1);
             sceneManager.setCurrentScene("start");
         }
 

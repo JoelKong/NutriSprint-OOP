@@ -23,7 +23,7 @@ public abstract class Scenes implements Screen {
     public void render(SceneManager sceneManager, EntityManager entityManager, CollisionManager collisionManager, AIControlManager aiControlManager,
                                 InputOutputManager inputOutputManager, PlayerControlManager playerControlManager, LevelManager levelManager) {};
 
-    public void render(SceneManager sceneManager, EntityManager entityManager, InputOutputManager inputOutputManager) {};
+    public void render(SceneManager sceneManager, EntityManager entityManager, InputOutputManager inputOutputManager, LevelManager levelManager) {};
 
     public void render(float delta) {};
 
