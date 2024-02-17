@@ -15,20 +15,11 @@ import com.mygdx.game.Levels.LevelManager;
 
 public class EndScene extends Scenes implements Screen {
     private Stage stage;
-    private BitmapFont font;
     private SpriteBatch batch;
-    private GlyphLayout layout;
 
     public EndScene() {
         super(3, "end");
-        this.font = new BitmapFont();
         this.batch = new SpriteBatch();
-        this.layout = new GlyphLayout();
-    }
-
-    @Override
-    public void show() {
-        // Call to super if needed, and any additional show logic
     }
 
     @Override
@@ -48,22 +39,15 @@ public class EndScene extends Scenes implements Screen {
         Gdx.gl.glClearColor(1, 0, 0, 1); // setting clear color to green
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT); // clear screen
 
-        layout.setText(font, "Game Ended, press 'R' to restart.");
-
-        float textWidth = layout.width;
-        float textHeight = layout.height;
-
-        float x = (Gdx.graphics.getWidth() - textWidth) / 2;
-        float y = (Gdx.graphics.getHeight() - textHeight) / 2;
-
-        batch.begin();
-            font.draw(batch, layout, x, y);
-        batch.end();
-
-        // Call render from Scene if needed and any additional render logic
+        renderTextCentered(batch, "Game ended, press 'R' to restart or 'M' to return to Main Menu");
     }
 
     // Implement or override other methods from Scene if needed
+
+    @Override
+    public void show() {
+
+    }
 
     @Override
     public void resize(int width, int height) {
@@ -87,7 +71,8 @@ public class EndScene extends Scenes implements Screen {
 
     @Override
     public void dispose() {
-        font.dispose();
-        batch.dispose();
+        if (batch != null) {
+            batch.dispose();
+        }
     }
 }
