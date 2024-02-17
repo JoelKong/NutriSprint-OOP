@@ -6,7 +6,6 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.ScreenUtils;
 
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.GlyphLayout;
 
 
@@ -20,6 +19,8 @@ import com.mygdx.game.Entity.EntityManager;
 import com.mygdx.game.Entity.GameEntity;
 import com.mygdx.game.InputOutput.InputOutputManager;
 import com.mygdx.game.InputOutput.Inputs;
+import com.mygdx.game.Levels.LevelManager;
+import com.mygdx.game.Levels.Levels;
 
 import java.util.List;
 import java.util.Map;
@@ -57,6 +58,8 @@ public class GameScene extends Scenes implements Screen {
     @Override
     public void render(SceneManager sceneManager, EntityManager entityManager, CollisionManager collisionManager, AIControlManager aiControlManager,
                        InputOutputManager inputOutputManager, PlayerControlManager playerControlManager, LevelManager levelManager) {
+        int levelNumber = levelManager.getLevelNumber();
+        Levels levelAssets = levelManager.getLevelsPackage()
 
 //        Object level = levelManager.getLevelsPackage().get(levelManager.getLevelNumber());
 //        if (!level) { sceneManager.setCurrentScene("end"); }

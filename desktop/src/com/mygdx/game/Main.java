@@ -5,7 +5,7 @@ import com.mygdx.game.Controls.PlayerControlManager;
 import com.mygdx.game.Entity.AIControlManager;
 import com.mygdx.game.Entity.EntityManager;
 import com.mygdx.game.InputOutput.InputOutputManager;
-import com.mygdx.game.Scenes.LevelManager;
+import com.mygdx.game.Levels.LevelManager;
 import com.mygdx.game.Scenes.SceneManager;
 import com.mygdx.game.Simulation.SimulationManager;
 
