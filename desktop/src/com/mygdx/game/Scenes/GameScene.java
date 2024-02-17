@@ -58,8 +58,8 @@ public class GameScene extends Scenes implements Screen {
     @Override
     public void render(SceneManager sceneManager, EntityManager entityManager, CollisionManager collisionManager, AIControlManager aiControlManager,
                        InputOutputManager inputOutputManager, PlayerControlManager playerControlManager, LevelManager levelManager) {
-        int levelNumber = levelManager.getLevelNumber();
-        Levels levelAssets = levelManager.getLevelsPackage()
+
+        Levels levelAssets = levelManager.getCurrentLevelAssets();
 
 //        Object level = levelManager.getLevelsPackage().get(levelManager.getLevelNumber());
 //        if (!level) { sceneManager.setCurrentScene("end"); }

@@ -2,16 +2,25 @@ package com.mygdx.game.Levels;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.utils.Json;
+import java.util.List;
 
 public class LevelManager {
     private int levelNumber;
-    private Levels levelsPackage;
+    private List<Levels> levelsPackage;
 
     public LevelManager() {
         this.levelNumber = 1;
         Json json = new Json();
-        Levels data = json.fromJson(Levels.class, Gdx.files.internal("levels.json"));
-        this.levelsPackage = data;
+        this.levelsPackage = json.fromJson(List.class, Levels.class, Gdx.files.internal("levels.json"));
+    }
+
+    public Levels getCurrentLevelAssets() {
+        for (Levels level: levelsPackage) {
+            if (level.level == levelNumber) {
+                return level;
+            }
+        }
+        return null;
     }
 
     public int getLevelNumber() {
@@ -22,11 +31,11 @@ public class LevelManager {
         this.levelNumber = levelNumber;
     }
 
-    public Levels getLevelsPackage() {
+    public List<Levels> getLevelsPackage() {
         return levelsPackage;
     }
 
-    public void setLevelsPackage(Levels levelsPackage) {
+    public void setLevelsPackage(List<Levels> levelsPackage) {
         this.levelsPackage = levelsPackage;
     }
 }
