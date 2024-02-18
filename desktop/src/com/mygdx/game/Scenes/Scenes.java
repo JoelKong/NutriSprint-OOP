@@ -1,5 +1,12 @@
 package com.mygdx.game.Scenes;
 
+import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.GlyphLayout;
+import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.Gdx;
+
 import com.mygdx.game.Collisions.CollisionManager;
 import com.mygdx.game.Controls.PlayerControlManager;
 import com.mygdx.game.Entity.AIControlManager;
@@ -7,12 +14,6 @@ import com.mygdx.game.Entity.EntityManager;
 import com.mygdx.game.InputOutput.InputOutputManager;
 import com.mygdx.game.Levels.LevelManager;
 
-import com.badlogic.gdx.graphics.g2d.BitmapFont;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.graphics.g2d.GlyphLayout;
-import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.badlogic.gdx.Screen;
-import com.badlogic.gdx.Gdx;
 
 // Abstract class Scene implementing LibGDX Screen interface
 public abstract class Scenes implements Screen {
@@ -83,7 +84,16 @@ public abstract class Scenes implements Screen {
         batch.end();
     }
 
-    @Override
+    protected void renderLevelTitleText(SpriteBatch batch, String text) {
+        if (batch == null || font == null) return;
+
+        GlyphLayout layout = new GlyphLayout(font, text);
+
+        batch.begin();
+            font.draw(batch, text, 10, Gdx.graphics.getHeight() - 10);
+        batch.end();
+    }
+
     public void dispose() {
         // Dispose of the SpriteBatch if it's not needed anymore
         if (batch != null) {

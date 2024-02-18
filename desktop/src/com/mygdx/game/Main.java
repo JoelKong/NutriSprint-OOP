@@ -40,6 +40,10 @@ public class Main extends ApplicationAdapter {
         simulationManager.startSimulation(sceneManager, entityManager, collisionManager, aiControlManager, inputOutputManager, playerControlManager, levelManager);
     }
 
+    public void resize(int width, int height) {
+        // sceneManager.resize(width, height);
+    }
+
     @Override
     public void dispose() {
         // End Simulation

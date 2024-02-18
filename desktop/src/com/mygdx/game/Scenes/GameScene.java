@@ -56,7 +56,9 @@ public class GameScene extends Scenes implements Screen {
 
         ScreenUtils.clear(0, 0, 0.2f, 1);
 
-        renderTextAtTop(batch, "Press 'P' to pause.");
+        // renderTextAtTop(batch, "Press 'P' to pause.");
+        this.levelAssets = levelManager.retrieveCurrentLevelAssets();
+        renderLevelTitleText(batch, this.levelAssets.getLevelTitle());
 
         // Draw entities and text
         batch.begin();
@@ -85,11 +87,11 @@ public class GameScene extends Scenes implements Screen {
                 sceneManager.setCurrentScene("end");
             }
         }
+
     }
 
     @Override
     public void resize(int width, int height) {
-
     }
 
     @Override
@@ -106,4 +108,23 @@ public class GameScene extends Scenes implements Screen {
     public void hide() {
 
     }
+
+//    public void logEntityPositions(EntityManager entityManager) {
+//        Map<String, List<GameEntity>> entityMap = entityManager.getEntityMap();
+//        for (Map.Entry<String, List<GameEntity>> entry : entityMap.entrySet()) {
+//            for (GameEntity entity : entry.getValue()) {
+//                // Adjusted to directly use hypothetical getX() and getY() methods
+//                // Replace these with the actual methods or fields used in your Entity class
+//                float x = entity.getPosX(); // Assuming an getX() method exists
+//                float y = entity.getPosY(); // Assuming a getY() method exists
+//
+//                Gdx.app.log("EntityPosition", "Entity: " + entity.getClass().getSimpleName() + " at x: " + x + " y: " + y);
+//            }
+//        }
+//    }
+//
+//    public void logCameraView(OrthographicCamera camera) {
+//        Gdx.app.log("CameraView", "Camera position: x=" + camera.position.x + " y=" + camera.position.y);
+//        Gdx.app.log("CameraView", "Viewport dimensions: width=" + camera.viewportWidth + " height=" + camera.viewportHeight);
+//  }
 }

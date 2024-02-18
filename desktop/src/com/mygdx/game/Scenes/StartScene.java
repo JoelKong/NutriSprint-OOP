@@ -36,7 +36,6 @@ public class StartScene extends Scenes implements Screen {
 
         Gdx.gl.glClearColor(0, 1, 0, 1); // setting clear color to green
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT); // clear screen
-
         renderTextCentered(batch, "Press 'Enter' to start.");
         // Call render from Scene if needed and any additional render logic
     }

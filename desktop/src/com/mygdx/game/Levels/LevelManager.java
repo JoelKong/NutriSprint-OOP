@@ -6,16 +6,16 @@ import java.util.List;
 
 public class LevelManager {
     private int levelNumber;
-    private List<Levels> levelsPackage;
+    private List<Levels> levelsList;
 
     public LevelManager() {
         this.levelNumber = 1;
         Json json = new Json();
-        this.levelsPackage = json.fromJson(List.class, Levels.class, Gdx.files.internal("levels.json"));
+        this.levelsList = json.fromJson(List.class, Levels.class, Gdx.files.internal("levels.json"));
     }
 
     public Levels retrieveCurrentLevelAssets() {
-        for (Levels level: levelsPackage) {
+        for (Levels level: levelsList) {
             if (level.level == levelNumber) {
                 return level;
             }
@@ -24,7 +24,7 @@ public class LevelManager {
     }
 
     public boolean doesNextLevelExist() {
-        for (Levels level: levelsPackage) {
+        for (Levels level: levelsList) {
             if (level.level == levelNumber + 1) {
                 return true;
             }
@@ -40,11 +40,11 @@ public class LevelManager {
         this.levelNumber = levelNumber;
     }
 
-    public List<Levels> getLevelsPackage() {
-        return levelsPackage;
+    public List<Levels> getLevelsList() {
+        return levelsList;
     }
 
-    public void setLevelsPackage(List<Levels> levelsPackage) {
-        this.levelsPackage = levelsPackage;
+    public void setLevelsList(List<Levels> levelsPackage) {
+        this.levelsList = levelsPackage;
     }
 }
