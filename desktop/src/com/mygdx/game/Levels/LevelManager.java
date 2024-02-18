@@ -27,7 +27,7 @@ public class LevelManager {
     }
 
     // Check if next level exists
-    public boolean doesNextLevelExist() {
+    public boolean nextLevelExists() {
         for (Levels level: levelsList) {
             if (level.levelNumber == levelNumber + 1) {
                 return true;

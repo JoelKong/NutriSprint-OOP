@@ -55,6 +55,7 @@ public class GameScene extends Scenes {
         // Retrieve current level assets and render text
         this.levelAssets = levelManager.retrieveCurrentLevelAssets();
         renderTextAtPosition(batch, this.levelAssets.getLevelTitle(), "topleft");
+        renderTextAtPosition(batch, "Press P to pause", "top");
 
         // Draw entities
         batch.begin();
@@ -75,7 +76,7 @@ public class GameScene extends Scenes {
 
         // Advance to next level or end game
         if (levelCleared(entityManager.getEntityMap())) {
-            if (levelManager.doesNextLevelExist()) {
+            if (levelManager.nextLevelExists()) {
                 levelManager.setLevelNumber(levelManager.getLevelNumber() + 1);
                 this.levelAssets = levelManager.retrieveCurrentLevelAssets();
                 entityManager.initializeEntities(this.levelAssets);
