@@ -6,7 +6,7 @@ import com.mygdx.game.Entity.Player;
 // Player Controls Class
 public class PlayerControls {
     // Default Constructor for player control
-    public PlayerControls() {}
+    protected PlayerControls() {}
 
     // Move Up Command
     public void moveUp(Player player) {

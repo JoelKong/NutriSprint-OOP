@@ -8,7 +8,7 @@ public class Levels {
     public int numberOfEnemies;
 
     // Default Constructor
-    public Levels() {};
+    protected Levels() {};
 
     // Get Level Number
     public int getLevelNumber() {

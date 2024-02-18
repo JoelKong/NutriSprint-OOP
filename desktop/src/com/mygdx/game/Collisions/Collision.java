@@ -9,7 +9,7 @@ import java.util.Map;
 // Collision class for all kinds of collisions
 public class Collision {
     // Default Constructor
-    public Collision() {}
+    protected Collision() {}
 
     // Collision of Player with AI
     protected void collidePlayerAI(Map<String,List<GameEntity>> entityMap) {
