@@ -1,6 +1,6 @@
 package com.mygdx.game.InputOutput;
 
-// Input Manager Class
+// Input Output Manager Class
 public class InputOutputManager {
     // Declare Attributes
     private Inputs preferredControls;

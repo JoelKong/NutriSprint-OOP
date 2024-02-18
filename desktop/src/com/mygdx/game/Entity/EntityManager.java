@@ -1,16 +1,13 @@
 package com.mygdx.game.Entity;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Rectangle;
-import com.mygdx.game.Collisions.Collision;
 import com.mygdx.game.Controls.PlayerControls;
 import com.mygdx.game.InputOutput.Inputs;
 import com.mygdx.game.Levels.Levels;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.function.Consumer;
 
 // Entity Manager Class
 public class EntityManager {
@@ -28,7 +25,7 @@ public class EntityManager {
         this.spawnablesList = new ArrayList<>();
     }
 
-    // Default Initialization of Entities
+    // Default Initialization of Entities (clear all lists then pass in level assets respectively)
     public void initializeEntities(Levels level) {
         entityMap.clear();
         playersList.clear();

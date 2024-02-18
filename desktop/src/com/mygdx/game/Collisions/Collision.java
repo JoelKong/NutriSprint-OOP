@@ -8,7 +8,6 @@ import java.util.Map;
 
 // Collision class for all kinds of collisions
 public class Collision {
-
     // Default Constructor
     public Collision() {}
 

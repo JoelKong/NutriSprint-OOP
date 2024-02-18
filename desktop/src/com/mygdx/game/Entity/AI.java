@@ -1,7 +1,6 @@
 package com.mygdx.game.Entity;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.mygdx.game.Entity.GameEntity;
 
 // NPC Class inherited from GameEntity
 public class AI extends GameEntity {

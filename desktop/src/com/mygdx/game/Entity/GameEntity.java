@@ -41,7 +41,7 @@ public abstract class GameEntity implements Cloneable {
         this.popFromScreen = false;
     }
 
-    // Constructor only accepting texture
+    // Constructor only accepting texture (mainly to randomise positions)
     protected GameEntity(Texture texture) {
         Random random = new Random();
         this.texture = texture;

@@ -14,7 +14,7 @@ public class KeyboardMouse implements Inputs {
     private int menuKey;
     private int pauseKey;
 
-    // Default Constructor
+    // Default Constructor for all key bindings
     protected KeyboardMouse() {
         this.leftKey = Input.Keys.A;
         this.rightKey = Input.Keys.D;

@@ -12,7 +12,7 @@ public class SimulationManager {
     // Default Constructor
     public SimulationManager() {}
 
-    // Start the simulation and listen to requests that needs to be looped
+    // Start the simulation and initialize the first scene
     public void startSimulation(SceneManager sceneManager, EntityManager entityManager, CollisionManager collisionManager, AIControlManager aiControlManager,
                                 InputOutputManager inputOutputManager, PlayerControlManager playerControlManager, LevelManager levelManager) {
 

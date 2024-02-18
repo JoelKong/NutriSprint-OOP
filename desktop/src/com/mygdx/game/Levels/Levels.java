@@ -1,22 +1,26 @@
 package com.mygdx.game.Levels;
 
-// explain in report why only have getters
-
+// Levels class containing the assets for each level object
 public class Levels {
-    public int level;
+    // Declare attributes
+    public int levelNumber;
     public String levelTitle;
     public int numberOfEnemies;
 
+    // Default Constructor
     public Levels() {};
 
-    public int getLevel() {
-        return level;
+    // Get Level Number
+    public int getLevelNumber() {
+        return levelNumber;
     }
 
+    // Get Level Title
     public String getLevelTitle() {
         return levelTitle;
     }
 
+    // Get Number of Enemies
     public int getNumberOfEnemies() {
         return numberOfEnemies;
     }
