@@ -5,7 +5,6 @@ import com.mygdx.game.Entity.AIControlManager;
 import com.mygdx.game.Entity.EntityManager;
 import com.mygdx.game.InputOutput.InputOutputManager;
 import com.mygdx.game.Levels.LevelManager;
-
 import java.util.HashMap;
 import java.util.Map;
 
@@ -15,14 +14,13 @@ public class SceneManager {
     private Map<String, Scenes> sceneMap;
     private String currentScene;
 
-
     // Store all scenes in a hashmap on initialisation and initialise current scene to start scene
     public SceneManager() {
         this.sceneMap = new HashMap<>();
         sceneMap.put("start", new StartScene());
         sceneMap.put("game", new GameScene());
         sceneMap.put("end", new EndScene());
-        this.currentScene = sceneMap.get("start").getSceneName();
+        this.currentScene = "start";
     }
 
     // Load a scene starting with the start scene
@@ -38,16 +36,6 @@ public class SceneManager {
 
     }
 
-    // Get Current Scene
-    public String getCurrentScene() {
-        return currentScene;
-    }
-
-    // Set Current Scene
-    public void setCurrentScene(String scene) {
-        this.currentScene = scene;
-    }
-
     // Get Scene Map
     public Map<String, Scenes> getSceneMap() {
         return sceneMap;
@@ -56,5 +44,15 @@ public class SceneManager {
     // Set Scene Map
     public void setSceneMap(Map<String, Scenes> sceneMap) {
         this.sceneMap = sceneMap;
+    }
+
+    // Get Current Scene
+    public String getCurrentScene() {
+        return currentScene;
+    }
+
+    // Set Current Scene
+    public void setCurrentScene(String scene) {
+        this.currentScene = scene;
     }
 }
