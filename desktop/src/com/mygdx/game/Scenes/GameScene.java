@@ -29,7 +29,8 @@ public class GameScene extends Scenes {
         this.pauseState = false;
     }
 
-    public boolean victoryCondition(Map<String, List<GameEntity>> entityMap) {
+    // Generic function to check completion of level FOR NOW since no game specifics yet
+    public boolean levelCleared(Map<String, List<GameEntity>> entityMap) {
         for (GameEntity aiEntity: entityMap.get("spawnables")) {
             AI ai = (AI) aiEntity;
             if (!ai.getPopFromScreen()) {
@@ -72,8 +73,8 @@ public class GameScene extends Scenes {
             collisionManager.initializeCollisions(entityManager.getEntityMap());
         }
 
-        // Advance to next level or end condition
-        if (victoryCondition(entityManager.getEntityMap())) {
+        // Advance to next level or end game
+        if (levelCleared(entityManager.getEntityMap())) {
             if (levelManager.doesNextLevelExist()) {
                 levelManager.setLevelNumber(levelManager.getLevelNumber() + 1);
                 this.levelAssets = levelManager.retrieveCurrentLevelAssets();

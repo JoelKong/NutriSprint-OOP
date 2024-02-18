@@ -16,6 +16,7 @@ public class LevelManager {
         this.levelsList = json.fromJson(List.class, Levels.class, Gdx.files.internal("levels.json"));
     }
 
+    // Check next level exists if not
     public Levels retrieveCurrentLevelAssets() {
         for (Levels level: levelsList) {
             if (level.levelNumber == levelNumber) {
@@ -25,6 +26,7 @@ public class LevelManager {
         return null;
     }
 
+    // Check if next level exists
     public boolean doesNextLevelExist() {
         for (Levels level: levelsList) {
             if (level.levelNumber == levelNumber + 1) {
