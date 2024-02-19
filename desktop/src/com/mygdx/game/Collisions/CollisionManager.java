@@ -1,6 +1,4 @@
 package com.mygdx.game.Collisions;
-import com.badlogic.gdx.Game;
-import com.mygdx.game.Entity.AI;
 import com.mygdx.game.Entity.GameEntity;
 import com.mygdx.game.Entity.Player;
 
@@ -17,19 +15,17 @@ public class CollisionManager {
         this.collision = new Collision();
     }
 
-    public void initializeCollisions(Map<String, List<GameEntity>> entityMap) {
-        List<GameEntity> PlayerList = entityMap.get("player");  // List of player entities
-        List<GameEntity> AIList = entityMap.get("spawnables");  // List of AI entities
-        GameEntity player = PlayerList.get(0);
+    // Initialize all forms of collisions
+    public void initializeCollisions(List<GameEntity> aiEntityList, List<GameEntity> playerEntityList) {
+        // Prevents players from leaving game window.
+        for (GameEntity player: playerEntityList) { collision.gameWindowCollision(player); }
 
-        // Prevents player from leaving game window.
-        collision.GameWindowCollision(player);
-
-        // Loops through the AI list and checks for collisions between the player.
-        for (GameEntity aiEntity : AIList) {
-            if (collision.CollisionDetected(player, aiEntity))
-            {
-                aiEntity.setPopFromScreen(true);    // pops the AI entity if there is a collision
+        // Loops through both lists and checks for collisions between the player and other entities.
+        for (GameEntity player : playerEntityList) {
+            for (GameEntity ai : aiEntityList) {
+                if (collision.collisionDetected(player, ai)) {
+                    ai.setPopFromScreen(true);
+                }
             }
         }
     }
