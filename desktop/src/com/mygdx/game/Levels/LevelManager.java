@@ -1,7 +1,11 @@
 package com.mygdx.game.Levels;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.utils.Json;
+import com.mygdx.game.Entity.AI;
+import com.mygdx.game.Entity.GameEntity;
+
 import java.util.List;
+import java.util.Map;
 
 // Level Manager Class
 public class LevelManager {
@@ -35,7 +39,6 @@ public class LevelManager {
         }
         return false;
     }
-
 
     // Get Level Number
     public int getLevelNumber() {
