@@ -9,13 +9,9 @@ import com.mygdx.game.Levels.LevelManager;
 
 // End scene class inherited from scenes
 public class EndScene extends Scenes {
-    // Declare Attributes
-    private SpriteBatch batch;
-
     // Parameterized Constructor specifying details of end scene
     public EndScene() {
         super(3, "end");
-        this.batch = new SpriteBatch();
     }
 
     // Render end scene

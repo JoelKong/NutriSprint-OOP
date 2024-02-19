@@ -1,5 +1,6 @@
 package com.mygdx.game;
 import com.badlogic.gdx.ApplicationAdapter;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.mygdx.game.Collisions.CollisionManager;
 import com.mygdx.game.Controls.PlayerControlManager;
 import com.mygdx.game.Entity.AIControlManager;
@@ -20,10 +21,11 @@ public class Main extends ApplicationAdapter {
     private AIControlManager aiControlManager;
     private CollisionManager collisionManager;
     private LevelManager levelManager;
+    private SpriteBatch batch;
 
     @Override
     public void create() {
-        // Creation of managers
+        // Creation of managers and batch
         simulationManager = new SimulationManager();
         sceneManager = new SceneManager();
         inputOutputManager = new InputOutputManager();
@@ -32,12 +34,14 @@ public class Main extends ApplicationAdapter {
         collisionManager = new CollisionManager();
         entityManager = new EntityManager();
         levelManager = new LevelManager();
+        batch = new SpriteBatch();
     }
 
     @Override
     public void render() {
         // Call Simulation manager to start simulation and initialise scenes
         simulationManager.startSimulation(sceneManager, entityManager, collisionManager, aiControlManager, inputOutputManager, playerControlManager, levelManager);
+        simulationManager.drawAll
     }
 
 

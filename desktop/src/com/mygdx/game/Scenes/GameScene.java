@@ -18,15 +18,11 @@ import java.util.Map;
 // GameScene class inherited from scenes
 public class GameScene extends Scenes {
     // Declare attributes
-    private SpriteBatch batch;
-    private boolean pauseState;
-    private Levels levelAssets;
+    private Levels sceneLevelAssets;
 
     // Parameterized constructor to initialise details of game scene
     public GameScene() {
         super(2, "game");
-        this.batch = new SpriteBatch();
-        this.pauseState = false;
     }
 
     // Generic function to check completion of level FOR NOW since no game specifics yet
@@ -61,7 +57,7 @@ public class GameScene extends Scenes {
         batch.begin();
             entityManager.drawEntities(batch);
         batch.end();
-drawSceneObjects
+
         // Pause and Resume Game
         if (preferredControls.getPauseKey()) {
             pauseState = !pauseState;

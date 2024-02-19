@@ -1,4 +1,5 @@
 package com.mygdx.game.Simulation;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.mygdx.game.Entity.AIControlManager;
 import com.mygdx.game.Collisions.CollisionManager;
 import com.mygdx.game.Controls.PlayerControlManager;
@@ -17,6 +18,10 @@ public class SimulationManager {
                                 InputOutputManager inputOutputManager, PlayerControlManager playerControlManager, LevelManager levelManager) {
 
         sceneManager.initializeScenes(entityManager, collisionManager, aiControlManager, inputOutputManager, playerControlManager, levelManager);
+    }
+
+    public void startDrawingSceneObjects(SceneManager sceneManager, SpriteBatch batch, EntityManager entityManager, LevelManager levelManager) {
+        sceneManager.drawSceneObjects(batch, entityManager, levelManager);
     }
 
     // Ends the simulation and disposes everything used

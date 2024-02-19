@@ -1,7 +1,6 @@
 package com.mygdx.game.Scenes;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.mygdx.game.Entity.EntityManager;
 import com.mygdx.game.InputOutput.InputOutputManager;
 import com.mygdx.game.InputOutput.Inputs;
@@ -9,13 +8,9 @@ import com.mygdx.game.Levels.LevelManager;
 
 // Start Scene class inherited from Scenes
 public class StartScene extends Scenes {
-    // Declare Attributes
-    private SpriteBatch batch;
-
     // Parameterized Constructor setting start scene details
     public StartScene() {
         super(1, "start");
-        this.batch = new SpriteBatch();
     }
 
     // Render Start Scene

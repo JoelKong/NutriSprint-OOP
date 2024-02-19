@@ -16,22 +16,19 @@ public abstract class Scenes {
     // Declare variables
     private int sceneId;
     private String sceneName;
-    private BitmapFont font;
-    private SpriteBatch batch;
+    private BitmapFont font; // Will be in UIManager if we choose to create it in part 2
 
     // Parameterized constructor to specify details of scenes
     public Scenes(int sceneId, String sceneName) {
         this.sceneId = sceneId;
         this.sceneName = sceneName;
-        this.font = new BitmapFont();
-        this.batch = new SpriteBatch();
+        this.font = new BitmapFont(); // Will be in UIManager if we choose to create it in part 2
     }
 
     // Render text at specified position
-    protected void renderTextAtPosition(SpriteBatch batch, String text, String position) {
+    protected void renderTextAtScenePosition(SpriteBatch batch, String text, String position) {
         float x = 0;
         float y = 0;
-        if (batch == null || font == null) return;
 
         GlyphLayout layout = new GlyphLayout(font, text);
 
@@ -52,22 +49,13 @@ public abstract class Scenes {
                 return;
         }
 
-        batch.begin();
             font.draw(batch, layout, x, y);
-        batch.end();
     }
 
     // Dispose scenes
-    public void dispose() {
-        // Dispose of the SpriteBatch if it's not needed anymore
-        if (batch != null) {
+    public void dispose(SpriteBatch batch) {
             batch.dispose();
-        }
-
-        // Dispose of the BitmapFont
-        if (font != null) {
-            font.dispose();
-        }
+            font.dispose(); // will be migrated to UIManager in the future
     }
 
     // Render overload (GameScene)
