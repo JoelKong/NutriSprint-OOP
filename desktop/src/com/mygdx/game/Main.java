@@ -40,14 +40,13 @@ public class Main extends ApplicationAdapter {
     @Override
     public void render() {
         // Call Simulation manager to start simulation and initialise scenes
-        simulationManager.startSimulation(sceneManager, entityManager, collisionManager, aiControlManager, inputOutputManager, playerControlManager, levelManager);
-        simulationManager.drawAll
+        simulationManager.startSimulation(batch, sceneManager, entityManager, collisionManager, aiControlManager, inputOutputManager, playerControlManager, levelManager);
     }
 
 
     @Override
     public void dispose() {
         // End Simulation
-        simulationManager.endSimulation(entityManager, sceneManager);
+        simulationManager.endSimulation(batch, entityManager, sceneManager);
     }
 }

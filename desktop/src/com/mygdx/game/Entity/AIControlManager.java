@@ -1,6 +1,5 @@
 package com.mygdx.game.Entity;
 import java.util.List;
-import java.util.Map;
 
 // AI Control Manager Class
 public class AIControlManager {
@@ -8,8 +7,9 @@ public class AIControlManager {
     public AIControlManager() {}
 
     // Initialise AI Behavior
-    public void initializeAIBehavior (List<AI> AIList) {
-        for (AI ai: AIList) {
+    public void initializeAIBehavior (List<GameEntity> AIList) {
+        for (GameEntity entity: AIList) {
+            AI ai = (AI) entity;
             ai.behavior();
         }
     }

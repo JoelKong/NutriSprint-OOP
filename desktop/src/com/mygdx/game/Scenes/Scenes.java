@@ -7,7 +7,9 @@ import com.mygdx.game.Collisions.CollisionManager;
 import com.mygdx.game.Entity.PlayerControlManager;
 import com.mygdx.game.Entity.AIControlManager;
 import com.mygdx.game.Entity.EntityManager;
+import com.mygdx.game.Entity.PlayerControls;
 import com.mygdx.game.InputOutput.InputOutputManager;
+import com.mygdx.game.InputOutput.Inputs;
 import com.mygdx.game.Levels.LevelManager;
 
 
@@ -60,10 +62,10 @@ public abstract class Scenes {
 
     // Render overload (GameScene)
     public void render(SceneManager sceneManager, SpriteBatch batch, EntityManager entityManager, CollisionManager collisionManager, AIControlManager aiControlManager,
-                                InputOutputManager inputOutputManager, PlayerControlManager playerControlManager, LevelManager levelManager) {};
+                       Inputs preferredControls, PlayerControls playerControls, LevelManager levelManager) {};
 
     // Render overload (Start and End Scene)
-    public void render(SceneManager sceneManager, SpriteBatch batch, EntityManager entityManager, InputOutputManager inputOutputManager, LevelManager levelManager) {};
+    public void render(SceneManager sceneManager, SpriteBatch batch, EntityManager entityManager, Inputs preferredControls, LevelManager levelManager) {};
 
     // Get Scene ID
     public int getSceneId() {

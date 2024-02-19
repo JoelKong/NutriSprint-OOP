@@ -17,7 +17,7 @@ public class LevelManager {
     }
 
     // Retrieve level assets
-    public Levels retrieveLevelAssets(int levelNumber) {
+    public Levels retrieveLevelAssets() {
         for (Levels level: levelsList) {
             if (level.getLevelNumber() == levelNumber) {
                 return level;
@@ -25,6 +25,17 @@ public class LevelManager {
         }
         return null;
     }
+
+    // Check if next level exists
+    public boolean nextLevelExists() {
+        for (Levels level: levelsList) {
+            if (level.getLevelNumber() == levelNumber + 1) {
+                return true;
+            }
+        }
+        return false;
+    }
+
 
     // Get Level Number
     public int getLevelNumber() {

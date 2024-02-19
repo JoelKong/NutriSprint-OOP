@@ -16,12 +16,10 @@ public class StartScene extends Scenes {
 
     // Render Start Scene
     @Override
-    public void render(SceneManager sceneManager, SpriteBatch batch, EntityManager entityManager, InputOutputManager inputOutputManager, LevelManager levelManager) {
-        Inputs preferredControls = inputOutputManager.getPreferredControls(); // Get preferred controls
-
+    public void render(SceneManager sceneManager, SpriteBatch batch, EntityManager entityManager, Inputs preferredControls, LevelManager levelManager) {
         // Upon starting, reset all entities raw data and change scene
         if (preferredControls.getStartKey()) {
-            entityManager.initializeEntities(levelManager.retrieveLevelAssets(levelManager.getLevelNumber()));
+            entityManager.initializeEntities(levelManager.retrieveLevelAssets());
             sceneManager.setCurrentScene("game");
         }
 

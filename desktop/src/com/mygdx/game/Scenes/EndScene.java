@@ -16,13 +16,11 @@ public class EndScene extends Scenes {
 
     // Render end scene
     @Override
-    public void render(SceneManager sceneManager, SpriteBatch batch, EntityManager entityManager, InputOutputManager inputOutputManager, LevelManager levelManager) {
-        Inputs preferredControls = inputOutputManager.getPreferredControls(); // Get preferred controls
-
+    public void render(SceneManager sceneManager, SpriteBatch batch, EntityManager entityManager, Inputs preferredControls, LevelManager levelManager) {
         // Upon restarting reset level to 1 and reinitialise entity raw data
         if (preferredControls.getRestartKey()) {
             levelManager.setLevelNumber(1);
-            entityManager.initializeEntities(levelManager.retrieveLevelAssets(levelManager.getLevelNumber()));
+            entityManager.initializeEntities(levelManager.retrieveLevelAssets());
             sceneManager.setCurrentScene("game");
 
         // Upon going back menu, reset level to 1

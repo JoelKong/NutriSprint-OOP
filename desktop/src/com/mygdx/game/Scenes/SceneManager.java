@@ -4,7 +4,9 @@ import com.mygdx.game.Collisions.CollisionManager;
 import com.mygdx.game.Entity.PlayerControlManager;
 import com.mygdx.game.Entity.AIControlManager;
 import com.mygdx.game.Entity.EntityManager;
+import com.mygdx.game.Entity.PlayerControls;
 import com.mygdx.game.InputOutput.InputOutputManager;
+import com.mygdx.game.InputOutput.Inputs;
 import com.mygdx.game.Levels.LevelManager;
 import com.mygdx.game.Levels.Levels;
 
@@ -29,13 +31,13 @@ public class SceneManager {
 
     // Load a scene starting with the start scene
     public void initializeScenes(SpriteBatch batch, EntityManager entityManager, CollisionManager collisionManager, AIControlManager aiControlManager,
-                                 InputOutputManager inputOutputManager, PlayerControlManager playerControlManager, LevelManager levelManager) {
+                                 Inputs preferredControls, PlayerControls playerControls, LevelManager levelManager) {
 
         Scenes scene = sceneMap.get(currentScene);
         if (scene instanceof StartScene || scene instanceof EndScene) {
-            scene.render(this, batch, entityManager, inputOutputManager, levelManager);
+            scene.render(this, batch, entityManager, preferredControls, levelManager);
         } else {
-            scene.render(this, batch, entityManager, collisionManager, aiControlManager, inputOutputManager, playerControlManager, levelManager);
+            scene.render(this, batch, entityManager, collisionManager, aiControlManager, preferredControls, playerControls, levelManager);
         }
     }
 
@@ -63,5 +65,15 @@ public class SceneManager {
     // Set Current Scene
     public void setCurrentScene(String scene) {
         this.currentScene = scene;
+    }
+
+    // Get Pause Scene State
+    public boolean getPauseSceneState() {
+        return pauseSceneState;
+    }
+
+    // Set Pause Scene State
+    public void setPauseSceneState(boolean pauseSceneState) {
+        this.pauseSceneState = pauseSceneState;
     }
 }

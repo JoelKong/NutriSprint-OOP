@@ -1,5 +1,6 @@
 package com.mygdx.game.Entity;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.mygdx.game.InputOutput.Inputs;
 import com.mygdx.game.Levels.Levels;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -43,6 +44,14 @@ public class EntityManager {
                     entity.updateEntityHitbox();
                 }
             }
+        }
+    }
+
+    // Initialising of entity movement
+    public void initialiseEntityMovement(Inputs commandInput, PlayerControls playerControls) {
+        for (GameEntity entity: playerEntityList) {
+            Player player = (Player) entity;
+            player.playerMovement(commandInput, playerControls);
         }
     }
 

@@ -12,13 +12,6 @@ public class PlayerControlManager {
         this.playerControls = new PlayerControls();
     }
 
-    // Initialising of player controls
-    public void initialisePlayerControls(Inputs commandInput, List<Player> playerList) {
-        for (Player player: playerList) {
-            player.playerMovement(commandInput, playerControls);
-        }
-    }
-
     // Get Player Controls
     public PlayerControls getPlayerControls() {
         return playerControls;
