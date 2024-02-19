@@ -11,18 +11,12 @@ public class Collision {
     // Default Constructor
     protected Collision() {}
 
-    // Collision of Player with AI
-    protected void collidePlayerAI(Map<String,List<GameEntity>> entityMap) {
-        for (GameEntity playerEntity: entityMap.get("player")) {
-            Player player = (Player) playerEntity;
-            for (GameEntity aiEntity: entityMap.get("spawnables")) {
-                AI ai = (AI) aiEntity;
-                if (player.getHitbox().overlaps(ai.getHitbox())) {
-                    ai.setPopFromScreen(true);
-                }
-            }
-        }
-    };
+    // Detects collisions between 2 GameEntities
+    public boolean CollisionDetected(GameEntity A, GameEntity B) {
+        if (A.getHitbox().overlaps(B.getHitbox())) {
+            return true;
+        } else return false;
+    }
 
     // Collision of Player with the Game Window
     protected void collidePlayerGameWindow(Map<String,List<GameEntity>> entityMap) {

@@ -1,5 +1,9 @@
 package com.mygdx.game.Collisions;
+import com.badlogic.gdx.Game;
+import com.mygdx.game.Entity.AI;
 import com.mygdx.game.Entity.GameEntity;
+import com.mygdx.game.Entity.Player;
+
 import java.util.List;
 import java.util.Map;
 
@@ -15,7 +19,18 @@ public class CollisionManager {
 
     // Initialize all types of collision checks
     public void initializeCollisions(Map<String, List<GameEntity>> entityMap) {
-        collision.collidePlayerAI(entityMap);
+        List<GameEntity> PlayerList = entityMap.get("player");  // List of player entities
+        List<GameEntity> AIList = entityMap.get("spawnables");
+        GameEntity player = PlayerList.get(0);
+
+        for (GameEntity aiEntity : AIList) {
+            if (collision.CollisionDetected(player, aiEntity))
+            {
+                aiEntity.setPopFromScreen(true);
+            }
+        }
+
+        //collision.collidePlayerAI(entityMap);
         collision.collidePlayerGameWindow(entityMap);
     }
 }
