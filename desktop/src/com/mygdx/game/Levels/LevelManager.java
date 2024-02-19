@@ -40,6 +40,17 @@ public class LevelManager {
         return false;
     }
 
+    // Generic function to check completion of level
+    public boolean levelCleared(Map<String, List<GameEntity>> entityMap) {
+        for (GameEntity aiEntity: entityMap.get("ai")) {
+            AI ai = (AI) aiEntity;
+            if (!ai.getPopFromScreen()) {
+                return false;
+            }
+        }
+        return true;
+    }
+
     // Get Level Number
     public int getLevelNumber() {
         return levelNumber;

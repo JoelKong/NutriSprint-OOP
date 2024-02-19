@@ -3,15 +3,11 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.mygdx.game.Collisions.CollisionManager;
 import com.mygdx.game.Entity.PlayerControls;
-import com.mygdx.game.Entity.AI;
 import com.mygdx.game.Entity.AIControlManager;
 import com.mygdx.game.Entity.EntityManager;
-import com.mygdx.game.Entity.GameEntity;
 import com.mygdx.game.InputOutput.Inputs;
 import com.mygdx.game.Levels.LevelManager;
 import com.mygdx.game.Levels.Levels;
-import java.util.List;
-import java.util.Map;
 
 // GameScene class inherited from scenes
 public class GameScene extends Scenes {
@@ -21,17 +17,6 @@ public class GameScene extends Scenes {
     // Parameterized constructor to initialise details of game scene
     public GameScene() {
         super(2, "game");
-    }
-
-    // Generic function to check completion of level FOR NOW since no game specifics yet
-    public boolean levelCleared(Map<String, List<GameEntity>> entityMap) {
-        for (GameEntity aiEntity: entityMap.get("ai")) {
-            AI ai = (AI) aiEntity;
-            if (!ai.getPopFromScreen()) {
-                return false;
-            }
-        }
-        return true;
     }
 
     // Render game scene
@@ -65,7 +50,7 @@ public class GameScene extends Scenes {
         }
 
         // Advance to next level or end game
-        if (levelCleared(entityManager.getEntityMap())) {
+        if (levelManager.levelCleared(entityManager.getEntityMap())) {
             if (levelManager.nextLevelExists()) {
                 levelManager.setLevelNumber(levelManager.getLevelNumber() + 1);
                 this.sceneLevelAssets = levelManager.retrieveLevelAssets();
