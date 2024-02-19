@@ -4,7 +4,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.GlyphLayout;
 import com.badlogic.gdx.Gdx;
 import com.mygdx.game.Collisions.CollisionManager;
-import com.mygdx.game.Controls.PlayerControlManager;
+import com.mygdx.game.Entity.PlayerControlManager;
 import com.mygdx.game.Entity.AIControlManager;
 import com.mygdx.game.Entity.EntityManager;
 import com.mygdx.game.InputOutput.InputOutputManager;
@@ -59,11 +59,11 @@ public abstract class Scenes {
     }
 
     // Render overload (GameScene)
-    public void render(SceneManager sceneManager, EntityManager entityManager, CollisionManager collisionManager, AIControlManager aiControlManager,
+    public void render(SceneManager sceneManager, SpriteBatch batch, EntityManager entityManager, CollisionManager collisionManager, AIControlManager aiControlManager,
                                 InputOutputManager inputOutputManager, PlayerControlManager playerControlManager, LevelManager levelManager) {};
 
     // Render overload (Start and End Scene)
-    public void render(SceneManager sceneManager, EntityManager entityManager, InputOutputManager inputOutputManager, LevelManager levelManager) {};
+    public void render(SceneManager sceneManager, SpriteBatch batch, EntityManager entityManager, InputOutputManager inputOutputManager, LevelManager levelManager) {};
 
     // Get Scene ID
     public int getSceneId() {

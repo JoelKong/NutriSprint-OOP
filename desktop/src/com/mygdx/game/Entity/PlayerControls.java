@@ -1,4 +1,4 @@
-package com.mygdx.game.Controls;
+package com.mygdx.game.Entity;
 import com.badlogic.gdx.Gdx;
 import com.mygdx.game.Entity.Player;
 
@@ -9,25 +9,25 @@ public class PlayerControls {
     protected PlayerControls() {}
 
     // Move Up Command
-    public void moveUp(Player player) {
+    protected void moveUp(Player player) {
         float moveAmount = player.getSpeed() * Gdx.graphics.getDeltaTime();
         player.setPosY(player.getPosY() + moveAmount);
     }
 
     // Move Down Command
-    public void moveDown(Player player) {
+    protected void moveDown(Player player) {
         float moveAmount = player.getSpeed() * Gdx.graphics.getDeltaTime();
         player.setPosY(player.getPosY() - moveAmount);
     }
 
     // Move Left Command
-    public void moveLeft(Player player) {
+    protected void moveLeft(Player player) {
         float moveAmount = player.getSpeed() * Gdx.graphics.getDeltaTime();
         player.setPosX(player.getPosX() - moveAmount);
     }
 
     // Move Right Command
-    public void moveRight(Player player) {
+    protected void moveRight(Player player) {
         float moveAmount = player.getSpeed() * Gdx.graphics.getDeltaTime();
         player.setPosX(player.getPosX() + moveAmount);
     }

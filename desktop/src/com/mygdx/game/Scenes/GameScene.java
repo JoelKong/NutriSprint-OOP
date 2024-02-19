@@ -2,8 +2,8 @@ package com.mygdx.game.Scenes;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.mygdx.game.Collisions.CollisionManager;
-import com.mygdx.game.Controls.PlayerControlManager;
-import com.mygdx.game.Controls.PlayerControls;
+import com.mygdx.game.Entity.PlayerControlManager;
+import com.mygdx.game.Entity.PlayerControls;
 import com.mygdx.game.Entity.AI;
 import com.mygdx.game.Entity.AIControlManager;
 import com.mygdx.game.Entity.EntityManager;
@@ -38,9 +38,8 @@ public class GameScene extends Scenes {
 
     // Render game scene
     @Override
-    public void render(SceneManager sceneManager, EntityManager entityManager, CollisionManager collisionManager, AIControlManager aiControlManager,
+    public void render(SceneManager sceneManager, SpriteBatch batch, EntityManager entityManager, CollisionManager collisionManager, AIControlManager aiControlManager,
                        InputOutputManager inputOutputManager, PlayerControlManager playerControlManager, LevelManager levelManager) {
-
         // Get user device and controls
         Inputs preferredControls = inputOutputManager.getPreferredControls();
         PlayerControls playerControls = playerControlManager.getPlayerControls();
@@ -48,14 +47,14 @@ public class GameScene extends Scenes {
         // Clear the screen
         ScreenUtils.clear(0, 0, 0.2f, 1);
 
-        // Retrieve current level assets and render text
-        this.levelAssets = levelManager.retrieveCurrentLevelAssets();
-        renderTextAtPosition(batch, this.levelAssets.getLevelTitle(), "topleft");
-        renderTextAtPosition(batch, "Press P to pause", "top");
+        // Retrieve current level assets
+        this.sceneLevelAssets = levelManager.retrieveLevelAssets(levelManager.getLevelNumber());
 
-        // Draw entities
+        // Draw entities and render text
         batch.begin();
             entityManager.drawEntities(batch);
+            renderTextAtScenePosition(batch, this.sceneLevelAssets.getLevelTitle(), "topleft");
+            renderTextAtScenePosition(batch, "Press P to pause", "top");
         batch.end();
 
         // Pause and Resume Game
@@ -65,6 +64,7 @@ public class GameScene extends Scenes {
 
         // If not paused, initialise all forms of behavior and movement
         if (!pauseState) {
+            playerControlManager.initialisePlayerControls();
             entityManager.initializePlayerMovement(preferredControls, playerControls);
             aiControlManager.initializeAIBehavior(entityManager.getEntityMap());
             collisionManager.initializeCollisions(entityManager.getEntityMap());

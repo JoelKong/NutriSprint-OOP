@@ -1,5 +1,4 @@
-package com.mygdx.game.Controls;
-import com.mygdx.game.Entity.Player;
+package com.mygdx.game.Entity;
 import com.mygdx.game.InputOutput.Inputs;
 import java.util.List;
 

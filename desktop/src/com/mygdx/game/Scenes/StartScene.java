@@ -1,6 +1,7 @@
 package com.mygdx.game.Scenes;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.mygdx.game.Entity.EntityManager;
 import com.mygdx.game.InputOutput.InputOutputManager;
 import com.mygdx.game.InputOutput.Inputs;
@@ -15,17 +16,20 @@ public class StartScene extends Scenes {
 
     // Render Start Scene
     @Override
-    public void render(SceneManager sceneManager, EntityManager entityManager, InputOutputManager inputOutputManager, LevelManager levelManager) {
+    public void render(SceneManager sceneManager, SpriteBatch batch, EntityManager entityManager, InputOutputManager inputOutputManager, LevelManager levelManager) {
         Inputs preferredControls = inputOutputManager.getPreferredControls(); // Get preferred controls
 
         // Upon starting, reset all entities raw data and change scene
         if (preferredControls.getStartKey()) {
-            entityManager.initializeEntities(levelManager.retrieveCurrentLevelAssets());
+            entityManager.initializeEntities(levelManager.retrieveLevelAssets(levelManager.getLevelNumber()));
             sceneManager.setCurrentScene("game");
         }
 
         Gdx.gl.glClearColor(0, 1, 0, 1); // setting clear color to green
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT); // clear screen
-        renderTextAtPosition(batch, "Press 'Enter' to start.", "center");
+
+        batch.begin();
+            renderTextAtScenePosition(batch, "Press 'Enter' to start.", "center");
+        batch.end();
     }
 }

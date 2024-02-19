@@ -16,13 +16,13 @@ public class EndScene extends Scenes {
 
     // Render end scene
     @Override
-    public void render(SceneManager sceneManager, EntityManager entityManager, InputOutputManager inputOutputManager, LevelManager levelManager) {
+    public void render(SceneManager sceneManager, SpriteBatch batch, EntityManager entityManager, InputOutputManager inputOutputManager, LevelManager levelManager) {
         Inputs preferredControls = inputOutputManager.getPreferredControls(); // Get preferred controls
 
         // Upon restarting reset level to 1 and reinitialise entity raw data
         if (preferredControls.getRestartKey()) {
             levelManager.setLevelNumber(1);
-            entityManager.initializeEntities(levelManager.retrieveCurrentLevelAssets());
+            entityManager.initializeEntities(levelManager.retrieveLevelAssets(levelManager.getLevelNumber()));
             sceneManager.setCurrentScene("game");
 
         // Upon going back menu, reset level to 1
@@ -31,9 +31,11 @@ public class EndScene extends Scenes {
             sceneManager.setCurrentScene("start");
         }
 
-        Gdx.gl.glClearColor(1, 0, 0, 1); // setting clear color to green
+        Gdx.gl.glClearColor(1, 0, 0, 1); // setting clear color to red
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT); // clear screen
 
-        renderTextAtPosition(batch, "Game ended, press 'R' to restart or 'M' to return to Main Menu", "center");
+        batch.begin();
+            renderTextAtScenePosition(batch, "Game ended, press 'R' to restart or 'M' to return to Main Menu", "center");
+        batch.end();
     }
 }

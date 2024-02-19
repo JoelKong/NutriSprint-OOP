@@ -1,7 +1,7 @@
 package com.mygdx.game.Scenes;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.mygdx.game.Collisions.CollisionManager;
-import com.mygdx.game.Controls.PlayerControlManager;
+import com.mygdx.game.Entity.PlayerControlManager;
 import com.mygdx.game.Entity.AIControlManager;
 import com.mygdx.game.Entity.EntityManager;
 import com.mygdx.game.InputOutput.InputOutputManager;
@@ -27,47 +27,22 @@ public class SceneManager {
         this.currentScene = "start";
     }
 
-    public void drawSceneObjects(SpriteBatch batch, EntityManager entityManager, Levels levelAssets) {
-        batch.begin();
-            // Start Scene
-            if (currentScene == "start") {
-                scene.renderTextAtScenePosition(batch, "Press 'Enter' to start.", "center");
-            }
+    // Load a scene starting with the start scene
+    public void initializeScenes(SpriteBatch batch, EntityManager entityManager, CollisionManager collisionManager, AIControlManager aiControlManager,
+                                 InputOutputManager inputOutputManager, PlayerControlManager playerControlManager, LevelManager levelManager) {
 
-            // Game Scene
-            if (scene instanceof GameScene) {
-                // Draw Entities
-                entityManager.drawEntities(batch);
-
-                // Render game text
-                scene.renderTextAtScenePosition(batch, levelAssets.getLevelTitle(), "topleft");
-                scene.renderTextAtScenePosition(batch, "Press P to pause", "top");
-            }
-
-            // End Scene
-            if (scene instanceof EndScene) {
-                scene.renderTextAtScenePosition(batch,"Game ended, press 'R' to restart or 'M' to return to Main Menu", "center");
-            }
-        batch.end();
+        Scenes scene = sceneMap.get(currentScene);
+        if (scene instanceof StartScene || scene instanceof EndScene) {
+            scene.render(this, batch, entityManager, inputOutputManager, levelManager);
+        } else {
+            scene.render(this, batch, entityManager, collisionManager, aiControlManager, inputOutputManager, playerControlManager, levelManager);
+        }
     }
 
     public void disposeScenes(SpriteBatch batch) {
         for (Scenes scene: sceneMap.values()) {
             scene.dispose(batch);
         }
-    }
-
-    // Load a scene starting with the start scene
-    public void initializeScenes(EntityManager entityManager, CollisionManager collisionManager, AIControlManager aiControlManager,
-                                InputOutputManager inputOutputManager, PlayerControlManager playerControlManager, LevelManager levelManager) {
-
-        Scenes scene = sceneMap.get(currentScene);
-        if (scene instanceof StartScene || scene instanceof EndScene) {
-            scene.render(this, entityManager, inputOutputManager, levelManager);
-        } else {
-            scene.render(this, entityManager, collisionManager, aiControlManager, inputOutputManager, playerControlManager, levelManager);
-        }
-
     }
 
     // Get Scene Map

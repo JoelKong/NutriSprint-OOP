@@ -1,7 +1,6 @@
 package com.mygdx.game.Entity;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.mygdx.game.Controls.PlayerControls;
 import com.mygdx.game.InputOutput.Inputs;
 
 // Player class inherited from GameEntity
@@ -28,7 +27,7 @@ public class Player extends GameEntity {
     }
 
     // Movement of Player
-    public void playerMovement(Inputs preferredInput, PlayerControls playerControl) {
+    protected void playerMovement(Inputs preferredInput, PlayerControls playerControl) {
         if (preferredInput.getUpKey()) {
             playerControl.moveUp(this);
         }
