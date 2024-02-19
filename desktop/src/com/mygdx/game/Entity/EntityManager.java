@@ -1,8 +1,5 @@
 package com.mygdx.game.Entity;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.math.Rectangle;
-import com.mygdx.game.Controls.PlayerControls;
-import com.mygdx.game.InputOutput.Inputs;
 import com.mygdx.game.Levels.Levels;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -13,32 +10,28 @@ import java.util.Map;
 public class EntityManager {
     // Declare Maps and Lists of entities
     private Map<String, List<GameEntity>> entityMap;
-    private List<Rectangle> spawnableHitboxList;
-    private List<GameEntity> spawnablesList;
-    private List<GameEntity> playersList;
+    private List<GameEntity> AIEntityList;
+    private List<GameEntity> playerEntityList;
 
     // Default Constructor class to initialise entities
     public EntityManager() {
         this.entityMap = new HashMap<>();
-        this.spawnableHitboxList = new ArrayList<>();
-        this.playersList = new ArrayList<>();
-        this.spawnablesList = new ArrayList<>();
+        this.playerEntityList = new ArrayList<>();
+        this.AIEntityList = new ArrayList<>();
     }
 
     // Default Initialization of Entities (clear all lists then pass in level assets respectively)
     public void initializeEntities(Levels level) {
         entityMap.clear();
-        playersList.clear();
-        spawnablesList.clear();
-        spawnableHitboxList.clear();
-        playersList.add(new Player());
-        entityMap.put("player", playersList);
-        entityMap.put("spawnables", spawnablesList);
-        try {
-            randomSpawnablesPosition(level.numberOfEnemies, new AI());
-        } catch (CloneNotSupportedException e) {
-            throw new RuntimeException(e);
+        playerEntityList.clear();
+        AIEntityList.clear();
+
+        playerEntityList.add(new Player());
+        for (int i = 0; i < level.numberOfEnemies; i++) {
+            AIEntityList.add(new AI());
         }
+        entityMap.put("player", playerEntityList);
+        entityMap.put("ai", AIEntityList);
     }
 
     // Drawing of Entities
@@ -47,10 +40,7 @@ public class EntityManager {
             for (GameEntity entity: entities) {
                 if (!entity.getPopFromScreen()) {
                     entity.draw(sb);
-                    Rectangle hitbox = entity.getHitbox();
-                    hitbox.setX(entity.getPosX());
-                    hitbox.setY(entity.getPosY());
-                    entity.setHitbox(hitbox);
+                    entity.updateEntityHitbox();
                 }
             }
         }
@@ -65,47 +55,6 @@ public class EntityManager {
         }
     }
 
-    // Moving of player
-    public void initializePlayerMovement(Inputs commandInput, PlayerControls playerControls) {
-        for (GameEntity entity: entityMap.get("player")) {
-            Player player = (Player) entity;
-            player.movement(commandInput, playerControls);
-        }
-    }
-
-    // Initialize spawnables in random position, checking if spawn clashes with any other entity
-    public void randomSpawnablesPosition(int numberOfEntities, GameEntity clonePrototype) throws CloneNotSupportedException {
-        List<GameEntity> spawnables = entityMap.get("spawnables");
-
-        for (int i = 0; i < numberOfEntities;) {
-            GameEntity spawnable = clonePrototype.clone();
-
-            Rectangle extendedHitbox = new Rectangle(
-                    spawnable.getHitbox().x - 20,
-                    spawnable.getHitbox().y - 20,
-                    spawnable.getHitbox().width + 44,
-                    spawnable.getHitbox().height + 44
-            );
-            GameEntity player = entityMap.get("player").get(0);
-
-            boolean clash = extendedHitbox.overlaps(player.getHitbox()); // Check if clash with player
-            for (Rectangle existingSpawnable : spawnableHitboxList) { // Check if clash with other AI
-                if (extendedHitbox.overlaps(existingSpawnable)) {
-                    clash = true;
-                    break;
-                }
-            }
-
-            if (!clash) {
-                spawnableHitboxList.add(spawnable.getHitbox());
-                spawnables.add(spawnable);
-                i++;
-            }
-        }
-
-        entityMap.put("spawnables", spawnables);
-    }
-
     // Get Entity Map
     public Map<String, List<GameEntity>> getEntityMap() {
         return entityMap;
@@ -116,33 +65,23 @@ public class EntityManager {
         this.entityMap = entityMap;
     }
 
-    // Get Spawnable Hitbox List
-    public List<Rectangle> getSpawnableHitboxList() {
-        return spawnableHitboxList;
-    }
-
-    // Set Spawnable Hitbox List
-    public void setSpawnableHitboxList(List<Rectangle> spawnableHitboxList) {
-        this.spawnableHitboxList = spawnableHitboxList;
-    }
-
-    // Get Player List
+    // Get Player Entity List
     public List<GameEntity> getPlayersList() {
-        return playersList;
+        return playerEntityList;
     }
 
-    // Set Player List
-    public void setPlayersList(List<GameEntity> playersList) {
-        this.playersList = playersList;
+    // Set Player Entity List
+    public void setPlayersList(List<GameEntity> playerEntityList) {
+        this.playerEntityList = playerEntityList;
     }
 
-    // Get Spawnables List
-    public List<GameEntity> getSpawnablesList() {
-        return spawnablesList;
+    // Get AI Entity List
+    public List<GameEntity> getAIEntityList() {
+        return AIEntityList;
     }
 
-    // Set Spawnables List
-    public void setSpawnablesList(List<GameEntity> spawnablesList) {
-        this.spawnablesList = spawnablesList;
+    // Set AI Entity List
+    public void setAIEntityList(List<GameEntity> AIEntityList) {
+        this.AIEntityList = AIEntityList;
     }
 }

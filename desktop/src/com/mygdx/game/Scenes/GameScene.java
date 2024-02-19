@@ -61,7 +61,7 @@ public class GameScene extends Scenes {
         batch.begin();
             entityManager.drawEntities(batch);
         batch.end();
-
+drawSceneObjects
         // Pause and Resume Game
         if (preferredControls.getPauseKey()) {
             pauseState = !pauseState;

@@ -1,4 +1,7 @@
 package com.mygdx.game.Controls;
+import com.mygdx.game.Entity.Player;
+import com.mygdx.game.InputOutput.Inputs;
+import java.util.List;
 
 // Control Manager Class
 public class PlayerControlManager {
@@ -8,6 +11,13 @@ public class PlayerControlManager {
     // Default Constructor to initialise player controls
     public PlayerControlManager() {
         this.playerControls = new PlayerControls();
+    }
+
+    // Initialising of player controls
+    public void initialisePlayerControls(Inputs commandInput, List<Player> playerList) {
+        for (Player player: playerList) {
+            player.playerMovement(commandInput, playerControls);
+        }
     }
 
     // Get Player Controls

@@ -54,11 +54,16 @@ public abstract class GameEntity implements Cloneable {
         this.popFromScreen = false;
     }
 
+    // All entities should be able to update their hitbox upon moving
+    protected void updateEntityHitbox() {
+        Rectangle hitbox = this.getHitbox();
+        hitbox.setX(this.xPosition);
+        hitbox.setY(this.yPosition);
+        this.setHitbox(hitbox);
+    }
+
     // All children must have a draw method
     abstract protected void draw(SpriteBatch sb);
-
-    // Empty movement class to override
-    protected void movement() {}
 
     @Override
     // Deep Clone GameEntity to reinitialise random x and y and hitbox

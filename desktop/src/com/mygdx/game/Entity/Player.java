@@ -28,18 +28,18 @@ public class Player extends GameEntity {
     }
 
     // Movement of Player
-    protected void movement(Inputs keys, PlayerControls playerInput) {
-        if (keys.getUpKey()) {
-            playerInput.moveUp(this);
+    public void playerMovement(Inputs preferredInput, PlayerControls playerControl) {
+        if (preferredInput.getUpKey()) {
+            playerControl.moveUp(this);
         }
-        if (keys.getDownKey()) {
-            playerInput.moveDown(this);
+        if (preferredInput.getDownKey()) {
+            playerControl.moveDown(this);
         }
-        if (keys.getLeftKey()) {
-            playerInput.moveLeft(this);
+        if (preferredInput.getLeftKey()) {
+            playerControl.moveLeft(this);
         }
-        if (keys.getRightKey()) {
-            playerInput.moveRight(this);
+        if (preferredInput.getRightKey()) {
+            playerControl.moveRight(this);
         }
     }
 

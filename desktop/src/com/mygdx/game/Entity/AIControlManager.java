@@ -8,9 +8,8 @@ public class AIControlManager {
     public AIControlManager() {}
 
     // Initialise AI Behavior
-    public void initializeAIBehavior (Map<String, List<GameEntity>> entityMap) {
-        for (GameEntity entity: entityMap.get("spawnables")) {
-            AI ai = (AI) entity;
+    public void initializeAIBehavior (List<AI> AIList) {
+        for (AI ai: AIList) {
             ai.behavior();
         }
     }
