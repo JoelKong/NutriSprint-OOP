@@ -1,11 +1,11 @@
 package com.mygdx.game.Levels;
 
-// Levels class containing the assets for each level object
+// Levels class containing the assets for each level object (will be deserialized from our levels.json)
 public class Levels {
     // Declare attributes
-    public int levelNumber;
-    public String levelTitle;
-    public int numberOfEnemies;
+    private int levelNumber;
+    private String levelTitle;
+    private int numberOfEnemies;
 
     // Default Constructor
     protected Levels() {};

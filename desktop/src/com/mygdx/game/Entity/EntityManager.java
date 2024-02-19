@@ -27,7 +27,7 @@ public class EntityManager {
         AIEntityList.clear();
 
         playerEntityList.add(new Player());
-        for (int i = 0; i < level.numberOfEnemies; i++) {
+        for (int i = 0; i < level.getNumberOfEnemies(); i++) {
             AIEntityList.add(new AI());
         }
         entityMap.put("player", playerEntityList);

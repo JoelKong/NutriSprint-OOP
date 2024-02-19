@@ -16,24 +16,14 @@ public class LevelManager {
         this.levelsList = json.fromJson(List.class, Levels.class, Gdx.files.internal("levels.json"));
     }
 
-    // Check next level exists if not
-    public Levels retrieveCurrentLevelAssets() {
+    // Retrieve level assets
+    public Levels retrieveLevelAssets(int levelNumber) {
         for (Levels level: levelsList) {
-            if (level.levelNumber == levelNumber) {
+            if (level.getLevelNumber() == levelNumber) {
                 return level;
             }
         }
         return null;
-    }
-
-    // Check if next level exists
-    public boolean nextLevelExists() {
-        for (Levels level: levelsList) {
-            if (level.levelNumber == levelNumber + 1) {
-                return true;
-            }
-        }
-        return false;
     }
 
     // Get Level Number
