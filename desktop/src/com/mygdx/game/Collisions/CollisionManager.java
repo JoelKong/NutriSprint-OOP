@@ -17,20 +17,20 @@ public class CollisionManager {
         this.collision = new Collision();
     }
 
-    // Initialize all types of collision checks
     public void initializeCollisions(Map<String, List<GameEntity>> entityMap) {
         List<GameEntity> PlayerList = entityMap.get("player");  // List of player entities
-        List<GameEntity> AIList = entityMap.get("spawnables");
+        List<GameEntity> AIList = entityMap.get("spawnables");  // List of AI entities
         GameEntity player = PlayerList.get(0);
 
+        // Prevents player from leaving game window.
+        collision.GameWindowCollision(player);
+
+        // Loops through the AI list and checks for collisions between the player.
         for (GameEntity aiEntity : AIList) {
             if (collision.CollisionDetected(player, aiEntity))
             {
-                aiEntity.setPopFromScreen(true);
+                aiEntity.setPopFromScreen(true);    // pops the AI entity if there is a collision
             }
         }
-
-        //collision.collidePlayerAI(entityMap);
-        collision.collidePlayerGameWindow(entityMap);
     }
 }
