@@ -1,8 +1,8 @@
-package com.mygdx.game.Levels;
+package com.mygdx.game.level;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.utils.Json;
-import com.mygdx.game.Entity.AI;
-import com.mygdx.game.Entity.GameEntity;
+import com.mygdx.game.entity.AI;
+import com.mygdx.game.entity.GameEntity;
 
 import java.util.List;
 import java.util.Map;

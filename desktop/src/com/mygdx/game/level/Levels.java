@@ -1,4 +1,4 @@
-package com.mygdx.game.Levels;
+package com.mygdx.game.level;
 
 // Levels class containing the assets for each level object (will be deserialized from our levels.json)
 public class Levels {

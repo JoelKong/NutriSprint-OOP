@@ -1,6 +1,6 @@
-package com.mygdx.game.Collisions;
+package com.mygdx.game.collision;
 import com.badlogic.gdx.Gdx;
-import com.mygdx.game.Entity.GameEntity;
+import com.mygdx.game.entity.GameEntity;
 
 // Collision class for all kinds of collisions
 public class Collision {

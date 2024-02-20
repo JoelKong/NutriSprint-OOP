@@ -1,5 +1,5 @@
-package com.mygdx.game.Collisions;
-import com.mygdx.game.Entity.GameEntity;
+package com.mygdx.game.collision;
+import com.mygdx.game.entity.GameEntity;
 import java.util.List;
 
 // Collision Manager Class

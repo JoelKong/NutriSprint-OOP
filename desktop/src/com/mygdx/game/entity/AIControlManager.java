@@ -1,4 +1,4 @@
-package com.mygdx.game.Entity;
+package com.mygdx.game.entity;
 import java.util.List;
 
 // AI Control Manager Class

@@ -1,14 +1,14 @@
 package com.mygdx.game;
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.mygdx.game.Collisions.CollisionManager;
-import com.mygdx.game.Entity.PlayerControlManager;
-import com.mygdx.game.Entity.AIControlManager;
-import com.mygdx.game.Entity.EntityManager;
-import com.mygdx.game.InputOutput.InputOutputManager;
-import com.mygdx.game.Levels.LevelManager;
-import com.mygdx.game.Scenes.SceneManager;
-import com.mygdx.game.Simulation.SimulationManager;
+import com.mygdx.game.collision.CollisionManager;
+import com.mygdx.game.entity.PlayerControlManager;
+import com.mygdx.game.entity.AIControlManager;
+import com.mygdx.game.entity.EntityManager;
+import com.mygdx.game.io.InputOutputManager;
+import com.mygdx.game.level.LevelManager;
+import com.mygdx.game.scene.SceneManager;
+import com.mygdx.game.sim.SimulationManager;
 
 // GameMaster Class
 public class Main extends ApplicationAdapter {

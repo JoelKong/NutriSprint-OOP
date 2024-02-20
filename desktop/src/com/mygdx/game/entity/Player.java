@@ -1,7 +1,7 @@
-package com.mygdx.game.Entity;
+package com.mygdx.game.entity;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.mygdx.game.InputOutput.Inputs;
+import com.mygdx.game.io.Inputs;
 
 // Player class inherited from GameEntity
 public class Player extends GameEntity {

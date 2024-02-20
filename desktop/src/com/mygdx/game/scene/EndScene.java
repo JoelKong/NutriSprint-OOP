@@ -1,11 +1,10 @@
-package com.mygdx.game.Scenes;
+package com.mygdx.game.scene;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.mygdx.game.Entity.EntityManager;
-import com.mygdx.game.InputOutput.InputOutputManager;
-import com.mygdx.game.InputOutput.Inputs;
-import com.mygdx.game.Levels.LevelManager;
+import com.mygdx.game.entity.EntityManager;
+import com.mygdx.game.io.Inputs;
+import com.mygdx.game.level.LevelManager;
 
 // End scene class inherited from scenes
 public class EndScene extends Scenes {

@@ -1,4 +1,4 @@
-package com.mygdx.game.InputOutput;
+package com.mygdx.game.io;
 
 // Input interface where all kinds of input devices must have the following key bindings
 public interface Inputs {

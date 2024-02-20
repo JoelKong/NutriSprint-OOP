@@ -1,4 +1,4 @@
-package com.mygdx.game.InputOutput;
+package com.mygdx.game.io;
 
 // Input Output Manager Class
 public class InputOutputManager {

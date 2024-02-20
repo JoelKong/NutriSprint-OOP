@@ -1,14 +1,14 @@
-package com.mygdx.game.Scenes;
+package com.mygdx.game.scene;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.GlyphLayout;
 import com.badlogic.gdx.Gdx;
-import com.mygdx.game.Collisions.CollisionManager;
-import com.mygdx.game.Entity.AIControlManager;
-import com.mygdx.game.Entity.EntityManager;
-import com.mygdx.game.Entity.PlayerControls;
-import com.mygdx.game.InputOutput.Inputs;
-import com.mygdx.game.Levels.LevelManager;
+import com.mygdx.game.collision.CollisionManager;
+import com.mygdx.game.entity.AIControlManager;
+import com.mygdx.game.entity.EntityManager;
+import com.mygdx.game.entity.PlayerControls;
+import com.mygdx.game.io.Inputs;
+import com.mygdx.game.level.LevelManager;
 
 
 // Abstract class Scene implementing LibGDX Screen interface
