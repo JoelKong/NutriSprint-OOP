@@ -14,7 +14,7 @@ public class Player extends GameEntity {
         this.playerID = 1;
     }
 
-    // Parameterized Constructor
+    // Parameterized Constructor to specify player attributes
     protected Player(Texture texture, float xPosition, float yPosition, float speed) {
         super(texture, xPosition, yPosition, speed);
         this.playerID = 1;

@@ -1,15 +1,11 @@
 package com.mygdx.game.Scenes;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.mygdx.game.Collisions.CollisionManager;
-import com.mygdx.game.Entity.PlayerControlManager;
 import com.mygdx.game.Entity.AIControlManager;
 import com.mygdx.game.Entity.EntityManager;
 import com.mygdx.game.Entity.PlayerControls;
-import com.mygdx.game.InputOutput.InputOutputManager;
 import com.mygdx.game.InputOutput.Inputs;
 import com.mygdx.game.Levels.LevelManager;
-import com.mygdx.game.Levels.Levels;
-
 import java.util.HashMap;
 import java.util.Map;
 
