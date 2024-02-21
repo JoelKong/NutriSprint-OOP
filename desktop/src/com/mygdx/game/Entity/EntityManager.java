@@ -22,14 +22,14 @@ public class EntityManager {
     }
 
     // Default Initialization of Entities (clear all lists then pass in level assets respectively)
-    public void initializeEntities(Levels level) {
+    public void initializeEntities(Levels level) throws CloneNotSupportedException {
         entityMap.clear();
         playerEntityList.clear();
         AIEntityList.clear();
 
         playerEntityList.add(new Player());
         for (int i = 0; i < level.getNumberOfEnemies(); i++) {
-            AIEntityList.add(new AI());
+            AIEntityList.add(new AI().clone());
         }
         entityMap.put("player", playerEntityList);
         entityMap.put("ai", AIEntityList);

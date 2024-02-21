@@ -30,16 +30,6 @@ public class LevelManager {
         return null;
     }
 
-    // Check if next level exists
-    public boolean nextLevelExists() {
-        for (Levels level: levelsList) {
-            if (level.getLevelNumber() == levelNumber + 1) {
-                return true;
-            }
-        }
-        return false;
-    }
-
     // Generic function to check completion of level
     public boolean levelCleared(Map<String, List<GameEntity>> entityMap) {
         for (GameEntity aiEntity: entityMap.get("ai")) {

@@ -8,6 +8,7 @@ import com.mygdx.game.Entity.EntityManager;
 import com.mygdx.game.InputOutput.Inputs;
 import com.mygdx.game.Levels.LevelManager;
 import com.mygdx.game.Levels.Levels;
+import com.mygdx.game.Main;
 
 // GameScene class inherited from scenes
 public class GameScene extends Scenes {
@@ -15,25 +16,46 @@ public class GameScene extends Scenes {
     private Levels sceneLevelAssets;
 
     // Parameterized constructor to initialise details of game scene
-    public GameScene() {
-        super(2, "game");
+    public GameScene(Main gameController) {
+        super(2, "game", gameController);
     }
 
-    // Render game scene
+
     @Override
-    public void render(SceneManager sceneManager, SpriteBatch batch, EntityManager entityManager, CollisionManager collisionManager, AIControlManager aiControlManager,
-                       Inputs preferredControls, PlayerControls playerControls, LevelManager levelManager) {
+    public void show() {
+        sceneLevelAssets = getGameController().getLevelManager().retrieveLevelAssets();
+        if (sceneLevelAssets == null) {
+            getGameController().getLevelManager().setLevelNumber(1);
+            getGameController().setScreen(getGameController().getSceneManager().getSceneMap().get("end"));
+        } else {
+            try {
+                getGameController().getEntityManager().initializeEntities(sceneLevelAssets);
+            } catch (CloneNotSupportedException e) {
+                throw new RuntimeException(e);
+            }
+        }
+    }
+
+    // Render game screen
+    @Override
+    public void render(float delta) {
+        // Get necessary data
+        Inputs preferredControls = getGameController().getInputOutputManager().getPreferredControls();
+        PlayerControls playerControls = getGameController().getPlayerControlManager().getPlayerControls();
+        SceneManager sceneManager = getGameController().getSceneManager();
+        EntityManager entityManager = getGameController().getEntityManager();
+        AIControlManager aiControlManager = getGameController().getAiControlManager();
+        CollisionManager collisionManager = getGameController().getCollisionManager();
+        LevelManager levelManager = getGameController().getLevelManager();
+        SpriteBatch batch = getGameController().getBatch();
 
         // Clear the screen
         ScreenUtils.clear(0, 0, 0.2f, 1);
 
-        // Retrieve current level assets
-        this.sceneLevelAssets = levelManager.retrieveLevelAssets();
-
         // Draw entities and render text
         batch.begin();
             entityManager.drawEntities(batch);
-            renderTextAtScenePosition(batch, this.sceneLevelAssets.getLevelTitle(), "topleft");
+            renderTextAtScenePosition(batch, sceneLevelAssets.getLevelTitle(), "topleft");
             renderTextAtScenePosition(batch, "Press P to pause", "top");
         batch.end();
 
@@ -51,14 +73,33 @@ public class GameScene extends Scenes {
 
         // Advance to next level or end game
         if (levelManager.levelCleared(entityManager.getEntityMap())) {
-            if (levelManager.nextLevelExists()) {
-                levelManager.setLevelNumber(levelManager.getLevelNumber() + 1);
-                this.sceneLevelAssets = levelManager.retrieveLevelAssets();
-                entityManager.initializeEntities(this.sceneLevelAssets);
-            } else {
-                sceneManager.setCurrentScene("end");
-            }
+            levelManager.setLevelNumber(levelManager.getLevelNumber() + 1);
+            getGameController().setScreen(sceneManager.getSceneMap().get("game"));
         }
+    }
+
+    @Override
+    public void resize(int width, int height) {
+
+    }
+
+    @Override
+    public void pause() {
+
+    }
+
+    @Override
+    public void resume() {
+
+    }
+
+    @Override
+    public void hide() {
+
+    }
+
+    @Override
+    public void dispose() {
 
     }
 }

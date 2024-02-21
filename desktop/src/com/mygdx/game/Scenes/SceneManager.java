@@ -1,66 +1,45 @@
 package com.mygdx.game.Scenes;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.mygdx.game.Collisions.CollisionManager;
-import com.mygdx.game.Entity.AIControlManager;
-import com.mygdx.game.Entity.EntityManager;
-import com.mygdx.game.Entity.PlayerControls;
-import com.mygdx.game.InputOutput.Inputs;
-import com.mygdx.game.Levels.LevelManager;
+import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.mygdx.game.Main;
 import java.util.HashMap;
 import java.util.Map;
 
 // SceneManager class
 public class SceneManager {
     // Declare Attributes
-    private Map<String, Scenes> sceneMap;
-    private String currentScene;
+    private Map<String, Screen> sceneMap;
     private boolean pauseSceneState;
+    private Main gameController;
+    private BitmapFont font; // Will be in UIManager in part 2
 
     // Store all scenes in a hashmap on initialisation and initialise current scene to start scene
-    public SceneManager() {
+    public SceneManager(Main gameController) {
         this.sceneMap = new HashMap<>();
-        sceneMap.put("start", new StartScene());
-        sceneMap.put("game", new GameScene());
-        sceneMap.put("end", new EndScene());
-        this.currentScene = "start";
+        this.gameController = gameController;
+        sceneMap.put("start", new StartScene(gameController));
+        sceneMap.put("game", new GameScene(gameController));
+        sceneMap.put("end", new EndScene(gameController));
+        this.font = new BitmapFont();
     }
 
     // Load a scene starting with the start scene
-    public void initializeScenes(SpriteBatch batch, EntityManager entityManager, CollisionManager collisionManager, AIControlManager aiControlManager,
-                                 Inputs preferredControls, PlayerControls playerControls, LevelManager levelManager) {
-
-        Scenes scene = sceneMap.get(currentScene);
-        if (scene instanceof StartScene || scene instanceof EndScene) {
-            scene.render(this, batch, entityManager, preferredControls, levelManager);
-        } else {
-            scene.render(this, batch, entityManager, collisionManager, aiControlManager, preferredControls, playerControls, levelManager);
-        }
+    public void initializeScenes() {
+        gameController.setScreen(sceneMap.get("start"));
     }
 
-    public void disposeScenes(SpriteBatch batch) {
-        for (Scenes scene: sceneMap.values()) {
-            scene.dispose(batch);
-        }
+    public void disposeScenes() {
+        font.dispose();
     }
 
     // Get Scene Map
-    public Map<String, Scenes> getSceneMap() {
+    public Map<String, Screen> getSceneMap() {
         return sceneMap;
     }
 
     // Set Scene Map
-    public void setSceneMap(Map<String, Scenes> sceneMap) {
+    public void setSceneMap(Map<String, Screen> sceneMap) {
         this.sceneMap = sceneMap;
-    }
-
-    // Get Current Scene
-    public String getCurrentScene() {
-        return currentScene;
-    }
-
-    // Set Current Scene
-    public void setCurrentScene(String scene) {
-        this.currentScene = scene;
     }
 
     // Get Pause Scene State
@@ -71,5 +50,15 @@ public class SceneManager {
     // Set Pause Scene State
     public void setPauseSceneState(boolean pauseSceneState) {
         this.pauseSceneState = pauseSceneState;
+    }
+
+    // Get Font
+    public BitmapFont getFont() {
+        return font;
+    }
+
+    // Set font
+    public void setFont(BitmapFont font) {
+        this.font = font;
     }
 }

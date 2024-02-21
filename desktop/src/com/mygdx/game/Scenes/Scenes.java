@@ -1,4 +1,5 @@
 package com.mygdx.game.Scenes;
+import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.GlyphLayout;
@@ -9,20 +10,21 @@ import com.mygdx.game.Entity.EntityManager;
 import com.mygdx.game.Entity.PlayerControls;
 import com.mygdx.game.InputOutput.Inputs;
 import com.mygdx.game.Levels.LevelManager;
+import com.mygdx.game.Main;
 
 
 // Abstract class Scene implementing LibGDX Screen interface
-public abstract class Scenes {
+public abstract class Scenes implements Screen {
     // Declare variables
     private int sceneId;
     private String sceneName;
-    private BitmapFont font; // Will be in UIManager if we choose to create it in part 2
+    private Main gameController;
 
     // Parameterized constructor to specify details of scenes
-    public Scenes(int sceneId, String sceneName) {
+    public Scenes(int sceneId, String sceneName, Main gameController) {
+        this.gameController = gameController;
         this.sceneId = sceneId;
         this.sceneName = sceneName;
-        this.font = new BitmapFont(); // Will be in UIManager if we choose to create it in part 2
     }
 
     // Render text at specified position
@@ -30,7 +32,7 @@ public abstract class Scenes {
         float x = 0;
         float y = 0;
 
-        GlyphLayout layout = new GlyphLayout(font, text);
+        GlyphLayout layout = new GlyphLayout(gameController.getSceneManager().getFont(),text);
 
         switch (position) {
             case "top":
@@ -48,22 +50,20 @@ public abstract class Scenes {
             default:
                 return;
         }
-
-            font.draw(batch, layout, x, y);
+        gameController.getSceneManager().getFont().draw(batch, layout, x, y);
     }
 
-    // Dispose scenes
-    public void dispose(SpriteBatch batch) {
-            batch.dispose();
-            font.dispose(); // will be migrated to UIManager in the future
-    }
+    // Overrides
+    abstract public void render(float delta);
 
-    // Render overload (GameScene)
-    public void render(SceneManager sceneManager, SpriteBatch batch, EntityManager entityManager, CollisionManager collisionManager, AIControlManager aiControlManager,
-                       Inputs preferredControls, PlayerControls playerControls, LevelManager levelManager) {};
+    abstract public void resize(int width, int height);
 
-    // Render overload (Start and End Scene)
-    public void render(SceneManager sceneManager, SpriteBatch batch, EntityManager entityManager, Inputs preferredControls, LevelManager levelManager) {};
+    abstract public void pause();
+
+    abstract public void resume();
+
+    abstract public void hide();
+
 
     // Get Scene ID
     public int getSceneId() {
@@ -83,5 +83,10 @@ public abstract class Scenes {
     // Set Scene Name
     public void setSceneName(String sceneName) {
         this.sceneName = sceneName;
+    }
+
+    // Get game controller
+    public Main getGameController() {
+        return gameController;
     }
 }
