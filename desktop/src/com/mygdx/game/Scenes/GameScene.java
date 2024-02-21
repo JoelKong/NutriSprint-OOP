@@ -1,7 +1,9 @@
 package com.mygdx.game.Scenes;
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.mygdx.game.Collisions.CollisionManager;
+import com.mygdx.game.Entity.Player;
 import com.mygdx.game.Entity.PlayerControls;
 import com.mygdx.game.Entity.AIControlManager;
 import com.mygdx.game.Entity.EntityManager;
@@ -28,6 +30,9 @@ public class GameScene extends Scenes {
             getGameController().getLevelManager().setLevelNumber(1);
             getGameController().setScreen(getGameController().getSceneManager().getSceneMap().get("end"));
         } else {
+            getCamera().setToOrtho(false, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
+            getCamera().update();
+
             try {
                 getGameController().getEntityManager().initializeEntities(sceneLevelAssets);
             } catch (CloneNotSupportedException e) {
@@ -51,6 +56,10 @@ public class GameScene extends Scenes {
 
         // Clear the screen
         ScreenUtils.clear(0, 0, 0.2f, 1);
+
+        // Update camera
+        getCamera().update();
+        batch.setProjectionMatrix(getCamera().combined);
 
         // Draw entities and render text
         batch.begin();
@@ -76,30 +85,5 @@ public class GameScene extends Scenes {
             levelManager.setLevelNumber(levelManager.getLevelNumber() + 1);
             getGameController().setScreen(sceneManager.getSceneMap().get("game"));
         }
-    }
-
-    @Override
-    public void resize(int width, int height) {
-
-    }
-
-    @Override
-    public void pause() {
-
-    }
-
-    @Override
-    public void resume() {
-
-    }
-
-    @Override
-    public void hide() {
-
-    }
-
-    @Override
-    public void dispose() {
-
     }
 }

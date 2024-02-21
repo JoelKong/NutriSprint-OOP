@@ -1,5 +1,6 @@
 package com.mygdx.game.Scenes;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.GlyphLayout;
@@ -19,15 +20,17 @@ public abstract class Scenes implements Screen {
     private int sceneId;
     private String sceneName;
     private Main gameController;
+    private OrthographicCamera camera; // will go into camera manager
 
     // Parameterized constructor to specify details of scenes
     public Scenes(int sceneId, String sceneName, Main gameController) {
         this.gameController = gameController;
+        this.camera = new OrthographicCamera();
         this.sceneId = sceneId;
         this.sceneName = sceneName;
     }
 
-    // Render text at specified position
+    // Render text at specified position (will go to ui manager)
     protected void renderTextAtScenePosition(SpriteBatch batch, String text, String position) {
         float x = 0;
         float y = 0;
@@ -54,15 +57,26 @@ public abstract class Scenes implements Screen {
     }
 
     // Overrides
+    public void show() {
+        camera.setToOrtho(false, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
+        camera.update();
+    }
+
     abstract public void render(float delta);
 
-    abstract public void resize(int width, int height);
+    public void resize(int width, int height) {
+        camera.viewportWidth = width;
+        camera.viewportHeight = height;
+        camera.update();
+    };
 
-    abstract public void pause();
+    public void pause() {};
 
-    abstract public void resume();
+    public void resume() {};
 
-    abstract public void hide();
+    public void hide() {};
+
+    public void dispose() {};
 
 
     // Get Scene ID
@@ -88,5 +102,15 @@ public abstract class Scenes implements Screen {
     // Get game controller
     public Main getGameController() {
         return gameController;
+    }
+
+    // Get Camera
+    public OrthographicCamera getCamera() {
+        return camera;
+    }
+
+    // Set Camera
+    public void setCamera(OrthographicCamera camera) {
+        this.camera = camera;
     }
 }

@@ -1,4 +1,5 @@
 package com.mygdx.game.Entity;
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
@@ -31,7 +32,7 @@ public class AI extends GameEntity {
     protected void behavior() {
         this.setPosY(this.getPosY() - this.getSpeed());
         if (this.getPosY() < 0) {
-            this.setPosY(400);
+            this.setPosY(Gdx.graphics.getHeight());
             this.setSpeed(this.getSpeed() + 2);
         }
         if (this.getSpeed() > 10) {

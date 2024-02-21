@@ -13,11 +13,6 @@ public class StartScene extends Scenes {
         super(1, "start", gameController);
     }
 
-    @Override
-    public void show() {
-
-    }
-
     // Render start scene
     @Override
     public void render(float delta) {
@@ -39,30 +34,5 @@ public class StartScene extends Scenes {
         batch.begin();
         renderTextAtScenePosition(batch, "Press 'Enter' to start.", "center");
         batch.end();
-    }
-
-    @Override
-    public void resize(int width, int height) {
-
-    }
-
-    @Override
-    public void pause() {
-
-    }
-
-    @Override
-    public void resume() {
-
-    }
-
-    @Override
-    public void hide() {
-
-    }
-
-    @Override
-    public void dispose() {
-
     }
 }
