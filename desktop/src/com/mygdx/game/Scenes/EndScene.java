@@ -8,7 +8,7 @@ import com.mygdx.game.Main;
 // End scene class inherited from scenes
 public class EndScene extends Scenes {
     // Parameterized Constructor specifying details of end scene
-    public EndScene(Main gameController) {
+    protected EndScene(Main gameController) {
         super(3, "end", gameController);
     }
 

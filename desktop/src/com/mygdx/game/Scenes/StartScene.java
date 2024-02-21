@@ -9,7 +9,7 @@ import com.mygdx.game.Main;
 public class StartScene extends Scenes {
 
     // Parameterized Constructor setting start scene details
-    public StartScene(Main gameController) {
+    protected StartScene(Main gameController) {
         super(1, "start", gameController);
     }
 

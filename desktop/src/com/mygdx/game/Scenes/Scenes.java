@@ -23,7 +23,7 @@ public abstract class Scenes implements Screen {
     private OrthographicCamera camera; // will go into camera manager
 
     // Parameterized constructor to specify details of scenes
-    public Scenes(int sceneId, String sceneName, Main gameController) {
+    protected Scenes(int sceneId, String sceneName, Main gameController) {
         this.gameController = gameController;
         this.camera = new OrthographicCamera();
         this.sceneId = sceneId;

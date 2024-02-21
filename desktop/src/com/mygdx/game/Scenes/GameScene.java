@@ -18,7 +18,7 @@ public class GameScene extends Scenes {
     private Levels sceneLevelAssets;
 
     // Parameterized constructor to initialise details of game scene
-    public GameScene(Main gameController) {
+    protected GameScene(Main gameController) {
         super(2, "game", gameController);
     }
 
