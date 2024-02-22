@@ -1,6 +1,4 @@
 package com.mygdx.game.Entity;
-import com.mygdx.game.InputOutput.Inputs;
-import java.util.List;
 
 // Control Manager Class
 public class PlayerControlManager {

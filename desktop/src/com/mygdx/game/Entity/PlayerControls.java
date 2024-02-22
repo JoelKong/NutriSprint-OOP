@@ -1,6 +1,5 @@
 package com.mygdx.game.Entity;
 import com.badlogic.gdx.Gdx;
-import com.mygdx.game.Entity.Player;
 
 
 // Player Controls Class

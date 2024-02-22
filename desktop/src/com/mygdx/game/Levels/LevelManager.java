@@ -3,7 +3,6 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.utils.Json;
 import com.mygdx.game.Entity.AI;
 import com.mygdx.game.Entity.GameEntity;
-
 import java.util.List;
 import java.util.Map;
 
