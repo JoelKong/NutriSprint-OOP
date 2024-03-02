@@ -29,8 +29,6 @@ public class GameScene extends Scenes {
             getGameController().getLevelManager().setLevelNumber(1);
             getGameController().setScreen(getGameController().getSceneManager().getSceneMap().get("end"));
         } else {
-            getCamera().setToOrtho(false, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
-            getCamera().update();
 
             try {
                 getGameController().getEntityManager().initializeEntities(sceneLevelAssets);
@@ -57,8 +55,7 @@ public class GameScene extends Scenes {
         ScreenUtils.clear(0, 0, 0.2f, 1);
 
         // Update camera
-        getCamera().update();
-        batch.setProjectionMatrix(getCamera().combined);
+        getCamera().focusCamera(entityManager.getPlayersList().get(0).getPosX(), entityManager.getPlayersList().get(0).getPosY(), batch);
 
         // Draw entities and render text
         batch.begin();

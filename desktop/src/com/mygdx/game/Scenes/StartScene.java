@@ -21,6 +21,9 @@ public class StartScene extends Scenes {
         SceneManager sceneManager = getGameController().getSceneManager();
         SpriteBatch batch = getGameController().getBatch();
 
+        // Update camera
+        getCamera().updateCamera(batch);
+
         // Upon starting, change scene to game
         if (preferredControls.getStartKey()) {
             getGameController().setScreen(sceneManager.getSceneMap().get("game"));

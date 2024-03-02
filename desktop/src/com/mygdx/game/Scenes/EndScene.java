@@ -20,6 +20,9 @@ public class EndScene extends Scenes {
         SceneManager sceneManager = getGameController().getSceneManager();
         SpriteBatch batch = getGameController().getBatch();
 
+        // Update camera
+        getCamera().updateCamera(batch);
+
         // Restart back to game scene
         if (preferredControls.getRestartKey()) {
             getGameController().setScreen(sceneManager.getSceneMap().get("game"));

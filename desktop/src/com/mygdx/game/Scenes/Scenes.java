@@ -4,6 +4,7 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.GlyphLayout;
 import com.badlogic.gdx.Gdx;
+import com.mygdx.game.Camera.CameraManager;
 import com.mygdx.game.Main;
 
 
@@ -13,12 +14,12 @@ public abstract class Scenes implements Screen {
     private int sceneId;
     private String sceneName;
     private Main gameController;
-    private OrthographicCamera camera; // will go into camera manager
+    private CameraManager camera;
 
     // Parameterized constructor to specify details of scenes
     protected Scenes(int sceneId, String sceneName, Main gameController) {
         this.gameController = gameController;
-        this.camera = new OrthographicCamera();
+        this.camera = new CameraManager();
         this.sceneId = sceneId;
         this.sceneName = sceneName;
     }
@@ -51,16 +52,12 @@ public abstract class Scenes implements Screen {
 
     // Overrides
     public void show() {
-        camera.setToOrtho(false, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
-        camera.update();
     }
 
     abstract public void render(float delta);
 
     public void resize(int width, int height) {
-        camera.viewportWidth = width;
-        camera.viewportHeight = height;
-        camera.update();
+        camera.resetCameraOnResize(width, height);
     };
 
     public void pause() {};
@@ -98,12 +95,12 @@ public abstract class Scenes implements Screen {
     }
 
     // Get Camera
-    public OrthographicCamera getCamera() {
+    public CameraManager getCamera() {
         return camera;
     }
 
     // Set Camera
-    public void setCamera(OrthographicCamera camera) {
+    public void setCamera(CameraManager camera) {
         this.camera = camera;
     }
 }
