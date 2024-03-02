@@ -13,7 +13,7 @@ public class InputOutputManager {
     // Switching of inputs
     public void switchDevice(String deviceType) {
         if ("controller".equals(deviceType)) {
-            // preferredControls = new Controller();        proof of concept for switching devices
+            // preferredControls = new Controller(); proof of concept for switching devices
         }
     };
 
