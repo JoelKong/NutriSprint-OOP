@@ -21,7 +21,6 @@ public class GameScene extends Scenes {
         super(2, "game", gameController);
     }
 
-
     @Override
     public void show() {
         sceneLevelAssets = getGameController().getLevelManager().retrieveLevelAssets();

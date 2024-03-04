@@ -1,5 +1,4 @@
 package com.mygdx.game.UI;
 
-public class UiManager {
-
+public class TextButton {
 }
