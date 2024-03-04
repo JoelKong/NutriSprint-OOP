@@ -2,15 +2,11 @@ package com.mygdx.game.Scenes;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.badlogic.gdx.scenes.scene2d.ui.Button;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
-import com.badlogic.gdx.scenes.scene2d.ui.Table;
-import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
-import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.mygdx.game.InputOutput.Inputs;
 import com.mygdx.game.Main;
+import com.mygdx.game.UI.UiManager;
 
 // Start Scene class inherited from Scenes
 public class StartScene extends Scenes {
@@ -25,24 +21,12 @@ public class StartScene extends Scenes {
     @Override
     public void show() {
         skin = new Skin(Gdx.files.internal("ui/myskin.json"));
-        stage = new Stage(new ScreenViewport());
-        Gdx.input.setInputProcessor(stage);
 
-        Table mainTable = new Table();
-        mainTable.setFillParent(true);
-        stage.addActor(mainTable);
+        UiManager uiManager = new UiManager(getGameController(), skin);
 
-        Button button = new Button(skin);
-        mainTable.add(button).center().width(300).height(100);
+        uiManager.createStartButton();
 
-        button.addListener(new ClickListener() {
-            @Override
-            public void clicked(InputEvent event, float x, float y) {
-                // Execute the scene change when the button is clicked
-                SceneManager sceneManager = getGameController().getSceneManager();
-                getGameController().setScreen(sceneManager.getSceneMap().get("game"));
-            }
-        });
+        this.stage = uiManager.getStage();
     }
 
     // Render start scene
@@ -66,7 +50,6 @@ public class StartScene extends Scenes {
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT); // clear screen
 
         // Stage
-        stage.getViewport().apply();
         stage.act();
         stage.draw();
 
