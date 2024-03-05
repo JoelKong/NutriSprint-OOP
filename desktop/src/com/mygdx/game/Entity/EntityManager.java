@@ -27,9 +27,9 @@ public class EntityManager {
         playerEntityList.clear();
         AIEntityList.clear();
 
-        playerEntityList.add(new Player());
+        playerEntityList.add(new Player()); // tell the factory to create 1 player
         for (int i = 0; i < level.getNumberOfEnemies(); i++) {
-            AIEntityList.add(new AI().clone());
+            AIEntityList.add(new AI().clone()); // tell the factory to create ai
         }
         entityMap.put("player", playerEntityList);
         entityMap.put("ai", AIEntityList);

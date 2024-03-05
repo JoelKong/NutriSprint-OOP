@@ -27,13 +27,13 @@ public class Main extends Game {
     @Override
     public void create() {
         // Creation of managers and batch
-        simulationManager = new SimulationManager();
-        inputOutputManager = new InputOutputManager();
-        playerControlManager = new PlayerControlManager();
-        aiControlManager = new AIControlManager();
-        collisionManager = new CollisionManager();
-        entityManager = new EntityManager();
-        levelManager = new LevelManager();
+        simulationManager = new SimulationManager(); // singleton
+        inputOutputManager = new InputOutputManager(); // factory
+        playerControlManager = new PlayerControlManager(); // singleton
+        aiControlManager = new AIControlManager(); // factory
+        collisionManager = new CollisionManager(); // singleton
+        entityManager = new EntityManager(); // factory
+        levelManager = new LevelManager(); // singleton
         batch = new SpriteBatch();
         sceneManager = new SceneManager(this);
 
