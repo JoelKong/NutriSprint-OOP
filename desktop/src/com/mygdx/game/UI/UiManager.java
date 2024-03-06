@@ -1,69 +1,57 @@
 package com.mygdx.game.UI;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.badlogic.gdx.scenes.scene2d.ui.Button;
-import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
-import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
-import com.mygdx.game.Main;
-import com.mygdx.game.Scenes.SceneManager;
+import com.badlogic.gdx.utils.viewport.Viewport;
 
 public class UiManager {
-    private Main gameController;
-    private Skin skin;
-    private Stage stage;
+    private Stage uiStage;
+    private Viewport uiViewport;
+    private OrthographicCamera uiCamera;
+    private Table table;
 
-    public UiManager (Main gameController, Skin skin) {
-        this.gameController = gameController;
-        this.skin = skin;
-        this.stage = new Stage(new ScreenViewport());
-        Gdx.input.setInputProcessor(stage);
+    public UiManager(SpriteBatch spriteBatch) {
+        this.uiCamera = new OrthographicCamera();
+        this.uiViewport = new ScreenViewport(uiCamera);
+        uiStage = new Stage(uiViewport, spriteBatch);
+
+        table = new Table();
+        table.setFillParent(true);
+        table.center();
+
+        createStartSceneUI();
+
+        uiStage.addActor(table);
+
+        Gdx.input.setInputProcessor(uiStage);
     }
 
-    public void resize(int width, int height) {
-        stage.getViewport().update(width, height, true);
+    private void createStartSceneUI() {
+        createStartButton();
+        // Add a row to the table for the next button
+        table.row();
+        createEndButton();
     }
 
-    public void dispose() {
-        stage.dispose();
+    private void createStartButton() {
+        CustomTextButton startButton = new CustomTextButton("Start Game"); // Pass the skin to the button
+
+        // Adjust the method of adding the button to the table
+        table.add(startButton).padBottom(10).center();
     }
 
-    public Stage getStage() {
-        return this.stage;
+    private void createEndButton() {
+        CustomTextButton quitButton = new CustomTextButton("End Game"); // Pass the skin to the button
+
+        // Adjust the method of adding the button to the table
+        table.add(quitButton).padTop(10).center();
     }
 
-    public void createStartButton() {
-        Table mainTable = new Table();
-        mainTable.setFillParent(true);
-        stage.addActor(mainTable);
-
-        Button button = new Button(skin);
-        mainTable.add(button).center().width(300).height(100);
-
-        button.addListener(new ClickListener() {
-            @Override
-            public void clicked(InputEvent event, float x, float y) {
-                SceneManager sceneManager = gameController.getSceneManager();
-                gameController.setScreen(sceneManager.getSceneMap().get("game"));
-            }
-        });
-    }
-
-    public CustomTextButton createCustomTextButton(String text) {
-        CustomTextButton button = new CustomTextButton(text, skin);
-        stage.addActor(button);
-
-        button.addListener(new ClickListener() {
-            @Override
-            public void clicked(InputEvent event, float x, float y) {
-                SceneManager sceneManager = gameController.getSceneManager();
-                gameController.setScreen(sceneManager.getSceneMap().get("game"));
-            }
-        });
-
-        return button;
+    public Stage getUiStage() {
+        return uiStage;
     }
 }

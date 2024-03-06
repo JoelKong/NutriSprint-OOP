@@ -1,23 +1,25 @@
 package com.mygdx.game.Camera;
+
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.badlogic.gdx.utils.viewport.ScreenViewport;
+import com.badlogic.gdx.utils.viewport.FitViewport;
+// import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 
 // Camera Manager Class
 public class CameraManager {
     // Declare Attributes
     private OrthographicCamera gameCamera;
-    private Viewport uiViewport;
-    private Stage uiStage;
+    private Viewport cameraViewport;
+    private Stage cameraStage;
 
     // Default constructor to create camera
     public CameraManager() {
         this.gameCamera = new OrthographicCamera();
-        this.uiViewport = new ScreenViewport();
-        this.uiStage = new Stage(uiViewport);
+        this.cameraViewport = new FitViewport(1280, 720);
+        this.cameraStage = new Stage(cameraViewport);
         gameCamera.setToOrtho(false, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
     }
 
@@ -34,7 +36,7 @@ public class CameraManager {
         gameCamera.position.set(width / 2f, height / 2f, 0);
         gameCamera.update();
 
-        uiStage.getViewport().update(width, height, true);    // dinie, stage will be fixed to screen, this updating is for resize
+        cameraStage.getViewport().update(width, height, true);    // dinie, stage will be fixed to screen, this updating is for resize
     }
 
     // Focus the camera on a position
@@ -56,21 +58,21 @@ public class CameraManager {
 
     // Get UI Viewport
     public Viewport getUiViewport() {
-        return uiViewport;
+        return cameraViewport;
     }
 
     // Set UI Viewport
     public void setUiViewport(Viewport uiViewport) {
-        this.uiViewport = uiViewport;
+        this.cameraViewport = uiViewport;
     }
 
     // Get UI Stage
     public Stage getUiStage() {
-        return uiStage;
+        return cameraStage;
     }
 
     // Set UI Stage
     public void setUiStage(Stage uiStage) {
-        this.uiStage = uiStage;
+        this.cameraStage = uiStage;
     }
 }

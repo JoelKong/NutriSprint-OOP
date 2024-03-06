@@ -24,7 +24,7 @@ public abstract class Scenes implements Screen {
         this.sceneName = sceneName;
     }
 
-    // Render text at specified position (will go to ui manager)
+    // Render text at specified position (will go to HUD)
     protected void renderTextAtScenePosition(SpriteBatch batch, String text, String position) {
         float x = 0;
         float y = 0;
