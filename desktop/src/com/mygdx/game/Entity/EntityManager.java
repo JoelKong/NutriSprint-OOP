@@ -43,12 +43,31 @@ public class EntityManager {
         }
     }
 
-
     private void populateEntities(Levels level) throws CloneNotSupportedException {
         playerEntityList.add(createEntity(EntityType.PLAYER));
         for (int i = 0; i < level.getNumberOfEnemies(); i++) {
             AIEntityList.add(createEntity(EntityType.AI).clone());
         }
+    }
+
+    // Method to get a list of entities of a specified type and quantity
+    public List<GameEntity> getListOfEntities(String entityString, int numberOfEntities) {
+        List<GameEntity> entities = new ArrayList<>();
+
+        // Get the EntityType enum corresponding to the entityString
+        EntityType entityType = getEntityType(entityString);
+
+        if (entityType != null) {
+            // Create the specified number of entities of the given type
+            for (int i = 0; i < numberOfEntities; i++) {
+                GameEntity entity = createEntity(entityType);
+                if (entity != null) {
+                    entities.add(entity);
+                }
+            }
+        }
+
+        return entities;
     }
 
     /* Default Initialization of Entities
@@ -117,5 +136,20 @@ public class EntityManager {
     // Set AI Entity List
     public void setAIEntityList(List<GameEntity> AIEntityList) {
         this.AIEntityList = AIEntityList;
+    }
+
+    // Getter for EntityType enum
+    public EntityType getEntityType(String type) {
+        // Convert the provided string to uppercase to match enum values
+        type = type.toUpperCase();
+
+        // Check if the provided type matches any of the enum values
+        try {
+            return EntityType.valueOf(type);
+        } catch (IllegalArgumentException e) {
+            // Handle the case where the provided type is not a valid enum value
+            System.out.println("Invalid entity type: " + type);
+            return null;
+        }
     }
 }

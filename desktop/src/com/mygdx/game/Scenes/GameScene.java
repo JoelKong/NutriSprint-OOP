@@ -3,15 +3,13 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.mygdx.game.Collisions.CollisionManager;
-import com.mygdx.game.Entity.PlayerControlManager;
-import com.mygdx.game.Entity.PlayerControls;
-import com.mygdx.game.Entity.AIControlManager;
-import com.mygdx.game.Entity.EntityManager;
+import com.mygdx.game.Entity.*;
 import com.mygdx.game.InputOutput.InputOutputManager;
 import com.mygdx.game.InputOutput.Inputs;
 import com.mygdx.game.Levels.LevelManager;
 import com.mygdx.game.Levels.Levels;
 import com.mygdx.game.Main;
+import java.util.List;
 
 // GameScene class inherited from scenes
 public class GameScene extends Scenes {
@@ -90,6 +88,14 @@ public class GameScene extends Scenes {
             levelManager.setLevelNumber(levelManager.getLevelNumber() + 1);
             getGameController().setScreen(sceneManager.getSceneMap().get("game"));
         }
+
+//        if (contition) {
+//            // Tells EntityManager to make give me a list of entities
+//            List<GameEntity> newlistOFEntities = entityManager.getListOfEntities("AI",5);
+//            // code to render out the new entities
+//        }
+
+
     }
 
     public LevelManager getLevelManager() {
