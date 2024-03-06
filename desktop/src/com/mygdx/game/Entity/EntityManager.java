@@ -13,6 +13,9 @@ public class EntityManager {
     private Map<String, List<GameEntity>> entityMap;
     private List<GameEntity> AIEntityList;
     private List<GameEntity> playerEntityList;
+    private enum EntityType {
+        PLAYER, AI
+    }
 
     // Default Constructor class to initialise entities
     public EntityManager() {
@@ -21,16 +24,36 @@ public class EntityManager {
         this.AIEntityList = new ArrayList<>();
     }
 
-    // Default Initialization of Entities (clear all lists then pass in level assets respectively)
-    public void initializeEntities(Levels level) throws CloneNotSupportedException {
+    private void clearLists() {
         entityMap.clear();
         playerEntityList.clear();
         AIEntityList.clear();
+    }
 
-        playerEntityList.add(new Player()); // tell the factory to create 1 player
-        for (int i = 0; i < level.getNumberOfEnemies(); i++) {
-            AIEntityList.add(new AI().clone()); // tell the factory to create ai
+    // Create GameEntity objects
+    private GameEntity createEntity(EntityType entityType) {
+        switch (entityType) {
+            case PLAYER:
+                return new Player();
+            case AI:
+                return new AI();
+            default:
+                return null;
         }
+    }
+
+    private void populateEntities(Levels level) throws CloneNotSupportedException {
+        playerEntityList.add(createEntity(EntityType.PLAYER));
+        for (int i = 0; i < level.getNumberOfEnemies(); i++) {
+            AIEntityList.add(createEntity(EntityType.AI).clone());
+        }
+    }
+
+    /* Default Initialization of Entities
+    1)clear all lists. 2)Create GameEntities based on level specification 3)Put them into EntityMap.*/
+    public void initializeEntities(Levels level) throws CloneNotSupportedException {
+        clearLists();
+        populateEntities(level);
         entityMap.put("player", playerEntityList);
         entityMap.put("ai", AIEntityList);
     }
