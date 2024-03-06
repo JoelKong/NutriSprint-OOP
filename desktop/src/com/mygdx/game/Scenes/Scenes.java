@@ -5,6 +5,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.GlyphLayout;
 import com.badlogic.gdx.Gdx;
 import com.mygdx.game.Camera.CameraManager;
+import com.mygdx.game.InputOutput.InputOutputManager;
 import com.mygdx.game.Main;
 
 
@@ -15,6 +16,7 @@ public abstract class Scenes implements Screen {
     private String sceneName;
     private Main gameController;
     private CameraManager camera;
+    private InputOutputManager inputOutputManager;
 
     // Parameterized constructor to specify details of scenes
     protected Scenes(int sceneId, String sceneName, Main gameController) {
@@ -22,6 +24,7 @@ public abstract class Scenes implements Screen {
         this.camera = new CameraManager();
         this.sceneId = sceneId;
         this.sceneName = sceneName;
+        inputOutputManager = new InputOutputManager(); // factory
     }
 
     // Render text at specified position (will go to ui manager)
@@ -102,5 +105,9 @@ public abstract class Scenes implements Screen {
     // Set Camera
     public void setCamera(CameraManager camera) {
         this.camera = camera;
+    }
+
+    public InputOutputManager getInputOutputManager() {
+        return inputOutputManager;
     }
 }

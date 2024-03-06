@@ -17,25 +17,15 @@ public class Main extends Game {
     private SimulationManager simulationManager;
     private EntityManager entityManager;
     private SceneManager sceneManager;
-    private InputOutputManager inputOutputManager;
-    private PlayerControlManager playerControlManager;
-    private AIControlManager aiControlManager;
-    private CollisionManager collisionManager;
-    private LevelManager levelManager;
     private SpriteBatch batch;
 
     @Override
     public void create() {
         // Creation of managers and batch
         simulationManager = new SimulationManager(); // singleton
-        inputOutputManager = new InputOutputManager(); // factory
-        playerControlManager = new PlayerControlManager(); // singleton
-        aiControlManager = new AIControlManager(); // factory
-        collisionManager = new CollisionManager(); // singleton
-        entityManager = new EntityManager(); // factory
-        levelManager = new LevelManager(); // singleton
-        batch = new SpriteBatch();
         sceneManager = new SceneManager(this);
+        entityManager = new EntityManager(); // factory
+        batch = new SpriteBatch();
 
         // Call simulation manager to ask scenemanager to set screen
         simulationManager.startSimulation(sceneManager);
@@ -62,25 +52,6 @@ public class Main extends Game {
         return entityManager;
     }
 
-    public InputOutputManager getInputOutputManager() {
-        return inputOutputManager;
-    }
-
-    public PlayerControlManager getPlayerControlManager() {
-        return playerControlManager;
-    }
-
-    public AIControlManager getAiControlManager() {
-        return aiControlManager;
-    }
-
-    public CollisionManager getCollisionManager() {
-        return collisionManager;
-    }
-
-    public LevelManager getLevelManager() {
-        return levelManager;
-    }
 
     public SpriteBatch getBatch() {
         return batch;

@@ -37,10 +37,12 @@ public class EntityManager {
                 return new Player();
             case AI:
                 return new AI();
-            default:
+            default: // Logs a warning message in case of wrong entity type.
+                System.out.println("Warning: Unknown entityType when creating a new entity object.");
                 return null;
         }
     }
+
 
     private void populateEntities(Levels level) throws CloneNotSupportedException {
         playerEntityList.add(createEntity(EntityType.PLAYER));

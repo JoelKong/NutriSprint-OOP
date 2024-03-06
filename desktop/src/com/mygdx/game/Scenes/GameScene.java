@@ -3,9 +3,11 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.mygdx.game.Collisions.CollisionManager;
+import com.mygdx.game.Entity.PlayerControlManager;
 import com.mygdx.game.Entity.PlayerControls;
 import com.mygdx.game.Entity.AIControlManager;
 import com.mygdx.game.Entity.EntityManager;
+import com.mygdx.game.InputOutput.InputOutputManager;
 import com.mygdx.game.InputOutput.Inputs;
 import com.mygdx.game.Levels.LevelManager;
 import com.mygdx.game.Levels.Levels;
@@ -14,18 +16,28 @@ import com.mygdx.game.Main;
 // GameScene class inherited from scenes
 public class GameScene extends Scenes {
     // Declare attributes
+    private LevelManager levelManager;
+    private PlayerControlManager playerControlManager;
+    private AIControlManager aiControlManager;
+    private CollisionManager collisionManager;
+
     private Levels sceneLevelAssets;
+
 
     // Parameterized constructor to initialise details of game scene
     protected GameScene(Main gameController) {
         super(2, "game", gameController);
+        levelManager = new LevelManager(); // singleton
+        playerControlManager = new PlayerControlManager();
+        aiControlManager = new AIControlManager();
+        collisionManager = new CollisionManager();
     }
 
     @Override
     public void show() {
-        sceneLevelAssets = getGameController().getLevelManager().retrieveLevelAssets();
+        sceneLevelAssets = levelManager.retrieveLevelAssets();
         if (sceneLevelAssets == null) {
-            getGameController().getLevelManager().setLevelNumber(1);
+            levelManager.setLevelNumber(1);
             getGameController().setScreen(getGameController().getSceneManager().getSceneMap().get("end"));
         } else {
 
@@ -41,14 +53,12 @@ public class GameScene extends Scenes {
     @Override
     public void render(float delta) {
         // Get necessary data
-        Inputs preferredControls = getGameController().getInputOutputManager().getPreferredControls();
-        PlayerControls playerControls = getGameController().getPlayerControlManager().getPlayerControls();
         SceneManager sceneManager = getGameController().getSceneManager();
         EntityManager entityManager = getGameController().getEntityManager();
-        AIControlManager aiControlManager = getGameController().getAiControlManager();
-        CollisionManager collisionManager = getGameController().getCollisionManager();
-        LevelManager levelManager = getGameController().getLevelManager();
         SpriteBatch batch = getGameController().getBatch();
+
+        PlayerControls playerControls = getPlayerControlManager().getPlayerControls();
+        Inputs preferredControls = getInputOutputManager().getPreferredControls();
 
         // Clear the screen
         ScreenUtils.clear(0, 0, 0.2f, 1);
@@ -80,5 +90,21 @@ public class GameScene extends Scenes {
             levelManager.setLevelNumber(levelManager.getLevelNumber() + 1);
             getGameController().setScreen(sceneManager.getSceneMap().get("game"));
         }
+    }
+
+    public LevelManager getLevelManager() {
+        return levelManager;
+    }
+
+    public PlayerControlManager getPlayerControlManager() {
+        return playerControlManager;
+    }
+
+    public AIControlManager getAiControlManager() {
+        return aiControlManager;
+    }
+
+    public CollisionManager getCollisionManager() {
+        return collisionManager;
     }
 }
