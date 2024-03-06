@@ -31,22 +31,21 @@ public class EntityManager {
     }
 
     // Create GameEntity objects
-    private GameEntity createEntity(String entityType) {
-        if ("player".equals(entityType)) {
-            Player playerEntity = new Player();
-            return playerEntity;
+    private GameEntity createEntity(EntityType entityType) {
+        switch (entityType) {
+            case PLAYER:
+                return new Player();
+            case AI:
+                return new AI();
+            default:
+                return null;
         }
-        if ("AI".equals(entityType)) {
-            AI AIEntity = new AI();
-            return AIEntity;
-        }
-        return null;
-    };
+    }
 
     private void populateEntities(Levels level) throws CloneNotSupportedException {
-        playerEntityList.add(createEntity("player"));
+        playerEntityList.add(createEntity(EntityType.PLAYER));
         for (int i = 0; i < level.getNumberOfEnemies(); i++) {
-            AIEntityList.add(createEntity("AI").clone());
+            AIEntityList.add(createEntity(EntityType.AI).clone());
         }
     }
 
