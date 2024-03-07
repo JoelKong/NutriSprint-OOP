@@ -17,19 +17,23 @@ import com.mygdx.game.UI.UiManager;
 public class GameScene extends Scenes {
     // Declare attributes
     private Levels sceneLevelAssets;
+    private boolean pauseSceneState;
     private UiManager uiManager;
     private LevelManager levelManager;
     private PlayerControlManager playerControlManager;
     private AIControlManager aiControlManager;
     private CollisionManager collisionManager;
+    private EntityManager entityManager;
 
     // Parameterized constructor to initialise details of game scene
     protected GameScene(Main gameController) {
         super(2, "game", gameController);
-        this.levelManager = new LevelManager(); // singleton
+        this.pauseSceneState = false;
+        this.levelManager = new LevelManager();
         this.playerControlManager = new PlayerControlManager();
         this.aiControlManager = new AIControlManager();
         this.collisionManager = new CollisionManager();
+        this.entityManager = new EntityManager();
     }
 
     @Override
@@ -46,7 +50,7 @@ public class GameScene extends Scenes {
         } else {
 
             try {
-                getGameController().getEntityManager().initializeEntities(sceneLevelAssets);
+                entityManager.initializeEntities(sceneLevelAssets);
             } catch (CloneNotSupportedException e) {
                 throw new RuntimeException(e);
             }
@@ -59,8 +63,6 @@ public class GameScene extends Scenes {
         // Get necessary data
         PlayerControls playerControls = playerControlManager.getPlayerControls();
         Inputs preferredControls = getInputOutputManager().getPreferredControls();
-        SceneManager sceneManager = getGameController().getSceneManager();
-        EntityManager entityManager = getGameController().getEntityManager();
         SpriteBatch batch = getGameController().getBatch();
 
         // Clear the screen
@@ -72,17 +74,15 @@ public class GameScene extends Scenes {
         // Draw entities and render text
         batch.begin();
             entityManager.drawEntities(batch);
-            // renderTextAtScenePosition(batch, sceneLevelAssets.getLevelTitle(), "topleft");
-            // renderTextAtScenePosition(batch, "Press P to pause", "top");
         batch.end();
 
         // Pause and Resume Game
         if (preferredControls.getPauseKey()) {
-            sceneManager.setPauseSceneState(!sceneManager.getPauseSceneState());
+            pauseSceneState = !pauseSceneState;
         }
 
         // If not paused, initialise all forms of behavior and movement
-        if (!sceneManager.getPauseSceneState()) {
+        if (!pauseSceneState) {
             entityManager.initialiseEntityMovement(preferredControls, playerControls);
             aiControlManager.initializeAIBehavior(entityManager.getEntityMap().get("ai"));
             collisionManager.initializeCollisions(entityManager.getEntityMap().get("ai"), entityManager.getEntityMap().get("player"));
@@ -91,7 +91,7 @@ public class GameScene extends Scenes {
         // Advance to next level or end game
         if (levelManager.levelCleared(entityManager.getEntityMap())) {
             levelManager.setLevelNumber(levelManager.getLevelNumber() + 1);
-            getGameController().setScreen(sceneManager.getSceneMap().get("game"));
+            getGameController().setScreen(this);
         }
 
         uiManager.getUiStage().act(Math.min(Gdx.graphics.getDeltaTime(), 1 / 30f));
@@ -103,6 +103,11 @@ public class GameScene extends Scenes {
 //            // code to render out the new entities
 //        }
     }
+
+
+    public void dispose() {
+        entityManager.disposeEntities();
+    };
 
     // Get Level Manager
     public LevelManager getLevelManager() {
@@ -122,5 +127,20 @@ public class GameScene extends Scenes {
     // Get Collision Manager
     public CollisionManager getCollisionManager() {
         return collisionManager;
+    }
+
+    // Get Entity Manager
+    public EntityManager getEntityManager() {
+        return entityManager;
+    }
+
+    // Get Pause Scene State
+    public boolean isPauseSceneState() {
+        return pauseSceneState;
+    }
+
+    // Set Pause Scene State
+    public void setPauseSceneState(boolean pauseSceneState) {
+        this.pauseSceneState = pauseSceneState;
     }
 }

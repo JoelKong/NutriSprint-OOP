@@ -12,13 +12,10 @@ public class Main extends Game {
     private EntityManager entityManager;
     private SceneManager sceneManager;
     private SpriteBatch batch;
-    private Game game;
 
     @Override
     public void create() {
-        this.game = this;
         this.simulationManager = new SimulationManager();
-        this.entityManager = new EntityManager();
         this.batch = new SpriteBatch();
         this.sceneManager = new SceneManager(this);
         this.simulationManager.startSimulation(sceneManager);
@@ -34,19 +31,7 @@ public class Main extends Game {
     @Override
     public void dispose() {
         // End Simulation
-        simulationManager.endSimulation(batch, entityManager, sceneManager);
-    }
-
-    public SimulationManager getSimulationManager() {
-        return simulationManager;
-    }
-
-    public EntityManager getEntityManager() {
-        return entityManager;
-    }
-
-    public Game getGame() {
-        return game;
+        simulationManager.endSimulation(batch);
     }
 
     public SpriteBatch getBatch() {

@@ -24,8 +24,8 @@ public class Collision {
         } else if (player.getPosY() < 0) {
             player.setPosY(0);
         // Top Boundary
-        } else if (player.getPosY() + player.getHeight() > Gdx.graphics.getHeight()) {
-            player.setPosY(Gdx.graphics.getHeight() - player.getHeight());
+        } else if (player.getPosY() + player.getHeight() > Gdx.graphics.getHeight() - 30) {
+            player.setPosY(Gdx.graphics.getHeight() - 30 - player.getHeight());
         }
 
     }
