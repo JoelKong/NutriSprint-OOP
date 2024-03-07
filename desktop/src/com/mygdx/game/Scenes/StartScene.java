@@ -9,6 +9,7 @@ import com.mygdx.game.UI.UiManager;
 // Start Scene class inherited from Scenes
 public class StartScene extends Scenes {
     private UiManager uiManager;
+
     // Parameterized Constructor setting start scene details
     protected StartScene(Main gameController) {
         super(1, "start", gameController);
@@ -17,6 +18,7 @@ public class StartScene extends Scenes {
     @Override
     public void show() {
         this.uiManager = new UiManager(getGameController().getBatch());
+        uiManager.createStartSceneUI();
     }
 
     // Render start scene
@@ -47,5 +49,11 @@ public class StartScene extends Scenes {
 //        batch.begin();
 //        // renderTextAtScenePosition(batch, "Press 'Enter' to start.", "center");
 //        batch.end();
+    }
+
+    @Override
+    public void resize(int width, int height) {
+        uiManager.getUiViewport().update(width, height, true);
+        uiManager.getUiCamera().update();
     }
 }

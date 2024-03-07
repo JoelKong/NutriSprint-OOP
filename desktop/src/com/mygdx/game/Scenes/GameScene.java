@@ -10,11 +10,13 @@ import com.mygdx.game.InputOutput.Inputs;
 import com.mygdx.game.Levels.LevelManager;
 import com.mygdx.game.Levels.Levels;
 import com.mygdx.game.Main;
+import com.mygdx.game.UI.UiManager;
 
 // GameScene class inherited from scenes
 public class GameScene extends Scenes {
     // Declare attributes
     private Levels sceneLevelAssets;
+    private UiManager uiManager;
 
     // Parameterized constructor to initialise details of game scene
     protected GameScene(Main gameController) {
@@ -23,7 +25,12 @@ public class GameScene extends Scenes {
 
     @Override
     public void show() {
+        this.uiManager = new UiManager(getGameController().getBatch());
+
+        uiManager.startGameHUD();
+
         sceneLevelAssets = getGameController().getLevelManager().retrieveLevelAssets();
+
         if (sceneLevelAssets == null) {
             getGameController().getLevelManager().setLevelNumber(1);
             getGameController().setScreen(getGameController().getSceneManager().getSceneMap().get("end"));
@@ -59,8 +66,8 @@ public class GameScene extends Scenes {
         // Draw entities and render text
         batch.begin();
             entityManager.drawEntities(batch);
-            renderTextAtScenePosition(batch, sceneLevelAssets.getLevelTitle(), "topleft");
-            renderTextAtScenePosition(batch, "Press P to pause", "top");
+            // renderTextAtScenePosition(batch, sceneLevelAssets.getLevelTitle(), "topleft");
+            // renderTextAtScenePosition(batch, "Press P to pause", "top");
         batch.end();
 
         // Pause and Resume Game
@@ -80,5 +87,8 @@ public class GameScene extends Scenes {
             levelManager.setLevelNumber(levelManager.getLevelNumber() + 1);
             getGameController().setScreen(sceneManager.getSceneMap().get("game"));
         }
+
+        uiManager.getUiStage().act(Math.min(Gdx.graphics.getDeltaTime(), 1 / 30f));
+        uiManager.getUiStage().draw();
     }
 }

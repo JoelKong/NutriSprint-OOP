@@ -25,34 +25,33 @@ public abstract class Scenes implements Screen {
     }
 
     // Render text at specified position (will go to HUD)
-    protected void renderTextAtScenePosition(SpriteBatch batch, String text, String position) {
-        float x = 0;
-        float y = 0;
-
-        GlyphLayout layout = new GlyphLayout(gameController.getSceneManager().getFont(),text);
-
-        switch (position) {
-            case "top":
-                x = (Gdx.graphics.getWidth() - layout.width) / 2;
-                y = Gdx.graphics.getHeight() - 20;
-                break;
-            case "topleft":
-                x = 10;
-                y = Gdx.graphics.getHeight() - 10;
-                break;
-            case "center":
-                x = (Gdx.graphics.getWidth() - layout.width) / 2; // Center horizontally
-                y = (Gdx.graphics.getHeight() + layout.height) / 2; // Center vertically
-                break;
-            default:
-                return;
-        }
-        gameController.getSceneManager().getFont().draw(batch, layout, x, y);
-    }
+//    protected void renderTextAtScenePosition(SpriteBatch batch, String text, String position) {
+//        float x = 0;
+//        float y = 0;
+//
+//        GlyphLayout layout = new GlyphLayout(gameController.getSceneManager().getFont(),text);
+//
+//        switch (position) {
+//            case "top":
+//                x = (Gdx.graphics.getWidth() - layout.width) / 2;
+//                y = Gdx.graphics.getHeight() - 20;
+//                break;
+//            case "topleft":
+//                x = 10;
+//                y = Gdx.graphics.getHeight() - 10;
+//                break;
+//            case "center":
+//                x = (Gdx.graphics.getWidth() - layout.width) / 2; // Center horizontally
+//                y = (Gdx.graphics.getHeight() + layout.height) / 2; // Center vertically
+//                break;
+//            default:
+//                return;
+//        }
+//        gameController.getSceneManager().getFont().draw(batch, layout, x, y);
+//    }
 
     // Overrides
-    public void show() {
-    }
+    public void show() {}
 
     abstract public void render(float delta);
 

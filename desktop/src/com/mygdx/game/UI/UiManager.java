@@ -13,6 +13,7 @@ public class UiManager {
     private Viewport uiViewport;
     private OrthographicCamera uiCamera;
     private Table table;
+    private HUD gameHUD;
 
     public UiManager(SpriteBatch spriteBatch) {
         this.uiCamera = new OrthographicCamera();
@@ -23,16 +24,28 @@ public class UiManager {
         table.setFillParent(true);
         table.center();
 
-        createStartSceneUI();
+        // createStartSceneUI();
+        // startGameHUD();
 
         uiStage.addActor(table);
 
         Gdx.input.setInputProcessor(uiStage);
     }
 
-    private void createStartSceneUI() {
+    public void startGameHUD() {
+        if (gameHUD == null) {
+            gameHUD = new HUD(uiStage);
+        }
+
+        uiStage.addActor(gameHUD.getHudTable());
+    }
+
+    private void updateGameHUD() {
+        // Update HUD Functions
+    }
+
+    public void createStartSceneUI() {
         createStartButton();
-        // Add a row to the table for the next button
         table.row();
         createEndButton();
     }
@@ -53,5 +66,13 @@ public class UiManager {
 
     public Stage getUiStage() {
         return uiStage;
+    }
+
+    public Viewport getUiViewport() {
+        return uiViewport;
+    }
+
+    public OrthographicCamera getUiCamera() {
+        return uiCamera;
     }
 }

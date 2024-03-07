@@ -38,7 +38,7 @@ public class EndScene extends Scenes {
 
         // Text
         batch.begin();
-        renderTextAtScenePosition(batch, "Game ended, press 'R' to restart or 'M' to return to Main Menu", "center");
+        // renderTextAtScenePosition(batch, "Game ended, press 'R' to restart or 'M' to return to Main Menu", "center");
         batch.end();
     }
 }
