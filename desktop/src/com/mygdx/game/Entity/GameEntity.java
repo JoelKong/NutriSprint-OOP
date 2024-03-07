@@ -22,7 +22,7 @@ public abstract class GameEntity implements Cloneable {
         this.texture = new Texture(Gdx.files.internal("circle.png"));
         this.xPosition = (Gdx.graphics.getWidth() - width) / 2f;
         this.yPosition = (Gdx.graphics.getHeight() - height) / 2f;
-        this.speed = 150;
+        this.speed = 300;
         this.width = 32;
         this.height = 32;
         this.hitbox = new Rectangle(xPosition, yPosition, width, height);
