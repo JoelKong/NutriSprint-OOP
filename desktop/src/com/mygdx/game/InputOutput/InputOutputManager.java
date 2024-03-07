@@ -10,9 +10,9 @@ public class InputOutputManager {
         this.preferredControls = new KeyboardMouse();
     }
 
-    // Switching of inputs
+    // Factory method for switching of inputs
     public void switchDevice(String deviceType) {
-        if ("controller".equals(deviceType)) {
+        if ("CONTROLLER".equals(deviceType)) {
             // preferredControls = new Controller(); proof of concept for switching devices
         }
     };

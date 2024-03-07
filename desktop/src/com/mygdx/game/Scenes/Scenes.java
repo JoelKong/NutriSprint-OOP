@@ -1,10 +1,7 @@
 package com.mygdx.game.Scenes;
 import com.badlogic.gdx.Screen;
-import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.graphics.g2d.GlyphLayout;
-import com.badlogic.gdx.Gdx;
 import com.mygdx.game.Camera.CameraManager;
+import com.mygdx.game.InputOutput.InputOutputManager;
 import com.mygdx.game.Main;
 
 
@@ -15,10 +12,12 @@ public abstract class Scenes implements Screen {
     private String sceneName;
     private Main gameController;
     private CameraManager camera;
+    private InputOutputManager inputOutputManager;
 
     // Parameterized constructor to specify details of scenes
     protected Scenes(int sceneId, String sceneName, Main gameController) {
         this.gameController = gameController;
+        this.inputOutputManager = new InputOutputManager(); // factory
         this.camera = new CameraManager();
         this.sceneId = sceneId;
         this.sceneName = sceneName;
@@ -101,5 +100,10 @@ public abstract class Scenes implements Screen {
     // Set Camera
     public void setCamera(CameraManager camera) {
         this.camera = camera;
+    }
+
+    // Get Input Output Manager
+    public InputOutputManager getInputOutputManager() {
+        return inputOutputManager;
     }
 }

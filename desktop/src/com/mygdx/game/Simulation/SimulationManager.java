@@ -16,7 +16,6 @@ public class SimulationManager {
     // Ends the simulation and disposes everything used
     public void endSimulation(SpriteBatch batch, EntityManager entityManager, SceneManager sceneManager) {
         batch.dispose();
-        entityManager.disposeEntities();
         sceneManager.disposeScenes();
     }
 }

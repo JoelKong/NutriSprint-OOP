@@ -40,13 +40,13 @@ public class AI extends GameEntity {
         }
     }
 
-    // Get Npc ID
-    public int getNpcID() {
+    // Get AI ID
+    public int getAIID() {
         return AIID;
     }
 
-    // Set Npc ID
-    public void setNpcID(int AIID) {
+    // Set AI ID
+    public void setAIID(int AIID) {
         this.AIID = AIID;
     }
 }

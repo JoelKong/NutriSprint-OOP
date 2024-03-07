@@ -1,11 +1,9 @@
 package com.mygdx.game.Camera;
-
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.viewport.FitViewport;
-// import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 
 // Camera Manager Class
@@ -36,11 +34,26 @@ public class CameraManager {
         gameCamera.position.set(width / 2f, height / 2f, 0);
         gameCamera.update();
 
-        cameraStage.getViewport().update(width, height, true);    // dinie, stage will be fixed to screen, this updating is for resize
+        cameraStage.getViewport().update(width, height, true);
     }
 
     // Focus the camera on a position
     public void focusCamera(float x, float y, SpriteBatch batch) {
+        // Define your game world size
+        float worldWidth = Gdx.graphics.getWidth();
+        float worldHeight = Gdx.graphics.getHeight();
+
+        // Calculate the half viewport size to correctly clamp the camera's position
+        float halfViewportWidth = gameCamera.viewportWidth * 0.5f * gameCamera.zoom;
+        float halfViewportHeight = gameCamera.viewportHeight * 0.5f * gameCamera.zoom;
+
+        // Clamp the camera position to ensure it doesn't go beyond the game world boundaries
+        x = Math.max(halfViewportWidth, Math.min(worldWidth - halfViewportWidth, x));
+        y = Math.max(halfViewportHeight, Math.min(worldHeight - halfViewportHeight, y));
+
+        // Zoom in to the game world
+        gameCamera.zoom = 0.7f;
+
         gameCamera.position.set(x, y, 0);
         gameCamera.update();
         batch.setProjectionMatrix(gameCamera.combined);
@@ -56,23 +69,23 @@ public class CameraManager {
         this.gameCamera = gameCamera;
     }
 
-    // Get UI Viewport
-    public Viewport getUiViewport() {
+    // Get Camera Viewport
+    public Viewport getCameraViewport() {
         return cameraViewport;
     }
 
-    // Set UI Viewport
-    public void setUiViewport(Viewport uiViewport) {
-        this.cameraViewport = uiViewport;
+    // Set Camera Viewport
+    public void setCameraViewport(Viewport cameraViewport) {
+        this.cameraViewport = cameraViewport;
     }
 
-    // Get UI Stage
-    public Stage getUiStage() {
+    // Get Camera Stage
+    public Stage getCameraStage() {
         return cameraStage;
     }
 
-    // Set UI Stage
-    public void setUiStage(Stage uiStage) {
-        this.cameraStage = uiStage;
+    // Set Camera Stage
+    public void setCameraStage(Stage cameraStage) {
+        this.cameraStage = cameraStage;
     }
 }

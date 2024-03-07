@@ -1,5 +1,4 @@
 package com.mygdx.game.UI;
-
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
@@ -7,6 +6,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.utils.Align;
 
+// Game HUD Class
 public class HUD {
     private Label scoreLabel;
     private Label healthLabel;
@@ -15,7 +15,7 @@ public class HUD {
     private Stage uiStage;
     private Table hudTable;
 
-
+    // Parameterized constructor to initialise game HUD
     public HUD(Stage stage) {
         this.uiStage = stage;
         this.skin = new Skin(Gdx.files.internal("UI/libgdx/uiskin.json"));

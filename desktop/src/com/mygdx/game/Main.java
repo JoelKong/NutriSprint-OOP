@@ -1,13 +1,7 @@
 package com.mygdx.game;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.mygdx.game.Camera.CameraManager;
-import com.mygdx.game.Collisions.CollisionManager;
-import com.mygdx.game.Entity.PlayerControlManager;
-import com.mygdx.game.Entity.AIControlManager;
 import com.mygdx.game.Entity.EntityManager;
-import com.mygdx.game.InputOutput.InputOutputManager;
-import com.mygdx.game.Levels.LevelManager;
 import com.mygdx.game.Scenes.SceneManager;
 import com.mygdx.game.Simulation.SimulationManager;
 
@@ -17,28 +11,17 @@ public class Main extends Game {
     private SimulationManager simulationManager;
     private EntityManager entityManager;
     private SceneManager sceneManager;
-    private InputOutputManager inputOutputManager;
-    private PlayerControlManager playerControlManager;
-    private AIControlManager aiControlManager;
-    private CollisionManager collisionManager;
-    private LevelManager levelManager;
     private SpriteBatch batch;
+    private Game game;
 
     @Override
     public void create() {
-        // Creation of managers and batch
-        simulationManager = new SimulationManager(); // singleton
-        inputOutputManager = new InputOutputManager(); // factory
-        playerControlManager = new PlayerControlManager(); // singleton
-        aiControlManager = new AIControlManager(); // factory
-        collisionManager = new CollisionManager(); // singleton
-        entityManager = new EntityManager(); // factory
-        levelManager = new LevelManager(); // singleton
-        batch = new SpriteBatch();
-        sceneManager = new SceneManager(this);
-
-        // Call simulation manager to ask scenemanager to set screen
-        simulationManager.startSimulation(sceneManager);
+        this.game = this;
+        this.simulationManager = new SimulationManager();
+        this.entityManager = new EntityManager();
+        this.batch = new SpriteBatch();
+        this.sceneManager = new SceneManager(this);
+        this.simulationManager.startSimulation(sceneManager);
     }
 
     @Override
@@ -62,24 +45,8 @@ public class Main extends Game {
         return entityManager;
     }
 
-    public InputOutputManager getInputOutputManager() {
-        return inputOutputManager;
-    }
-
-    public PlayerControlManager getPlayerControlManager() {
-        return playerControlManager;
-    }
-
-    public AIControlManager getAiControlManager() {
-        return aiControlManager;
-    }
-
-    public CollisionManager getCollisionManager() {
-        return collisionManager;
-    }
-
-    public LevelManager getLevelManager() {
-        return levelManager;
+    public Game getGame() {
+        return game;
     }
 
     public SpriteBatch getBatch() {

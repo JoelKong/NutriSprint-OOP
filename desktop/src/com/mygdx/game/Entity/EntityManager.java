@@ -2,16 +2,14 @@ package com.mygdx.game.Entity;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.mygdx.game.InputOutput.Inputs;
 import com.mygdx.game.Levels.Levels;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+
+import java.util.*;
 
 // Entity Manager Class
 public class EntityManager {
     // Declare Maps and Lists of entities
     private Map<String, List<GameEntity>> entityMap;
-    private List<GameEntity> AIEntityList;
+    private List<GameEntity> aiEntityList;
     private List<GameEntity> playerEntityList;
     private enum EntityType {
         PLAYER, AI
@@ -21,16 +19,16 @@ public class EntityManager {
     public EntityManager() {
         this.entityMap = new HashMap<>();
         this.playerEntityList = new ArrayList<>();
-        this.AIEntityList = new ArrayList<>();
+        this.aiEntityList = new ArrayList<>();
     }
 
-    private void clearLists() {
-        entityMap.clear();
+    // Clear all entity lists
+    private void clearEntityLists() {
         playerEntityList.clear();
-        AIEntityList.clear();
+        aiEntityList.clear();
     }
 
-    // Create GameEntity objects
+    // Factory function to create GameEntity objects
     private GameEntity createEntity(EntityType entityType) {
         switch (entityType) {
             case PLAYER:
@@ -38,24 +36,46 @@ public class EntityManager {
             case AI:
                 return new AI();
             default:
+                System.out.println("Warning: Unknown entityType when creating a new entity object.");
                 return null;
         }
     }
 
+    // Populate entities based off level specification
     private void populateEntities(Levels level) throws CloneNotSupportedException {
         playerEntityList.add(createEntity(EntityType.PLAYER));
         for (int i = 0; i < level.getNumberOfEnemies(); i++) {
-            AIEntityList.add(createEntity(EntityType.AI).clone());
+            aiEntityList.add(Objects.requireNonNull(createEntity(EntityType.AI)).clone());
         }
     }
 
+    // Proof of concept on how we create entities
+//    public List<GameEntity> getListOfEntities(String entityString, int numberOfEntities) {
+//        List<GameEntity> entities = new ArrayList<>();
+//
+//        // Get the EntityType enum corresponding to the entityString
+//        EntityType entityType = getEntityType(entityString);
+//
+//        if (entityType != null) {
+//            // Create the specified number of entities of the given type
+//            for (int i = 0; i < numberOfEntities; i++) {
+//                GameEntity entity = createEntity(entityType);
+//                if (entity != null) {
+//                    entities.add(entity);
+//                }
+//            }
+//        }
+//
+//        return entities;
+//    }
+
     /* Default Initialization of Entities
-    1)clear all lists. 2)Create GameEntities based on level specification 3)Put them into EntityMap.*/
+    1) clear all lists. 2) Create GameEntities based on level specification 3) Put them into EntityMap.*/
     public void initializeEntities(Levels level) throws CloneNotSupportedException {
-        clearLists();
+        clearEntityLists();
         populateEntities(level);
         entityMap.put("player", playerEntityList);
-        entityMap.put("ai", AIEntityList);
+        entityMap.put("ai", aiEntityList);
     }
 
     // Drawing of Entities
@@ -87,6 +107,21 @@ public class EntityManager {
         }
     }
 
+    // Getter for EntityType enum
+    public EntityType getEntityType(String type) {
+        // Convert the provided string to uppercase to match enum values
+        type = type.toUpperCase();
+
+        // Check if the provided type matches any of the enum values
+        try {
+            return EntityType.valueOf(type);
+        } catch (IllegalArgumentException e) {
+            // Handle the case where the provided type is not a valid enum value
+            System.out.println("Invalid entity type: " + type);
+            return null;
+        }
+    }
+
     // Get Entity Map
     public Map<String, List<GameEntity>> getEntityMap() {
         return entityMap;
@@ -108,12 +143,12 @@ public class EntityManager {
     }
 
     // Get AI Entity List
-    public List<GameEntity> getAIEntityList() {
-        return AIEntityList;
+    public List<GameEntity> getAiEntityList() {
+        return aiEntityList;
     }
 
     // Set AI Entity List
-    public void setAIEntityList(List<GameEntity> AIEntityList) {
-        this.AIEntityList = AIEntityList;
+    public void setAiEntityList(List<GameEntity> aiEntityList) {
+        this.aiEntityList = aiEntityList;
     }
 }

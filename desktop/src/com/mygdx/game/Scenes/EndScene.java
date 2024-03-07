@@ -16,7 +16,7 @@ public class EndScene extends Scenes {
     @Override
     public void render(float delta) {
         // Get necessary data
-        Inputs preferredControls = getGameController().getInputOutputManager().getPreferredControls();
+        Inputs preferredControls = getInputOutputManager().getPreferredControls();
         SceneManager sceneManager = getGameController().getSceneManager();
         SpriteBatch batch = getGameController().getBatch();
 

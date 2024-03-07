@@ -1,7 +1,6 @@
 package com.mygdx.game.Entity;
 import com.badlogic.gdx.Gdx;
 
-
 // Player Controls Class
 public class PlayerControls {
     // Default Constructor for player control
