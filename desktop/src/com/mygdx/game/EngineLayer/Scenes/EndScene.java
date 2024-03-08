@@ -20,7 +20,7 @@ public class EndScene extends Scenes {
     public void show() {
         //        setSceneBackgroundTexture(new Texture(Gdx.files.internal("")));
         this.uiManager = new UiManager(getGameController().getBatch(), getCamera().getUiViewport());
-//        uiManager.createEndSceneUI(getGameController());
+        uiManager.createEndSceneUI(getGameController());
     }
 
     // Render end scene
@@ -48,8 +48,8 @@ public class EndScene extends Scenes {
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT); // clear screen
 
         // UI
-//        uiManager.getUiStage().act(Math.min(Gdx.graphics.getDeltaTime(), 1 / 30f));
-//        uiManager.getUiStage().draw();
+        uiManager.getUiStage().act(Math.min(Gdx.graphics.getDeltaTime(), 1 / 30f));
+        uiManager.getUiStage().draw();
     }
 
     // Get UI manager

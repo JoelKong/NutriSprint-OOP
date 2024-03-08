@@ -46,6 +46,7 @@ public class GameScene extends Scenes {
                 setSceneBackgroundTexture(new Texture(Gdx.files.internal("Scenes/gamescene.png")));
                 uiManager = new UiManager(getGameController().getBatch(), getCamera().getUiViewport());
                 uiManager.startGameHUD();
+                uiManager.updateGameHUDLevel(levelManager.getLevelNumber());
                 entityManager.initializeEntities(sceneLevelAssets);
             } catch (CloneNotSupportedException e) {
                 throw new RuntimeException(e);
@@ -90,6 +91,8 @@ public class GameScene extends Scenes {
         // Render HUD
         uiManager.getUiStage().act(Math.min(Gdx.graphics.getDeltaTime(), 1 / 30f));
         uiManager.getUiStage().draw();
+
+        Gdx.app.log("Level Number", String.valueOf(levelManager.getLevelNumber()));
     }
 
     // Upon switching screens dispose all stuff on the screen

@@ -24,9 +24,9 @@ public class HUD {
         hudTable.top();
         hudTable.setFillParent(true);
 
-        scoreLabel = new Label("Score: 0", skin);
-        healthLabel = new Label("Health: 3", skin);
-        levelLabel = new Label("Level: 1", skin);
+        scoreLabel = new Label("Score:", skin);
+        healthLabel = new Label("Health:", skin);
+        levelLabel = new Label("Level:", skin);
 
         hudTable.add(levelLabel).align(Align.left).padTop(10).padLeft(10);
         hudTable.add(scoreLabel).align(Align.center).padTop(10);
@@ -35,8 +35,8 @@ public class HUD {
     }
 
     // Update HUD elements
-    private void update(float dt) {
-        // Update method to handle logic to update the HUD elements
+    protected void updateLevel(int level) {
+        levelLabel.setText("Level: " + level);
     }
 
     public Stage getStage() {

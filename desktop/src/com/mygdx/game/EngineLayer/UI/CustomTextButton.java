@@ -9,7 +9,8 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 public class CustomTextButton extends TextButton {
     // Parameterized constructor to initialise custom text button based off input
     protected CustomTextButton(String text, Runnable onClickAction) {
-        super(text, new Skin(Gdx.files.internal("UI/libgdx/uiskin.json")));
+        super(text, new Skin(Gdx.files.internal("UI/terra-mother/skin/terra-mother-ui.json")));
+        this.pad(20);
         initializeButton(onClickAction);
     }
 
