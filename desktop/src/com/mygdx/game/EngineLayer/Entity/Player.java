@@ -2,6 +2,7 @@ package com.mygdx.game.EngineLayer.Entity;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.mygdx.game.EngineLayer.InputOutput.Inputs;
+import com.mygdx.game.EngineLayer.PlayerControls.PlayerControlManager;
 
 // Player class inherited from GameEntity
 public class Player extends GameEntity {
@@ -31,19 +32,17 @@ public class Player extends GameEntity {
 
     // Movement of Player
     protected void playerMovement(Inputs preferredInput) {
-        PlayerControls playerControl = playerControlManager.getPlayerControls();
-
         if (preferredInput.getUpKey()) {
-            playerControl.moveUp(this);
+            playerControlManager.manageControls("UP", this);
         }
         if (preferredInput.getDownKey()) {
-            playerControl.moveDown(this);
+            playerControlManager.manageControls("DOWN", this);
         }
         if (preferredInput.getLeftKey()) {
-            playerControl.moveLeft(this);
+            playerControlManager.manageControls("LEFT", this);
         }
         if (preferredInput.getRightKey()) {
-            playerControl.moveRight(this);
+            playerControlManager.manageControls("RIGHT", this);
         }
     }
 

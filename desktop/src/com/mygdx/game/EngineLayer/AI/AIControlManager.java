@@ -1,4 +1,6 @@
-package com.mygdx.game.EngineLayer.Entity;
+package com.mygdx.game.EngineLayer.AI;
+import com.mygdx.game.EngineLayer.Entity.GameEntity;
+
 import java.util.List;
 
 // AI Control Manager Class

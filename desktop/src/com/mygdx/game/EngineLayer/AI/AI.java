@@ -1,7 +1,8 @@
-package com.mygdx.game.EngineLayer.Entity;
+package com.mygdx.game.EngineLayer.AI;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.mygdx.game.EngineLayer.Entity.GameEntity;
 
 // NPC Class inherited from GameEntity
 public class AI extends GameEntity {
@@ -9,14 +10,14 @@ public class AI extends GameEntity {
     private int AIID;
 
     // Default Constructor defaulting to AI
-    protected AI() {
+    public AI() { // rmb make protected once got new people
         super(new Texture("droplet.png"));
         this.AIID = 1;
         this.setSpeed(2);
     }
 
     // Parameterized constructor with customised NPC
-    protected AI(Texture texture, int npcID) {
+    public AI(Texture texture, int npcID) {
         super(texture);
         this.AIID = npcID;
         this.setSpeed(2);

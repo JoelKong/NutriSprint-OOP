@@ -1,5 +1,6 @@
-package com.mygdx.game.EngineLayer.Entity;
+package com.mygdx.game.EngineLayer.PlayerControls;
 import com.badlogic.gdx.Gdx;
+import com.mygdx.game.EngineLayer.Entity.Player;
 
 // Player Controls Class
 public class PlayerControls {

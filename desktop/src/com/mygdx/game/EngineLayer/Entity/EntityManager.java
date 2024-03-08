@@ -1,7 +1,9 @@
 package com.mygdx.game.EngineLayer.Entity;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.mygdx.game.EngineLayer.AI.AI;
 import com.mygdx.game.EngineLayer.InputOutput.Inputs;
 import com.mygdx.game.EngineLayer.Levels.Levels;
+import com.mygdx.game.GameLayer.Isaac;
 
 import java.util.*;
 
@@ -32,7 +34,7 @@ public class EntityManager {
     private GameEntity createEntity(EntityType entityType) {
         switch (entityType) {
             case PLAYER:
-                return new Player();
+                return new Isaac();
             case AI:
                 return new AI();
             default:
