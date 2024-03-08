@@ -47,7 +47,7 @@ public class GameScene extends Scenes {
             getGameController().setScreen(getGameController().getSceneManager().getSceneMap().get("end"));
         } else {
             try {
-                setSceneBackgroundTexture(new Texture(Gdx.files.internal("gamescene.png")));
+                setSceneBackgroundTexture(new Texture(Gdx.files.internal("Scenes/gamescene.png")));
                 uiManager = new UiManager(getGameController().getBatch(), getCamera().getUiViewport());
                 uiManager.startGameHUD();
                 entityManager.initializeEntities(sceneLevelAssets);
