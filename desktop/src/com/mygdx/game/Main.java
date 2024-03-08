@@ -1,8 +1,8 @@
 package com.mygdx.game;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.mygdx.game.Scenes.SceneManager;
-import com.mygdx.game.Simulation.SimulationManager;
+import com.mygdx.game.EngineLayer.Scenes.SceneManager;
+import com.mygdx.game.EngineLayer.Simulation.SimulationManager;
 
 // GameEngine Class
 public class Main extends Game {
