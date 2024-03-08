@@ -6,6 +6,7 @@ public class Levels {
     private int levelNumber;
     private String levelTitle;
     private int numberOfEnemies;
+    private int numberOfRocks;
 
     // Default Constructor
     protected Levels() {};
@@ -23,5 +24,10 @@ public class Levels {
     // Get Number of Enemies
     public int getNumberOfEnemies() {
         return numberOfEnemies;
+    }
+
+    // Get Number of Rocks
+    public int getNumberOfRocks() {
+        return numberOfRocks;
     }
 }

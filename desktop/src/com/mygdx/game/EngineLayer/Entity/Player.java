@@ -9,11 +9,13 @@ public class Player extends GameEntity {
     // Declare Attributes
     private int playerID;
     private PlayerControlManager playerControlManager;
+    private int health;
 
     // Default Constructor
     protected Player() {
         super();
         this.playerID = 1;
+        this.health = 5;
         this.playerControlManager = new PlayerControlManager();
     }
 
@@ -44,6 +46,16 @@ public class Player extends GameEntity {
         if (preferredInput.getRightKey()) {
             playerControlManager.manageControls("RIGHT", this);
         }
+    }
+
+    // Get Player Health
+    public int getHealth() {
+        return health;
+    }
+
+    // Set Player Health
+    public void setHealth(int health) {
+        this.health = health;
     }
 
     // Get Player ID

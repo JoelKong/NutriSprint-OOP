@@ -4,7 +4,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.mygdx.game.EngineLayer.Collisions.CollisionManager;
-import com.mygdx.game.EngineLayer.AI.AIControlManager;
+import com.mygdx.game.EngineLayer.Entity.AIControlManager;
 import com.mygdx.game.EngineLayer.Entity.EntityManager;
 import com.mygdx.game.EngineLayer.InputOutput.Inputs;
 import com.mygdx.game.EngineLayer.Levels.LevelManager;
@@ -77,7 +77,7 @@ public class GameScene extends Scenes {
         // If not paused, initialise all forms of behavior and movement
         if (!pauseSceneState) {
             entityManager.initialiseEntityMovement(preferredControls);
-            aiControlManager.initializeAIBehavior(entityManager.getEntityMap().get("ai"));
+            aiControlManager.initializeAIBehavior(entityManager.getEntityMap().get("ai"), entityManager.getEntityMap().get("player").get(0));
             collisionManager.initializeCollisions(entityManager.getEntityMap().get("ai"), entityManager.getEntityMap().get("player"));
         }
 

@@ -1,6 +1,4 @@
-package com.mygdx.game.EngineLayer.AI;
-import com.mygdx.game.EngineLayer.Entity.GameEntity;
-
+package com.mygdx.game.EngineLayer.Entity;
 import java.util.List;
 
 // AI Control Manager Class
@@ -9,10 +7,10 @@ public class AIControlManager {
     public AIControlManager() {}
 
     // Initialise AI Behavior
-    public void initializeAIBehavior (List<GameEntity> AIList) {
+    public void initializeAIBehavior (List<GameEntity> AIList, GameEntity player) {
         for (GameEntity entity: AIList) {
             AI ai = (AI) entity;
-            ai.behavior();
+            ai.behavior(player);
         }
     }
 }

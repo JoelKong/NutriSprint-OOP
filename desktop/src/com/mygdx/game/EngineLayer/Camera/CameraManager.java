@@ -60,7 +60,7 @@ public class CameraManager {
         y = Math.max(halfViewportHeight, Math.min(worldHeight - halfViewportHeight, y));
 
         // Zoom in to the game world
-        gameCamera.zoom = 0.7f;
+        gameCamera.zoom = 0.4f;
 
         // Set camera position
         gameCamera.position.set(x, y, 0);

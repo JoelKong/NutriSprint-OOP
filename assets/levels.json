@@ -2,11 +2,13 @@
   {
     "levelNumber": 1,
     "levelTitle": "Level 1",
-    "numberOfEnemies": 3
+    "numberOfEnemies": 3,
+    "numberOfRocks": 50
   },
   {
     "levelNumber": 2,
     "levelTitle": "Level 2",
-    "numberOfEnemies": 10
+    "numberOfEnemies": 10,
+    "numberOfRocks": 100
   }
 ]

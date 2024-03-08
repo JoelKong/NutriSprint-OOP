@@ -1,4 +1,4 @@
-package com.mygdx.game.GameLayer;
+package com.mygdx.game.EngineLayer.Entity;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.mygdx.game.EngineLayer.Entity.Player;
@@ -11,7 +11,7 @@ public class Isaac extends Player {
     private TextureRegion bodyRegion;
 
     // Default Constructor
-    public Isaac() {
+    protected Isaac() {
         super();
         this.headRegion = new TextureRegion(this.getTexture(), 10, 20, this.getWidth(), this.getHeight());
         this.bodyRegion = new TextureRegion(this.getTexture(), 10, 70, this.getWidth(), this.getHeight());

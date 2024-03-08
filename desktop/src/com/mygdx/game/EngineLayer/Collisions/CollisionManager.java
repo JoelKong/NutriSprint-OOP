@@ -1,5 +1,7 @@
 package com.mygdx.game.EngineLayer.Collisions;
 import com.mygdx.game.EngineLayer.Entity.GameEntity;
+import com.mygdx.game.EngineLayer.Entity.Player;
+
 import java.util.List;
 
 // Collision Manager Class
@@ -15,15 +17,9 @@ public class CollisionManager {
     // Initialize all forms of collisions
     public void initializeCollisions(List<GameEntity> aiEntityList, List<GameEntity> playerEntityList) {
         // Prevents players from leaving game window.
-        for (GameEntity player: playerEntityList) { collision.gameWindowCollision(player); }
-
-        // Loops through both lists and checks for collisions between the player and other entities.
-        for (GameEntity player : playerEntityList) {
-            for (GameEntity ai : aiEntityList) {
-                if (collision.collisionDetected(player, ai)) {
-                    ai.setPopFromScreen(true);
-                }
-            }
+        for (GameEntity player: playerEntityList) {
+            collision.gameWindowCollision(player);
+            collision.handleAICollision(aiEntityList, (Player) player);
         }
     }
 }

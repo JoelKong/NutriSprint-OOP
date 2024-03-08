@@ -1,9 +1,11 @@
 package com.mygdx.game.EngineLayer.Entity;
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.mygdx.game.EngineLayer.AI.AI;
+import com.badlogic.gdx.math.MathUtils;
+import com.badlogic.gdx.math.Rectangle;
+import com.badlogic.gdx.math.Vector2;
 import com.mygdx.game.EngineLayer.InputOutput.Inputs;
 import com.mygdx.game.EngineLayer.Levels.Levels;
-import com.mygdx.game.GameLayer.Isaac;
 
 import java.util.*;
 
@@ -13,8 +15,9 @@ public class EntityManager {
     private Map<String, List<GameEntity>> entityMap;
     private List<GameEntity> aiEntityList;
     private List<GameEntity> playerEntityList;
+    private List<GameEntity> propEntityList;
     private enum EntityType {
-        PLAYER, AI
+        ISAAC, FRENCHFRIES, ROCK
     }
 
     // Default Constructor class to initialise entities
@@ -22,21 +25,28 @@ public class EntityManager {
         this.entityMap = new HashMap<>();
         this.playerEntityList = new ArrayList<>();
         this.aiEntityList = new ArrayList<>();
+        this.propEntityList = new ArrayList<>();
+        entityMap.put("ai", aiEntityList);
+        entityMap.put("player", playerEntityList);
+        entityMap.put("props", propEntityList);
     }
 
     // Clear all entity lists
-    private void clearEntityLists() {
+    public void clearEntityLists() {
         playerEntityList.clear();
         aiEntityList.clear();
+        propEntityList.clear();
     }
 
     // Factory function to create GameEntity objects
-    private GameEntity createEntity(EntityType entityType) {
+    public GameEntity createEntity(EntityType entityType) {
         switch (entityType) {
-            case PLAYER:
+            case ISAAC:
                 return new Isaac();
-            case AI:
-                return new AI();
+            case FRENCHFRIES:
+                return new FrenchFries();
+            case ROCK:
+                return new Rock();
             default:
                 System.out.println("Warning: Unknown entityType when creating a new entity object.");
                 return null;
@@ -44,40 +54,25 @@ public class EntityManager {
     }
 
     // Populate entities based off level specification
-    private void populateEntities(Levels level) throws CloneNotSupportedException {
-        playerEntityList.add(createEntity(EntityType.PLAYER));
+    public void populateEntities(Levels level) throws CloneNotSupportedException {
+        playerEntityList.add(createEntity(EntityType.ISAAC));
+
         for (int i = 0; i < level.getNumberOfEnemies(); i++) {
-            aiEntityList.add(Objects.requireNonNull(createEntity(EntityType.AI)).clone());
+            GameEntity entity = randomiseEntityPosition(Objects.requireNonNull(createEntity(EntityType.FRENCHFRIES)).clone(), entityMap);
+            aiEntityList.add(entity);
+        }
+
+        for (int i = 0; i < level.getNumberOfRocks(); i++) {
+            GameEntity rock = randomiseEntityPosition(Objects.requireNonNull(createEntity(EntityType.ROCK)).clone(), entityMap);
+            propEntityList.add(rock);
         }
     }
-
-    // Proof of concept on how we create entities
-//    public List<GameEntity> getListOfEntities(String entityString, int numberOfEntities) {
-//        List<GameEntity> entities = new ArrayList<>();
-//
-//        // Get the EntityType enum corresponding to the entityString
-//        EntityType entityType = getEntityType(entityString);
-//
-//        if (entityType != null) {
-//            // Create the specified number of entities of the given type
-//            for (int i = 0; i < numberOfEntities; i++) {
-//                GameEntity entity = createEntity(entityType);
-//                if (entity != null) {
-//                    entities.add(entity);
-//                }
-//            }
-//        }
-//
-//        return entities;
-//    }
 
     /* Default Initialization of Entities
     1) clear all lists. 2) Create GameEntities based on level specification 3) Put them into EntityMap.*/
     public void initializeEntities(Levels level) throws CloneNotSupportedException {
         clearEntityLists();
         populateEntities(level);
-        entityMap.put("player", playerEntityList);
-        entityMap.put("ai", aiEntityList);
     }
 
     // Drawing of Entities
@@ -90,6 +85,54 @@ public class EntityManager {
                 }
             }
         }
+    }
+
+    // Randomise Entity position
+    private GameEntity randomiseEntityPosition(GameEntity entity, Map<String, List<GameEntity>> entityMap) {
+        final float MIN_DISTANCE = 110f;
+        boolean positionValid;
+        GameEntity player = entityMap.get("player").get(0);
+
+        Rectangle spawnArea = new Rectangle(0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
+
+        do {
+            // Generate a random position within the screen bounds
+            float randomX = MathUtils.random(spawnArea.x, spawnArea.width - entity.getWidth());
+            float randomY = MathUtils.random(spawnArea.y, spawnArea.height - entity.getHeight());
+            Vector2 randomPosition = new Vector2(randomX, randomY);
+
+            positionValid = true;
+
+            // Check distance from the player
+            if (randomPosition.dst(player.getPosX(), player.getPosY()) < MIN_DISTANCE) {
+                positionValid = false;
+            }
+
+            // Check distance from AI entities
+            for (GameEntity aiEntity : entityMap.getOrDefault("ai", Collections.emptyList())) {
+                if (new Vector2(aiEntity.getPosX(), aiEntity.getPosY()).dst(randomPosition) < MIN_DISTANCE) {
+                    positionValid = false;
+                    break;
+                }
+            }
+
+            // Check distance from prop entities
+            for (GameEntity rock : entityMap.getOrDefault("props", Collections.emptyList())) {
+                if (new Vector2(rock.getPosX(), rock.getPosY()).dst(randomPosition) < MIN_DISTANCE) {
+                    positionValid = false;
+                    break;
+                }
+            }
+
+            // If the position is valid, set the AI's position
+            if (positionValid) {
+                entity.setPosX(randomX);
+                entity.setPosY(randomY);
+            }
+
+        } while (!positionValid);
+
+        return entity;
     }
 
     // Initialising of entity movement
