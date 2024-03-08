@@ -1,78 +1,95 @@
 package com.mygdx.game.UI;
-
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
-import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
+import com.mygdx.game.Main;
 
+// UI Manager Class
 public class UiManager {
+    // Declare attributes
     private Stage uiStage;
-    private Viewport uiViewport;
-    private OrthographicCamera uiCamera;
-    private Table table;
-    private HUD gameHUD;
+    private Table uiTable;
+    private HUD uiGameHUD;
 
-    public UiManager(SpriteBatch spriteBatch) {
-        this.uiCamera = new OrthographicCamera();
-        this.uiViewport = new ScreenViewport(uiCamera);
+    // Parameterized constructor requiring ui viewport and batch
+    public UiManager(SpriteBatch spriteBatch, Viewport uiViewport) {
         uiStage = new Stage(uiViewport, spriteBatch);
-
-        table = new Table();
-        table.setFillParent(true);
-        table.center();
-
-        // createStartSceneUI();
-        // startGameHUD();
-
-        uiStage.addActor(table);
+        uiTable = new Table();
+        uiTable.setFillParent(true);
+        uiTable.center();
+        uiStage.addActor(uiTable);
 
         Gdx.input.setInputProcessor(uiStage);
     }
 
+    // Start the game HUD
     public void startGameHUD() {
-        if (gameHUD == null) {
-            gameHUD = new HUD(uiStage);
+        if (uiGameHUD == null) {
+            uiGameHUD = new HUD(uiStage);
         }
 
-        uiStage.addActor(gameHUD.getHudTable());
+        uiStage.addActor(uiGameHUD.getHudTable());
     }
 
+    // Update the game HUD
     private void updateGameHUD() {
         // Update HUD Functions
     }
 
-    public void createStartSceneUI() {
-        createStartButton();
-        table.row();
+    // Create the UI for start scene
+    public void createStartSceneUI(Main gameController) {
+        createStartButton(gameController);
+        uiTable.row();
         createEndButton();
     }
 
-    private void createStartButton() {
-        CustomTextButton startButton = new CustomTextButton("Start Game"); // Pass the skin to the button
+    // Creating start button
+    private void createStartButton(Main gameController) {
+        CustomTextButton startButton = new CustomTextButton("Start Game", () -> {
+            gameController.setScreen(gameController.getSceneManager().getSceneMap().get("game"));
+        });
 
-        // Adjust the method of adding the button to the table
-        table.add(startButton).padBottom(10).center();
+        uiTable.add(startButton).padBottom(10).center();
     }
 
+    // Creating end button
     private void createEndButton() {
-        CustomTextButton quitButton = new CustomTextButton("End Game"); // Pass the skin to the button
+        CustomTextButton quitButton = new CustomTextButton("End Game", () -> {
+            Gdx.app.exit();
+        });
 
-        // Adjust the method of adding the button to the table
-        table.add(quitButton).padTop(10).center();
+        uiTable.add(quitButton).padTop(10).center();
     }
 
+    // Get UI Stage
     public Stage getUiStage() {
         return uiStage;
     }
 
-    public Viewport getUiViewport() {
-        return uiViewport;
+    // Set UI Stage
+    public void setUiStage(Stage uiStage) {
+        this.uiStage = uiStage;
     }
 
-    public OrthographicCamera getUiCamera() {
-        return uiCamera;
+    // Get Table
+    public Table getUiTable() {
+        return uiTable;
+    }
+
+    // Set Table
+    public void setUiTable(Table uiTable) {
+        this.uiTable = uiTable;
+    }
+
+    // Get Game HUD
+    public HUD getUiGameHUD() {
+        return uiGameHUD;
+    }
+
+    // Set Game HUD
+    public void setUiGameHUD(HUD uiGameHUD) {
+        this.uiGameHUD = uiGameHUD;
     }
 }

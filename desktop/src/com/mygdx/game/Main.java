@@ -1,15 +1,13 @@
 package com.mygdx.game;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.mygdx.game.Entity.EntityManager;
 import com.mygdx.game.Scenes.SceneManager;
 import com.mygdx.game.Simulation.SimulationManager;
 
 // GameEngine Class
 public class Main extends Game {
-    // Declaring of attributes (managers)
+    // Declaring of attributes (managers and batch)
     private SimulationManager simulationManager;
-    private EntityManager entityManager;
     private SceneManager sceneManager;
     private SpriteBatch batch;
 

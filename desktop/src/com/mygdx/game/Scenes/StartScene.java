@@ -15,10 +15,11 @@ public class StartScene extends Scenes {
         super(1, "start", gameController);
     }
 
+    // First run of start scene
     @Override
     public void show() {
-        this.uiManager = new UiManager(getGameController().getBatch());
-        uiManager.createStartSceneUI();
+        this.uiManager = new UiManager(getGameController().getBatch(), getCamera().getUiViewport());
+        uiManager.createStartSceneUI(getGameController());
     }
 
     // Render start scene
@@ -44,16 +45,10 @@ public class StartScene extends Scenes {
         // UI
         uiManager.getUiStage().act(Math.min(Gdx.graphics.getDeltaTime(), 1 / 30f));
         uiManager.getUiStage().draw();
-
-        // Text
-//        batch.begin();
-//        // renderTextAtScenePosition(batch, "Press 'Enter' to start.", "center");
-//        batch.end();
     }
 
-    @Override
-    public void resize(int width, int height) {
-        uiManager.getUiViewport().update(width, height, true);
-        uiManager.getUiCamera().update();
+    // Get UI manager
+    public UiManager uiManager() {
+        return uiManager;
     }
 }

@@ -1,6 +1,5 @@
 package com.mygdx.game.Scenes;
 import com.badlogic.gdx.Screen;
-import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.mygdx.game.Main;
 import java.util.HashMap;
 import java.util.Map;
@@ -11,7 +10,7 @@ public class SceneManager {
     private Map<String, Screen> sceneMap;
     private Main gameController;
 
-    // Store all scenes in a hashmap on initialisation and initialise current scene to start scene
+    // Parameterized constructor containing the game controller
     public SceneManager(Main gameController) {
         this.sceneMap = new HashMap<>();
         this.gameController = gameController;

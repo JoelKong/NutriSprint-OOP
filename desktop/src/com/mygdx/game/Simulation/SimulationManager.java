@@ -1,6 +1,5 @@
 package com.mygdx.game.Simulation;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.mygdx.game.Entity.EntityManager;
 import com.mygdx.game.Scenes.*;
 
 // Simulation manager class

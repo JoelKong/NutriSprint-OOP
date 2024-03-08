@@ -17,45 +17,21 @@ public abstract class Scenes implements Screen {
     // Parameterized constructor to specify details of scenes
     protected Scenes(int sceneId, String sceneName, Main gameController) {
         this.gameController = gameController;
-        this.inputOutputManager = new InputOutputManager(); // factory
+        this.inputOutputManager = new InputOutputManager();
         this.camera = new CameraManager();
         this.sceneId = sceneId;
         this.sceneName = sceneName;
     }
 
-    // Render text at specified position (will go to HUD)
-//    protected void renderTextAtScenePosition(SpriteBatch batch, String text, String position) {
-//        float x = 0;
-//        float y = 0;
-//
-//        GlyphLayout layout = new GlyphLayout(gameController.getSceneManager().getFont(),text);
-//
-//        switch (position) {
-//            case "top":
-//                x = (Gdx.graphics.getWidth() - layout.width) / 2;
-//                y = Gdx.graphics.getHeight() - 20;
-//                break;
-//            case "topleft":
-//                x = 10;
-//                y = Gdx.graphics.getHeight() - 10;
-//                break;
-//            case "center":
-//                x = (Gdx.graphics.getWidth() - layout.width) / 2; // Center horizontally
-//                y = (Gdx.graphics.getHeight() + layout.height) / 2; // Center vertically
-//                break;
-//            default:
-//                return;
-//        }
-//        gameController.getSceneManager().getFont().draw(batch, layout, x, y);
-//    }
-
-    // Overrides
+    // Methods to override from the Screen LibGdx class
     public void show() {}
 
     abstract public void render(float delta);
 
     public void resize(int width, int height) {
-        camera.resetCameraOnResize(width, height);
+        getCamera().resetCameraOnResize(width, height);
+        getCamera().getUiViewport().update(width, height, true);
+        getCamera().getUiCamera().update();
     };
 
     public void pause() {};
@@ -95,11 +71,6 @@ public abstract class Scenes implements Screen {
     // Get Camera
     public CameraManager getCamera() {
         return camera;
-    }
-
-    // Set Camera
-    public void setCamera(CameraManager camera) {
-        this.camera = camera;
     }
 
     // Get Input Output Manager

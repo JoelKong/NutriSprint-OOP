@@ -7,19 +7,18 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 
 // Custom Text Button class
 public class CustomTextButton extends TextButton {
-    // Parameterized constructor to initialise custom text button based off text
-    public CustomTextButton(String text) {
+    // Parameterized constructor to initialise custom text button based off input
+    public CustomTextButton(String text, Runnable onClickAction) {
         super(text, new Skin(Gdx.files.internal("UI/libgdx/uiskin.json")));
-        initializeButton();
+        initializeButton(onClickAction);
     }
 
-    // Add event listener to button
-    private void initializeButton() {
+    // Add event listener to button with a functionality mapped to the button
+    private void initializeButton(Runnable onClickAction) {
         this.addListener(new ClickListener() {
-            // click listener need to do something about it
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                Gdx.app.log("Start Button", "Button click alr");
+                onClickAction.run();
             }
         });
     }

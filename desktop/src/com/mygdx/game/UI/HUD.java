@@ -28,19 +28,13 @@ public class HUD {
         healthLabel = new Label("Health: 3", skin);
         levelLabel = new Label("Level: 1", skin);
 
-
         hudTable.add(levelLabel).align(Align.left).padTop(10).padLeft(10);
-
-
         hudTable.add(scoreLabel).align(Align.center).padTop(10);
-
-
         hudTable.add(healthLabel).align(Align.right).padTop(10).padRight(10);
-
         uiStage.addActor(hudTable);
     }
 
-
+    // Update HUD elements
     public void update(float dt) {
         // Update method to handle logic to update the HUD elements
     }

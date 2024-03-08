@@ -4,6 +4,7 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.viewport.FitViewport;
+import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 
 // Camera Manager Class
@@ -12,9 +13,16 @@ public class CameraManager {
     private OrthographicCamera gameCamera;
     private Viewport cameraViewport;
     private Stage cameraStage;
+    private Viewport uiViewport;
+    private OrthographicCamera uiCamera;
 
-    // Default constructor to create camera
+    // Default constructor to create UI camera and game camera
     public CameraManager() {
+        // UI Camera
+        this.uiCamera = new OrthographicCamera();
+        this.uiViewport = new ScreenViewport(uiCamera);
+
+        // Game Camera
         this.gameCamera = new OrthographicCamera();
         this.cameraViewport = new FitViewport(1280, 720);
         this.cameraStage = new Stage(cameraViewport);
@@ -39,7 +47,7 @@ public class CameraManager {
 
     // Focus the camera on a position
     public void focusCamera(float x, float y, SpriteBatch batch) {
-        // Define your game world size
+        // Size of game world
         float worldWidth = Gdx.graphics.getWidth();
         float worldHeight = Gdx.graphics.getHeight();
 
@@ -54,6 +62,7 @@ public class CameraManager {
         // Zoom in to the game world
         gameCamera.zoom = 0.7f;
 
+        // Set camera position
         gameCamera.position.set(x, y, 0);
         gameCamera.update();
         batch.setProjectionMatrix(gameCamera.combined);
@@ -87,5 +96,25 @@ public class CameraManager {
     // Set Camera Stage
     public void setCameraStage(Stage cameraStage) {
         this.cameraStage = cameraStage;
+    }
+
+    // Get UI Viewport
+    public Viewport getUiViewport() {
+        return uiViewport;
+    }
+
+    // Set UI Viewport
+    public void setUiViewport(Viewport uiViewport) {
+        this.uiViewport = uiViewport;
+    }
+
+    // Get UI Camera
+    public OrthographicCamera getUiCamera() {
+        return uiCamera;
+    }
+
+    // Set UI Camera
+    public void setUiCamera(OrthographicCamera uiCamera) {
+        this.uiCamera = uiCamera;
     }
 }

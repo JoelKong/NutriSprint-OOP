@@ -18,12 +18,12 @@ public class GameScene extends Scenes {
     // Declare attributes
     private Levels sceneLevelAssets;
     private boolean pauseSceneState;
-    private UiManager uiManager;
     private LevelManager levelManager;
     private PlayerControlManager playerControlManager;
     private AIControlManager aiControlManager;
     private CollisionManager collisionManager;
     private EntityManager entityManager;
+    private UiManager uiManager;
 
     // Parameterized constructor to initialise details of game scene
     protected GameScene(Main gameController) {
@@ -36,20 +36,18 @@ public class GameScene extends Scenes {
         this.entityManager = new EntityManager();
     }
 
+    // Check if level assets available for selected level, if not game ends
     @Override
     public void show() {
-        this.uiManager = new UiManager(getGameController().getBatch());
-
-        uiManager.startGameHUD();
-
         sceneLevelAssets = levelManager.retrieveLevelAssets();
 
         if (sceneLevelAssets == null) {
             levelManager.setLevelNumber(1);
             getGameController().setScreen(getGameController().getSceneManager().getSceneMap().get("end"));
         } else {
-
             try {
+                this.uiManager = new UiManager(getGameController().getBatch(), getCamera().getUiViewport());
+                uiManager.startGameHUD();
                 entityManager.initializeEntities(sceneLevelAssets);
             } catch (CloneNotSupportedException e) {
                 throw new RuntimeException(e);
@@ -68,7 +66,7 @@ public class GameScene extends Scenes {
         // Clear the screen
         ScreenUtils.clear(0, 0, 0.2f, 1);
 
-        // Update camera
+        // Focus the camera on our player
         getCamera().focusCamera(entityManager.getPlayersList().get(0).getPosX(), entityManager.getPlayersList().get(0).getPosY(), batch);
 
         // Draw entities and render text
@@ -94,17 +92,12 @@ public class GameScene extends Scenes {
             getGameController().setScreen(this);
         }
 
+        // Render HUD
         uiManager.getUiStage().act(Math.min(Gdx.graphics.getDeltaTime(), 1 / 30f));
         uiManager.getUiStage().draw();
-
-        //        if (contition) {
-//            // Tells EntityManager to make give me a list of entities
-//            List<GameEntity> newlistOFEntities = entityManager.getListOfEntities("AI",5);
-//            // code to render out the new entities
-//        }
     }
 
-
+    // Upon switching screens dispose all stuff on the screen
     public void dispose() {
         entityManager.disposeEntities();
     };
@@ -114,7 +107,7 @@ public class GameScene extends Scenes {
         return levelManager;
     }
 
-    // Get Player Controls Managers
+    // Get Player Control Managers
     public PlayerControlManager getPlayerControlManager() {
         return playerControlManager;
     }
@@ -132,6 +125,11 @@ public class GameScene extends Scenes {
     // Get Entity Manager
     public EntityManager getEntityManager() {
         return entityManager;
+    }
+
+    // Get UI manager
+    public UiManager uiManager() {
+        return uiManager;
     }
 
     // Get Pause Scene State
