@@ -16,7 +16,7 @@ public class HUD {
     private Table hudTable;
 
     // Parameterized constructor to initialise game HUD
-    public HUD(Stage stage) {
+    protected HUD(Stage stage) {
         this.uiStage = stage;
         this.skin = new Skin(Gdx.files.internal("UI/libgdx/uiskin.json"));
 
@@ -35,7 +35,7 @@ public class HUD {
     }
 
     // Update HUD elements
-    public void update(float dt) {
+    private void update(float dt) {
         // Update method to handle logic to update the HUD elements
     }
 

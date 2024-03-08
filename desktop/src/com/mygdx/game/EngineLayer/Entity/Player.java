@@ -7,17 +7,20 @@ import com.mygdx.game.EngineLayer.InputOutput.Inputs;
 public class Player extends GameEntity {
     // Declare Attributes
     private int playerID;
+    private PlayerControlManager playerControlManager;
 
     // Default Constructor
     protected Player() {
         super();
         this.playerID = 1;
+        this.playerControlManager = new PlayerControlManager();
     }
 
     // Parameterized Constructor to specify player attributes
     protected Player(Texture texture, float xPosition, float yPosition, float speed) {
         super(texture, xPosition, yPosition, speed);
         this.playerID = 1;
+        this.playerControlManager = new PlayerControlManager();
     }
 
     @Override
@@ -27,7 +30,9 @@ public class Player extends GameEntity {
     }
 
     // Movement of Player
-    protected void playerMovement(Inputs preferredInput, PlayerControls playerControl) {
+    protected void playerMovement(Inputs preferredInput) {
+        PlayerControls playerControl = playerControlManager.getPlayerControls();
+
         if (preferredInput.getUpKey()) {
             playerControl.moveUp(this);
         }
@@ -50,5 +55,10 @@ public class Player extends GameEntity {
     // Set Player ID
     public void setPlayerID(int playerID) {
         this.playerID = playerID;
+    }
+
+    // Get Player Control Manager
+    public PlayerControlManager getPlayerControlManager() {
+        return playerControlManager;
     }
 }

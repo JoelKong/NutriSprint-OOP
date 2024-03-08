@@ -19,7 +19,7 @@ public abstract class GameEntity implements Cloneable {
 
     // Default Constructor to player character
     protected GameEntity() {
-        this.texture = new Texture(Gdx.files.internal("isaac.png"));
+        this.texture = new Texture(Gdx.files.internal("circle.png"));
         this.xPosition = (Gdx.graphics.getWidth() - width) / 2f;
         this.yPosition = (Gdx.graphics.getHeight() - height) / 2f;
         this.speed = 300;

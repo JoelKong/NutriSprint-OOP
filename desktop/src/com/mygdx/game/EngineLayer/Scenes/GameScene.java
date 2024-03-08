@@ -20,7 +20,6 @@ public class GameScene extends Scenes {
     private Levels sceneLevelAssets;
     private boolean pauseSceneState;
     private LevelManager levelManager;
-    private PlayerControlManager playerControlManager;
     private AIControlManager aiControlManager;
     private CollisionManager collisionManager;
     private EntityManager entityManager;
@@ -31,7 +30,6 @@ public class GameScene extends Scenes {
         super(2, "game", gameController);
         this.pauseSceneState = false;
         this.levelManager = new LevelManager();
-        this.playerControlManager = new PlayerControlManager();
         this.aiControlManager = new AIControlManager();
         this.collisionManager = new CollisionManager();
         this.entityManager = new EntityManager();
@@ -61,7 +59,6 @@ public class GameScene extends Scenes {
     @Override
     public void render(float delta) {
         // Get necessary data
-        PlayerControls playerControls = playerControlManager.getPlayerControls();
         Inputs preferredControls = getInputOutputManager().getPreferredControls();
         SpriteBatch batch = getGameController().getBatch();
 
@@ -81,7 +78,7 @@ public class GameScene extends Scenes {
 
         // If not paused, initialise all forms of behavior and movement
         if (!pauseSceneState) {
-            entityManager.initialiseEntityMovement(preferredControls, playerControls);
+            entityManager.initialiseEntityMovement(preferredControls);
             aiControlManager.initializeAIBehavior(entityManager.getEntityMap().get("ai"));
             collisionManager.initializeCollisions(entityManager.getEntityMap().get("ai"), entityManager.getEntityMap().get("player"));
         }
@@ -105,11 +102,6 @@ public class GameScene extends Scenes {
     // Get Level Manager
     public LevelManager getLevelManager() {
         return levelManager;
-    }
-
-    // Get Player Control Managers
-    public PlayerControlManager getPlayerControlManager() {
-        return playerControlManager;
     }
 
     // Get AI Control Manager

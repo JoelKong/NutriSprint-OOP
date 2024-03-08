@@ -91,10 +91,10 @@ public class EntityManager {
     }
 
     // Initialising of entity movement
-    public void initialiseEntityMovement(Inputs commandInput, PlayerControls playerControls) {
+    public void initialiseEntityMovement(Inputs commandInput) {
         for (GameEntity entity: playerEntityList) {
             Player player = (Player) entity;
-            player.playerMovement(commandInput, playerControls);
+            player.playerMovement(commandInput);
         }
     }
 
