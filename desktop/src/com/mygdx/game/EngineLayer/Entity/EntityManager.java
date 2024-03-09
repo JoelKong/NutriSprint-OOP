@@ -160,7 +160,7 @@ public class EntityManager {
     public void initialiseEntityActions(Inputs commandInput) {
         for (GameEntity entity: playerEntityList) {
             Player player = (Player) entity;
-            player.playerActions(commandInput);
+            player.playerActions(commandInput, entityMap);
         }
     }
 

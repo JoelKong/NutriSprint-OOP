@@ -5,6 +5,9 @@ import com.mygdx.game.EngineLayer.InputOutput.Inputs;
 import com.mygdx.game.EngineLayer.Levels.Levels;
 import com.mygdx.game.EngineLayer.PlayerControls.PlayerControlManager;
 
+import java.util.List;
+import java.util.Map;
+
 // Player class inherited from GameEntity
 public class Player extends GameEntity {
     // Declare Attributes
@@ -51,21 +54,24 @@ public class Player extends GameEntity {
     }
 
     // Actions of Player
-    protected void playerActions(Inputs preferredInput) {
+    protected void playerActions(Inputs preferredInput, Map<String,List<GameEntity>> entityMap) {
         if (preferredInput.getUpKey()) {
-            playerControlManager.manageControls("UP", this, preferredInput);
+            playerControlManager.manageControls("UP", this, preferredInput, entityMap);
         }
         if (preferredInput.getDownKey()) {
-            playerControlManager.manageControls("DOWN", this, preferredInput);
+            playerControlManager.manageControls("DOWN", this, preferredInput, entityMap);
         }
         if (preferredInput.getLeftKey()) {
-            playerControlManager.manageControls("LEFT", this, preferredInput);
+            playerControlManager.manageControls("LEFT", this, preferredInput, entityMap);
         }
         if (preferredInput.getRightKey()) {
-            playerControlManager.manageControls("RIGHT", this, preferredInput);
+            playerControlManager.manageControls("RIGHT", this, preferredInput, entityMap);
         }
         if (preferredInput.getTeleportKey()) {
-            playerControlManager.manageControls("TELEPORT", this, preferredInput);
+            playerControlManager.manageControls("TELEPORT", this, preferredInput, entityMap);
+        }
+        if (preferredInput.getExplodeKey()) {
+            playerControlManager.manageControls("EXPLODE", this, preferredInput, entityMap);
         }
     }
 

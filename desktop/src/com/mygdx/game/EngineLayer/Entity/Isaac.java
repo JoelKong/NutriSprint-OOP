@@ -1,9 +1,13 @@
 package com.mygdx.game.EngineLayer.Entity;
+import com.badlogic.gdx.Game;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.mygdx.game.EngineLayer.Entity.Player;
 import com.mygdx.game.EngineLayer.InputOutput.Inputs;
 import com.mygdx.game.EngineLayer.Levels.Levels;
+
+import java.util.List;
+import java.util.Map;
 
 // Isaac Player Class
 public class Isaac extends Player {
@@ -33,25 +37,28 @@ public class Isaac extends Player {
 
     @Override
 //     Action of Isaac
-    protected void playerActions(Inputs preferredInput) {
+    protected void playerActions(Inputs preferredInput, Map<String, List<GameEntity>> entityMap) {
         if (preferredInput.getUpKey()) {
-            getPlayerControlManager().manageControls("UP", this, preferredInput);
+            getPlayerControlManager().manageControls("UP", this, preferredInput, entityMap);
             headRegion = new TextureRegion(getTexture(), 170, 20, getWidth(), getHeight());
         }
         if (preferredInput.getDownKey()) {
-            getPlayerControlManager().manageControls("DOWN", this, preferredInput);
+            getPlayerControlManager().manageControls("DOWN", this, preferredInput, entityMap);
             headRegion = new TextureRegion(getTexture(), 10, 20, getWidth(), getHeight());
         }
         if (preferredInput.getLeftKey()) {
-            getPlayerControlManager().manageControls("LEFT", this, preferredInput);
+            getPlayerControlManager().manageControls("LEFT", this, preferredInput, entityMap);
             headRegion = new TextureRegion(getTexture(), 250, 20, getWidth(), getHeight());
         }
         if (preferredInput.getRightKey()) {
-            getPlayerControlManager().manageControls("RIGHT", this, preferredInput);
+            getPlayerControlManager().manageControls("RIGHT", this, preferredInput, entityMap);
             headRegion = new TextureRegion(getTexture(), 90, 20, getWidth(), getHeight());
         }
         if (preferredInput.getTeleportKey()) {
-            getPlayerControlManager().manageControls("TELEPORT", this, preferredInput);
+            getPlayerControlManager().manageControls("TELEPORT", this, preferredInput, entityMap);
+        }
+        if (preferredInput.getExplodeKey()) {
+            getPlayerControlManager().manageControls("EXPLODE", this, preferredInput, entityMap);
         }
     }
 }

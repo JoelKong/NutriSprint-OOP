@@ -20,4 +20,6 @@ public interface Inputs {
     void setPauseKey(int pauseKey);
     boolean getTeleportKey();
     void setTeleportKey(int teleportKey);
+    boolean getExplodeKey();
+    void setExplodeKey(int explodeKey);
 }
