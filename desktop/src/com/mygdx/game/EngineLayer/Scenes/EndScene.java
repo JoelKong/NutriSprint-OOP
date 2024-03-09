@@ -22,7 +22,7 @@ public class EndScene extends Scenes {
         //        setSceneBackgroundTexture(new Texture(Gdx.files.internal("")));
         this.uiManager = new UiManager(getGameController().getBatch(), getCamera().getUiViewport());
         uiManager.createEndSceneUI(getGameController());
-        setSceneBackgroundTexture(new Texture(Gdx.files.internal("Scenes/endscene.png")));
+        setSceneBackgroundTexture(new Texture(Gdx.files.internal("Scenes/endscenee.png")));
     }
 
     // Render end scene
