@@ -1,6 +1,7 @@
 package com.mygdx.game.EngineLayer.PlayerControls;
 
 import com.mygdx.game.EngineLayer.Entity.Player;
+import com.mygdx.game.EngineLayer.InputOutput.Inputs;
 
 // Control Manager Class
 public class PlayerControlManager {
@@ -13,7 +14,7 @@ public class PlayerControlManager {
     }
 
     // Manage Player Controls
-    public void manageControls(String command, Player player) {
+    public void manageControls(String command, Player player, Inputs preferredInput) {
         switch (command) {
             case "UP":
                 playerControls.moveUp(player);
@@ -27,6 +28,8 @@ public class PlayerControlManager {
             case "RIGHT":
                 playerControls.moveRight(player);
                 break;
+            case "TELEPORT":
+                playerControls.teleport(player, preferredInput);
             default:
         }
     }

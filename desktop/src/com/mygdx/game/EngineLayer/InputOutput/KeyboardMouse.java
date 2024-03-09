@@ -13,6 +13,7 @@ public class KeyboardMouse implements Inputs {
     private int restartKey;
     private int menuKey;
     private int pauseKey;
+    private int teleportKey;
 
     // Default Constructor for all key bindings
     protected KeyboardMouse() {
@@ -24,6 +25,7 @@ public class KeyboardMouse implements Inputs {
         this.restartKey = Input.Keys.R;
         this.menuKey = Input.Keys.M;
         this.pauseKey = Input.Keys.P;
+        this.teleportKey = Input.Keys.SPACE;
     }
 
     // Get Left Key
@@ -93,4 +95,14 @@ public class KeyboardMouse implements Inputs {
 
     // Set Pause Key
     public void setPauseKey(int pauseKey) { this.pauseKey = pauseKey; }
+
+    // Get Teleport Key
+    public boolean getTeleportKey() {
+        return Gdx.input.isKeyJustPressed(teleportKey);
+    }
+
+    // Set Teleport Key
+    public void setTeleportKey(int teleportKey) {
+        this.teleportKey = teleportKey;
+    }
 }

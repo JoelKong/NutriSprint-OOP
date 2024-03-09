@@ -18,4 +18,6 @@ public interface Inputs {
     void setMenuKey(int menuKey);
     boolean getPauseKey();
     void setPauseKey(int pauseKey);
+    boolean getTeleportKey();
+    void setTeleportKey(int teleportKey);
 }

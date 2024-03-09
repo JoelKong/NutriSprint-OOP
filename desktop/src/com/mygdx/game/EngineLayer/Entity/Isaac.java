@@ -32,23 +32,26 @@ public class Isaac extends Player {
     }
 
     @Override
-//     Movement of Isaac
-    protected void playerMovement(Inputs preferredInput) {
+//     Action of Isaac
+    protected void playerActions(Inputs preferredInput) {
         if (preferredInput.getUpKey()) {
-            getPlayerControlManager().manageControls("UP", this);
+            getPlayerControlManager().manageControls("UP", this, preferredInput);
             headRegion = new TextureRegion(getTexture(), 170, 20, getWidth(), getHeight());
         }
         if (preferredInput.getDownKey()) {
-            getPlayerControlManager().manageControls("DOWN", this);
+            getPlayerControlManager().manageControls("DOWN", this, preferredInput);
             headRegion = new TextureRegion(getTexture(), 10, 20, getWidth(), getHeight());
         }
         if (preferredInput.getLeftKey()) {
-            getPlayerControlManager().manageControls("LEFT", this);
+            getPlayerControlManager().manageControls("LEFT", this, preferredInput);
             headRegion = new TextureRegion(getTexture(), 250, 20, getWidth(), getHeight());
         }
         if (preferredInput.getRightKey()) {
-            getPlayerControlManager().manageControls("RIGHT", this);
+            getPlayerControlManager().manageControls("RIGHT", this, preferredInput);
             headRegion = new TextureRegion(getTexture(), 90, 20, getWidth(), getHeight());
+        }
+        if (preferredInput.getTeleportKey()) {
+            getPlayerControlManager().manageControls("TELEPORT", this, preferredInput);
         }
     }
 }

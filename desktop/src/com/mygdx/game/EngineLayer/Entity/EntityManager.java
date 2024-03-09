@@ -103,7 +103,7 @@ public class EntityManager {
 
     // Randomise Entity position
     private GameEntity randomiseEntityPosition(GameEntity entity, Map<String, List<GameEntity>> entityMap) {
-        final float MIN_DISTANCE = 110f;
+        final float MIN_DISTANCE = 100f;
         boolean positionValid;
         GameEntity player = entityMap.get("player").get(0);
 
@@ -149,11 +149,11 @@ public class EntityManager {
         return entity;
     }
 
-    // Initialising of entity movement
-    public void initialiseEntityMovement(Inputs commandInput) {
+    // Initialising of entity actions
+    public void initialiseEntityActions(Inputs commandInput) {
         for (GameEntity entity: playerEntityList) {
             Player player = (Player) entity;
-            player.playerMovement(commandInput);
+            player.playerActions(commandInput);
         }
     }
 

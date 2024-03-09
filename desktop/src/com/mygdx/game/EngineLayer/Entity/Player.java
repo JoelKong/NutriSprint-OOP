@@ -1,6 +1,6 @@
 package com.mygdx.game.EngineLayer.Entity;
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.mygdx.game.EngineLayer.InputOutput.Inputs;
 import com.mygdx.game.EngineLayer.Levels.Levels;
 import com.mygdx.game.EngineLayer.PlayerControls.PlayerControlManager;
@@ -13,6 +13,9 @@ public class Player extends GameEntity {
     private int score;
     private boolean winStatus;
     private boolean loseStatus;
+    private long lastTeleportTime;
+    private float teleportDistance;
+    private long teleportCooldown;
     private PlayerControlManager playerControlManager;
 
     // Default Constructor
@@ -23,6 +26,8 @@ public class Player extends GameEntity {
         this.score = 0;
         this.winStatus = false;
         this.loseStatus = false;
+        this.teleportDistance = 100;
+        this.teleportCooldown = 5000;
         this.playerControlManager = new PlayerControlManager();
     }
 
@@ -32,6 +37,10 @@ public class Player extends GameEntity {
         this.playerID = 1;
         this.health = 5;
         this.score = 0;
+        this.winStatus = false;
+        this.loseStatus = false;
+        this.teleportDistance = 200;
+        this.teleportCooldown = 5000;
         this.playerControlManager = new PlayerControlManager();
     }
 
@@ -41,21 +50,25 @@ public class Player extends GameEntity {
         sb.draw(this.getTexture(), this.getPosX(), this.getPosY(), this.getWidth(), this.getHeight());
     }
 
-    // Movement of Player
-    protected void playerMovement(Inputs preferredInput) {
+    // Actions of Player
+    protected void playerActions(Inputs preferredInput) {
         if (preferredInput.getUpKey()) {
-            playerControlManager.manageControls("UP", this);
+            playerControlManager.manageControls("UP", this, preferredInput);
         }
         if (preferredInput.getDownKey()) {
-            playerControlManager.manageControls("DOWN", this);
+            playerControlManager.manageControls("DOWN", this, preferredInput);
         }
         if (preferredInput.getLeftKey()) {
-            playerControlManager.manageControls("LEFT", this);
+            playerControlManager.manageControls("LEFT", this, preferredInput);
         }
         if (preferredInput.getRightKey()) {
-            playerControlManager.manageControls("RIGHT", this);
+            playerControlManager.manageControls("RIGHT", this, preferredInput);
+        }
+        if (preferredInput.getTeleportKey()) {
+            playerControlManager.manageControls("TELEPORT", this, preferredInput);
         }
     }
+
 
     // Player Win Condition
     protected void checkWinCondition(int scoreNeeded) {
@@ -110,6 +123,31 @@ public class Player extends GameEntity {
     public void setLoseStatus(boolean loseStatus) {
         this.loseStatus = loseStatus;
     }
+
+    public float getTeleportDistance() {
+        return teleportDistance;
+    }
+
+    public void setTeleportDistance(float teleportDistance) {
+        this.teleportDistance = teleportDistance;
+    }
+
+    public long getTeleportCooldown() {
+        return teleportCooldown;
+    }
+
+    public void setTeleportCooldown(long teleportCooldown) {
+        this.teleportCooldown = teleportCooldown;
+    }
+
+    public long getLastTeleportTime() {
+        return lastTeleportTime;
+    }
+
+    public void setLastTeleportTime(long lastTeleportTime) {
+        this.lastTeleportTime = lastTeleportTime;
+    }
+
 
     // Get Player ID
     public int getPlayerID() {

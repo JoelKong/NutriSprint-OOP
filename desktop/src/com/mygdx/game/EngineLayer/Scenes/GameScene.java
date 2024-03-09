@@ -91,7 +91,7 @@ public class GameScene extends Scenes {
 
         // If not paused, initialise all forms of behavior and movement
         if (!pauseSceneState) {
-            entityManager.initialiseEntityMovement(preferredControls);
+            entityManager.initialiseEntityActions(preferredControls);
             aiControlManager.initializeAIBehavior(entityManager.getEntityMap().get("ai"), entityManager.getEntityMap().get("player").get(0));
             collisionManager.initializeCollisions(entityManager.getEntityMap());
         }
