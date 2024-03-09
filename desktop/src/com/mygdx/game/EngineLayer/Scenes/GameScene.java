@@ -18,6 +18,7 @@ import com.mygdx.game.EngineLayer.UI.UiManager;
 public class GameScene extends Scenes {
     // Declare attributes
     private Levels sceneLevelAssets;
+    private float timeSinceLastSpawn;
     private boolean pauseSceneState;
     private LevelManager levelManager;
     private AIControlManager aiControlManager;
@@ -29,6 +30,7 @@ public class GameScene extends Scenes {
     protected GameScene(Main gameController) {
         super(2, "game", gameController);
         this.pauseSceneState = false;
+        this.timeSinceLastSpawn = 0f;
         this.levelManager = new LevelManager();
         this.aiControlManager = new AIControlManager();
         this.collisionManager = new CollisionManager();
@@ -62,6 +64,7 @@ public class GameScene extends Scenes {
         // Get necessary data
         Inputs preferredControls = getInputOutputManager().getPreferredControls();
         SpriteBatch batch = getGameController().getBatch();
+        timeSinceLastSpawn += 1;
 
         // Clear the screen
         ScreenUtils.clear(0, 0, 0.2f, 1);
@@ -71,6 +74,15 @@ public class GameScene extends Scenes {
 
         // Draw our game scene
         drawScene(batch, getSceneBackgroundTexture(), entityManager);
+
+        // Keep spawning entities on the screen every 5 seconds
+        if (timeSinceLastSpawn >= 100f) {
+            timeSinceLastSpawn = 0f;
+            for (String entityType: levelManager.retrieveLevelAssets().getRespawnables()) {
+                GameEntity entity = entityManager.createEntity(entityManager.getEntityType(entityType));
+                entityManager.getAiEntityList().add(entity);
+            }
+        }
 
         // Pause and Resume Game
         if (preferredControls.getPauseKey()) {
@@ -113,6 +125,16 @@ public class GameScene extends Scenes {
     public void dispose() {
         entityManager.disposeEntities();
     };
+
+    // Get time since last spawn
+    public float getTimeSinceLastSpawn() {
+        return timeSinceLastSpawn;
+    }
+
+    // Set time since last spawn
+    public void setTimeSinceLastSpawn(float timeSinceLastSpawn) {
+        this.timeSinceLastSpawn = timeSinceLastSpawn;
+    }
 
     // Get Level Manager
     public LevelManager getLevelManager() {

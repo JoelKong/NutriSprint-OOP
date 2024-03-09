@@ -15,14 +15,14 @@ public class AI extends GameEntity {
     protected AI() { // rmb make protected once got new people
         super(new Texture("Entities/fries.png"));
         this.AIID = 1;
-        this.setSpeed(250);
+        this.setSpeed(200);
     }
 
     // Parameterized constructor with customised NPC
     public AI(Texture texture, int npcID) {
         super(texture);
         this.AIID = npcID;
-        this.setSpeed(250);
+        this.setSpeed(200);
     }
 
     @Override

@@ -1,5 +1,8 @@
 package com.mygdx.game.EngineLayer.Levels;
 
+import java.lang.reflect.Array;
+import java.util.List;
+
 // Levels class containing the assets for each level object (will be deserialized from our levels.json)
 public class Levels {
     // Declare attributes
@@ -9,6 +12,7 @@ public class Levels {
     private int numberOfRocks;
     private int numberOfApples;
     private int scoreNeeded;
+    private List<String> respawnables;
 
     // Default Constructor
     protected Levels() {};
@@ -41,5 +45,10 @@ public class Levels {
     // Get the score needed to win
     public int getScoreNeeded() {
         return scoreNeeded;
+    }
+
+    // Get Respawnables
+    public List<String> getRespawnables() {
+        return respawnables;
     }
 }
