@@ -1,10 +1,13 @@
 package com.mygdx.game.EngineLayer.Collisions;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.mygdx.game.EngineLayer.Entity.GameEntity;
 import com.mygdx.game.EngineLayer.Entity.Player;
+import com.mygdx.game.EngineLayer.Entity.Rock;
 
 import java.util.List;
+import java.util.Map;
 
 // Collision class for all kinds of collisions
 public class Collision {
@@ -49,6 +52,31 @@ public class Collision {
         }
     }
 
+    // Collision Handling for props
+    protected void handlePropCollisions(Map<String, List<GameEntity>> entityMap) {
+        List<GameEntity> props = entityMap.get("props"); // Rocks and other props
+        List<GameEntity> players = entityMap.get("player");
+        List<GameEntity> ais = entityMap.get("ai");
+
+        // Handle collision for AI entities
+        for (GameEntity ai : ais) {
+            for (GameEntity prop : props) {
+                if (collisionDetected(ai, prop) && prop instanceof Rock) {
+                    resolveRockCollision(ai, prop);
+                }
+            }
+        }
+
+        // Handle collision for Player entities
+        for (GameEntity player : players) {
+            for (GameEntity prop : props) {
+                if (collisionDetected(player, prop) && prop instanceof Rock) {
+                    resolveRockCollision(player, prop);
+                }
+            }
+        }
+    }
+
     // Collision of entity with game window
     protected void gameWindowCollision (GameEntity entity) {
         // Left Boundary
@@ -64,6 +92,31 @@ public class Collision {
         } else if (entity.getPosY() + entity.getHeight() > Gdx.graphics.getHeight() - 30) {
             entity.setPosY(Gdx.graphics.getHeight() - 30 - entity.getHeight());
         }
+    }
 
+    // Utility function for rock collision
+    private void resolveRockCollision(GameEntity entity, GameEntity obstacle) {
+        Rectangle entityHitbox = entity.getHitbox();
+        Rectangle obstacleHitbox = obstacle.getHitbox();
+
+        // Calculate the minimum distance to move horizontally and vertically to exit the collision
+        float moveRight = obstacleHitbox.x + obstacleHitbox.width - entityHitbox.x;
+        float moveLeft = entityHitbox.x + entityHitbox.width - obstacleHitbox.x;
+        float moveUp = obstacleHitbox.y + obstacleHitbox.height - entityHitbox.y;
+        float moveDown = entityHitbox.y + entityHitbox.height - obstacleHitbox.y;
+
+        // Choose the direction with the minimum distance to resolve the collision
+        float minMove = Math.min(Math.min(moveRight, moveLeft), Math.min(moveUp, moveDown));
+
+        // Adjust the entity's position based on the minimum movement required
+        if (minMove == moveRight) {
+            entity.setPosX(entity.getPosX() + moveRight);
+        } else if (minMove == moveLeft) {
+            entity.setPosX(entity.getPosX() - moveLeft);
+        } else if (minMove == moveUp) {
+            entity.setPosY(entity.getPosY() + moveUp);
+        } else if (minMove == moveDown) {
+            entity.setPosY(entity.getPosY() - moveDown);
+        }
     }
 }

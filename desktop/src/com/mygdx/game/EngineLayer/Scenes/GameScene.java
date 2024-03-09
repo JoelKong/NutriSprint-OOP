@@ -79,7 +79,7 @@ public class GameScene extends Scenes {
         if (!pauseSceneState) {
             entityManager.initialiseEntityMovement(preferredControls);
             aiControlManager.initializeAIBehavior(entityManager.getEntityMap().get("ai"), entityManager.getEntityMap().get("player").get(0));
-            collisionManager.initializeCollisions(entityManager.getEntityMap().get("ai"), entityManager.getEntityMap().get("player"));
+            collisionManager.initializeCollisions(entityManager.getEntityMap());
         }
 
         // Advance to next level or end game
