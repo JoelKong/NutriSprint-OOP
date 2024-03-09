@@ -32,9 +32,6 @@ public class UiManager {
         this.uiTable = new Table();
 
         // new start button lmao will be refactored again
-
-
-
         this.startButtonSkin = new Skin(Gdx.files.internal("UI/terra-mother/skin/terra-mother-ui.json"));
 
         uiTable.setFillParent(true);

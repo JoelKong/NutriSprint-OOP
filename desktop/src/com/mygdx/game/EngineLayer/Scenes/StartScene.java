@@ -1,6 +1,7 @@
 package com.mygdx.game.EngineLayer.Scenes;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.mygdx.game.EngineLayer.InputOutput.Inputs;
 import com.mygdx.game.Main;
@@ -21,6 +22,7 @@ public class StartScene extends Scenes {
         //        setSceneBackgroundTexture(new Texture(Gdx.files.internal("")));
         uiManager = new UiManager(getGameController().getBatch(), getCamera().getUiViewport());
         uiManager.createStartSceneUI(getGameController());
+        setSceneBackgroundTexture(new Texture(Gdx.files.internal("Scenes/nutrisprint-startscene.png")));
     }
 
     // Render start scene
@@ -40,8 +42,7 @@ public class StartScene extends Scenes {
         }
 
         // Background
-        Gdx.gl.glClearColor(0, 1, 0, 1); // setting clear color to green
-        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT); // clear screen
+        drawScene(batch, getSceneBackgroundTexture());
 
         // UI
         uiManager.getUiStage().act(Math.min(Gdx.graphics.getDeltaTime(), 1 / 30f));

@@ -1,6 +1,7 @@
 package com.mygdx.game.EngineLayer.Scenes;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.mygdx.game.EngineLayer.InputOutput.Inputs;
 import com.mygdx.game.EngineLayer.UI.UiManager;
@@ -21,6 +22,7 @@ public class EndScene extends Scenes {
         //        setSceneBackgroundTexture(new Texture(Gdx.files.internal("")));
         this.uiManager = new UiManager(getGameController().getBatch(), getCamera().getUiViewport());
         uiManager.createEndSceneUI(getGameController());
+        setSceneBackgroundTexture(new Texture(Gdx.files.internal("Scenes/endscene.png")));
     }
 
     // Render end scene
@@ -44,8 +46,8 @@ public class EndScene extends Scenes {
         }
 
         // Background
-        Gdx.gl.glClearColor(1, 0, 0, 1); // setting clear color to red
-        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT); // clear screen
+        // Draw our game scene
+        drawScene(batch, getSceneBackgroundTexture());
 
         // UI
         uiManager.getUiStage().act(Math.min(Gdx.graphics.getDeltaTime(), 1 / 30f));
