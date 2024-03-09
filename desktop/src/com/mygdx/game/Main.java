@@ -4,9 +4,8 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.mygdx.game.EngineLayer.Scenes.SceneManager;
 import com.mygdx.game.EngineLayer.Simulation.SimulationManager;
 
-// GameEngine Class
+// Declaring of singletons
 public class Main extends Game {
-    // Declaring of attributes (managers and batch)
     private SimulationManager simulationManager;
     private SceneManager sceneManager;
     private SpriteBatch batch;
@@ -21,14 +20,11 @@ public class Main extends Game {
 
     @Override
     public void render() {
-        // Render starting from start screen
         super.render();
     }
 
-
     @Override
     public void dispose() {
-        // End Simulation
         simulationManager.endSimulation(batch);
     }
 

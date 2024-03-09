@@ -75,11 +75,11 @@ public class GameScene extends Scenes {
         // Draw our game scene
         drawScene(batch, getSceneBackgroundTexture(), entityManager);
 
-        // Keep spawning entities on the screen every 5 seconds
+        // Keep spawning entities on the screen after each interval
         if (timeSinceLastSpawn >= 100f) {
             timeSinceLastSpawn = 0f;
-            for (String entityType: levelManager.retrieveLevelAssets().getRespawnables()) {
-                GameEntity entity = entityManager.createEntity(entityManager.getEntityType(entityType));
+            for (String entityType: sceneLevelAssets.getRespawnables()) {
+                GameEntity entity = entityManager.createEntity(entityManager.getEntityType(entityType), sceneLevelAssets);
                 entityManager.getAiEntityList().add(entity);
             }
         }
@@ -96,14 +96,14 @@ public class GameScene extends Scenes {
             collisionManager.initializeCollisions(entityManager.getEntityMap());
         }
 
+        // Updating of player entity status
+        entityManager.checkPlayerEntityStatus(sceneLevelAssets.getScoreNeeded());
+
         // Advance to next level or end game
         if (levelManager.levelCleared(entityManager.getPlayersList())) {
             levelManager.setLevelNumber(levelManager.getLevelNumber() + 1);
             getGameController().setScreen(this);
         }
-
-        // Updating of player entity status
-        entityManager.checkPlayerEntityStatus(levelManager.retrieveLevelAssets().getScoreNeeded());
 
         // End game if player loses
         for (GameEntity entity: entityManager.getPlayersList()) {

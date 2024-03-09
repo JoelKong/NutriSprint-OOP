@@ -33,7 +33,7 @@ public class LevelManager {
 
     // Generic function to check completion of level
     public boolean levelCleared(List<GameEntity> playerList) {
-        for (GameEntity playerEntity: playerList) {
+        for (GameEntity playerEntity : playerList) {
             Player player = (Player) playerEntity;
             return player.getWinStatus();
         }

@@ -3,6 +3,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.mygdx.game.EngineLayer.Entity.Player;
 import com.mygdx.game.EngineLayer.InputOutput.Inputs;
+import com.mygdx.game.EngineLayer.Levels.Levels;
 
 // Isaac Player Class
 public class Isaac extends Player {
@@ -13,6 +14,12 @@ public class Isaac extends Player {
     // Default Constructor
     protected Isaac() {
         super();
+        this.headRegion = new TextureRegion(this.getTexture(), 10, 20, this.getWidth(), this.getHeight());
+        this.bodyRegion = new TextureRegion(this.getTexture(), 10, 70, this.getWidth(), this.getHeight());
+    }
+
+    protected Isaac(Levels level) {
+        super(level);
         this.headRegion = new TextureRegion(this.getTexture(), 10, 20, this.getWidth(), this.getHeight());
         this.bodyRegion = new TextureRegion(this.getTexture(), 10, 70, this.getWidth(), this.getHeight());
     }

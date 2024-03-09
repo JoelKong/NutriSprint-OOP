@@ -3,6 +3,8 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Rectangle;
+import com.mygdx.game.EngineLayer.Levels.Levels;
+
 import java.util.Random;
 
 // GameEntity abstract class
@@ -15,7 +17,6 @@ public abstract class GameEntity implements Cloneable {
     private int width;
     private int height;
     private Rectangle hitbox;
-    private boolean popFromScreen;
 
     // Default Constructor to player character
     protected GameEntity() {
@@ -26,33 +27,20 @@ public abstract class GameEntity implements Cloneable {
         this.width = 32;
         this.height = 32;
         this.hitbox = new Rectangle(xPosition, yPosition, width, height);
-        this.popFromScreen = false;
     }
 
     // Parameterized Constructor
-    protected GameEntity(Texture texture, float xPosition, float yPosition, float speed) {
-        this.texture = texture;
-        this.xPosition = xPosition;
-        this.yPosition = yPosition;
-        this.speed = speed;
+    protected GameEntity(Levels level) {
+        this.texture = new Texture(Gdx.files.internal(level.getPlayerTexture().get(0)));
+        this.xPosition = (Gdx.graphics.getWidth() - width) / 2f;
+        this.yPosition = (Gdx.graphics.getHeight() - height) / 2f;
+        this.speed = level.getPlayerSpeed();
         this.width = 32;
         this.height = 32;
         this.hitbox = new Rectangle(xPosition, yPosition, width, height);
-        this.popFromScreen = false;
     }
 
     // Constructor only accepting texture (mainly to randomise positions)
-    protected GameEntity(Texture texture) {
-        Random random = new Random();
-        this.texture = texture;
-        this.xPosition = random.nextInt(Gdx.graphics.getWidth() - 100);
-        this.yPosition = random.nextInt(Gdx.graphics.getHeight() - 100);
-        this.speed = 0;
-        this.width = 32;
-        this.height = 32;
-        this.hitbox = new Rectangle(xPosition, yPosition, width, height);
-        this.popFromScreen = false;
-    }
 
     // All entities should be able to update their hitbox upon moving
     protected void updateEntityHitbox() {
@@ -144,15 +132,5 @@ public abstract class GameEntity implements Cloneable {
     // Set Hitbox
     public void setHitbox(Rectangle hitbox) {
         this.hitbox = hitbox;
-    }
-
-    // Get pop from screen
-    public boolean getPopFromScreen() {
-        return popFromScreen;
-    }
-
-    // Set pop from screen
-    public void setPopFromScreen(boolean popFromScreen) {
-        this.popFromScreen = popFromScreen;
     }
 }

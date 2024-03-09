@@ -1,7 +1,6 @@
 package com.mygdx.game.EngineLayer.Levels;
-
-import java.lang.reflect.Array;
 import java.util.List;
+import java.util.Map;
 
 // Levels class containing the assets for each level object (will be deserialized from our levels.json)
 public class Levels {
@@ -13,6 +12,11 @@ public class Levels {
     private int numberOfApples;
     private int scoreNeeded;
     private List<String> respawnables;
+    private float playerSpeed;
+    private float enemySpeed;
+    private List<String> playerTexture;
+    private List<String> enemyTexture;
+    private List<String> propTexture;
 
     // Default Constructor
     protected Levels() {};
@@ -50,5 +54,26 @@ public class Levels {
     // Get Respawnables
     public List<String> getRespawnables() {
         return respawnables;
+    }
+
+    // Get Enemy Speed
+    public float getEnemySpeed() {
+        return enemySpeed;
+    }
+
+    public List<String> getPlayerTexture() {
+        return playerTexture;
+    }
+
+    public List<String> getEnemyTexture() {
+        return enemyTexture;
+    }
+
+    public float getPlayerSpeed() {
+        return playerSpeed;
+    }
+
+    public List<String> getPropTexture() {
+        return propTexture;
     }
 }

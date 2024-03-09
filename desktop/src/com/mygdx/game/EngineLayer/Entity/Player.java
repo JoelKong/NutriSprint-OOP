@@ -2,6 +2,7 @@ package com.mygdx.game.EngineLayer.Entity;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.mygdx.game.EngineLayer.InputOutput.Inputs;
+import com.mygdx.game.EngineLayer.Levels.Levels;
 import com.mygdx.game.EngineLayer.PlayerControls.PlayerControlManager;
 
 // Player class inherited from GameEntity
@@ -26,8 +27,8 @@ public class Player extends GameEntity {
     }
 
     // Parameterized Constructor to specify player attributes
-    protected Player(Texture texture, float xPosition, float yPosition, float speed) {
-        super(texture, xPosition, yPosition, speed);
+    protected Player(Levels level) {
+        super(level);
         this.playerID = 1;
         this.health = 5;
         this.score = 0;

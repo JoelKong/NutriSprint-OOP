@@ -10,23 +10,19 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageTextButton;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
-import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 import com.badlogic.gdx.scenes.scene2d.utils.NinePatchDrawable;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.mygdx.game.Main;
 
-// UI Manager Class
+// Manager to handle all forms of UI
 public class UiManager {
-    // Declare attributes
     private Stage uiStage;
     private Table uiTable;
     private HUD uiGameHUD;
     private Skin startButtonSkin;
 
-
-    // Parameterized constructor requiring ui viewport and batch
     public UiManager(SpriteBatch spriteBatch, Viewport uiViewport) {
         this.uiStage = new Stage(uiViewport, spriteBatch);
         this.uiTable = new Table();

@@ -19,7 +19,6 @@ public class StartScene extends Scenes {
     // Load resources
     @Override
     public void show() {
-        //        setSceneBackgroundTexture(new Texture(Gdx.files.internal("")));
         uiManager = new UiManager(getGameController().getBatch(), getCamera().getUiViewport());
         uiManager.createStartSceneUI(getGameController());
         setSceneBackgroundTexture(new Texture(Gdx.files.internal("Scenes/nutrisprint-startscene.png")));

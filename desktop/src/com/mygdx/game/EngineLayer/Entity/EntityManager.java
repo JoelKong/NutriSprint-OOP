@@ -39,16 +39,16 @@ public class EntityManager {
     }
 
     // Factory function to create GameEntity objects
-    public GameEntity createEntity(EntityType entityType) {
+    public GameEntity createEntity(EntityType entityType, Levels level) {
         switch (entityType) {
             case ISAAC:
-                return new Isaac();
+                return new Isaac(level);
             case FRENCHFRIES:
-                return new FrenchFries();
+                return new FrenchFries(level);
             case ROCK:
-                return new Rock();
+                return new Rock(level);
             case APPLE:
-                return new Apple();
+                return new Apple(level);
             default:
                 System.out.println("Warning: Unknown entityType when creating a new entity object.");
                 return null;
@@ -57,20 +57,20 @@ public class EntityManager {
 
     // Populate entities based off level specification
     public void populateEntities(Levels level) throws CloneNotSupportedException {
-        playerEntityList.add(createEntity(EntityType.ISAAC));
+        playerEntityList.add(createEntity(EntityType.ISAAC, level));
 
         for (int i = 0; i < level.getNumberOfEnemies(); i++) {
-            GameEntity entity = randomiseEntityPosition(Objects.requireNonNull(createEntity(EntityType.FRENCHFRIES)).clone(), entityMap);
+            GameEntity entity = randomiseEntityPosition(Objects.requireNonNull(createEntity(EntityType.FRENCHFRIES, level)).clone(), entityMap);
             aiEntityList.add(entity);
         }
 
         for (int i = 0; i < level.getNumberOfRocks(); i++) {
-            GameEntity rock = randomiseEntityPosition(Objects.requireNonNull(createEntity(EntityType.ROCK)).clone(), entityMap);
+            GameEntity rock = randomiseEntityPosition(Objects.requireNonNull(createEntity(EntityType.ROCK, level)).clone(), entityMap);
             propEntityList.add(rock);
         }
 
         for (int i = 0; i < level.getNumberOfApples(); i++) {
-            GameEntity apple = randomiseEntityPosition(Objects.requireNonNull(createEntity(EntityType.APPLE)).clone(), entityMap);
+            GameEntity apple = randomiseEntityPosition(Objects.requireNonNull(createEntity(EntityType.APPLE, level)).clone(), entityMap);
             propEntityList.add(apple);
         }
     }
@@ -86,10 +86,8 @@ public class EntityManager {
     public void drawEntities(SpriteBatch sb) {
         for (List<GameEntity> entities: entityMap.values()) {
             for (GameEntity entity: entities) {
-                if (!entity.getPopFromScreen()) {
-                    entity.draw(sb);
-                    entity.updateEntityHitbox();
-                }
+                entity.draw(sb);
+                entity.updateEntityHitbox();
             }
         }
     }

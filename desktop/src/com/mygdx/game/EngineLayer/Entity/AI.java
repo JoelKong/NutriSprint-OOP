@@ -5,6 +5,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 import com.mygdx.game.EngineLayer.Entity.GameEntity;
 import com.mygdx.game.EngineLayer.Entity.Player;
+import com.mygdx.game.EngineLayer.Levels.Levels;
 
 // NPC Class inherited from GameEntity
 public class AI extends GameEntity {
@@ -12,17 +13,18 @@ public class AI extends GameEntity {
     private int AIID;
 
     // Default Constructor defaulting to AI
-    protected AI() { // rmb make protected once got new people
-        super(new Texture("Entities/fries.png"));
+    protected AI() {
+        super();
+        setTexture(new Texture("Entities/fries.png"));
         this.AIID = 1;
         this.setSpeed(200);
     }
 
-    // Parameterized constructor with customised NPC
-    public AI(Texture texture, int npcID) {
-        super(texture);
-        this.AIID = npcID;
-        this.setSpeed(200);
+    protected AI(Levels level) {
+        super(level);
+        this.AIID = 1;
+        this.setSpeed(level.getEnemySpeed());
+
     }
 
     @Override

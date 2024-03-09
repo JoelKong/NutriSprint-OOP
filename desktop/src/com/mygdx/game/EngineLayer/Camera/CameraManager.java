@@ -9,7 +9,6 @@ import com.badlogic.gdx.utils.viewport.Viewport;
 
 // Camera Manager Class
 public class CameraManager {
-    // Declare Attributes
     private OrthographicCamera gameCamera;
     private Viewport cameraViewport;
     private Stage cameraStage;

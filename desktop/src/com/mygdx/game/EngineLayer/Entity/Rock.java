@@ -1,9 +1,11 @@
 package com.mygdx.game.EngineLayer.Entity;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.mygdx.game.EngineLayer.Entity.GameEntity;
+import com.mygdx.game.EngineLayer.Levels.Levels;
 
 // Rock class
 public class Rock extends GameEntity {
@@ -11,7 +13,14 @@ public class Rock extends GameEntity {
 
     // Default constructor of rock
     protected Rock() {
-        super(new Texture("Entities/rock.png"));
+        super();
+        setTexture(new Texture("Entities/rock.png"));
+        this.rock = new TextureRegion(this.getTexture(), 0, 0, this.getWidth(), this.getHeight());
+    }
+
+    protected Rock(Levels level) {
+        super(level);
+        setTexture(new Texture(Gdx.files.internal(level.getPropTexture().get(0))));
         this.rock = new TextureRegion(this.getTexture(), 0, 0, this.getWidth(), this.getHeight());
     }
 
