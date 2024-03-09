@@ -10,6 +10,7 @@ public class Levels {
     private int numberOfEnemies;
     private int numberOfRocks;
     private int numberOfApples;
+    private int numberOfBananas;
     private int scoreNeeded;
     private List<String> respawnables;
     private float playerSpeed;
@@ -44,6 +45,11 @@ public class Levels {
     // Get Number of Apples
     public int getNumberOfApples() {
         return numberOfApples;
+    }
+
+    // Get Number of Bananas
+    public int getNumberOfBananas() {
+        return numberOfBananas;
     }
 
     // Get the score needed to win

@@ -17,7 +17,7 @@ public class EntityManager {
     private List<GameEntity> playerEntityList;
     private List<GameEntity> propEntityList;
     private enum EntityType {
-        ISAAC, FRENCHFRIES, ROCK, APPLE
+        ISAAC, FRENCHFRIES, ROCK, APPLE, BANANA
     }
 
     // Default Constructor class to initialise entities
@@ -49,6 +49,8 @@ public class EntityManager {
                 return new Rock(level);
             case APPLE:
                 return new Apple(level);
+            case BANANA:
+                return new Banana(level);
             default:
                 System.out.println("Warning: Unknown entityType when creating a new entity object.");
                 return null;
@@ -72,6 +74,11 @@ public class EntityManager {
         for (int i = 0; i < level.getNumberOfApples(); i++) {
             GameEntity apple = randomiseEntityPosition(Objects.requireNonNull(createEntity(EntityType.APPLE, level)).clone(), entityMap);
             propEntityList.add(apple);
+        }
+
+        for (int i = 0; i < level.getNumberOfBananas(); i++) {
+            GameEntity banana = randomiseEntityPosition(Objects.requireNonNull(createEntity(EntityType.BANANA, level)).clone(), entityMap);
+            propEntityList.add(banana);
         }
     }
 

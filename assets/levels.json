@@ -4,13 +4,14 @@
     "levelTitle": "Level 1",
     "playerTexture": ["Entities/isaac.png"],
     "enemyTexture": ["Entities/fries.png"],
-    "propTexture": ["Entities/rock.png", "Entities/apple.png"],
+    "propTexture": ["Entities/rock.png", "Entities/apple.png", "Entities/banana.png"],
     "playerSpeed": 250,
     "enemySpeed": 200,
     "numberOfEnemies": 5,
     "respawnables": ["FRENCHFRIES"],
     "numberOfRocks": 20,
     "numberOfApples": 10,
+    "numberOfBananas": 0,
     "scoreNeeded": 5
   },
   {
@@ -18,13 +19,14 @@
     "levelTitle": "Level 2",
     "playerTexture": ["Entities/isaac.png"],
     "enemyTexture": ["Entities/fries.png"],
-    "propTexture": ["Entities/rock.png", "Entities/apple.png"],
+    "propTexture": ["Entities/rock.png", "Entities/apple.png", "Entities/banana.png"],
     "playerSpeed": 300,
     "enemySpeed": 250,
     "numberOfEnemies": 10,
     "respawnables": ["FRENCHFRIES"],
     "numberOfRocks": 40,
     "numberOfApples": 20,
+    "numberOfBananas": 5,
     "scoreNeeded": 10
   }
 ]

@@ -2,10 +2,7 @@ package com.mygdx.game.EngineLayer.Collisions;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
-import com.mygdx.game.EngineLayer.Entity.Apple;
-import com.mygdx.game.EngineLayer.Entity.GameEntity;
-import com.mygdx.game.EngineLayer.Entity.Player;
-import com.mygdx.game.EngineLayer.Entity.Rock;
+import com.mygdx.game.EngineLayer.Entity.*;
 
 import java.util.Iterator;
 import java.util.List;
@@ -84,6 +81,9 @@ public class Collision {
                     } else if (prop instanceof Apple) {
                         iterator.remove();
                         player.setScore(player.getScore() + 1);
+                    } else if (prop instanceof Banana) {
+                        iterator.remove();
+                        player.setHealth(player.getHealth() + 1);
                     }
                 }
             }
