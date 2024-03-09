@@ -34,8 +34,10 @@ public class PlayerControlManager {
                 break;
             case "TELEPORT":
                 playerControls.teleport(player, preferredInput);
+                break;
             case "EXPLODE":
                 playerControls.triggerExplosion(player, entityMap);
+                break;
             default:
         }
     }

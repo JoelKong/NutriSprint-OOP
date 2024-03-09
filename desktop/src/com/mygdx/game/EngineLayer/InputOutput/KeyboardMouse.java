@@ -18,10 +18,10 @@ public class KeyboardMouse implements Inputs {
 
     // Default Constructor for all key bindings
     protected KeyboardMouse() {
-        this.leftKey = Input.Keys.A;
-        this.rightKey = Input.Keys.D;
-        this.upKey = Input.Keys.W;
-        this.downKey = Input.Keys.S;
+        this.leftKey = Input.Keys.LEFT;
+        this.rightKey = Input.Keys.RIGHT;
+        this.upKey = Input.Keys.UP;
+        this.downKey = Input.Keys.DOWN;
         this.startKey = Input.Keys.ENTER;
         this.restartKey = Input.Keys.R;
         this.menuKey = Input.Keys.M;
