@@ -17,7 +17,7 @@ public class EntityManager {
     private List<GameEntity> playerEntityList;
     private List<GameEntity> propEntityList;
     private enum EntityType {
-        ISAAC, FRENCHFRIES, ROCK
+        ISAAC, FRENCHFRIES, ROCK, APPLE
     }
 
     // Default Constructor class to initialise entities
@@ -47,6 +47,8 @@ public class EntityManager {
                 return new FrenchFries();
             case ROCK:
                 return new Rock();
+            case APPLE:
+                return new Apple();
             default:
                 System.out.println("Warning: Unknown entityType when creating a new entity object.");
                 return null;
@@ -66,6 +68,11 @@ public class EntityManager {
             GameEntity rock = randomiseEntityPosition(Objects.requireNonNull(createEntity(EntityType.ROCK)).clone(), entityMap);
             propEntityList.add(rock);
         }
+
+        for (int i = 0; i < level.getNumberOfApples(); i++) {
+            GameEntity apple = randomiseEntityPosition(Objects.requireNonNull(createEntity(EntityType.APPLE)).clone(), entityMap);
+            propEntityList.add(apple);
+        }
     }
 
     /* Default Initialization of Entities
@@ -84,6 +91,15 @@ public class EntityManager {
                     entity.updateEntityHitbox();
                 }
             }
+        }
+    }
+
+    // Checking player entity status
+    public void checkPlayerEntityStatus(int scoreNeeded) {
+        for (GameEntity entity: playerEntityList) {
+            Player player = (Player) entity;
+            player.checkWinCondition(scoreNeeded);
+            player.checkLoseCondition();
         }
     }
 
@@ -117,8 +133,8 @@ public class EntityManager {
             }
 
             // Check distance from prop entities
-            for (GameEntity rock : entityMap.getOrDefault("props", Collections.emptyList())) {
-                if (new Vector2(rock.getPosX(), rock.getPosY()).dst(randomPosition) < MIN_DISTANCE) {
+            for (GameEntity prop : entityMap.getOrDefault("props", Collections.emptyList())) {
+                if (new Vector2(prop.getPosX(), prop.getPosY()).dst(randomPosition) < MIN_DISTANCE) {
                     positionValid = false;
                     break;
                 }

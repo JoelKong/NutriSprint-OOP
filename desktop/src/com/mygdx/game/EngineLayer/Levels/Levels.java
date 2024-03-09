@@ -7,6 +7,8 @@ public class Levels {
     private String levelTitle;
     private int numberOfEnemies;
     private int numberOfRocks;
+    private int numberOfApples;
+    private int scoreNeeded;
 
     // Default Constructor
     protected Levels() {};
@@ -29,5 +31,15 @@ public class Levels {
     // Get Number of Rocks
     public int getNumberOfRocks() {
         return numberOfRocks;
+    }
+
+    // Get Number of Apples
+    public int getNumberOfApples() {
+        return numberOfApples;
+    }
+
+    // Get the score needed to win
+    public int getScoreNeeded() {
+        return scoreNeeded;
     }
 }

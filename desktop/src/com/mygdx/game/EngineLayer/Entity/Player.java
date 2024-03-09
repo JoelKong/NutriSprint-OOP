@@ -8,14 +8,20 @@ import com.mygdx.game.EngineLayer.PlayerControls.PlayerControlManager;
 public class Player extends GameEntity {
     // Declare Attributes
     private int playerID;
-    private PlayerControlManager playerControlManager;
     private int health;
+    private int score;
+    private boolean winStatus;
+    private boolean loseStatus;
+    private PlayerControlManager playerControlManager;
 
     // Default Constructor
     protected Player() {
         super();
         this.playerID = 1;
         this.health = 5;
+        this.score = 0;
+        this.winStatus = false;
+        this.loseStatus = false;
         this.playerControlManager = new PlayerControlManager();
     }
 
@@ -23,6 +29,8 @@ public class Player extends GameEntity {
     protected Player(Texture texture, float xPosition, float yPosition, float speed) {
         super(texture, xPosition, yPosition, speed);
         this.playerID = 1;
+        this.health = 5;
+        this.score = 0;
         this.playerControlManager = new PlayerControlManager();
     }
 
@@ -48,6 +56,20 @@ public class Player extends GameEntity {
         }
     }
 
+    // Player Win Condition
+    protected void checkWinCondition(int scoreNeeded) {
+        if (score == scoreNeeded) {
+            winStatus = true;
+        }
+    }
+
+    // Player Lose Condition
+    protected void checkLoseCondition() {
+        if (health == 0) {
+            loseStatus = true;
+        }
+    }
+
     // Get Player Health
     public int getHealth() {
         return health;
@@ -56,6 +78,36 @@ public class Player extends GameEntity {
     // Set Player Health
     public void setHealth(int health) {
         this.health = health;
+    }
+
+    // Get Player Score
+    public int getScore() {
+        return score;
+    }
+
+    // Set Player Score
+    public void setScore(int score) {
+        this.score = score;
+    }
+
+    // Get Win Status
+    public boolean getWinStatus() {
+        return winStatus;
+    }
+
+    // Set Win Status
+    public void setWinStatus(boolean winStatus) {
+        this.winStatus = winStatus;
+    }
+
+    // Get Lose Status
+    public boolean getLoseStatus() {
+        return loseStatus;
+    }
+
+    // Set Lose Status
+    public void setLoseStatus(boolean loseStatus) {
+        this.loseStatus = loseStatus;
     }
 
     // Get Player ID

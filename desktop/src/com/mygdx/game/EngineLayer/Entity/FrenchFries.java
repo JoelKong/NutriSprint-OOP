@@ -10,6 +10,7 @@ public class FrenchFries extends AI {
         super();
     }
 
+    // Behavior of fries to chase the player
     @Override
     protected void behavior(GameEntity targetPlayer) {
         // Calculate the direction vector from the AI to the player
@@ -18,7 +19,7 @@ public class FrenchFries extends AI {
         Vector2 direction = playerPosition.sub(aiPosition).nor();
 
         // Calculate the new position of the AI
-        Vector2 newPosition = aiPosition.add(direction.scl(getSpeed() * Gdx.graphics.getDeltaTime())); // Move AI towards the player
+        Vector2 newPosition = aiPosition.add(direction.scl(getSpeed() * Gdx.graphics.getDeltaTime()));
 
         // Update the AI's position
         this.setPosX(newPosition.x);

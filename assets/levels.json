@@ -2,13 +2,17 @@
   {
     "levelNumber": 1,
     "levelTitle": "Level 1",
-    "numberOfEnemies": 3,
-    "numberOfRocks": 50
+    "numberOfEnemies": 5,
+    "numberOfRocks": 20,
+    "numberOfApples": 10,
+    "scoreNeeded": 5
   },
   {
     "levelNumber": 2,
     "levelTitle": "Level 2",
     "numberOfEnemies": 10,
-    "numberOfRocks": 100
+    "numberOfRocks": 50,
+    "numberOfApples": 20,
+    "scoreNeeded": 10
   }
 ]

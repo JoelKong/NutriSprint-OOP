@@ -2,10 +2,12 @@ package com.mygdx.game.EngineLayer.Collisions;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
+import com.mygdx.game.EngineLayer.Entity.Apple;
 import com.mygdx.game.EngineLayer.Entity.GameEntity;
 import com.mygdx.game.EngineLayer.Entity.Player;
 import com.mygdx.game.EngineLayer.Entity.Rock;
 
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -61,17 +63,28 @@ public class Collision {
         // Handle collision for AI entities
         for (GameEntity ai : ais) {
             for (GameEntity prop : props) {
-                if (collisionDetected(ai, prop) && prop instanceof Rock) {
-                    resolveRockCollision(ai, prop);
+                if (collisionDetected(ai, prop)) {
+                    if (prop instanceof Rock) {
+                        resolveRockCollision(ai, prop);
+                    }
                 }
             }
         }
 
         // Handle collision for Player entities
-        for (GameEntity player : players) {
-            for (GameEntity prop : props) {
-                if (collisionDetected(player, prop) && prop instanceof Rock) {
-                    resolveRockCollision(player, prop);
+        for (GameEntity entity : players) {
+            Player player = (Player) entity;
+            Iterator<GameEntity> iterator = props.iterator();
+
+            while (iterator.hasNext()) {
+                GameEntity prop = iterator.next();
+                if (collisionDetected(player, prop)) {
+                    if (prop instanceof Rock) {
+                        resolveRockCollision(player, prop);
+                    } else if (prop instanceof Apple) {
+                        iterator.remove();
+                        player.setScore(player.getScore() + 1);
+                    }
                 }
             }
         }

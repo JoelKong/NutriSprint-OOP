@@ -3,6 +3,8 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.utils.Json;
 import com.mygdx.game.EngineLayer.Entity.AI;
 import com.mygdx.game.EngineLayer.Entity.GameEntity;
+import com.mygdx.game.EngineLayer.Entity.Player;
+
 import java.util.List;
 import java.util.Map;
 
@@ -30,14 +32,12 @@ public class LevelManager {
     }
 
     // Generic function to check completion of level
-    public boolean levelCleared(Map<String, List<GameEntity>> entityMap) {
-        for (GameEntity aiEntity: entityMap.get("ai")) {
-            AI ai = (AI) aiEntity;
-            if (!ai.getPopFromScreen()) {
-                return false;
-            }
+    public boolean levelCleared(List<GameEntity> playerList) {
+        for (GameEntity playerEntity: playerList) {
+            Player player = (Player) playerEntity;
+            return player.getWinStatus();
         }
-        return true;
+        return false;
     }
 
     // Get Level Number

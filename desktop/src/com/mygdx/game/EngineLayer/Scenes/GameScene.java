@@ -6,6 +6,8 @@ import com.badlogic.gdx.utils.ScreenUtils;
 import com.mygdx.game.EngineLayer.Collisions.CollisionManager;
 import com.mygdx.game.EngineLayer.Entity.AIControlManager;
 import com.mygdx.game.EngineLayer.Entity.EntityManager;
+import com.mygdx.game.EngineLayer.Entity.GameEntity;
+import com.mygdx.game.EngineLayer.Entity.Player;
 import com.mygdx.game.EngineLayer.InputOutput.Inputs;
 import com.mygdx.game.EngineLayer.Levels.LevelManager;
 import com.mygdx.game.EngineLayer.Levels.Levels;
@@ -83,9 +85,21 @@ public class GameScene extends Scenes {
         }
 
         // Advance to next level or end game
-        if (levelManager.levelCleared(entityManager.getEntityMap())) {
+        if (levelManager.levelCleared(entityManager.getPlayersList())) {
             levelManager.setLevelNumber(levelManager.getLevelNumber() + 1);
             getGameController().setScreen(this);
+        }
+
+        // Updating of player entity status
+        entityManager.checkPlayerEntityStatus(levelManager.retrieveLevelAssets().getScoreNeeded());
+
+        // End game if player loses
+        for (GameEntity entity: entityManager.getPlayersList()) {
+            Player player = (Player) entity;
+            if (player.getLoseStatus()) {
+                levelManager.setLevelNumber(1);
+                getGameController().setScreen(getGameController().getSceneManager().getSceneMap().get("end"));
+            }
         }
 
         // Render HUD
