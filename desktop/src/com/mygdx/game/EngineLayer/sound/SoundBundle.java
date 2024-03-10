@@ -11,12 +11,12 @@ import java.util.Map;
 /**
  * Class which stores a list of possible sounds to play.
  * <p>
- * Sub-classes should extend this class and provide specific sound
+ * Subclasses should extend this class and provide specific sound
  * effects for playing.
  */
 public abstract class SoundBundle<T extends Enum<T>> implements Disposable {
     // Cache the existing sounds to reduce memory usage
-    private Map<T, Sound> soundsCache = new HashMap<>();
+    private final Map<T, Sound> soundsCache = new HashMap<>();
     protected void playSound(Sound sound) {
         sound.play();
     }
@@ -41,5 +41,7 @@ public abstract class SoundBundle<T extends Enum<T>> implements Disposable {
     public void dispose() {
         // Dispose all sounds in the cache
         soundsCache.values().forEach(Sound::dispose);
+        // Then clear the map
+        soundsCache.clear();
     }
 }
