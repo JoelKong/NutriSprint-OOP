@@ -1,8 +1,11 @@
 package com.mygdx.game.EngineLayer.PlayerControls;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Circle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.TimeUtils;
+import com.mygdx.game.EngineLayer.Effects.Effect;
+import com.mygdx.game.EngineLayer.Effects.EffectManager;
 import com.mygdx.game.EngineLayer.Entity.GameEntity;
 import com.mygdx.game.EngineLayer.Entity.Player;
 import com.mygdx.game.EngineLayer.InputOutput.Inputs;
@@ -42,7 +45,7 @@ public class PlayerControls {
     }
 
     // Teleport command
-    protected void teleport(Player player, Inputs preferredInput) {
+    protected void teleport(Player player, Inputs preferredInput, EffectManager effectManager) {
         long timeSinceLastTeleport = TimeUtils.millis() - player.getLastTeleportTime();
         if (timeSinceLastTeleport < player.getTeleportCooldown()) return;
 
@@ -58,10 +61,15 @@ public class PlayerControls {
             player.setPosY(player.getPosY() + teleportDirection.y);
             player.setLastTeleportTime(TimeUtils.millis());
         }
+
+        // Create the teleport effect at the new position
+        Texture teleportEffectTexture = new Texture(Gdx.files.internal("Effects/teleport.png"));
+        Effect teleportEffect = new Effect(new Vector2(player.getPosX(), player.getPosY()), teleportEffectTexture, 50, 50, 0.5f);
+        effectManager.addEffect(teleportEffect);
     }
 
     // Explosion around player
-    protected void triggerExplosion(Player player, Map<String, List<GameEntity>> entityMap) {
+    protected void triggerExplosion(Player player, Map<String, List<GameEntity>> entityMap, EffectManager effectManager) {
         final float explosionRadius = 150;
         Circle explosionArea = new Circle(player.getPosX() + player.getWidth() / 2,
                 player.getPosY() + player.getHeight() / 2,
@@ -84,5 +92,10 @@ public class PlayerControls {
                 }
             }
         }
+
+        // Create the explosion effect at player position
+        Texture explosionEffectTexture = new Texture(Gdx.files.internal("Effects/explosion.png"));
+        Effect explosionEffect = new Effect(new Vector2(player.getPosX(), player.getPosY()), explosionEffectTexture, 120, 120, 0.5f);
+        effectManager.addEffect(explosionEffect);
     }
 }

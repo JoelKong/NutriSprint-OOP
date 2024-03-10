@@ -4,6 +4,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.mygdx.game.EngineLayer.Collisions.CollisionManager;
+import com.mygdx.game.EngineLayer.Effects.EffectManager;
 import com.mygdx.game.EngineLayer.Entity.AIControlManager;
 import com.mygdx.game.EngineLayer.Entity.EntityManager;
 import com.mygdx.game.EngineLayer.Entity.GameEntity;
@@ -24,6 +25,7 @@ public class GameScene extends Scenes {
     private AIControlManager aiControlManager;
     private CollisionManager collisionManager;
     private EntityManager entityManager;
+    private EffectManager effectManager;
     private UiManager uiManager;
 
     // Parameterized constructor to initialise details of game scene
@@ -35,6 +37,7 @@ public class GameScene extends Scenes {
         this.aiControlManager = new AIControlManager();
         this.collisionManager = new CollisionManager();
         this.entityManager = new EntityManager();
+        this.effectManager = new EffectManager();
     }
 
     // Check if level assets available for selected level, if not game ends
@@ -73,7 +76,7 @@ public class GameScene extends Scenes {
         getCamera().focusCamera(entityManager.getPlayersList().get(0).getPosX(), entityManager.getPlayersList().get(0).getPosY(), batch);
 
         // Draw our game scene
-        drawScene(batch, getSceneBackgroundTexture(), entityManager);
+        drawScene(batch, getSceneBackgroundTexture(), entityManager, effectManager);
 
         // Keep spawning entities on the screen after each interval
         if (timeSinceLastSpawn >= 100f) {
@@ -89,11 +92,12 @@ public class GameScene extends Scenes {
             pauseSceneState = !pauseSceneState;
         }
 
-        // If not paused, initialise all forms of behavior and movement
+        // If not paused, initialise all forms of behavior and movement and timers
         if (!pauseSceneState) {
-            entityManager.initialiseEntityActions(preferredControls);
+            entityManager.initialiseEntityActions(preferredControls, effectManager);
             aiControlManager.initializeAIBehavior(entityManager.getEntityMap().get("ai"), entityManager.getEntityMap().get("player").get(0));
             collisionManager.initializeCollisions(entityManager.getEntityMap());
+            effectManager.updateEffects();
         }
 
         // Updating of player entity status
@@ -149,6 +153,11 @@ public class GameScene extends Scenes {
     // Get Collision Manager
     public CollisionManager getCollisionManager() {
         return collisionManager;
+    }
+
+    // Get Effect Manager
+    public EffectManager getEffectManager() {
+        return effectManager;
     }
 
     // Get Entity Manager

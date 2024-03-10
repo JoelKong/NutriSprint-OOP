@@ -2,6 +2,7 @@ package com.mygdx.game.EngineLayer.Entity;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.mygdx.game.EngineLayer.Effects.EffectManager;
 import com.mygdx.game.EngineLayer.Entity.Player;
 import com.mygdx.game.EngineLayer.InputOutput.Inputs;
 import com.mygdx.game.EngineLayer.Levels.Levels;
@@ -37,28 +38,28 @@ public class Isaac extends Player {
 
     @Override
 //     Action of Isaac
-    protected void playerActions(Inputs preferredInput, Map<String, List<GameEntity>> entityMap) {
+    protected void playerActions(Inputs preferredInput, Map<String, List<GameEntity>> entityMap, EffectManager effectManager) {
         if (preferredInput.getUpKey()) {
-            getPlayerControlManager().manageControls("UP", this, preferredInput, entityMap);
+            getPlayerControlManager().manageControls("UP", this, preferredInput, entityMap, effectManager);
             headRegion = new TextureRegion(getTexture(), 170, 20, getWidth(), getHeight());
         }
         if (preferredInput.getDownKey()) {
-            getPlayerControlManager().manageControls("DOWN", this, preferredInput, entityMap);
+            getPlayerControlManager().manageControls("DOWN", this, preferredInput, entityMap, effectManager);
             headRegion = new TextureRegion(getTexture(), 10, 20, getWidth(), getHeight());
         }
         if (preferredInput.getLeftKey()) {
-            getPlayerControlManager().manageControls("LEFT", this, preferredInput, entityMap);
+            getPlayerControlManager().manageControls("LEFT", this, preferredInput, entityMap, effectManager);
             headRegion = new TextureRegion(getTexture(), 250, 20, getWidth(), getHeight());
         }
         if (preferredInput.getRightKey()) {
-            getPlayerControlManager().manageControls("RIGHT", this, preferredInput, entityMap);
+            getPlayerControlManager().manageControls("RIGHT", this, preferredInput, entityMap, effectManager);
             headRegion = new TextureRegion(getTexture(), 90, 20, getWidth(), getHeight());
         }
         if (preferredInput.getTeleportKey()) {
-            getPlayerControlManager().manageControls("TELEPORT", this, preferredInput, entityMap);
+            getPlayerControlManager().manageControls("TELEPORT", this, preferredInput, entityMap, effectManager);
         }
         if (preferredInput.getExplodeKey()) {
-            getPlayerControlManager().manageControls("EXPLODE", this, preferredInput, entityMap);
+            getPlayerControlManager().manageControls("EXPLODE", this, preferredInput, entityMap, effectManager);
         }
     }
 }

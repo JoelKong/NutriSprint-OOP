@@ -4,6 +4,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
+import com.mygdx.game.EngineLayer.Effects.EffectManager;
 import com.mygdx.game.EngineLayer.InputOutput.Inputs;
 import com.mygdx.game.EngineLayer.Levels.Levels;
 
@@ -173,10 +174,10 @@ public class EntityManager {
     }
 
     // Initialising of entity actions
-    public void initialiseEntityActions(Inputs commandInput) {
+    public void initialiseEntityActions(Inputs commandInput, EffectManager effectManager) {
         for (GameEntity entity: playerEntityList) {
             Player player = (Player) entity;
-            player.playerActions(commandInput, entityMap);
+            player.playerActions(commandInput, entityMap, effectManager);
         }
     }
 

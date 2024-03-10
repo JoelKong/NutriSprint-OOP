@@ -1,6 +1,7 @@
 package com.mygdx.game.EngineLayer.Entity;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.mygdx.game.EngineLayer.Effects.EffectManager;
 import com.mygdx.game.EngineLayer.InputOutput.Inputs;
 import com.mygdx.game.EngineLayer.Levels.Levels;
 import com.mygdx.game.EngineLayer.PlayerControls.PlayerControlManager;
@@ -40,7 +41,7 @@ public class Player extends GameEntity {
     protected Player(Levels level) {
         super(level);
         this.playerID = 1;
-        this.health = 10;
+        this.health = 100;
         this.score = 0;
         this.winStatus = false;
         this.loseStatus = false;
@@ -57,24 +58,24 @@ public class Player extends GameEntity {
     }
 
     // Actions of Player
-    protected void playerActions(Inputs preferredInput, Map<String,List<GameEntity>> entityMap) {
+    protected void playerActions(Inputs preferredInput, Map<String,List<GameEntity>> entityMap, EffectManager effectManager) {
         if (preferredInput.getUpKey()) {
-            playerControlManager.manageControls("UP", this, preferredInput, entityMap);
+            playerControlManager.manageControls("UP", this, preferredInput, entityMap, effectManager);
         }
         if (preferredInput.getDownKey()) {
-            playerControlManager.manageControls("DOWN", this, preferredInput, entityMap);
+            playerControlManager.manageControls("DOWN", this, preferredInput, entityMap, effectManager);
         }
         if (preferredInput.getLeftKey()) {
-            playerControlManager.manageControls("LEFT", this, preferredInput, entityMap);
+            playerControlManager.manageControls("LEFT", this, preferredInput, entityMap, effectManager);
         }
         if (preferredInput.getRightKey()) {
-            playerControlManager.manageControls("RIGHT", this, preferredInput, entityMap);
+            playerControlManager.manageControls("RIGHT", this, preferredInput, entityMap, effectManager);
         }
         if (preferredInput.getTeleportKey()) {
-            playerControlManager.manageControls("TELEPORT", this, preferredInput, entityMap);
+            playerControlManager.manageControls("TELEPORT", this, preferredInput, entityMap, effectManager);
         }
         if (preferredInput.getExplodeKey()) {
-            playerControlManager.manageControls("EXPLODE", this, preferredInput, entityMap);
+            playerControlManager.manageControls("EXPLODE", this, preferredInput, entityMap, effectManager);
         }
     }
 

@@ -1,5 +1,6 @@
 package com.mygdx.game.EngineLayer.PlayerControls;
 
+import com.mygdx.game.EngineLayer.Effects.EffectManager;
 import com.mygdx.game.EngineLayer.Entity.GameEntity;
 import com.mygdx.game.EngineLayer.Entity.Player;
 import com.mygdx.game.EngineLayer.InputOutput.Inputs;
@@ -18,7 +19,7 @@ public class PlayerControlManager {
     }
 
     // Manage Player Controls
-    public void manageControls(String command, Player player, Inputs preferredInput, Map<String, List<GameEntity>> entityMap) {
+    public void manageControls(String command, Player player, Inputs preferredInput, Map<String, List<GameEntity>> entityMap, EffectManager effectManager) {
         switch (command) {
             case "UP":
                 playerControls.moveUp(player);
@@ -33,11 +34,11 @@ public class PlayerControlManager {
                 playerControls.moveRight(player);
                 break;
             case "TELEPORT":
-                playerControls.teleport(player, preferredInput);
+                playerControls.teleport(player, preferredInput, effectManager);
                 break;
             case "EXPLODE":
                 if (player.getExplodeMeter() == 3) {
-                    playerControls.triggerExplosion(player, entityMap);
+                    playerControls.triggerExplosion(player, entityMap, effectManager);
                     player.setExplodeMeter(0);
                 }
                 break;

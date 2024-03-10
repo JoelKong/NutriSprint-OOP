@@ -4,6 +4,7 @@ import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.mygdx.game.EngineLayer.Camera.CameraManager;
+import com.mygdx.game.EngineLayer.Effects.EffectManager;
 import com.mygdx.game.EngineLayer.Entity.EntityManager;
 import com.mygdx.game.EngineLayer.InputOutput.InputOutputManager;
 import com.mygdx.game.Main;
@@ -35,11 +36,12 @@ public abstract class Scenes implements Screen {
         batch.end();
     }
 
-    // Draw Background and Entities on scene
-    public void drawScene(SpriteBatch batch, Texture sceneBackgroundTexture, EntityManager entityManager) {
+    // Draw Background and Entities on scene and other relevant effects
+    public void drawScene(SpriteBatch batch, Texture sceneBackgroundTexture, EntityManager entityManager, EffectManager effectManager) {
         batch.begin();
             batch.draw(sceneBackgroundTexture, 0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
             entityManager.drawEntities(batch);
+            effectManager.drawEffects(batch);
         batch.end();
     }
 
