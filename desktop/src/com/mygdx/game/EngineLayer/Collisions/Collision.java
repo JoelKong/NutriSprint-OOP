@@ -52,7 +52,6 @@ public class Collision {
             if (collisionDetected(ai, player)) {
                 aiEntities.remove(ai);
                 player.setHealth(player.getHealth() - 1);
-                player.setHealth(player.getHealth() - 1);
                 player.notifyHealthChange();
                 break;
             }
@@ -100,6 +99,7 @@ public class Collision {
                     } else if (prop instanceof Banana) {
                         iterator.remove();
                         player.setHealth(player.getHealth() + 1);
+                        player.notifyHealthChange();
                     } else if (prop instanceof Cherry) {
                         iterator.remove();
                         if (player.getExplodeMeter() < 3) {
