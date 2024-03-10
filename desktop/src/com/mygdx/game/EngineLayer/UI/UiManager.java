@@ -21,14 +21,13 @@ public class UiManager {
     private Stage uiStage;
     private Table uiTable;
     private HUD uiGameHUD;
-    private Skin startButtonSkin;
 
     public UiManager(SpriteBatch spriteBatch, Viewport uiViewport) {
         this.uiStage = new Stage(uiViewport, spriteBatch);
         this.uiTable = new Table();
 
         // new start button lmao will be refactored again
-        this.startButtonSkin = new Skin(Gdx.files.internal("UI/terra-mother/skin/terra-mother-ui.json"));
+        Skin startButtonSkin = new Skin(Gdx.files.internal("UI/terra-mother/skin/terra-mother-ui.json"));
 
         uiTable.setFillParent(true);
         uiTable.center();
@@ -44,11 +43,7 @@ public class UiManager {
         }
 
         uiStage.addActor(uiGameHUD.getHudTable());
-    }
-
-    // Update the game HUD
-    private void updateGameHUD() {
-        // Update HUD Functions
+        // uiStage.addActor(uiGameHUD.getHealthbar());
     }
 
     // Create the UI for start scene
