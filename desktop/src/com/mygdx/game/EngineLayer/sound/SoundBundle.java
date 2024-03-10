@@ -27,7 +27,7 @@ public abstract class SoundBundle<T extends Enum<T>> implements Disposable {
     /** Plays the specified {@code soundType}'s sound. */
     public void playSound(T soundType) {
         // Check if there's an existing sound type
-        if (soundsCache.containsKey(soundType)) {
+        if (!soundsCache.containsKey(soundType)) {
             // Add to the sounds cache otherwise
             soundsCache.put(soundType, Gdx.audio.newSound(getSoundFile(soundType)));
         }
