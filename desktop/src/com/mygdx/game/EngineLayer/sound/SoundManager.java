@@ -15,7 +15,11 @@ public class SoundManager<B extends SoundBundle<T>, T extends Enum<T>> implement
     SoundManager(B bundle) {
         this.bundle = bundle;
     }
-    
+
+    public B getBundle() {
+        return bundle;
+    }
+
     /** Factory interface to instantiate a {@link SoundManager}. */
     public interface Factory<B extends SoundBundle<T>, T extends Enum<T>> {
         SoundManager<B, T> createSoundManager();
