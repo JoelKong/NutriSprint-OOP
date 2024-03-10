@@ -10,8 +10,8 @@ import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 
 public class HUD {
-    private Label scoreLabel;
-    private Label levelLabel;
+    private StyledLabel scoreLabel;
+    private StyledLabel levelLabel;
     private Skin skin;
     private Stage uiStage;
     private Table hudTable;
@@ -27,17 +27,14 @@ public class HUD {
         hudTable.top();
 
         // Initialize the score and level labels
-        this.scoreLabel = new Label("Score: 0", skin);
-        this.levelLabel = new Label("Level: 1", skin);
+        this.scoreLabel = new StyledLabel("Score: 0");
+        this.levelLabel = new StyledLabel("Level: 1");
 
         // Initialize the health bar with the maximum health
         this.healthbar = new Healthbar(10); // Assume the max health is 10
 
-        // Add the score and level labels to the hudTable
-        hudTable.add(levelLabel).align(Align.left).padTop(10).padLeft(10).expandX();
+        hudTable.add(levelLabel).align(Align.left).padTop(10).padLeft(20).expandX();
         hudTable.add(scoreLabel).align(Align.center).padTop(10).expandX();
-
-        // Add the healthbar to the hudTable aligned to the right
         hudTable.add(healthbar).align(Align.right).padTop(30).padRight(300).size(240, 24);
 
         // Add the hudTable to the uiStage
