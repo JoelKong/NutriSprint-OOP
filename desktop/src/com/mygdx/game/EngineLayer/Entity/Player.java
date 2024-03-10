@@ -22,6 +22,8 @@ public class Player extends GameEntity {
     private float teleportDistance;
     private long teleportCooldown;
     private PlayerControlManager playerControlManager;
+    private HealthChangeListener healthChangeListener;
+    private ScoreChangeListener scoreChangeListener;
 
     // Default Constructor
     protected Player() {
@@ -180,5 +182,25 @@ public class Player extends GameEntity {
     // Get Player Control Manager
     public PlayerControlManager getPlayerControlManager() {
         return playerControlManager;
+    }
+
+    public void setHealthChangeListener(HealthChangeListener listener) {
+        this.healthChangeListener = listener;
+    }
+
+    public void setScoreChangeListener(ScoreChangeListener listener) {
+        this.scoreChangeListener = listener;
+    }
+
+    public void notifyHealthChange() {
+        if (healthChangeListener != null) {
+            healthChangeListener.onHealthChange(health);
+        }
+    }
+
+    public void notifyScoreChange() {
+        if (scoreChangeListener != null) {
+            scoreChangeListener.onScoreChange(score);
+        }
     }
 }
