@@ -2,6 +2,7 @@
   {
     "levelNumber": 1,
     "levelTitle": "Level 1",
+    "levelBackground": "Scenes/gamescene1.png",
     "playerTexture": ["Entities/isaacblue.png"],
     "enemyTexture": ["Entities/fries.png", "Entities/burger.png", "Entities/chicken.png"],
     "propTexture": ["Entities/rock.png", "Entities/apple.png", "Entities/banana.png"],
@@ -19,6 +20,7 @@
   {
     "levelNumber": 2,
     "levelTitle": "Level 2",
+    "levelBackground": "Scenes/gamescene2.jpg",
     "playerTexture": ["Entities/isaaceve.png"],
     "enemyTexture": ["Entities/fries.png", "Entities/burger.png", "Entities/chicken.png"],
     "propTexture": ["Entities/rock.png", "Entities/apple.png", "Entities/banana.png"],
@@ -36,6 +38,7 @@
   {
     "levelNumber": 3,
     "levelTitle": "Level 3",
+    "levelBackground": "Scenes/gamescene3.jpg",
     "playerTexture": ["Entities/isaac.png"],
     "enemyTexture": ["Entities/fries.png", "Entities/burger.png", "Entities/chicken.png"],
     "propTexture": ["Entities/rock.png", "Entities/apple.png", "Entities/banana.png", "Entities/cherry.png"],
