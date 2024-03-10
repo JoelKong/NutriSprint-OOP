@@ -59,10 +59,6 @@ public class GameScene extends Scenes {
                 throw new RuntimeException(e);
             }
         }
-
-        Player player = (Player) entityManager.getPlayersList().get(0);
-        player.setHealthChangeListener(newHealth -> uiManager.getUiGameHUD().updateHealth(newHealth));
-        player.setScoreChangeListener(newScore -> uiManager.getUiGameHUD().updateScore(newScore));
     }
 
     // Render game screen
@@ -71,6 +67,10 @@ public class GameScene extends Scenes {
         // Get necessary data
         Inputs preferredControls = getInputOutputManager().getPreferredControls();
         SpriteBatch batch = getGameController().getBatch();
+
+        Player player = (Player) entityManager.getPlayersList().get(0);
+        player.setHealthChangeListener(newHealth -> uiManager.getUiGameHUD().updateHealth(newHealth));
+        player.setScoreChangeListener(newScore -> uiManager.getUiGameHUD().updateScore(newScore));
 
         // Clear the screen
         ScreenUtils.clear(0, 0, 0.2f, 1);
@@ -109,7 +109,6 @@ public class GameScene extends Scenes {
 
         // End game if player loses
         for (GameEntity entity: entityManager.getPlayersList()) {
-            Player player = (Player) entity;
             if (player.getLoseStatus()) {
                 levelManager.setLevelNumber(1);
                 getGameController().setScreen(getGameController().getSceneManager().getSceneMap().get("end"));
@@ -119,8 +118,6 @@ public class GameScene extends Scenes {
         // Render HUD
         uiManager.getUiStage().act(Math.min(Gdx.graphics.getDeltaTime(), 1 / 30f));
         uiManager.getUiStage().draw();
-
-        Gdx.app.log("Level Number", String.valueOf(levelManager.getLevelNumber()));
     }
 
     // Upon switching screens dispose all stuff on the screen
