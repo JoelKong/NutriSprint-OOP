@@ -59,6 +59,10 @@ public class GameScene extends Scenes {
                 throw new RuntimeException(e);
             }
         }
+
+        Player player = (Player) entityManager.getPlayersList().get(0);
+        player.setHealthChangeListener(newHealth -> uiManager.getUiGameHUD().updateHealth(newHealth));
+        player.setScoreChangeListener(newScore -> uiManager.getUiGameHUD().updateScore(newScore));
     }
 
     // Render game screen
