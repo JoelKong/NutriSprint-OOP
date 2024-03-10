@@ -2,7 +2,7 @@
   {
     "levelNumber": 1,
     "levelTitle": "Level 1",
-    "playerTexture": ["Entities/isaac.png"],
+    "playerTexture": ["Entities/isaacblue.png"],
     "enemyTexture": ["Entities/fries.png", "Entities/burger.png", "Entities/chicken.png"],
     "propTexture": ["Entities/rock.png", "Entities/apple.png", "Entities/banana.png"],
     "playerSpeed": 250,
@@ -19,7 +19,7 @@
   {
     "levelNumber": 2,
     "levelTitle": "Level 2",
-    "playerTexture": ["Entities/isaac.png"],
+    "playerTexture": ["Entities/isaaceve.png"],
     "enemyTexture": ["Entities/fries.png", "Entities/burger.png", "Entities/chicken.png"],
     "propTexture": ["Entities/rock.png", "Entities/apple.png", "Entities/banana.png"],
     "playerSpeed": 300,
