@@ -6,17 +6,19 @@ import com.badlogic.gdx.utils.Disposable;
  * Manager for handling audio-related functionality.
  * <p>
  * This manager should be created via its {@link SoundManager.Factory}.
+ * @param <B> Generic for the {@link SoundBundle} to use.
+ * @param <T> Generic for the {@link SoundBundle}'s enum of possible sound types.
  */
-public class SoundManager<T extends Enum<T>> implements Disposable {
-    private final SoundBundle<T> bundle;
+public class SoundManager<B extends SoundBundle<T>, T extends Enum<T>> implements Disposable {
+    private final B bundle;
     
-    SoundManager(SoundBundle<T> bundle) {
+    SoundManager(B bundle) {
         this.bundle = bundle;
     }
     
     /** Factory interface to instantiate a {@link SoundManager}. */
-    public interface Factory<T extends Enum<T>> {
-        SoundManager<T> createSoundManager();
+    public interface Factory<B extends SoundBundle<T>, T extends Enum<T>> {
+        SoundManager<B, T> createSoundManager();
     }
     
     public void playSound(T soundType) {
