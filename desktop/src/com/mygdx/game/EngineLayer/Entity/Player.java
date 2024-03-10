@@ -14,6 +14,7 @@ public class Player extends GameEntity {
     private int playerID;
     private int health;
     private int score;
+    private int explodeMeter;
     private boolean winStatus;
     private boolean loseStatus;
     private long lastTeleportTime;
@@ -25,12 +26,13 @@ public class Player extends GameEntity {
     protected Player() {
         super();
         this.playerID = 1;
-        this.health = 5;
+        this.health = 10;
         this.score = 0;
         this.winStatus = false;
         this.loseStatus = false;
         this.teleportDistance = 100;
         this.teleportCooldown = 5000;
+        this.explodeMeter = 0;
         this.playerControlManager = new PlayerControlManager();
     }
 
@@ -38,12 +40,13 @@ public class Player extends GameEntity {
     protected Player(Levels level) {
         super(level);
         this.playerID = 1;
-        this.health = 5;
+        this.health = 10;
         this.score = 0;
         this.winStatus = false;
         this.loseStatus = false;
         this.teleportDistance = 200;
         this.teleportCooldown = 5000;
+        this.explodeMeter = 0;
         this.playerControlManager = new PlayerControlManager();
     }
 
@@ -152,6 +155,14 @@ public class Player extends GameEntity {
 
     public void setLastTeleportTime(long lastTeleportTime) {
         this.lastTeleportTime = lastTeleportTime;
+    }
+
+    public int getExplodeMeter() {
+        return explodeMeter;
+    }
+
+    public void setExplodeMeter(int explodeMeter) {
+        this.explodeMeter = explodeMeter;
     }
 
 

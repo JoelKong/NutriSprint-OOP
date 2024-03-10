@@ -17,7 +17,7 @@ public class EntityManager {
     private List<GameEntity> playerEntityList;
     private List<GameEntity> propEntityList;
     private enum EntityType {
-        ISAAC, FRENCHFRIES, ROCK, APPLE, BANANA
+        ISAAC, FRENCHFRIES, ROCK, APPLE, BANANA, BURGER, CHICKEN, CHERRY
     }
 
     // Default Constructor class to initialise entities
@@ -51,6 +51,12 @@ public class EntityManager {
                 return new Apple(level);
             case BANANA:
                 return new Banana(level);
+            case BURGER:
+                return new Burger(level);
+            case CHICKEN:
+                return new Chicken(level);
+            case CHERRY:
+                return new Cherry(level);
             default:
                 System.out.println("Warning: Unknown entityType when creating a new entity object.");
                 return null;
@@ -61,8 +67,13 @@ public class EntityManager {
     public void populateEntities(Levels level) throws CloneNotSupportedException {
         playerEntityList.add(createEntity(EntityType.ISAAC, level));
 
-        for (int i = 0; i < level.getNumberOfEnemies(); i++) {
+        for (int i = 0; i < level.getNumberOfFries(); i++) {
             GameEntity entity = randomiseEntityPosition(Objects.requireNonNull(createEntity(EntityType.FRENCHFRIES, level)).clone(), entityMap);
+            aiEntityList.add(entity);
+        }
+
+        for (int i = 0; i < level.getNumberOfBurgers(); i++) {
+            GameEntity entity = randomiseEntityPosition(Objects.requireNonNull(createEntity(EntityType.BURGER, level)).clone(), entityMap);
             aiEntityList.add(entity);
         }
 
@@ -78,6 +89,11 @@ public class EntityManager {
 
         for (int i = 0; i < level.getNumberOfBananas(); i++) {
             GameEntity banana = randomiseEntityPosition(Objects.requireNonNull(createEntity(EntityType.BANANA, level)).clone(), entityMap);
+            propEntityList.add(banana);
+        }
+
+        for (int i = 0; i < level.getNumberOfCherries(); i++) {
+            GameEntity banana = randomiseEntityPosition(Objects.requireNonNull(createEntity(EntityType.CHERRY, level)).clone(), entityMap);
             propEntityList.add(banana);
         }
     }

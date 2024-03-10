@@ -67,9 +67,6 @@ public class PlayerControls {
                 player.getPosY() + player.getHeight() / 2,
                 explosionRadius);
 
-        // Reduce the player's health by 1
-        player.setHealth(player.getHealth() - 1);
-
         // Iterate over all entities in the map
         for (List<GameEntity> entities : entityMap.values()) {
             Iterator<GameEntity> iterator = entities.iterator();

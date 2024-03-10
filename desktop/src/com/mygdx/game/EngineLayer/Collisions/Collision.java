@@ -26,6 +26,12 @@ public class Collision {
 
             // Check for collision between AI and other AI for avoidance
             for (GameEntity otherAi : aiEntities) {
+
+                // Skip collision detection for chicken with other ai
+                if (ai instanceof Chicken || otherAi instanceof Chicken) {
+                    continue;
+                }
+
                 if (ai != otherAi && collisionDetected(ai, otherAi)) {
                     Vector2 between = new Vector2(ai.getPosX() - otherAi.getPosX(), ai.getPosY() - otherAi.getPosY());
                     if (between.len() < 32) {
@@ -53,12 +59,19 @@ public class Collision {
 
     // Collision Handling for props
     protected void handlePropCollisions(Map<String, List<GameEntity>> entityMap) {
-        List<GameEntity> props = entityMap.get("props"); // Rocks and other props
+        List<GameEntity> props = entityMap.get("props");
         List<GameEntity> players = entityMap.get("player");
         List<GameEntity> ais = entityMap.get("ai");
 
         // Handle collision for AI entities
         for (GameEntity ai : ais) {
+
+            // Skip collision detection for chicken
+            if (ai instanceof Chicken) {
+                continue;
+            }
+
+            // Check collisions with rocks
             for (GameEntity prop : props) {
                 if (collisionDetected(ai, prop)) {
                     if (prop instanceof Rock) {
@@ -84,6 +97,11 @@ public class Collision {
                     } else if (prop instanceof Banana) {
                         iterator.remove();
                         player.setHealth(player.getHealth() + 1);
+                    } else if (prop instanceof Cherry) {
+                        iterator.remove();
+                        if (player.getExplodeMeter() < 3) {
+                            player.setExplodeMeter(player.getExplodeMeter() + 1);
+                        }
                     }
                 }
             }

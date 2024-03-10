@@ -1,16 +1,17 @@
 package com.mygdx.game.EngineLayer.Levels;
 import java.util.List;
-import java.util.Map;
 
 // Levels class containing the assets for each level object (will be deserialized from our levels.json)
 public class Levels {
     // Declare attributes
     private int levelNumber;
     private String levelTitle;
-    private int numberOfEnemies;
+    private int numberOfFries;
+    private int numberOfBurgers;
     private int numberOfRocks;
     private int numberOfApples;
     private int numberOfBananas;
+    private int numberOfCherries;
     private int scoreNeeded;
     private List<String> respawnables;
     private float playerSpeed;
@@ -32,9 +33,14 @@ public class Levels {
         return levelTitle;
     }
 
-    // Get Number of Enemies
-    public int getNumberOfEnemies() {
-        return numberOfEnemies;
+    // Get Number of Fries
+    public int getNumberOfFries() {
+        return numberOfFries;
+    }
+
+    // Get Number of Burgers
+    public int getNumberOfBurgers() {
+        return numberOfBurgers;
     }
 
     // Get Number of Rocks
@@ -50,6 +56,11 @@ public class Levels {
     // Get Number of Bananas
     public int getNumberOfBananas() {
         return numberOfBananas;
+    }
+
+    // Get Number of Cherries
+    public int getNumberOfCherries() {
+        return numberOfCherries;
     }
 
     // Get the score needed to win

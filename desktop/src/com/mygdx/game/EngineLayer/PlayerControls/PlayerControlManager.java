@@ -36,7 +36,10 @@ public class PlayerControlManager {
                 playerControls.teleport(player, preferredInput);
                 break;
             case "EXPLODE":
-                playerControls.triggerExplosion(player, entityMap);
+                if (player.getExplodeMeter() == 3) {
+                    playerControls.triggerExplosion(player, entityMap);
+                    player.setExplodeMeter(0);
+                }
                 break;
             default:
         }
