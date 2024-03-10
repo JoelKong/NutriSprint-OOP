@@ -19,12 +19,14 @@ public class AI extends GameEntity {
     protected AI() {
         super();
         setTexture(new Texture("Entities/fries.png"));
+        setEntityType("FRENCHFRIES");
         this.AIID = 1;
         this.setSpeed(200);
     }
 
     protected AI(Levels level) {
         super(level);
+        setEntityType("FRENCHFRIES");
         this.AIID = 1;
         this.setSpeed(level.getEnemySpeed());
 

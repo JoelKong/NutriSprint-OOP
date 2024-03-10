@@ -10,11 +10,13 @@ public class Banana extends GameEntity {
     protected Banana() {
         super();
         setTexture(new Texture("Entities/banana.png"));
+        setEntityType("BANANA");
     }
 
     protected Banana(Levels level) {
         super();
         setTexture(new Texture(Gdx.files.internal(level.getPropTexture().get(2))));
+        setEntityType("BANANA");
     }
 
     // Drawing of apple

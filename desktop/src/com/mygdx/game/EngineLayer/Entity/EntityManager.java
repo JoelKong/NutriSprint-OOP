@@ -17,6 +17,7 @@ public class EntityManager {
     private List<GameEntity> aiEntityList;
     private List<GameEntity> playerEntityList;
     private List<GameEntity> propEntityList;
+    private float timeSinceLastSpawn;
     private enum EntityType {
         ISAAC, FRENCHFRIES, ROCK, APPLE, BANANA, BURGER, CHICKEN, CHERRY
     }
@@ -116,6 +117,83 @@ public class EntityManager {
         }
     }
 
+    // Respawning of Entities
+    public void respawnEntities(Levels sceneLevelAssets) {
+        timeSinceLastSpawn += 1;
+
+        if (timeSinceLastSpawn >= 60f) {
+            timeSinceLastSpawn = 0; // Reset the timer
+
+            for (String entityType : sceneLevelAssets.getRespawnables()) {
+                int currentCount = getCurrentEntityCount(entityType);
+                int maxCount = getMaxCountForEntity(entityType, sceneLevelAssets);
+                GameEntity entity = null;
+                try {
+                    entity = randomiseEntityPosition(Objects.requireNonNull(createEntity(getEntityType(entityType), sceneLevelAssets)).clone(), entityMap);
+                } catch (CloneNotSupportedException e) {
+                    throw new RuntimeException(e);
+                }
+
+                // If not endless, add entities without checking count
+                if (sceneLevelAssets.getLevelNumber() != 4) {
+                    if (entity instanceof AI) {
+                        aiEntityList.add(entity);
+                    } else {
+                        propEntityList.add(entity);
+                    }
+                    continue;
+                }
+
+                // For level 4, check counts before adding
+                if (currentCount < maxCount) {
+                    if (entity instanceof AI) {
+                        aiEntityList.add(entity);
+                    } else {
+                        propEntityList.add(entity);
+                    }
+                }
+            }
+        }
+    }
+
+    // Get Current entity count on screen
+    private int getCurrentEntityCount(String entityType) {
+        int count = 0;
+        // Combine both lists to simplify iteration
+        List<GameEntity> allEntities = new ArrayList<>();
+        allEntities.addAll(aiEntityList);
+        allEntities.addAll(propEntityList);
+
+        for (GameEntity entity : allEntities) {
+            if (entity.getEntityType().equals(entityType)) {
+                count++;
+            }
+        }
+
+        return count;
+    }
+
+    // Get Max Count for Entity
+    private int getMaxCountForEntity(String entityType, Levels levelAssets) {
+        switch (entityType) {
+            case "FRENCHFRIES":
+                return levelAssets.getNumberOfFries();
+            case "ROCK":
+                return levelAssets.getNumberOfRocks();
+            case "APPLE":
+                return levelAssets.getNumberOfApples();
+            case "BANANA":
+                return levelAssets.getNumberOfBananas();
+            case "BURGER":
+                return levelAssets.getNumberOfBurgers();
+            case "CHERRY":
+                return levelAssets.getNumberOfCherries();
+            default:
+                return 0;
+        }
+    }
+
+
     // Checking player entity status
     public void checkPlayerEntityStatus(int scoreNeeded) {
         for (GameEntity entity: playerEntityList) {
@@ -146,7 +224,7 @@ public class EntityManager {
                 positionValid = false;
             }
 
-            // Check distance from AI entities
+//          Check distance from AI entities
             for (GameEntity aiEntity : entityMap.getOrDefault("ai", Collections.emptyList())) {
                 if (new Vector2(aiEntity.getPosX(), aiEntity.getPosY()).dst(randomPosition) < MIN_DISTANCE) {
                     positionValid = false;
@@ -234,4 +312,15 @@ public class EntityManager {
     public void setAiEntityList(List<GameEntity> aiEntityList) {
         this.aiEntityList = aiEntityList;
     }
+
+    // Get time since last spawn
+    public float getTimeSinceLastSpawn() {
+        return timeSinceLastSpawn;
+    }
+
+    // Set time since last spawn
+    public void setTimeSinceLastSpawn(float timeSinceLastSpawn) {
+        this.timeSinceLastSpawn = timeSinceLastSpawn;
+    }
+
 }

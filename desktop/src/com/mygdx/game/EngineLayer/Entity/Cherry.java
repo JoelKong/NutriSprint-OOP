@@ -9,11 +9,13 @@ public class Cherry extends GameEntity {
     protected Cherry() {
         super();
         setTexture(new Texture("Entities/cherry.png"));
+        setEntityType("CHERRY");
     }
 
     protected Cherry(Levels level) {
         super();
         setTexture(new Texture(Gdx.files.internal(level.getPropTexture().get(3))));
+        setEntityType("CHERRY");
     }
 
     // Drawing of apple

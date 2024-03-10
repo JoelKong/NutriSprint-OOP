@@ -10,10 +10,12 @@ public class Apple extends GameEntity {
     protected Apple() {
         super();
         setTexture(new Texture("Entities/apple.png"));
+        setEntityType("APPLE");
     }
 
     protected Apple(Levels level) {
         super();
+        setEntityType("APPLE");
         setTexture(new Texture(Gdx.files.internal(level.getPropTexture().get(1))));
     }
 

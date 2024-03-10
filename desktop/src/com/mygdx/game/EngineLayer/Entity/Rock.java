@@ -14,6 +14,7 @@ public class Rock extends GameEntity {
     // Default constructor of rock
     protected Rock() {
         super();
+        setEntityType("ROCK");
         setTexture(new Texture("Entities/rock.png"));
         this.rock = new TextureRegion(this.getTexture(), 0, 0, this.getWidth(), this.getHeight());
     }

@@ -11,6 +11,7 @@ import java.util.Random;
 public abstract class GameEntity implements Cloneable {
     // Declare Attributes
     private Texture texture;
+    private String entityType;
     private float xPosition;
     private float yPosition;
     private float speed;
@@ -20,6 +21,7 @@ public abstract class GameEntity implements Cloneable {
 
     // Default Constructor to player character
     protected GameEntity() {
+        this.entityType = "ISAAC";
         this.texture = new Texture(Gdx.files.internal("Entities/isaac.png"));
         this.xPosition = (Gdx.graphics.getWidth() - width) / 2f;
         this.yPosition = (Gdx.graphics.getHeight() - height) / 2f;
@@ -31,6 +33,7 @@ public abstract class GameEntity implements Cloneable {
 
     // Parameterized Constructor
     protected GameEntity(Levels level) {
+        this.entityType = "ISAAC";
         this.texture = new Texture(Gdx.files.internal(level.getPlayerTexture().get(0)));
         this.xPosition = (Gdx.graphics.getWidth() - width) / 2f;
         this.yPosition = (Gdx.graphics.getHeight() - height) / 2f;
@@ -62,6 +65,16 @@ public abstract class GameEntity implements Cloneable {
             cloned.yPosition = random.nextInt(Gdx.graphics.getHeight() - 100);
             cloned.hitbox = new Rectangle(cloned.xPosition, cloned.yPosition, cloned.width, cloned.height);
             return cloned;
+    }
+
+    // Get Entity Type
+    public String getEntityType() {
+        return entityType;
+    }
+
+    // Set Entity Type
+    public void setEntityType(String entityType) {
+        this.entityType = entityType;
     }
 
     // Get Texture

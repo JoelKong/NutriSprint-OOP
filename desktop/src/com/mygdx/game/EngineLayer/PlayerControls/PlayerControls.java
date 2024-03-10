@@ -70,7 +70,7 @@ public class PlayerControls {
 
     // Explosion around player
     protected void triggerExplosion(Player player, Map<String, List<GameEntity>> entityMap, EffectManager effectManager) {
-        final float explosionRadius = 150;
+        final float explosionRadius = 200;
         Circle explosionArea = new Circle(player.getPosX() + player.getWidth() / 2,
                 player.getPosY() + player.getHeight() / 2,
                 explosionRadius);

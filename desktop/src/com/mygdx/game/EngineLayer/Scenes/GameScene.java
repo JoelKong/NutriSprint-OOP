@@ -67,7 +67,6 @@ public class GameScene extends Scenes {
         // Get necessary data
         Inputs preferredControls = getInputOutputManager().getPreferredControls();
         SpriteBatch batch = getGameController().getBatch();
-        timeSinceLastSpawn += 1;
 
         // Clear the screen
         ScreenUtils.clear(0, 0, 0.2f, 1);
@@ -78,14 +77,9 @@ public class GameScene extends Scenes {
         // Draw our game scene
         drawScene(batch, getSceneBackgroundTexture(), entityManager, effectManager);
 
-        // Keep spawning entities on the screen after each interval
-        if (timeSinceLastSpawn >= 100f) {
-            timeSinceLastSpawn = 0f;
-            for (String entityType: sceneLevelAssets.getRespawnables()) {
-                GameEntity entity = entityManager.createEntity(entityManager.getEntityType(entityType), sceneLevelAssets);
-                entityManager.getAiEntityList().add(entity);
-            }
-        }
+        entityManager.respawnEntities(sceneLevelAssets);
+
+        // Keep spawning entities on the screen after each interval only if it hasnt reached the max
 
         // Pause and Resume Game
         if (preferredControls.getPauseKey()) {

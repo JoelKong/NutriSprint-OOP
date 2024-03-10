@@ -15,6 +15,7 @@ public class Burger extends AI {
         this.lastShotTime = 0;
         setWidth(64);
         setHeight(64);
+        setEntityType("BURGER");
     }
 
     protected Burger(Levels level) {
@@ -22,6 +23,7 @@ public class Burger extends AI {
         setTexture(new Texture(Gdx.files.internal(level.getEnemyTexture().get(1))));
         setWidth(64);
         setHeight(64);
+        setEntityType("BURGER");
     }
 
     // Behavior of burger to shoot chicken at player direction

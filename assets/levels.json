@@ -46,7 +46,7 @@
     "enemySpeed": 250,
     "numberOfFries": 10,
     "numberOfBurgers": 4,
-    "respawnables": ["FRENCHFRIES"],
+    "respawnables": ["FRENCHFRIES", "APPLE"],
     "numberOfRocks": 40,
     "numberOfApples": 20,
     "numberOfBananas": 12,
@@ -62,13 +62,13 @@
     "propTexture": ["Entities/rock.png", "Entities/apple.png", "Entities/banana.png", "Entities/cherry.png"],
     "playerSpeed": 330,
     "enemySpeed": 250,
-    "numberOfFries": 12,
-    "numberOfBurgers": 6,
-    "respawnables": ["FRENCHFRIES", "BURGER"],
+    "numberOfFries": 15,
+    "numberOfBurgers": 8,
+    "respawnables": ["FRENCHFRIES", "ROCK", "APPLE", "BANANA", "BURGER", "CHERRY"],
     "numberOfRocks": 40,
     "numberOfApples": 20,
-    "numberOfBananas": 12,
-    "numberOfCherries": 12,
+    "numberOfBananas": 10,
+    "numberOfCherries": 10,
     "scoreNeeded": 100
   }
 ]
