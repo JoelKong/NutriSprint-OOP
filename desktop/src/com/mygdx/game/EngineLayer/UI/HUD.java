@@ -1,46 +1,47 @@
 package com.mygdx.game.EngineLayer.UI;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.utils.Align;
+import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 
 public class HUD {
     private Label scoreLabel;
     private Label levelLabel;
-    private Label healthLabel;
     private Skin skin;
     private Stage uiStage;
     private Table hudTable;
-
+    private Healthbar healthbar; // Now it will be added to the hudTable
 
     public HUD() {
         this.uiStage = new Stage(new ScreenViewport());
         this.skin = new Skin(Gdx.files.internal("UI/libgdx/uiskin.json"));
 
+        // Initialize the hudTable
         this.hudTable = new Table();
         hudTable.setFillParent(true);
         hudTable.top();
 
+        // Initialize the score and level labels
         this.scoreLabel = new Label("Score: 0", skin);
         this.levelLabel = new Label("Level: 1", skin);
-        this.healthLabel = new Label("Health: 10", skin);
 
+        // Initialize the health bar with the maximum health
+        this.healthbar = new Healthbar(10); // Assume the max health is 10
 
         // Add the score and level labels to the hudTable
         hudTable.add(levelLabel).align(Align.left).padTop(10).padLeft(10).expandX();
         hudTable.add(scoreLabel).align(Align.center).padTop(10).expandX();
-        hudTable.add(healthLabel).align(Align.right).padTop(10).padRight(10).expandX();
 
-        // Add the hearts table to the bottom left of the hudTable
-        hudTable.row(); // Move to the next row for hearts
+        // Add the healthbar to the hudTable aligned to the right
+        hudTable.add(healthbar).align(Align.right).padTop(30).padRight(300).size(240, 24);
 
-        uiStage.addActor(hudTable); // Add the hudTable to the uiStage
+        // Add the hudTable to the uiStage
+        uiStage.addActor(hudTable);
     }
 
     public void updateScore(int score) {
@@ -48,7 +49,8 @@ public class HUD {
     }
 
     public void updateHealth(int health) {
-        healthLabel.setText("Health: " + health);
+        // Directly update the healthbar which is now part of the HUD
+        healthbar.updateHealth(health);
     }
 
     public void updateLevel(int level) {
@@ -61,6 +63,8 @@ public class HUD {
     }
 
     public void dispose() {
+        // Dispose the healthbar and other resources
+        healthbar.dispose();
         uiStage.dispose();
         skin.dispose();
     }
