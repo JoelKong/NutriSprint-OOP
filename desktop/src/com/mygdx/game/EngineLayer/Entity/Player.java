@@ -35,6 +35,7 @@ public class Player extends GameEntity {
         this.loseStatus = false;
         this.teleportDistance = 100;
         this.teleportCooldown = 5000;
+        this.lastTeleportTime = 0;
         this.explodeMeter = 0;
         this.playerControlManager = new PlayerControlManager();
     }
@@ -49,6 +50,7 @@ public class Player extends GameEntity {
         this.loseStatus = false;
         this.teleportDistance = 200;
         this.teleportCooldown = 5000;
+        this.lastTeleportTime = 0;
         this.explodeMeter = 0;
         this.playerControlManager = new PlayerControlManager();
     }
@@ -83,9 +85,12 @@ public class Player extends GameEntity {
 
 
     // Player Win Condition
-    protected void checkWinCondition(int scoreNeeded) {
-        if (score == scoreNeeded) {
-            winStatus = true;
+    protected void checkWinCondition(Levels sceneLevelAssets) {
+        if (sceneLevelAssets.getLevelNumber() != 4) {
+            int scoreNeeded = Integer.parseInt(sceneLevelAssets.getScoreNeeded());
+            if (score == scoreNeeded) {
+                winStatus = true;
+            }
         }
     }
 

@@ -19,7 +19,7 @@ public class EntityManager {
     private List<GameEntity> propEntityList;
     private float timeSinceLastSpawn;
     private enum EntityType {
-        ISAAC, FRENCHFRIES, ROCK, APPLE, BANANA, BURGER, CHICKEN, CHERRY
+        ISAAC, FRENCHFRIES, ROCK, APPLE, BANANA, BURGER, CHICKEN, CHERRY, VEGETABLE
     }
 
     // Default Constructor class to initialise entities
@@ -51,6 +51,8 @@ public class EntityManager {
                 return new Rock(level);
             case APPLE:
                 return new Apple(level);
+            case VEGETABLE:
+                return new Vegetable(level);
             case BANANA:
                 return new Banana(level);
             case BURGER:
@@ -89,6 +91,11 @@ public class EntityManager {
             propEntityList.add(apple);
         }
 
+        for (int i = 0; i < level.getNumberOfVegetables(); i++) {
+            GameEntity vegetable = randomiseEntityPosition(Objects.requireNonNull(createEntity(EntityType.VEGETABLE, level)).clone(), entityMap);
+            propEntityList.add(vegetable);
+        }
+
         for (int i = 0; i < level.getNumberOfBananas(); i++) {
             GameEntity banana = randomiseEntityPosition(Objects.requireNonNull(createEntity(EntityType.BANANA, level)).clone(), entityMap);
             propEntityList.add(banana);
@@ -121,7 +128,7 @@ public class EntityManager {
     public void respawnEntities(Levels sceneLevelAssets) {
         timeSinceLastSpawn += 1;
 
-        if (timeSinceLastSpawn >= 60f) {
+        if (timeSinceLastSpawn >= 80f) {
             timeSinceLastSpawn = 0; // Reset the timer
 
             for (String entityType : sceneLevelAssets.getRespawnables()) {
@@ -182,6 +189,8 @@ public class EntityManager {
                 return levelAssets.getNumberOfRocks();
             case "APPLE":
                 return levelAssets.getNumberOfApples();
+            case "VEGETABLE":
+                return levelAssets.getNumberOfVegetables();
             case "BANANA":
                 return levelAssets.getNumberOfBananas();
             case "BURGER":
@@ -195,10 +204,10 @@ public class EntityManager {
 
 
     // Checking player entity status
-    public void checkPlayerEntityStatus(int scoreNeeded) {
+    public void checkPlayerEntityStatus(Levels sceneLevelAssets) {
         for (GameEntity entity: playerEntityList) {
             Player player = (Player) entity;
-            player.checkWinCondition(scoreNeeded);
+            player.checkWinCondition(sceneLevelAssets);
             player.checkLoseCondition();
         }
     }

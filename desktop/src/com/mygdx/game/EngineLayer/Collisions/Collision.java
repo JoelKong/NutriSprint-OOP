@@ -92,7 +92,7 @@ public class Collision {
                 if (collisionDetected(player, prop)) {
                     if (prop instanceof Rock) {
                         resolveRockCollision(player, prop);
-                    } else if (prop instanceof Apple) {
+                    } else if (prop instanceof Apple || prop instanceof Vegetable) {
                         iterator.remove();
                         player.setScore(player.getScore() + 1);
                         player.notifyScoreChange();

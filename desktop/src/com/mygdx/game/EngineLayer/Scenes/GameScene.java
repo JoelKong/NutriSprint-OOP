@@ -81,10 +81,6 @@ public class GameScene extends Scenes {
         // Draw our game scene
         drawScene(batch, getSceneBackgroundTexture(), entityManager, effectManager);
 
-        entityManager.respawnEntities(sceneLevelAssets);
-
-        // Keep spawning entities on the screen after each interval only if it hasnt reached the max
-
         // Pause and Resume Game
         if (preferredControls.getPauseKey()) {
             pauseSceneState = !pauseSceneState;
@@ -95,11 +91,12 @@ public class GameScene extends Scenes {
             entityManager.initialiseEntityActions(preferredControls, effectManager);
             aiControlManager.initializeAIBehavior(entityManager.getEntityMap().get("ai"), entityManager.getEntityMap().get("player").get(0));
             collisionManager.initializeCollisions(entityManager.getEntityMap());
+            entityManager.respawnEntities(sceneLevelAssets);
             effectManager.updateEffects();
         }
 
         // Updating of player entity status
-        entityManager.checkPlayerEntityStatus(sceneLevelAssets.getScoreNeeded());
+        entityManager.checkPlayerEntityStatus(sceneLevelAssets);
 
         // Advance to next level or end game
         if (levelManager.levelCleared(entityManager.getPlayersList())) {
@@ -108,11 +105,9 @@ public class GameScene extends Scenes {
         }
 
         // End game if player loses
-        for (GameEntity entity: entityManager.getPlayersList()) {
-            if (player.getLoseStatus()) {
-                levelManager.setLevelNumber(1);
-                getGameController().setScreen(getGameController().getSceneManager().getSceneMap().get("end"));
-            }
+        if (player.getLoseStatus()) {
+            levelManager.setLevelNumber(1);
+            getGameController().setScreen(getGameController().getSceneManager().getSceneMap().get("end"));
         }
 
         // Render HUD
@@ -123,6 +118,7 @@ public class GameScene extends Scenes {
     // Upon switching screens dispose all stuff on the screen
     public void dispose() {
         entityManager.disposeEntities();
+        effectManager.disposeEffects();
     };
 
     // Get time since last spawn

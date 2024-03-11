@@ -45,7 +45,7 @@ public class PlayerControls {
     }
 
     // Teleport command
-    protected void teleport(Player player, Inputs preferredInput, EffectManager effectManager) {
+    protected void teleport(Player player, Inputs preferredInput, EffectManager effectManager) { // need gameTime in gamestatemanager
         long timeSinceLastTeleport = TimeUtils.millis() - player.getLastTeleportTime();
         if (timeSinceLastTeleport < player.getTeleportCooldown()) return;
 

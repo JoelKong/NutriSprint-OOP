@@ -13,7 +13,8 @@ public class Levels {
     private int numberOfApples;
     private int numberOfBananas;
     private int numberOfCherries;
-    private int scoreNeeded;
+    private int numberOfVegetables;
+    private String scoreNeeded;
     private List<String> respawnables;
     private float playerSpeed;
     private float enemySpeed;
@@ -69,8 +70,13 @@ public class Levels {
         return numberOfCherries;
     }
 
+    // Get Number of Vegetables
+    public int getNumberOfVegetables() {
+        return numberOfVegetables;
+    }
+
     // Get the score needed to win
-    public int getScoreNeeded() {
+    public String getScoreNeeded() {
         return scoreNeeded;
     }
 
