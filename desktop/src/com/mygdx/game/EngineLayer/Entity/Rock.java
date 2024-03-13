@@ -21,6 +21,7 @@ public class Rock extends GameEntity {
 
     protected Rock(Levels level) {
         super(level);
+        setEntityType("ROCK");
         setTexture(new Texture(Gdx.files.internal(level.getPropTexture().get(0))));
         this.rock = new TextureRegion(this.getTexture(), 0, 0, this.getWidth(), this.getHeight());
     }

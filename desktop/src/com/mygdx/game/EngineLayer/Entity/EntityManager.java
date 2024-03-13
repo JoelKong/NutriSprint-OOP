@@ -128,9 +128,8 @@ public class EntityManager {
     public void respawnEntities(Levels sceneLevelAssets) {
         timeSinceLastSpawn += 1;
 
-        if (timeSinceLastSpawn >= 80f) {
+        if (timeSinceLastSpawn >= 100f) {
             timeSinceLastSpawn = 0; // Reset the timer
-
             for (String entityType : sceneLevelAssets.getRespawnables()) {
                 int currentCount = getCurrentEntityCount(entityType);
                 int maxCount = getMaxCountForEntity(entityType, sceneLevelAssets);
@@ -233,16 +232,16 @@ public class EntityManager {
                 positionValid = false;
             }
 
-//          Check distance from AI entities
-            for (GameEntity aiEntity : entityMap.getOrDefault("ai", Collections.emptyList())) {
+////          Check distance from AI entities
+            for (GameEntity aiEntity : aiEntityList) {
                 if (new Vector2(aiEntity.getPosX(), aiEntity.getPosY()).dst(randomPosition) < MIN_DISTANCE) {
                     positionValid = false;
                     break;
                 }
             }
-
-            // Check distance from prop entities
-            for (GameEntity prop : entityMap.getOrDefault("props", Collections.emptyList())) {
+//
+            // Check distance from rock entities
+            for (GameEntity prop : propEntityList) {
                 if (new Vector2(prop.getPosX(), prop.getPosY()).dst(randomPosition) < MIN_DISTANCE) {
                     positionValid = false;
                     break;

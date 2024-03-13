@@ -27,6 +27,7 @@ public class AI extends GameEntity {
     protected AI(Levels level) {
         super(level);
         setEntityType("FRENCHFRIES");
+        setTexture(new Texture(Gdx.files.internal(level.getEnemyTexture().get(0))));
         this.AIID = 1;
         this.setSpeed(level.getEnemySpeed());
 

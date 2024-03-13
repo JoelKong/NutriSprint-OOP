@@ -23,7 +23,7 @@ public class CameraManager {
 
         // Game Camera
         this.gameCamera = new OrthographicCamera();
-        this.cameraViewport = new FitViewport(1280, 720);
+        this.cameraViewport = new FitViewport(1980, 1080);
         this.cameraStage = new Stage(cameraViewport);
         gameCamera.setToOrtho(false, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
     }

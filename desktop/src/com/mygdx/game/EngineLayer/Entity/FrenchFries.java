@@ -15,6 +15,5 @@ public class FrenchFries extends AI {
 
     protected FrenchFries(Levels level) {
         super(level);
-        setTexture(new Texture(Gdx.files.internal(level.getEnemyTexture().get(0))));
     }
 }
