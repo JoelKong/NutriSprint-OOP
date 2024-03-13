@@ -14,7 +14,8 @@ public class Chicken extends AI {
         setTexture(new Texture(Gdx.files.internal(level.getEnemyTexture().get(2))));
         setWidth(64);
         setHeight(64);
-        setSpeed(getSpeed() + 20);
+        setSpeed(getSpeed() + 10);
+        setEntityType("CHICKEN");
     }
 
     protected Chicken(float x, float y) {
@@ -23,7 +24,8 @@ public class Chicken extends AI {
         setPosY(y);
         setWidth(64);
         setHeight(64);
-        setSpeed(getSpeed() + 20);
+        setSpeed(getSpeed() + 10);
+        setEntityType("CHICKEN");
         setTexture(new Texture(Gdx.files.internal("Entities/chicken.png")));
     }
 

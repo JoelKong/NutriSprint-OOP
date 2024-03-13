@@ -44,7 +44,7 @@ public class Player extends GameEntity {
     protected Player(Levels level) {
         super(level);
         this.playerID = 1;
-        this.health = 100;
+        this.health = 10;
         this.score = 0;
         this.winStatus = false;
         this.loseStatus = false;
