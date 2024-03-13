@@ -1,0 +1,12 @@
+[
+  {
+    "levelNumber": 1,
+    "levelTitle": "Level 1",
+    "numberOfEnemies": 3
+  },
+  {
+    "levelNumber": 2,
+    "levelTitle": "Level 2",
+    "numberOfEnemies": 10
+  }
+]
