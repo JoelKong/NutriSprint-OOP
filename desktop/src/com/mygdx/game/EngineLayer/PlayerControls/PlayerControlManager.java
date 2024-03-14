@@ -4,6 +4,7 @@ import com.mygdx.game.EngineLayer.Effects.EffectManager;
 import com.mygdx.game.EngineLayer.Entity.GameEntity;
 import com.mygdx.game.EngineLayer.Entity.Player;
 import com.mygdx.game.EngineLayer.InputOutput.Inputs;
+import com.mygdx.game.EngineLayer.Sound.SoundManager;
 
 import java.util.List;
 import java.util.Map;
@@ -19,7 +20,7 @@ public class PlayerControlManager {
     }
 
     // Manage Player Controls
-    public void manageControls(String command, Player player, Inputs preferredInput, Map<String, List<GameEntity>> entityMap, EffectManager effectManager) {
+    public void manageControls(String command, Player player, Inputs preferredInput, Map<String, List<GameEntity>> entityMap, EffectManager effectManager, SoundManager soundManager) {
         switch (command) {
             case "UP":
                 playerControls.moveUp(player);
@@ -35,9 +36,11 @@ public class PlayerControlManager {
                 break;
             case "TELEPORT":
                 playerControls.teleport(player, preferredInput, effectManager);
+                soundManager.playSoundEffect("TELEPORT");
                 break;
             case "EXPLODE":
                 if (player.getExplodeMeter() == 3) {
+                    soundManager.playSoundEffect("EXPLOSION");
                     playerControls.triggerExplosion(player, entityMap, effectManager);
                     player.setExplodeMeter(0);
                 }

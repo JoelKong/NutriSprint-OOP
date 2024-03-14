@@ -7,6 +7,7 @@ import com.badlogic.gdx.math.Vector2;
 import com.mygdx.game.EngineLayer.Entity.GameEntity;
 import com.mygdx.game.EngineLayer.Entity.Player;
 import com.mygdx.game.EngineLayer.Levels.Levels;
+import com.mygdx.game.EngineLayer.Sound.SoundManager;
 
 import java.util.List;
 

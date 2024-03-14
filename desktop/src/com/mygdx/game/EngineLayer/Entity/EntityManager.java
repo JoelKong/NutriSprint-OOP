@@ -7,6 +7,7 @@ import com.badlogic.gdx.math.Vector2;
 import com.mygdx.game.EngineLayer.Effects.EffectManager;
 import com.mygdx.game.EngineLayer.InputOutput.Inputs;
 import com.mygdx.game.EngineLayer.Levels.Levels;
+import com.mygdx.game.EngineLayer.Sound.SoundManager;
 
 import java.util.*;
 
@@ -203,11 +204,11 @@ public class EntityManager {
 
 
     // Checking player entity status
-    public void checkPlayerEntityStatus(Levels sceneLevelAssets) {
+    public void checkPlayerEntityStatus(Levels sceneLevelAssets, SoundManager soundManager) {
         for (GameEntity entity: playerEntityList) {
             Player player = (Player) entity;
             player.checkWinCondition(sceneLevelAssets);
-            player.checkLoseCondition();
+            player.checkLoseCondition(soundManager);
         }
     }
 
@@ -260,10 +261,10 @@ public class EntityManager {
     }
 
     // Initialising of entity actions
-    public void initialiseEntityActions(Inputs commandInput, EffectManager effectManager) {
+    public void initialiseEntityActions(Inputs commandInput, EffectManager effectManager, SoundManager soundManager) {
         for (GameEntity entity: playerEntityList) {
             Player player = (Player) entity;
-            player.playerActions(commandInput, entityMap, effectManager);
+            player.playerActions(commandInput, entityMap, effectManager, soundManager);
         }
     }
 

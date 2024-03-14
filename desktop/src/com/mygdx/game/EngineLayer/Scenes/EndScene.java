@@ -19,9 +19,11 @@ public class EndScene extends Scenes {
     // First run of end scene
     @Override
     public void show() {
-        //        setSceneBackgroundTexture(new Texture(Gdx.files.internal("")));
         this.uiManager = new UiManager(getGameController().getBatch(), getCamera().getUiViewport());
         uiManager.createEndSceneUI(getGameController());
+        getSoundManager().loadSoundEffect(new String[]{"BUTTONCLICK"});
+        getSoundManager().loadBackgroundMusic("GAMEOVER");
+        getSoundManager().playBackgroundMusic("GAMEOVER", true);
         setSceneBackgroundTexture(new Texture(Gdx.files.internal("Scenes/endscenee.png")));
     }
 
@@ -38,10 +40,12 @@ public class EndScene extends Scenes {
 
         // Restart back to game scene
         if (preferredControls.getRestartKey()) {
+            getSoundManager().stopBackgroundMusic("GAMEOVER");
             getGameController().setScreen(sceneManager.getSceneMap().get("game"));
 
         // Go back to menu
         } else if (preferredControls.getMenuKey()) {
+            getSoundManager().stopBackgroundMusic("GAMEOVER");
             getGameController().setScreen(sceneManager.getSceneMap().get("start"));
         }
 

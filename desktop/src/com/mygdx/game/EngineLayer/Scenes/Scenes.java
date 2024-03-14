@@ -65,7 +65,9 @@ public abstract class Scenes implements Screen {
 
     public void hide() {};
 
-    public void dispose() {};
+    public void dispose() {
+        soundManager.disposeSounds();
+    };
 
     // Get Scene Background Texture
     public Texture getSceneBackgroundTexture() {

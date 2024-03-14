@@ -52,6 +52,7 @@ public class GameScene extends Scenes {
         } else {
             try {
                 setSceneBackgroundTexture(new Texture(Gdx.files.internal(sceneLevelAssets.getLevelBackground())));
+                getSoundManager().loadSoundEffect(new String[]{"COLLECTCHERRY", "COLLECTPOINTS", "GAINHEALTH", "EXPLOSION", "TELEPORT", "PLAYERHIT", "PLAYERDEATH"});
                 getSoundManager().loadBackgroundMusic(sceneLevelAssets);
                 getSoundManager().playBackgroundMusic(sceneLevelAssets.getLevelTitle(), true);
                 uiManager = new UiManager(getGameController().getBatch(), getCamera().getUiViewport());
@@ -91,15 +92,15 @@ public class GameScene extends Scenes {
 
         // If not paused, initialise all forms of behavior and movement and timers
         if (!pauseSceneState) {
-            entityManager.initialiseEntityActions(preferredControls, effectManager);
+            entityManager.initialiseEntityActions(preferredControls, effectManager, getSoundManager());
             aiControlManager.initializeAIBehavior(entityManager.getEntityMap().get("ai"), entityManager.getEntityMap().get("player").get(0));
-            collisionManager.initializeCollisions(entityManager.getEntityMap());
+            collisionManager.initializeCollisions(entityManager.getEntityMap(), getSoundManager());
             entityManager.respawnEntities(sceneLevelAssets);
             effectManager.updateEffects();
         }
 
         // Updating of player entity status
-        entityManager.checkPlayerEntityStatus(sceneLevelAssets);
+        entityManager.checkPlayerEntityStatus(sceneLevelAssets, getSoundManager());
 
         // Advance to next level or end game
         if (levelManager.levelCleared(entityManager.getPlayersList())) {

@@ -3,6 +3,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.utils.TimeUtils;
 import com.mygdx.game.EngineLayer.Levels.Levels;
+import com.mygdx.game.EngineLayer.Sound.SoundManager;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -27,7 +28,7 @@ public class Burger extends AI {
     }
 
     // Behavior of burger to shoot chicken at player direction
-//    @Override
+    @Override
     protected List<GameEntity> behavior() {
         List<GameEntity> newEntities = new ArrayList<>();
         final long SHOOT_INTERVAL = 5000;

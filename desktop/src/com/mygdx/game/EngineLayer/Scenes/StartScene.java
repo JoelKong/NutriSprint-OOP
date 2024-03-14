@@ -21,6 +21,9 @@ public class StartScene extends Scenes {
     public void show() {
         uiManager = new UiManager(getGameController().getBatch(), getCamera().getUiViewport());
         uiManager.createStartSceneUI(getGameController());
+        getSoundManager().loadSoundEffect(new String[]{"BUTTONCLICK"});
+        getSoundManager().loadBackgroundMusic("MENU");
+        getSoundManager().playBackgroundMusic("MENU", true);
         setSceneBackgroundTexture(new Texture(Gdx.files.internal("Scenes/nutrisprint-startscene.png")));
     }
 
@@ -37,6 +40,7 @@ public class StartScene extends Scenes {
 
         // Upon starting, change scene to game
         if (preferredControls.getStartKey()) {
+            getSoundManager().stopBackgroundMusic("MENU");
             getGameController().setScreen(sceneManager.getSceneMap().get("game"));
         }
 

@@ -3,6 +3,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.mygdx.game.EngineLayer.Entity.*;
+import com.mygdx.game.EngineLayer.Sound.SoundManager;
 
 import java.util.Iterator;
 import java.util.List;
@@ -19,7 +20,7 @@ public class Collision {
     }
 
     // Collision handling for AI
-    protected void handleAICollision(List<GameEntity> aiEntities, Player player) {
+    protected void handleAICollision(List<GameEntity> aiEntities, Player player, SoundManager soundManager) {
         // Check for collision between AI and other AI
         for (GameEntity ai : aiEntities) {
             Vector2 avoidance = new Vector2();
@@ -51,6 +52,7 @@ public class Collision {
             // Check for collision between AI and player
             if (collisionDetected(ai, player)) {
                 aiEntities.remove(ai);
+                soundManager.playSoundEffect("PLAYERHIT");
                 player.setHealth(player.getHealth() - 1);
                 player.notifyHealthChange();
                 break;
@@ -59,7 +61,7 @@ public class Collision {
     }
 
     // Collision Handling for props
-    protected void handlePropCollisions(Map<String, List<GameEntity>> entityMap) {
+    protected void handlePropCollisions(Map<String, List<GameEntity>> entityMap, SoundManager soundManager) {
         List<GameEntity> props = entityMap.get("props");
         List<GameEntity> players = entityMap.get("player");
         List<GameEntity> ais = entityMap.get("ai");
@@ -94,14 +96,17 @@ public class Collision {
                         resolveRockCollision(player, prop);
                     } else if (prop instanceof Apple || prop instanceof Vegetable) {
                         iterator.remove();
+                        soundManager.playSoundEffect("COLLECTPOINTS");
                         player.setScore(player.getScore() + 1);
                         player.notifyScoreChange();
                     } else if (prop instanceof Banana) {
                         iterator.remove();
+                        soundManager.playSoundEffect("GAINHEALTH");
                         player.setHealth(player.getHealth() + 1);
                         player.notifyHealthChange();
                     } else if (prop instanceof Cherry) {
                         iterator.remove();
+                        soundManager.playSoundEffect("COLLECTCHERRY");
                         if (player.getExplodeMeter() < 3) {
                             player.setExplodeMeter(player.getExplodeMeter() + 1);
                         }

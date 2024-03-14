@@ -1,4 +1,6 @@
 package com.mygdx.game.EngineLayer.Entity;
+import com.mygdx.game.EngineLayer.Sound.SoundManager;
+
 import java.util.ArrayList;
 import java.util.List;
 

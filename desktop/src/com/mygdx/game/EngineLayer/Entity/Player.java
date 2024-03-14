@@ -5,6 +5,7 @@ import com.mygdx.game.EngineLayer.Effects.EffectManager;
 import com.mygdx.game.EngineLayer.InputOutput.Inputs;
 import com.mygdx.game.EngineLayer.Levels.Levels;
 import com.mygdx.game.EngineLayer.PlayerControls.PlayerControlManager;
+import com.mygdx.game.EngineLayer.Sound.SoundManager;
 
 import java.util.List;
 import java.util.Map;
@@ -62,24 +63,24 @@ public class Player extends GameEntity {
     }
 
     // Actions of Player
-    protected void playerActions(Inputs preferredInput, Map<String,List<GameEntity>> entityMap, EffectManager effectManager) {
+    protected void playerActions(Inputs preferredInput, Map<String,List<GameEntity>> entityMap, EffectManager effectManager, SoundManager soundManager) {
         if (preferredInput.getUpKey()) {
-            playerControlManager.manageControls("UP", this, preferredInput, entityMap, effectManager);
+            playerControlManager.manageControls("UP", this, preferredInput, entityMap, effectManager, soundManager);
         }
         if (preferredInput.getDownKey()) {
-            playerControlManager.manageControls("DOWN", this, preferredInput, entityMap, effectManager);
+            playerControlManager.manageControls("DOWN", this, preferredInput, entityMap, effectManager, soundManager);
         }
         if (preferredInput.getLeftKey()) {
-            playerControlManager.manageControls("LEFT", this, preferredInput, entityMap, effectManager);
+            playerControlManager.manageControls("LEFT", this, preferredInput, entityMap, effectManager, soundManager);
         }
         if (preferredInput.getRightKey()) {
-            playerControlManager.manageControls("RIGHT", this, preferredInput, entityMap, effectManager);
+            playerControlManager.manageControls("RIGHT", this, preferredInput, entityMap, effectManager, soundManager);
         }
         if (preferredInput.getTeleportKey()) {
-            playerControlManager.manageControls("TELEPORT", this, preferredInput, entityMap, effectManager);
+            playerControlManager.manageControls("TELEPORT", this, preferredInput, entityMap, effectManager, soundManager);
         }
         if (preferredInput.getExplodeKey()) {
-            playerControlManager.manageControls("EXPLODE", this, preferredInput, entityMap, effectManager);
+            playerControlManager.manageControls("EXPLODE", this, preferredInput, entityMap, effectManager, soundManager);
         }
     }
 
@@ -95,8 +96,9 @@ public class Player extends GameEntity {
     }
 
     // Player Lose Condition
-    protected void checkLoseCondition() {
+    protected void checkLoseCondition(SoundManager soundManager) {
         if (health == 0) {
+            soundManager.playSoundEffect("playerdeath");
             loseStatus = true;
         }
     }
