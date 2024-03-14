@@ -2,6 +2,7 @@
   {
     "levelNumber": 1,
     "levelTitle": "Level 1",
+    "levelMusic": "Sounds/level1.mp3",
     "levelBackground": "Scenes/gamescene1.png",
     "playerTexture": ["Entities/isaacblue.png"],
     "enemyTexture": ["Entities/fries.png", "Entities/burger.png", "Entities/chicken.png"],
@@ -21,6 +22,7 @@
   {
     "levelNumber": 2,
     "levelTitle": "Level 2",
+    "levelMusic": "Sounds/level2.mp3",
     "levelBackground": "Scenes/gamescene2.jpg",
     "playerTexture": ["Entities/isaaceve.png"],
     "enemyTexture": ["Entities/fries.png", "Entities/burger.png", "Entities/chicken.png"],
@@ -40,6 +42,7 @@
   {
     "levelNumber": 3,
     "levelTitle": "Level 3",
+    "levelMusic": "Sounds/level3.mp3",
     "levelBackground": "Scenes/gamescene3.jpg",
     "playerTexture": ["Entities/isaac.png"],
     "enemyTexture": ["Entities/fries.png", "Entities/burger.png", "Entities/chicken.png"],
@@ -59,6 +62,7 @@
   {
     "levelNumber": 4,
     "levelTitle": "Endless",
+    "levelMusic": "Sounds/level4.mp3",
     "levelBackground": "Scenes/gamescene4.jpg",
     "playerTexture": ["Entities/isaaclost.png"],
     "enemyTexture": ["Entities/fries.png", "Entities/burger.png", "Entities/chicken.png"],
@@ -66,13 +70,13 @@
     "playerSpeed": 330,
     "enemySpeed": 280,
     "numberOfFries": 12,
-    "numberOfBurgers": 6,
+    "numberOfBurgers": 8,
     "numberOfRocks": 40,
     "numberOfApples": 10,
     "numberOfVegetables": 10,
     "numberOfBananas": 14,
     "numberOfCherries": 6,
-    "respawnables": ["FRENCHFRIES", "APPLE", "BANANA", "BURGER", "CHERRY", "VEGETABLE"],
+    "respawnables": ["FRENCHFRIES", "APPLE", "BANANA", "BURGER", "CHERRY", "VEGETABLE", "ROCK"],
     "scoreNeeded": "???"
   }
 ]

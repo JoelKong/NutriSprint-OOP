@@ -6,6 +6,7 @@ public class Levels {
     // Declare attributes
     private int levelNumber;
     private String levelTitle;
+    private String levelMusic;
     private String levelBackground;
     private int numberOfFries;
     private int numberOfBurgers;
@@ -33,6 +34,11 @@ public class Levels {
     // Get Level Title
     public String getLevelTitle() {
         return levelTitle;
+    }
+
+    // Get Level Music
+    public String getLevelMusic() {
+        return levelMusic;
     }
 
     // Get Level Background

@@ -7,6 +7,7 @@ import com.mygdx.game.EngineLayer.Camera.CameraManager;
 import com.mygdx.game.EngineLayer.Effects.EffectManager;
 import com.mygdx.game.EngineLayer.Entity.EntityManager;
 import com.mygdx.game.EngineLayer.InputOutput.InputOutputManager;
+import com.mygdx.game.EngineLayer.Sound.SoundManager;
 import com.mygdx.game.Main;
 
 
@@ -19,11 +20,13 @@ public abstract class Scenes implements Screen {
     private Main gameController;
     private CameraManager camera;
     private InputOutputManager inputOutputManager;
+    private SoundManager soundManager;
 
     // Parameterized constructor to specify details of scenes
     protected Scenes(int sceneId, String sceneName, Main gameController) {
         this.gameController = gameController;
         this.inputOutputManager = new InputOutputManager();
+        this.soundManager = new SoundManager();
         this.camera = new CameraManager();
         this.sceneId = sceneId;
         this.sceneName = sceneName;
@@ -107,5 +110,10 @@ public abstract class Scenes implements Screen {
     // Get Input Output Manager
     public InputOutputManager getInputOutputManager() {
         return inputOutputManager;
+    }
+
+    // Get Sound Manager
+    public SoundManager getSoundManager() {
+        return soundManager;
     }
 }

@@ -12,6 +12,7 @@ import com.mygdx.game.EngineLayer.Entity.Player;
 import com.mygdx.game.EngineLayer.InputOutput.Inputs;
 import com.mygdx.game.EngineLayer.Levels.LevelManager;
 import com.mygdx.game.EngineLayer.Levels.Levels;
+import com.mygdx.game.EngineLayer.Sound.SoundManager;
 import com.mygdx.game.Main;
 import com.mygdx.game.EngineLayer.UI.UiManager;
 
@@ -51,6 +52,8 @@ public class GameScene extends Scenes {
         } else {
             try {
                 setSceneBackgroundTexture(new Texture(Gdx.files.internal(sceneLevelAssets.getLevelBackground())));
+                getSoundManager().loadBackgroundMusic(sceneLevelAssets);
+                getSoundManager().playBackgroundMusic(sceneLevelAssets.getLevelTitle(), true);
                 uiManager = new UiManager(getGameController().getBatch(), getCamera().getUiViewport());
                 uiManager.startGameHUD();
                 uiManager.updateGameHUDLevel(levelManager.getLevelNumber());
@@ -100,12 +103,14 @@ public class GameScene extends Scenes {
 
         // Advance to next level or end game
         if (levelManager.levelCleared(entityManager.getPlayersList())) {
+            getSoundManager().stopBackgroundMusic(sceneLevelAssets.getLevelTitle());
             levelManager.setLevelNumber(levelManager.getLevelNumber() + 1);
             getGameController().setScreen(this);
         }
 
         // End game if player loses
         if (player.getLoseStatus()) {
+            getSoundManager().stopBackgroundMusic(sceneLevelAssets.getLevelTitle()); // for now
             levelManager.setLevelNumber(1);
             getGameController().setScreen(getGameController().getSceneManager().getSceneMap().get("end"));
         }
@@ -119,6 +124,7 @@ public class GameScene extends Scenes {
     public void dispose() {
         entityManager.disposeEntities();
         effectManager.disposeEffects();
+        getSoundManager().disposeSounds();
     };
 
     // Get time since last spawn
