@@ -14,17 +14,16 @@ public abstract class Scenes implements Screen {
     private int sceneId;
     private String sceneName;
     private Texture sceneBackgroundTexture;
-    private CameraManager camera;
-    private InputOutputManager inputOutputManager;
 
     protected Game gameController;
     protected SceneManager sceneManager;
     protected SpriteBatch batch;
-
+    protected InputOutputManager inputOutputManager;
+    protected CameraManager camera;
     // Parameterized constructor to specify details of scenes
     protected Scenes(SceneManager sceneManager, int sceneId, String sceneName) {
         this.sceneManager = sceneManager;
-        gameController = sceneManager.getGameController();
+        this.gameController = sceneManager.getGameController();
         this.batch = sceneManager.getBatch();
 
         this.inputOutputManager = new InputOutputManager();
@@ -54,9 +53,9 @@ public abstract class Scenes implements Screen {
     abstract public void render(float delta);
 
     public void resize(int width, int height) {
-        getCamera().resetCameraOnResize(width, height);
-        getCamera().getUiViewport().update(width, height, true);
-        getCamera().getUiCamera().update();
+        camera.resetCameraOnResize(width, height);
+        camera.getUiViewport().update(width, height, true);
+        camera.getUiCamera().update();
     };
 
     public void pause() {};

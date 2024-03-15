@@ -26,13 +26,7 @@ public class StartScene extends Scenes {
         Inputs preferredControls = getInputOutputManager().getPreferredControls();
 
         // Update camera
-        getCamera().updateCamera(batch);
-
-        // Upon starting, change scene to game
-        if (preferredControls.getStartKey()) {
-            gameController.setScreen(sceneManager.getSceneMap().get("game"));
-        }
-
+        camera.updateCamera(batch);
         // Background
         Gdx.gl.glClearColor(0, 1, 0, 1); // setting clear color to green
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT); // clear screen
@@ -40,6 +34,11 @@ public class StartScene extends Scenes {
         // UI
         uiManager.getUiStage().act(Math.min(Gdx.graphics.getDeltaTime(), 1 / 30f));
         uiManager.getUiStage().draw();
+
+        // Upon starting, change scene to game
+        if (preferredControls.getStartKey()) {
+            gameController.setScreen(sceneManager.getSceneMap().get("game"));
+        }
     }
 
     // Get UI manager

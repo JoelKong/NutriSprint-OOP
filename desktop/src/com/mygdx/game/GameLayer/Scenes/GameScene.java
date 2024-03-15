@@ -48,7 +48,7 @@ public class GameScene extends Scenes {
         } else {
             try {
                 setSceneBackgroundTexture(new Texture(Gdx.files.internal("droplet.png")));
-                uiManager = new UiManager(sceneManager.getBatch(), getCamera().getUiViewport());
+                uiManager = new UiManager(batch, camera.getUiViewport());
                 uiManager.startGameHUD();
                 entityManager.initializeEntities(sceneLevelAssets);
             } catch (CloneNotSupportedException e) {

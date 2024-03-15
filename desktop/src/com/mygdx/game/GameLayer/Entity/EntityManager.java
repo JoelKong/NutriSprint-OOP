@@ -49,26 +49,6 @@ public class EntityManager {
         }
     }
 
-    // Proof of concept on how we create entities
-//    public List<GameEntity> getListOfEntities(String entityString, int numberOfEntities) {
-//        List<GameEntity> entities = new ArrayList<>();
-//
-//        // Get the EntityType enum corresponding to the entityString
-//        EntityType entityType = getEntityType(entityString);
-//
-//        if (entityType != null) {
-//            // Create the specified number of entities of the given type
-//            for (int i = 0; i < numberOfEntities; i++) {
-//                GameEntity entity = createEntity(entityType);
-//                if (entity != null) {
-//                    entities.add(entity);
-//                }
-//            }
-//        }
-//
-//        return entities;
-//    }
-
     /* Default Initialization of Entities
     1) clear all lists. 2) Create GameEntities based on level specification 3) Put them into EntityMap.*/
     public void initializeEntities(Levels level) throws CloneNotSupportedException {
