@@ -14,13 +14,18 @@ public abstract class Scenes implements Screen {
     private int sceneId;
     private String sceneName;
     private Texture sceneBackgroundTexture;
-    private Game gameController;
     private CameraManager camera;
     private InputOutputManager inputOutputManager;
 
+    protected Game gameController;
+    protected SceneManager sceneManager;
+    protected SpriteBatch batch;
+
     // Parameterized constructor to specify details of scenes
-    protected Scenes(int sceneId, String sceneName) {
-        // this.gameController = gameController;
+    protected Scenes(SceneManager sceneManager, int sceneId, String sceneName) {
+        this.sceneManager = sceneManager;
+        gameController = sceneManager.getGameController();
+        this.batch = sceneManager.getBatch();
 
         this.inputOutputManager = new InputOutputManager();
         this.camera = new CameraManager();

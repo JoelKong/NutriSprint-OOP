@@ -2,7 +2,6 @@ package com.mygdx.game.GameLayer.Scenes;
 import com.badlogic.gdx.Game;
 import com.mygdx.game.EngineLayer.EngineSceneManager;
 
-// SceneManager class
 public class SceneManager extends EngineSceneManager {
 
     public SceneManager(Game gameController) {

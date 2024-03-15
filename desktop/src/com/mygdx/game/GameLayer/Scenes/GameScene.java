@@ -17,8 +17,6 @@ import com.mygdx.game.GameLayer.UI.UiManager;
 // GameScene class inherited from scenes
 public class GameScene extends Scenes {
     // Declare attributes
-    private SceneManager sceneManager;
-    private Game gameController;
     private Levels sceneLevelAssets;
     private boolean pauseSceneState;
     private LevelManager levelManager;
@@ -30,9 +28,7 @@ public class GameScene extends Scenes {
 
     // Parameterized constructor to initialise details of game scene
     protected GameScene(SceneManager sceneManager) {
-        super(2, "game");
-        this.sceneManager = sceneManager;
-        this.gameController = sceneManager.getGameController();;
+        super(sceneManager, 2, "game");
         this.pauseSceneState = false;
         this.levelManager = new LevelManager();
         this.playerControlManager = new PlayerControlManager();
@@ -67,7 +63,7 @@ public class GameScene extends Scenes {
         // Get necessary data
         PlayerControls playerControls = playerControlManager.getPlayerControls();
         Inputs preferredControls = getInputOutputManager().getPreferredControls();
-        SpriteBatch batch = sceneManager.getBatch();
+        //SpriteBatch batch = sceneManager.getBatch();
 
         // Clear the screen
         ScreenUtils.clear(0, 0, 0.2f, 1);

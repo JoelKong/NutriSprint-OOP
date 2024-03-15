@@ -9,15 +9,11 @@ import com.mygdx.game.GameLayer.UI.UiManager;
 
 // End scene class inherited from scenes
 public class EndScene extends Scenes {
-    private SceneManager sceneManager;
-    private Game gameController;
     private UiManager uiManager;
 
     // Parameterized Constructor specifying details of end scene
     protected EndScene(SceneManager sceneManager) {
-        super(3, "end");
-        this.sceneManager = sceneManager;
-        this.gameController = sceneManager.getGameController();;
+        super(sceneManager, 3, "end");
     }
 
     // First run of end scene
