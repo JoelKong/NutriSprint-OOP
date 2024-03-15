@@ -4,7 +4,6 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.mygdx.game.GameLayer.InputOutput.Inputs;
-import com.mygdx.game.Main;
 import com.mygdx.game.GameLayer.UI.UiManager;
 
 // Start Scene class inherited from Scenes

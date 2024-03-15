@@ -5,7 +5,7 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.mygdx.game.GameLayer.InputOutput.Inputs;
 import com.mygdx.game.GameLayer.UI.UiManager;
-import com.mygdx.game.Main;
+
 
 // End scene class inherited from scenes
 public class EndScene extends Scenes {

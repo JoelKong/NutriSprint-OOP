@@ -12,7 +12,6 @@ import com.mygdx.game.GameLayer.Entity.EntityManager;
 import com.mygdx.game.GameLayer.InputOutput.Inputs;
 import com.mygdx.game.GameLayer.Levels.LevelManager;
 import com.mygdx.game.GameLayer.Levels.Levels;
-import com.mygdx.game.Main;
 import com.mygdx.game.GameLayer.UI.UiManager;
 
 // GameScene class inherited from scenes

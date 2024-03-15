@@ -7,8 +7,6 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.mygdx.game.GameLayer.Camera.CameraManager;
 import com.mygdx.game.GameLayer.Entity.EntityManager;
 import com.mygdx.game.GameLayer.InputOutput.InputOutputManager;
-import com.mygdx.game.Main;
-
 
 // Abstract class Scene implementing LibGDX Screen interface
 public abstract class Scenes implements Screen {
