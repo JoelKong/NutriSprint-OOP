@@ -1,4 +1,10 @@
 package com.mygdx.game.EngineLayer;
 
-public class EnginePlayerControlManager {
+public abstract class EnginePlayerControlManager {
+    public void manageControls() {
+
+    }
+    public void setPlayerControls() {
+
+    }
 }

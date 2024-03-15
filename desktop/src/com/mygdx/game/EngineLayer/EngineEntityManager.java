@@ -1,4 +1,10 @@
 package com.mygdx.game.EngineLayer;
 
-public class EngineEntityManager {
+import java.util.ArrayList;
+import java.util.HashMap;
+
+public abstract class EngineEntityManager {
+    protected abstract void clearEntityLists();
+
+    protected abstract void disposeEntities();
 }

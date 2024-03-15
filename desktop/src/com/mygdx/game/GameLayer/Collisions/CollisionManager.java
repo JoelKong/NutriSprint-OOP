@@ -1,9 +1,10 @@
 package com.mygdx.game.GameLayer.Collisions;
+import com.mygdx.game.EngineLayer.EngineCollisionManager;
 import com.mygdx.game.GameLayer.Entity.GameEntity;
 import java.util.List;
 
 // Collision Manager Class
-public class CollisionManager {
+public class CollisionManager extends EngineCollisionManager {
     // Declare Attributes
     private Collision collision;
 

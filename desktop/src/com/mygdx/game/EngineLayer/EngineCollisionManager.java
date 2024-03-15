@@ -1,4 +1,7 @@
 package com.mygdx.game.EngineLayer;
 
-public class EngineCollisionManager {
+public abstract class EngineCollisionManager {
+    public void initializeCollisions() {
+
+    }
 }

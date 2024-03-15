@@ -14,7 +14,6 @@ public abstract class Scenes implements Screen {
     private int sceneId;
     private String sceneName;
     private Texture sceneBackgroundTexture;
-
     protected Game gameController;
     protected SceneManager sceneManager;
     protected SpriteBatch batch;

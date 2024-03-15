@@ -1,7 +1,9 @@
 package com.mygdx.game.GameLayer.InputOutput;
 
+import com.mygdx.game.EngineLayer.EngineInputOutputManager;
+
 // Input Output Manager Class
-public class InputOutputManager {
+public class InputOutputManager extends EngineInputOutputManager {
     // Declare Attributes
     private Inputs preferredControls;
 

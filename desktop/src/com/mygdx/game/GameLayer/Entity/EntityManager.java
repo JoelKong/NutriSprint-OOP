@@ -1,12 +1,12 @@
 package com.mygdx.game.GameLayer.Entity;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.mygdx.game.EngineLayer.EngineEntityManager;
 import com.mygdx.game.GameLayer.InputOutput.Inputs;
 import com.mygdx.game.GameLayer.Levels.Levels;
-
 import java.util.*;
 
 // Entity Manager Class
-public class EntityManager {
+public class EntityManager extends EngineEntityManager {
     // Declare Maps and Lists of entities
     private Map<String, List<GameEntity>> entityMap;
     private List<GameEntity> aiEntityList;
@@ -22,8 +22,9 @@ public class EntityManager {
         this.aiEntityList = new ArrayList<>();
     }
 
-    // Clear all entity lists
-    private void clearEntityLists() {
+    // Clear all entity lists\
+    @Override
+    public void clearEntityLists() {
         playerEntityList.clear();
         aiEntityList.clear();
     }
@@ -79,6 +80,7 @@ public class EntityManager {
     }
 
     // Disposing of Entities
+    @Override
     public void disposeEntities() {
         for (List<GameEntity> entities: entityMap.values()) {
             for (GameEntity entity: entities) {

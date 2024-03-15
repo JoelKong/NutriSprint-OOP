@@ -49,7 +49,7 @@ public class GameScene extends Scenes {
             try {
                 setSceneBackgroundTexture(new Texture(Gdx.files.internal("droplet.png")));
                 uiManager = new UiManager(batch, camera.getUiViewport());
-                uiManager.startGameHUD();
+                // uiManager.startGameHUD();
                 entityManager.initializeEntities(sceneLevelAssets);
             } catch (CloneNotSupportedException e) {
                 throw new RuntimeException(e);
@@ -69,7 +69,7 @@ public class GameScene extends Scenes {
         ScreenUtils.clear(0, 0, 0.2f, 1);
 
         // Focus the camera on our player
-        getCamera().focusCamera(entityManager.getPlayersList().get(0).getPosX(), entityManager.getPlayersList().get(0).getPosY(), batch);
+        camera.focusCamera(entityManager.getPlayersList().get(0).getPosX(), entityManager.getPlayersList().get(0).getPosY(), batch);
 
         // Draw our game scene
         drawScene(batch, getSceneBackgroundTexture(), entityManager);
