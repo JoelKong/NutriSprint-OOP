@@ -15,12 +15,16 @@ public abstract class Scenes implements Screen {
     private Texture sceneBackgroundTexture;
     private CameraManager camera;
     private SoundManager soundManager;
+    private UiManager uiManager;
+    private SceneManager sceneManager; // ease of access reference to scenemanager shared across all scenes
     private static InputOutputManager inputOutputManager = new InputOutputManager(); // This manager will be shared across all scenes since its static
 
     // Every scene should have a new camera and sound system independent for their scenes
-    protected Scenes() {
+    protected Scenes(SceneManager sceneManager) {
+        this.sceneManager = sceneManager;
         this.soundManager = new SoundManager();
         this.camera = new CameraManager();
+        this.uiManager = new UiManager(sceneManager.getBatch(), camera.getUiViewport());
         this.sceneBackgroundTexture = new Texture(Gdx.files.internal("Scenes/nutrisprint-startscene.png"));
     }
 
@@ -80,6 +84,16 @@ public abstract class Scenes implements Screen {
     // Get Sound Manager
     public SoundManager getSoundManager() {
         return soundManager;
+    }
+
+    // Get UIManager
+    public UiManager getUiManager() {
+        return uiManager;
+    }
+
+    // Get shared scene manager
+    public SceneManager getSceneManager() {
+        return sceneManager;
     }
 
     // Get shared inputoutput manager

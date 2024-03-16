@@ -11,7 +11,6 @@ import com.mygdx.game.GameLayer.Entity.Player;
 import com.mygdx.game.GameLayer.InputOutput.Inputs;
 import com.mygdx.game.GameLayer.Levels.LevelManager;
 import com.mygdx.game.GameLayer.Levels.Levels;
-import com.mygdx.game.GameLayer.UI.UiManager;
 
 // GameScene class inherited from scenes
 public class GameScene extends Scenes {
@@ -24,14 +23,12 @@ public class GameScene extends Scenes {
     private CollisionManager collisionManager;
     private EntityManager entityManager;
     private EffectManager effectManager;
-    private SceneManager sceneManager;
-    private UiManager uiManager;
 
-    // Parameterized constructor to initialise details of game scene
+    // Parameterized Constructor getting scene manager reference and passing it to our parent scenes
     protected GameScene(SceneManager sceneManager) {
+        super(sceneManager);
         this.pauseSceneState = false;
         this.timeSinceLastSpawn = 0f;
-        this.sceneManager = sceneManager;
         this.levelManager = new LevelManager();
         this.aiControlManager = new AIControlManager();
         this.collisionManager = new CollisionManager();
@@ -46,16 +43,15 @@ public class GameScene extends Scenes {
 
         if (sceneLevelAssets == null) {
             levelManager.setLevelNumber(1);
-            sceneManager.transitionScenes("end");
+            getSceneManager().transitionScenes("end");
         } else {
             try {
                 setSceneBackgroundTexture(new Texture(Gdx.files.internal(sceneLevelAssets.getLevelBackground())));
                 getSoundManager().loadSoundEffect(new String[]{"COLLECTCHERRY", "COLLECTPOINTS", "GAINHEALTH", "EXPLOSION", "TELEPORT", "PLAYERHIT", "PLAYERDEATH"});
                 getSoundManager().loadBackgroundMusic(sceneLevelAssets);
                 getSoundManager().playBackgroundMusic(sceneLevelAssets.getLevelTitle(), true);
-                uiManager = new UiManager(sceneManager.getBatch(), getCamera().getUiViewport());
-                uiManager.startGameHUD();
-                uiManager.updateGameHUDLevel(levelManager.getLevelNumber());
+                getUiManager().startGameHUD();
+                getUiManager().updateGameHUDLevel(levelManager.getLevelNumber());
                 entityManager.initializeEntities(sceneLevelAssets);
             } catch (CloneNotSupportedException e) {
                 throw new RuntimeException(e);
@@ -69,11 +65,11 @@ public class GameScene extends Scenes {
         // Get necessary data
         Inputs preferredControls = getInputOutputManager().getPreferredControls();
         Player player = (Player) entityManager.getPlayersList().get(0);
-        SpriteBatch batch = sceneManager.getBatch();
+        SpriteBatch batch = getSceneManager().getBatch();
 
         // Set up listeners on the player
-        player.setHealthChangeListener(newHealth -> uiManager.getUiGameHUD().updateHealth(newHealth));
-        player.setScoreChangeListener(newScore -> uiManager.getUiGameHUD().updateScore(newScore));
+        player.setHealthChangeListener(newHealth -> getUiManager().getUiGameHUD().updateHealth(newHealth));
+        player.setScoreChangeListener(newScore -> getUiManager().getUiGameHUD().updateScore(newScore));
 
         // Clear the screen
         ScreenUtils.clear(0, 0, 0.2f, 1);
@@ -105,19 +101,19 @@ public class GameScene extends Scenes {
         if (levelManager.levelCleared(entityManager.getPlayersList())) {
             getSoundManager().stopBackgroundMusic(sceneLevelAssets.getLevelTitle());
             levelManager.setLevelNumber(levelManager.getLevelNumber() + 1);
-            sceneManager.transitionScenes("game");
+            getSceneManager().transitionScenes("game");
         }
 
         // End game if player loses
         if (player.getLoseStatus()) {
             getSoundManager().stopBackgroundMusic(sceneLevelAssets.getLevelTitle()); // for now
             levelManager.setLevelNumber(1);
-            sceneManager.transitionScenes("end");
+            getSceneManager().transitionScenes("end");
         }
 
         // Render HUD
-        uiManager.getUiStage().act(Math.min(Gdx.graphics.getDeltaTime(), 1 / 30f));
-        uiManager.getUiStage().draw();
+        getUiManager().getUiStage().act(Math.min(Gdx.graphics.getDeltaTime(), 1 / 30f));
+        getUiManager().getUiStage().draw();
     }
 
     // Upon switching screens dispose all stuff on the screen
