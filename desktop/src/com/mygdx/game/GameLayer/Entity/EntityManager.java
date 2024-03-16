@@ -8,7 +8,7 @@ import com.mygdx.game.GameLayer.Effects.EffectManager;
 import com.mygdx.game.GameLayer.InputOutput.Inputs;
 import com.mygdx.game.GameLayer.Levels.Levels;
 import com.mygdx.game.GameLayer.Sound.SoundManager;
-
+import com.mygdx.game.GameLayer.Entity.EntityCreator;
 import java.util.*;
 
 // Entity Manager Class
@@ -19,9 +19,10 @@ public class EntityManager {
     private List<GameEntity> playerEntityList;
     private List<GameEntity> propEntityList;
     private float timeSinceLastSpawn;
-    private enum EntityType {
-        ISAAC, FRENCHFRIES, ROCK, APPLE, BANANA, BURGER, CHICKEN, CHERRY, VEGETABLE
-    }
+    private EntityCreator entityCreator;
+//    private enum EntityType {
+//        ISAAC, FRENCHFRIES, ROCK, APPLE, BANANA, BURGER, CHICKEN, CHERRY, VEGETABLE
+//    }
 
     // Default Constructor class to initialise entities
     public EntityManager() {
@@ -29,6 +30,7 @@ public class EntityManager {
         this.playerEntityList = new ArrayList<>();
         this.aiEntityList = new ArrayList<>();
         this.propEntityList = new ArrayList<>();
+        this.entityCreator = new EntityCreator();
         entityMap.put("ai", aiEntityList);
         entityMap.put("player", playerEntityList);
         entityMap.put("props", propEntityList);
@@ -41,69 +43,42 @@ public class EntityManager {
         propEntityList.clear();
     }
 
-    // Factory function to create GameEntity objects
-    public GameEntity createEntity(EntityType entityType, Levels level) {
-        switch (entityType) {
-            case ISAAC:
-                return new Isaac(level);
-            case FRENCHFRIES:
-                return new FrenchFries(level);
-            case ROCK:
-                return new Rock(level);
-            case APPLE:
-                return new Apple(level);
-            case VEGETABLE:
-                return new Vegetable(level);
-            case BANANA:
-                return new Banana(level);
-            case BURGER:
-                return new Burger(level);
-            case CHICKEN:
-                return new Chicken(level);
-            case CHERRY:
-                return new Cherry(level);
-            default:
-                System.out.println("Warning: Unknown entityType when creating a new entity object.");
-                return null;
-        }
-    }
-
     // Populate entities based off level specification
     public void populateEntities(Levels level) throws CloneNotSupportedException {
-        playerEntityList.add(createEntity(EntityType.ISAAC, level));
+        playerEntityList.add(entityCreator.createEntity("ISAAC", level));
 
         for (int i = 0; i < level.getNumberOfFries(); i++) {
-            GameEntity entity = randomiseEntityPosition(Objects.requireNonNull(createEntity(EntityType.FRENCHFRIES, level)).clone(), entityMap);
+            GameEntity entity = randomiseEntityPosition(Objects.requireNonNull(entityCreator.createEntity("FRENCHFRIES", level)).clone(), entityMap);
             aiEntityList.add(entity);
         }
 
         for (int i = 0; i < level.getNumberOfBurgers(); i++) {
-            GameEntity entity = randomiseEntityPosition(Objects.requireNonNull(createEntity(EntityType.BURGER, level)).clone(), entityMap);
+            GameEntity entity = randomiseEntityPosition(Objects.requireNonNull(entityCreator.createEntity("BURGER", level)).clone(), entityMap);
             aiEntityList.add(entity);
         }
 
         for (int i = 0; i < level.getNumberOfRocks(); i++) {
-            GameEntity rock = randomiseEntityPosition(Objects.requireNonNull(createEntity(EntityType.ROCK, level)).clone(), entityMap);
+            GameEntity rock = randomiseEntityPosition(Objects.requireNonNull(entityCreator.createEntity("ROCK", level)).clone(), entityMap);
             propEntityList.add(rock);
         }
 
         for (int i = 0; i < level.getNumberOfApples(); i++) {
-            GameEntity apple = randomiseEntityPosition(Objects.requireNonNull(createEntity(EntityType.APPLE, level)).clone(), entityMap);
+            GameEntity apple = randomiseEntityPosition(Objects.requireNonNull(entityCreator.createEntity("APPLE", level)).clone(), entityMap);
             propEntityList.add(apple);
         }
 
         for (int i = 0; i < level.getNumberOfVegetables(); i++) {
-            GameEntity vegetable = randomiseEntityPosition(Objects.requireNonNull(createEntity(EntityType.VEGETABLE, level)).clone(), entityMap);
+            GameEntity vegetable = randomiseEntityPosition(Objects.requireNonNull(entityCreator.createEntity("VEGETABLE", level)).clone(), entityMap);
             propEntityList.add(vegetable);
         }
 
         for (int i = 0; i < level.getNumberOfBananas(); i++) {
-            GameEntity banana = randomiseEntityPosition(Objects.requireNonNull(createEntity(EntityType.BANANA, level)).clone(), entityMap);
+            GameEntity banana = randomiseEntityPosition(Objects.requireNonNull(entityCreator.createEntity("BANANA", level)).clone(), entityMap);
             propEntityList.add(banana);
         }
 
         for (int i = 0; i < level.getNumberOfCherries(); i++) {
-            GameEntity banana = randomiseEntityPosition(Objects.requireNonNull(createEntity(EntityType.CHERRY, level)).clone(), entityMap);
+            GameEntity banana = randomiseEntityPosition(Objects.requireNonNull(entityCreator.createEntity("CHERRY", level)).clone(), entityMap);
             propEntityList.add(banana);
         }
     }
@@ -136,7 +111,7 @@ public class EntityManager {
                 int maxCount = getMaxCountForEntity(entityType, sceneLevelAssets);
                 GameEntity entity = null;
                 try {
-                    entity = randomiseEntityPosition(Objects.requireNonNull(createEntity(getEntityType(entityType), sceneLevelAssets)).clone(), entityMap);
+                    entity = randomiseEntityPosition(Objects.requireNonNull(entityCreator.createEntity(entityType, sceneLevelAssets)).clone(), entityMap);
                 } catch (CloneNotSupportedException e) {
                     throw new RuntimeException(e);
                 }
@@ -274,21 +249,6 @@ public class EntityManager {
             for (GameEntity entity: entities) {
                 entity.getTexture().dispose();
             }
-        }
-    }
-
-    // Getter for EntityType enum
-    public EntityType getEntityType(String type) {
-        // Convert the provided string to uppercase to match enum values
-        type = type.toUpperCase();
-
-        // Check if the provided type matches any of the enum values
-        try {
-            return EntityType.valueOf(type);
-        } catch (IllegalArgumentException e) {
-            // Handle the case where the provided type is not a valid enum value
-            System.out.println("Invalid entity type: " + type);
-            return null;
         }
     }
 
