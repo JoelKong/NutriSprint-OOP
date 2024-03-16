@@ -6,7 +6,6 @@ import com.mygdx.game.GameLayer.Levels.Levels;
 
 // Apple class
 public class Apple extends GameEntity {
-    // Default Constructor
     protected Apple() {
         super();
         setTexture(new Texture("Entities/apple.png"));

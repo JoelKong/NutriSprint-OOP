@@ -43,8 +43,6 @@ public abstract class GameEntity implements Cloneable {
         this.hitbox = new Rectangle(xPosition, yPosition, width, height);
     }
 
-    // Constructor only accepting texture (mainly to randomise positions)
-
     // All entities should be able to update their hitbox upon moving
     protected void updateEntityHitbox() {
         Rectangle hitbox = this.getHitbox();

@@ -1,12 +1,10 @@
 package com.mygdx.game.GameLayer.Entity;
-
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.mygdx.game.GameLayer.Levels.Levels;
 
 public class Banana extends GameEntity {
-    // Default Constructor
     protected Banana() {
         super();
         setTexture(new Texture("Entities/banana.png"));
@@ -19,7 +17,7 @@ public class Banana extends GameEntity {
         setEntityType("BANANA");
     }
 
-    // Drawing of apple
+    // Drawing of banana
     protected void draw(SpriteBatch sb) {
         sb.draw(this.getTexture(), this.getPosX(), this.getPosY(), this.getWidth(), this.getHeight());
     }

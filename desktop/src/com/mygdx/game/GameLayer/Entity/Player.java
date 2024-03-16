@@ -12,15 +12,10 @@ import java.util.Map;
 // Player class inherited from GameEntity
 public class Player extends GameEntity {
     // Declare Attributes
-    private int playerID;
     private int health;
     private int score;
-    private int explodeMeter;
     private boolean winStatus;
     private boolean loseStatus;
-    private long lastTeleportTime;
-    private float teleportDistance;
-    private long teleportCooldown;
     private PlayerControlManager playerControlManager;
     private HealthChangeListener healthChangeListener;
     private ScoreChangeListener scoreChangeListener;
@@ -28,30 +23,20 @@ public class Player extends GameEntity {
     // Default Constructor
     protected Player() {
         super();
-        this.playerID = 1;
         this.health = 10;
         this.score = 0;
         this.winStatus = false;
         this.loseStatus = false;
-        this.teleportDistance = 100;
-        this.teleportCooldown = 5000;
-        this.lastTeleportTime = 0;
-        this.explodeMeter = 0;
         this.playerControlManager = new PlayerControlManager();
     }
 
     // Parameterized Constructor to specify player attributes
     protected Player(Levels level) {
         super(level);
-        this.playerID = 1;
         this.health = 10;
         this.score = 0;
         this.winStatus = false;
         this.loseStatus = false;
-        this.teleportDistance = 200;
-        this.teleportCooldown = 5000;
-        this.lastTeleportTime = 0;
-        this.explodeMeter = 0;
         this.playerControlManager = new PlayerControlManager();
     }
 
@@ -62,29 +47,9 @@ public class Player extends GameEntity {
     }
 
     // Actions of Player
-    protected void playerActions(Inputs preferredInput, Map<String,List<GameEntity>> entityMap, EffectManager effectManager, SoundManager soundManager) {
-        if (preferredInput.getUpKey()) {
-            playerControlManager.manageControls("UP", this, preferredInput, entityMap, effectManager, soundManager);
-        }
-        if (preferredInput.getDownKey()) {
-            playerControlManager.manageControls("DOWN", this, preferredInput, entityMap, effectManager, soundManager);
-        }
-        if (preferredInput.getLeftKey()) {
-            playerControlManager.manageControls("LEFT", this, preferredInput, entityMap, effectManager, soundManager);
-        }
-        if (preferredInput.getRightKey()) {
-            playerControlManager.manageControls("RIGHT", this, preferredInput, entityMap, effectManager, soundManager);
-        }
-        if (preferredInput.getTeleportKey()) {
-            playerControlManager.manageControls("TELEPORT", this, preferredInput, entityMap, effectManager, soundManager);
-        }
-        if (preferredInput.getExplodeKey()) {
-            playerControlManager.manageControls("EXPLODE", this, preferredInput, entityMap, effectManager, soundManager);
-        }
-    }
+    protected void playerActions(Inputs preferredInput, Map<String, List<GameEntity>> entityMap, EffectManager effectManager, SoundManager soundManager) {};
 
-
-    // Player Win Condition
+    // Player Win Condition (if not endless mode and score meets requirement then player wins level)
     protected void checkWinCondition(Levels sceneLevelAssets) {
         if (sceneLevelAssets.getLevelNumber() != 4) {
             int scoreNeeded = Integer.parseInt(sceneLevelAssets.getScoreNeeded());
@@ -94,11 +59,25 @@ public class Player extends GameEntity {
         }
     }
 
-    // Player Lose Condition
+    // Player Lose Condition (if health 0 then die)
     protected void checkLoseCondition(SoundManager soundManager) {
         if (health == 0) {
             soundManager.playSoundEffect("playerdeath");
             loseStatus = true;
+        }
+    }
+
+    // Check for health change
+    public void notifyHealthChange() {
+        if (healthChangeListener != null) {
+            healthChangeListener.onHealthChange(health);
+        }
+    }
+
+    // Check for score change
+    public void notifyScoreChange() {
+        if (scoreChangeListener != null) {
+            scoreChangeListener.onScoreChange(score);
         }
     }
 
@@ -142,49 +121,6 @@ public class Player extends GameEntity {
         this.loseStatus = loseStatus;
     }
 
-    public float getTeleportDistance() {
-        return teleportDistance;
-    }
-
-    public void setTeleportDistance(float teleportDistance) {
-        this.teleportDistance = teleportDistance;
-    }
-
-    public long getTeleportCooldown() {
-        return teleportCooldown;
-    }
-
-    public void setTeleportCooldown(long teleportCooldown) {
-        this.teleportCooldown = teleportCooldown;
-    }
-
-    public long getLastTeleportTime() {
-        return lastTeleportTime;
-    }
-
-    public void setLastTeleportTime(long lastTeleportTime) {
-        this.lastTeleportTime = lastTeleportTime;
-    }
-
-    public int getExplodeMeter() {
-        return explodeMeter;
-    }
-
-    public void setExplodeMeter(int explodeMeter) {
-        this.explodeMeter = explodeMeter;
-    }
-
-
-    // Get Player ID
-    public int getPlayerID() {
-        return playerID;
-    }
-
-    // Set Player ID
-    public void setPlayerID(int playerID) {
-        this.playerID = playerID;
-    }
-
     // Get Player Control Manager
     public PlayerControlManager getPlayerControlManager() {
         return playerControlManager;
@@ -196,17 +132,5 @@ public class Player extends GameEntity {
 
     public void setScoreChangeListener(ScoreChangeListener listener) {
         this.scoreChangeListener = listener;
-    }
-
-    public void notifyHealthChange() {
-        if (healthChangeListener != null) {
-            healthChangeListener.onHealthChange(health);
-        }
-    }
-
-    public void notifyScoreChange() {
-        if (scoreChangeListener != null) {
-            scoreChangeListener.onScoreChange(score);
-        }
     }
 }
