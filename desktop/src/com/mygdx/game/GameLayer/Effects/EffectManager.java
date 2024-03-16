@@ -1,11 +1,11 @@
 package com.mygdx.game.GameLayer.Effects;
-
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
+// Stores a list of effects
 public class EffectManager {
     private List<Effect> effects;
 
@@ -13,6 +13,7 @@ public class EffectManager {
         this.effects = new ArrayList<>();
     }
 
+    // Add the effect to the list
     public void addEffect(Effect effect) {
         effects.add(effect);
     }

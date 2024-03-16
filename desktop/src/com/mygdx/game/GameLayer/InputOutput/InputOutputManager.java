@@ -1,8 +1,8 @@
 package com.mygdx.game.GameLayer.InputOutput;
 
-// Input Output Manager Class
-public class InputOutputManager {
-    // Declare Attributes
+import com.mygdx.game.EngineLayer.EngineInputOutputManager;
+
+public class InputOutputManager extends EngineInputOutputManager {
     private Inputs preferredControls;
 
     // Default Constructor to initialise preferred control to keyboard by default

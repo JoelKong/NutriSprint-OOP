@@ -1,5 +1,4 @@
 package com.mygdx.game.GameLayer.UI;
-
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;

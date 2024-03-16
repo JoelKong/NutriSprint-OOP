@@ -3,12 +3,10 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.utils.Json;
 import com.mygdx.game.GameLayer.Entity.GameEntity;
 import com.mygdx.game.GameLayer.Entity.Player;
-
 import java.util.List;
 
-// Level Manager Class
+// Manage all of our level tracker needs
 public class LevelManager {
-    // Declare attributes
     private int levelNumber;
     private List<Levels> levelsList;
 
@@ -19,7 +17,7 @@ public class LevelManager {
         this.levelsList = json.fromJson(List.class, Levels.class, Gdx.files.internal("levels.json"));
     }
 
-    // Retrieve level assets
+    // Retrieve level assets if available
     public Levels retrieveLevelAssets() {
         for (Levels level: levelsList) {
             if (level.getLevelNumber() == levelNumber) {
@@ -29,7 +27,7 @@ public class LevelManager {
         return null;
     }
 
-    // Generic function to check completion of level
+    // Check completion of level
     public boolean levelCleared(List<GameEntity> playerList) {
         for (GameEntity playerEntity : playerList) {
             Player player = (Player) playerEntity;

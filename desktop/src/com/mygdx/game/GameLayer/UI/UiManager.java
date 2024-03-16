@@ -6,7 +6,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.mygdx.game.GameLayer.Scenes.SceneManager;
-import com.badlogic.gdx.Game;
+import com.mygdx.game.GameLayer.Sound.SoundManager;
 
 // Manager to handle all forms of UI
 public class UiManager {
@@ -39,27 +39,29 @@ public class UiManager {
     }
 
     // Create the UI for start scene
-    public void createStartSceneUI(SceneManager sceneManager) {
-        createStartButton(sceneManager);
+    public void createStartSceneUI(SceneManager sceneManager, SoundManager soundManager) {
+        createStartButton(sceneManager, soundManager);
         uiTable.row();
         createEndButton();
     }
 
-    public void createEndSceneUI(SceneManager sceneManager) {
-        createRestartButton(sceneManager);
+    public void createEndSceneUI(SceneManager sceneManager, SoundManager soundManager) {
+        createRestartButton(sceneManager, soundManager);
         uiTable.row();
-        createMainMenuButton(sceneManager);
+        createMainMenuButton(sceneManager, soundManager);
         uiTable.row();
         createEndButton();
     }
 
     public void updateGameHUDLevel(int level) {
-        uiGameHUD.updateLevel(level);
+        uiGameHUD.updateHudLevel(level);
     };
 
     // Creating start button
-    private void createStartButton(SceneManager sceneManager) {
+    private void createStartButton(SceneManager sceneManager, SoundManager soundManager) {
         WindowButton startButton = new WindowButton("Start Game", () -> {
+            soundManager.playSoundEffect("BUTTONCLICK");
+            soundManager.stopBackgroundMusic("MENU");
             sceneManager.transitionScenes("game");
         });
 
@@ -75,16 +77,20 @@ public class UiManager {
         uiTable.add(quitButton).padTop(10).center();
     }
 
-    private void createRestartButton(SceneManager sceneManager) {
+    private void createRestartButton(SceneManager sceneManager, SoundManager soundManager) {
         WindowButton restartButton = new WindowButton("Restart from first level", () -> {
+            soundManager.playSoundEffect("BUTTONCLICK");
+            soundManager.stopBackgroundMusic("GAMEOVER");
             sceneManager.transitionScenes("game");
         });
 
         uiTable.add(restartButton).padBottom(10).center();
     }
 
-    private void createMainMenuButton(SceneManager sceneManager) {
+    private void createMainMenuButton(SceneManager sceneManager, SoundManager soundManager) {
         WindowButton mainMenuButton = new WindowButton("Return to main menu", () -> {
+            soundManager.playSoundEffect("BUTTONCLICK");
+            soundManager.stopBackgroundMusic("GAMEOVER");
             sceneManager.transitionScenes("start");
         });
 

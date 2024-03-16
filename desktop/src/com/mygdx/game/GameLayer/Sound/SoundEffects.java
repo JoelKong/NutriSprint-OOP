@@ -1,5 +1,6 @@
 package com.mygdx.game.GameLayer.Sound;
 
+// Contains all our soundeffects for our game
 public interface SoundEffects {
     static final String COLLECTCHERRY = "Sounds/collectcherry.wav";
     static final String COLLECTPOINTS = "Sounds/collectpoints.mp3";

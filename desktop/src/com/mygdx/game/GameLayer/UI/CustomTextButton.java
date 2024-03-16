@@ -5,7 +5,6 @@ import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 
-// Custom Text Button class
 public class CustomTextButton extends TextButton {
     // Parameterized constructor to initialise custom text button based off input
     protected CustomTextButton(String text, Runnable onClickAction) {

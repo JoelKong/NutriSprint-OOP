@@ -10,12 +10,6 @@ public interface Inputs {
     void setUpKey(int upKey);
     boolean getDownKey();
     void setDownKey(int downKey);
-    boolean getStartKey();
-    void setStartKey(int startKey);
-    boolean getRestartKey();
-    void setRestartKey(int restartKey);
-    boolean getMenuKey();
-    void setMenuKey(int menuKey);
     boolean getPauseKey();
     void setPauseKey(int pauseKey);
     boolean getTeleportKey();

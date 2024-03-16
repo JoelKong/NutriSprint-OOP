@@ -9,14 +9,12 @@ import com.mygdx.game.GameLayer.Effects.EffectManager;
 import com.mygdx.game.GameLayer.Entity.GameEntity;
 import com.mygdx.game.GameLayer.Entity.Player;
 import com.mygdx.game.GameLayer.InputOutput.Inputs;
-
+import com.mygdx.game.GameLayer.Sound.SoundManager;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
-// Player Controls Class
 public class PlayerControls {
-    // Default Constructor for player control
     protected PlayerControls() {}
 
     // Move Up Command
@@ -44,7 +42,7 @@ public class PlayerControls {
     }
 
     // Teleport command
-    protected void teleport(Player player, Inputs preferredInput, EffectManager effectManager) { // need gameTime in gamestatemanager
+    protected void teleport(Player player, Inputs preferredInput, EffectManager effectManager, SoundManager soundManager) {
         long timeSinceLastTeleport = TimeUtils.millis() - player.getLastTeleportTime();
         if (timeSinceLastTeleport < player.getTeleportCooldown()) return;
 
@@ -61,14 +59,19 @@ public class PlayerControls {
             player.setLastTeleportTime(TimeUtils.millis());
         }
 
-        // Create the teleport effect at the new position
+        // Create the teleport effect at the new position and play the teleport sound
+        soundManager.playSoundEffect("TELEPORT");
         Texture teleportEffectTexture = new Texture(Gdx.files.internal("Effects/teleport.png"));
         Effect teleportEffect = new Effect(new Vector2(player.getPosX(), player.getPosY()), teleportEffectTexture, 50, 50, 0.5f);
         effectManager.addEffect(teleportEffect);
     }
 
     // Explosion around player
-    protected void triggerExplosion(Player player, Map<String, List<GameEntity>> entityMap, EffectManager effectManager) {
+    protected void triggerExplosion(Player player, Map<String, List<GameEntity>> entityMap, EffectManager effectManager, SoundManager soundManager) {
+        if (player.getExplodeMeter() != 3) {
+            return;
+        }
+
         final float explosionRadius = 200;
         Circle explosionArea = new Circle(player.getPosX() + player.getWidth() / 2,
                 player.getPosY() + player.getHeight() / 2,
@@ -92,9 +95,11 @@ public class PlayerControls {
             }
         }
 
-        // Create the explosion effect at player position
+        // Create the explosion effect at player position, play the sound and restart the cooldown
+        soundManager.playSoundEffect("EXPLOSION");
         Texture explosionEffectTexture = new Texture(Gdx.files.internal("Effects/explosion.png"));
         Effect explosionEffect = new Effect(new Vector2(player.getPosX(), player.getPosY()), explosionEffectTexture, 120, 120, 0.5f);
         effectManager.addEffect(explosionEffect);
+        player.setExplodeMeter(0);
     }
 }

@@ -19,26 +19,28 @@ public class Effect {
         this.height= height;
     }
 
+    // Updating of game effect based off its lifespan
     public void updateEffect(float deltaTime) {
         lifespan -= deltaTime;
         if (lifespan <= 0) {
-            // This is where you would remove the effect
             disposeEffect();
         }
     }
 
+    // Draw effect
     public void draw(SpriteBatch batch) {
         if (isEffectAlive()) {
             batch.draw(texture, position.x, position.y, width, height);
         }
     }
 
+    // Check if the effect is alive
     public boolean isEffectAlive() {
         return lifespan > 0;
     }
 
+    // Dispose the texture effect if it should no longer be used
     public void disposeEffect() {
-        // Dispose the texture if it should no longer be used
         texture.dispose();
     }
 

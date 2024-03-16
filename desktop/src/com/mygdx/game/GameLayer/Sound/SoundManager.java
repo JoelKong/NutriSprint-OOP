@@ -6,8 +6,8 @@ import com.mygdx.game.GameLayer.Levels.Levels;
 import java.util.HashMap;
 import java.util.Map;
 
+// Contains data for all our sounds
 public class SoundManager {
-    // Consists of maps for soundeffects and bgmusic
     private Map<String, Sound> soundEffects;
     private Map<String, Music> backgroundMusic;
 
@@ -56,9 +56,9 @@ public class SoundManager {
     public void loadSoundEffect(String[] effects) {
         for (String soundEffect: effects) {
             Sound sound = Gdx.audio.newSound(Gdx.files.internal(getSoundEffect(soundEffect)));
-//            if (sound != null) {
+            if (sound != null) {
                 soundEffects.put(soundEffect, sound);
-//            }
+            }
         }
     }
 
@@ -70,7 +70,7 @@ public class SoundManager {
         }
     }
 
-    // Load BG music resources using string
+    // Load BG music resources
     public void loadBackgroundMusic(String bgType) {
         Music bgMusic = Gdx.audio.newMusic(Gdx.files.internal(getBackgroundMusic(bgType)));
         if (bgMusic != null) {

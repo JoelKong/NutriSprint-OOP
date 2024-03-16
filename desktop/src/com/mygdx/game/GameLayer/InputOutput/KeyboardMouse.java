@@ -9,9 +9,6 @@ public class KeyboardMouse implements Inputs {
     private int rightKey;
     private int upKey;
     private int downKey;
-    private int startKey;
-    private int restartKey;
-    private int menuKey;
     private int pauseKey;
     private int teleportKey;
     private int explodeKey;
@@ -22,10 +19,7 @@ public class KeyboardMouse implements Inputs {
         this.rightKey = Input.Keys.RIGHT;
         this.upKey = Input.Keys.UP;
         this.downKey = Input.Keys.DOWN;
-        this.startKey = Input.Keys.ENTER;
-        this.restartKey = Input.Keys.R;
-        this.menuKey = Input.Keys.M;
-        this.pauseKey = Input.Keys.P;
+        this.pauseKey = Input.Keys.ESCAPE;
         this.teleportKey = Input.Keys.SHIFT_LEFT;
         this.explodeKey = Input.Keys.SPACE;
     }
@@ -69,28 +63,6 @@ public class KeyboardMouse implements Inputs {
     public void setDownKey(int downKey) {
         this.downKey = downKey;
     }
-
-    // Get Start Key
-    public boolean getStartKey() {
-        return Gdx.input.isKeyJustPressed(startKey);
-    }
-
-    // Set Start Key
-    public void setStartKey(int startKey) { this.startKey = startKey; }
-
-    // Get Restart Key
-    public boolean getRestartKey() { return Gdx.input.isKeyJustPressed(restartKey); }
-
-    // Set Restart Key
-    public void setRestartKey(int restartKey) {
-        this.restartKey = restartKey;
-    }
-
-    // Get Menu Key
-    public boolean getMenuKey() { return Gdx.input.isKeyJustPressed(menuKey); }
-
-    // Set Menu Key
-    public void setMenuKey(int menuKey) { this.menuKey = menuKey; }
 
     // Get Pause Key
     public boolean getPauseKey() { return Gdx.input.isKeyJustPressed(pauseKey); }

@@ -4,14 +4,12 @@ import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.mygdx.game.GameLayer.Entity.*;
 import com.mygdx.game.GameLayer.Sound.SoundManager;
-
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
 // Collision class for all kinds of collisions
 public class Collision {
-    // Default Constructor
     protected Collision() {}
 
     // Detects collisions between 2 GameEntities
@@ -102,8 +100,10 @@ public class Collision {
                     } else if (prop instanceof Banana) {
                         iterator.remove();
                         soundManager.playSoundEffect("GAINHEALTH");
-                        player.setHealth(player.getHealth() + 1);
-                        player.notifyHealthChange();
+                        if (player.getHealth() < 10) {
+                            player.setHealth(player.getHealth() + 1);
+                            player.notifyHealthChange();
+                        }
                     } else if (prop instanceof Cherry) {
                         iterator.remove();
                         soundManager.playSoundEffect("COLLECTCHERRY");

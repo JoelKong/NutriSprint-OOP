@@ -8,35 +8,32 @@ import com.mygdx.game.GameLayer.Effects.EffectManager;
 import com.mygdx.game.GameLayer.Entity.EntityManager;
 import com.mygdx.game.GameLayer.InputOutput.InputOutputManager;
 import com.mygdx.game.GameLayer.Sound.SoundManager;
-import com.mygdx.game.GameLayer.UI.UiManager;
 
 // Abstract class Scene implementing LibGDX Screen interface
 public abstract class Scenes implements Screen {
     private Texture sceneBackgroundTexture;
     private CameraManager camera;
     private SoundManager soundManager;
-    private UiManager uiManager;
     private SceneManager sceneManager; // ease of access reference to scenemanager shared across all scenes
-    private static InputOutputManager inputOutputManager = new InputOutputManager(); // This manager will be shared across all scenes since its static
+    private static InputOutputManager inputOutputManager = new InputOutputManager(); // This manager will be shared across all scenes since its static (in the future if start or end scenes need inputs)
 
     // Every scene should have a new camera and sound system independent for their scenes
     protected Scenes(SceneManager sceneManager) {
         this.sceneManager = sceneManager;
         this.soundManager = new SoundManager();
         this.camera = new CameraManager();
-        this.uiManager = new UiManager(sceneManager.getBatch(), camera.getUiViewport());
         this.sceneBackgroundTexture = new Texture(Gdx.files.internal("Scenes/nutrisprint-startscene.png"));
     }
 
     // Draw Background on scene
-    public void drawScene(SpriteBatch batch, Texture sceneBackgroundTexture) {
+    protected void drawScene(SpriteBatch batch, Texture sceneBackgroundTexture) {
         batch.begin();
             batch.draw(sceneBackgroundTexture, 0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
         batch.end();
     }
 
     // Draw Background and Entities on scene and other relevant effects
-    public void drawScene(SpriteBatch batch, Texture sceneBackgroundTexture, EntityManager entityManager, EffectManager effectManager) {
+    protected void drawScene(SpriteBatch batch, Texture sceneBackgroundTexture, EntityManager entityManager, EffectManager effectManager) {
         batch.begin();
             batch.draw(sceneBackgroundTexture, 0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
             entityManager.drawEntities(batch);
@@ -45,9 +42,9 @@ public abstract class Scenes implements Screen {
     }
 
     // Methods to override from the Screen LibGdx class
-    public void show() {}
+    public void show() {};
 
-    abstract public void render(float delta);
+    public void render(float delta) {};
 
     // Maintain camera on resizing
     public void resize(int width, int height) {
@@ -86,17 +83,12 @@ public abstract class Scenes implements Screen {
         return soundManager;
     }
 
-    // Get UIManager
-    public UiManager getUiManager() {
-        return uiManager;
-    }
-
     // Get shared scene manager
     public SceneManager getSceneManager() {
         return sceneManager;
     }
 
-    // Get shared inputoutput manager
+    // Get shared input output manager
     public static InputOutputManager getInputOutputManager() {
         return inputOutputManager;
     }

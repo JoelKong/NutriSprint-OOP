@@ -96,18 +96,22 @@ public class Levels {
         return enemySpeed;
     }
 
+    // Get Player Texture
     public List<String> getPlayerTexture() {
         return playerTexture;
     }
 
+    // Get Enemy Texture
     public List<String> getEnemyTexture() {
         return enemyTexture;
     }
 
+    // Get Player speed
     public float getPlayerSpeed() {
         return playerSpeed;
     }
 
+    // Get Prop Texture
     public List<String> getPropTexture() {
         return propTexture;
     }

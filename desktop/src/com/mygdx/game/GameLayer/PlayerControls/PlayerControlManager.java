@@ -19,7 +19,6 @@ public class PlayerControlManager {
         this.playerControls = new PlayerControls();
     }
 
-
     // Manage Player Controls
     public void manageControls(String command, Player player, Inputs preferredInput, Map<String, List<GameEntity>> entityMap, EffectManager effectManager, SoundManager soundManager) {
         switch (command) {
@@ -36,15 +35,10 @@ public class PlayerControlManager {
                 playerControls.moveRight(player);
                 break;
             case "TELEPORT":
-                playerControls.teleport(player, preferredInput, effectManager);
-                soundManager.playSoundEffect("TELEPORT");
+                playerControls.teleport(player, preferredInput, effectManager, soundManager);
                 break;
             case "EXPLODE":
-                if (player.getExplodeMeter() == 3) {
-                    soundManager.playSoundEffect("EXPLOSION");
-                    playerControls.triggerExplosion(player, entityMap, effectManager);
-                    player.setExplodeMeter(0);
-                }
+                playerControls.triggerExplosion(player, entityMap, effectManager, soundManager);
                 break;
             default:
         }
