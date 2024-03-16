@@ -7,6 +7,7 @@ import com.badlogic.gdx.utils.TimeUtils;
 import com.mygdx.game.GameLayer.Effects.Effect;
 import com.mygdx.game.GameLayer.Effects.EffectManager;
 import com.mygdx.game.GameLayer.Entity.GameEntity;
+import com.mygdx.game.GameLayer.Entity.Isaac;
 import com.mygdx.game.GameLayer.Entity.Player;
 import com.mygdx.game.GameLayer.InputOutput.Inputs;
 import com.mygdx.game.GameLayer.Sound.SoundManager;
@@ -42,7 +43,7 @@ public class PlayerControls {
     }
 
     // Teleport command
-    protected void teleport(Player player, Inputs preferredInput, EffectManager effectManager, SoundManager soundManager) {
+    protected void teleport(Isaac player, Inputs preferredInput, EffectManager effectManager, SoundManager soundManager) {
         long timeSinceLastTeleport = TimeUtils.millis() - player.getLastTeleportTime();
         if (timeSinceLastTeleport < player.getTeleportCooldown()) return;
 
@@ -67,7 +68,7 @@ public class PlayerControls {
     }
 
     // Explosion around player
-    protected void triggerExplosion(Player player, Map<String, List<GameEntity>> entityMap, EffectManager effectManager, SoundManager soundManager) {
+    protected void triggerExplosion(Isaac player, Map<String, List<GameEntity>> entityMap, EffectManager effectManager, SoundManager soundManager) {
         if (player.getExplodeMeter() != 3) {
             return;
         }

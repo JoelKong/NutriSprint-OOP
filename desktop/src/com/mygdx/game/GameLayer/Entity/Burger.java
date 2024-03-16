@@ -3,7 +3,6 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.utils.TimeUtils;
 import com.mygdx.game.GameLayer.Levels.Levels;
-
 import java.util.ArrayList;
 import java.util.List;
 

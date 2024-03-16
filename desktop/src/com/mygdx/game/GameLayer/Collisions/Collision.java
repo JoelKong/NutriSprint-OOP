@@ -84,7 +84,7 @@ public class Collision {
 
         // Handle collision for Player entities
         for (GameEntity entity : players) {
-            Player player = (Player) entity;
+            Isaac player = (Isaac) entity;
             Iterator<GameEntity> iterator = props.iterator();
 
             while (iterator.hasNext()) {

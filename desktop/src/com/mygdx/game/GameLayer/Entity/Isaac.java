@@ -1,4 +1,6 @@
 package com.mygdx.game.GameLayer.Entity;
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.mygdx.game.GameLayer.Effects.EffectManager;
@@ -16,12 +18,14 @@ public class Isaac extends Player {
     private TextureRegion bodyRegion;
     private int teleportDistance;
     private int teleportCooldown;
-    private int lastTeleportTime;
+    private long lastTeleportTime;
     private int explodeMeter;
 
     // Default Constructor
     protected Isaac() {
         super();
+        setTexture(new Texture(Gdx.files.internal("Entities/isaac.png")));
+        setEntityType("ISAAC");
         this.headRegion = new TextureRegion(this.getTexture(), 10, 20, this.getWidth(), this.getHeight());
         this.bodyRegion = new TextureRegion(this.getTexture(), 10, 70, this.getWidth(), this.getHeight());
         this.teleportDistance = 200;
@@ -32,6 +36,8 @@ public class Isaac extends Player {
 
     protected Isaac(Levels level) {
         super(level);
+        setTexture(new Texture(Gdx.files.internal(level.getPlayerTexture().get(0))));
+        setEntityType("ISAAC");
         this.headRegion = new TextureRegion(this.getTexture(), 10, 20, this.getWidth(), this.getHeight());
         this.bodyRegion = new TextureRegion(this.getTexture(), 10, 70, this.getWidth(), this.getHeight());
         this.teleportDistance = 200;
@@ -106,11 +112,11 @@ public class Isaac extends Player {
         this.teleportCooldown = teleportCooldown;
     }
 
-    public int getLastTeleportTime() {
+    public long getLastTeleportTime() {
         return lastTeleportTime;
     }
 
-    public void setLastTeleportTime(int lastTeleportTime) {
+    public void setLastTeleportTime(long lastTeleportTime) {
         this.lastTeleportTime = lastTeleportTime;
     }
 

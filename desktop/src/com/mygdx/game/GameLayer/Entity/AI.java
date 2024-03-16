@@ -1,6 +1,5 @@
 package com.mygdx.game.GameLayer.Entity;
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 import com.mygdx.game.GameLayer.Levels.Levels;
@@ -10,17 +9,12 @@ import java.util.List;
 public class AI extends GameEntity {
     protected AI() {
         super();
-        setTexture(new Texture("Entities/fries.png"));
-        setEntityType("FRENCHFRIES");
         this.setSpeed(200);
     }
 
     protected AI(Levels level) {
         super(level);
-        setEntityType("FRENCHFRIES");
-        setTexture(new Texture(Gdx.files.internal(level.getEnemyTexture().get(0))));
         this.setSpeed(level.getEnemySpeed());
-
     }
 
     @Override

@@ -21,8 +21,6 @@ public abstract class GameEntity implements Cloneable {
 
     // Default Constructor to player character
     protected GameEntity() {
-        this.entityType = "ISAAC";
-        this.texture = new Texture(Gdx.files.internal("Entities/isaac.png"));
         this.xPosition = (Gdx.graphics.getWidth() - width) / 2f;
         this.yPosition = (Gdx.graphics.getHeight() - height) / 2f;
         this.speed = 300;
@@ -33,8 +31,6 @@ public abstract class GameEntity implements Cloneable {
 
     // Parameterized Constructor
     protected GameEntity(Levels level) {
-        this.entityType = "ISAAC";
-        this.texture = new Texture(Gdx.files.internal(level.getPlayerTexture().get(0)));
         this.xPosition = (Gdx.graphics.getWidth() - width) / 2f;
         this.yPosition = (Gdx.graphics.getHeight() - height) / 2f;
         this.speed = level.getPlayerSpeed();

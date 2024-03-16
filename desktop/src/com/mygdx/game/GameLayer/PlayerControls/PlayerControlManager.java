@@ -2,6 +2,7 @@ package com.mygdx.game.GameLayer.PlayerControls;
 
 import com.mygdx.game.GameLayer.Effects.EffectManager;
 import com.mygdx.game.GameLayer.Entity.GameEntity;
+import com.mygdx.game.GameLayer.Entity.Isaac;
 import com.mygdx.game.GameLayer.Entity.Player;
 import com.mygdx.game.GameLayer.InputOutput.Inputs;
 import com.mygdx.game.GameLayer.Sound.SoundManager;
@@ -20,7 +21,7 @@ public class PlayerControlManager {
     }
 
     // Manage Player Controls
-    public void manageControls(String command, Player player, Inputs preferredInput, Map<String, List<GameEntity>> entityMap, EffectManager effectManager, SoundManager soundManager) {
+    public void manageControls(String command, Isaac player, Inputs preferredInput, Map<String, List<GameEntity>> entityMap, EffectManager effectManager, SoundManager soundManager) {
         switch (command) {
             case "UP":
                 playerControls.moveUp(player);
