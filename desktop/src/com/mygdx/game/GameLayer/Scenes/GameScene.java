@@ -11,7 +11,6 @@ import com.mygdx.game.GameLayer.Entity.Player;
 import com.mygdx.game.GameLayer.InputOutput.Inputs;
 import com.mygdx.game.GameLayer.Levels.LevelManager;
 import com.mygdx.game.GameLayer.Levels.Levels;
-import com.mygdx.game.Main;
 import com.mygdx.game.GameLayer.UI.UiManager;
 
 // GameScene class inherited from scenes
@@ -25,13 +24,14 @@ public class GameScene extends Scenes {
     private CollisionManager collisionManager;
     private EntityManager entityManager;
     private EffectManager effectManager;
+    private SceneManager sceneManager;
     private UiManager uiManager;
 
     // Parameterized constructor to initialise details of game scene
-    protected GameScene(Main gameController) {
-        super(2, "game", gameController);
+    protected GameScene(SceneManager sceneManager) {
         this.pauseSceneState = false;
         this.timeSinceLastSpawn = 0f;
+        this.sceneManager = sceneManager;
         this.levelManager = new LevelManager();
         this.aiControlManager = new AIControlManager();
         this.collisionManager = new CollisionManager();
@@ -46,14 +46,14 @@ public class GameScene extends Scenes {
 
         if (sceneLevelAssets == null) {
             levelManager.setLevelNumber(1);
-            getGameController().setScreen(getGameController().getSceneManager().getSceneMap().get("end"));
+            sceneManager.transitionScenes("end");
         } else {
             try {
                 setSceneBackgroundTexture(new Texture(Gdx.files.internal(sceneLevelAssets.getLevelBackground())));
                 getSoundManager().loadSoundEffect(new String[]{"COLLECTCHERRY", "COLLECTPOINTS", "GAINHEALTH", "EXPLOSION", "TELEPORT", "PLAYERHIT", "PLAYERDEATH"});
                 getSoundManager().loadBackgroundMusic(sceneLevelAssets);
                 getSoundManager().playBackgroundMusic(sceneLevelAssets.getLevelTitle(), true);
-                uiManager = new UiManager(getGameController().getBatch(), getCamera().getUiViewport());
+                uiManager = new UiManager(sceneManager.getBatch(), getCamera().getUiViewport());
                 uiManager.startGameHUD();
                 uiManager.updateGameHUDLevel(levelManager.getLevelNumber());
                 entityManager.initializeEntities(sceneLevelAssets);
@@ -68,9 +68,10 @@ public class GameScene extends Scenes {
     public void render(float delta) {
         // Get necessary data
         Inputs preferredControls = getInputOutputManager().getPreferredControls();
-        SpriteBatch batch = getGameController().getBatch();
-
         Player player = (Player) entityManager.getPlayersList().get(0);
+        SpriteBatch batch = sceneManager.getBatch();
+
+        // Set up listeners on the player
         player.setHealthChangeListener(newHealth -> uiManager.getUiGameHUD().updateHealth(newHealth));
         player.setScoreChangeListener(newScore -> uiManager.getUiGameHUD().updateScore(newScore));
 
@@ -78,7 +79,7 @@ public class GameScene extends Scenes {
         ScreenUtils.clear(0, 0, 0.2f, 1);
 
         // Focus the camera on our player
-        getCamera().focusCamera(entityManager.getPlayersList().get(0).getPosX(), entityManager.getPlayersList().get(0).getPosY(), batch);
+        getCamera().focusCamera(player.getPosX(), player.getPosY(), batch);
 
         // Draw our game scene
         drawScene(batch, getSceneBackgroundTexture(), entityManager, effectManager);
@@ -91,7 +92,7 @@ public class GameScene extends Scenes {
         // If not paused, initialise all forms of behavior and movement and timers
         if (!pauseSceneState) {
             entityManager.initialiseEntityActions(preferredControls, effectManager, getSoundManager());
-            aiControlManager.initializeAIBehavior(entityManager.getEntityMap().get("ai"), entityManager.getEntityMap().get("player").get(0));
+            aiControlManager.initializeAIBehavior(entityManager.getEntityMap().get("ai"), player);
             collisionManager.initializeCollisions(entityManager.getEntityMap(), getSoundManager());
             entityManager.respawnEntities(sceneLevelAssets);
             effectManager.updateEffects();
@@ -104,14 +105,14 @@ public class GameScene extends Scenes {
         if (levelManager.levelCleared(entityManager.getPlayersList())) {
             getSoundManager().stopBackgroundMusic(sceneLevelAssets.getLevelTitle());
             levelManager.setLevelNumber(levelManager.getLevelNumber() + 1);
-            getGameController().setScreen(this);
+            sceneManager.transitionScenes("game");
         }
 
         // End game if player loses
         if (player.getLoseStatus()) {
             getSoundManager().stopBackgroundMusic(sceneLevelAssets.getLevelTitle()); // for now
             levelManager.setLevelNumber(1);
-            getGameController().setScreen(getGameController().getSceneManager().getSceneMap().get("end"));
+            sceneManager.transitionScenes("end");
         }
 
         // Render HUD
@@ -134,36 +135,6 @@ public class GameScene extends Scenes {
     // Set time since last spawn
     public void setTimeSinceLastSpawn(float timeSinceLastSpawn) {
         this.timeSinceLastSpawn = timeSinceLastSpawn;
-    }
-
-    // Get Level Manager
-    public LevelManager getLevelManager() {
-        return levelManager;
-    }
-
-    // Get AI Control Manager
-    public AIControlManager getAiControlManager() {
-        return aiControlManager;
-    }
-
-    // Get Collision Manager
-    public CollisionManager getCollisionManager() {
-        return collisionManager;
-    }
-
-    // Get Effect Manager
-    public EffectManager getEffectManager() {
-        return effectManager;
-    }
-
-    // Get Entity Manager
-    public EntityManager getEntityManager() {
-        return entityManager;
-    }
-
-    // Get UI manager
-    public UiManager uiManager() {
-        return uiManager;
     }
 
     // Get Pause Scene State

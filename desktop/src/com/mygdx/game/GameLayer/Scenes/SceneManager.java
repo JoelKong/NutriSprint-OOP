@@ -1,36 +1,19 @@
 package com.mygdx.game.GameLayer.Scenes;
-import com.badlogic.gdx.Screen;
-import com.mygdx.game.Main;
-import java.util.HashMap;
-import java.util.Map;
+import com.mygdx.game.EngineLayer.EngineSceneManager;
+import com.badlogic.gdx.Game;
 
 // SceneManager class
-public class SceneManager {
-    // Declare Attributes
-    private Map<String, Screen> sceneMap;
-    private Main gameController;
-
-    // Parameterized constructor containing the game controller
-    public SceneManager(Main gameController) {
-        this.sceneMap = new HashMap<>();
-        this.gameController = gameController;
-        sceneMap.put("start", new StartScene(gameController));
-        sceneMap.put("game", new GameScene(gameController));
-        sceneMap.put("end", new EndScene(gameController));
+public class SceneManager extends EngineSceneManager {
+    // Parameterized constructor containing the game controller passed in to us from Main
+    public SceneManager(Game gameController) {
+        super(gameController);
     }
 
     // Load a scene starting with the start scene
     public void initializeScenes() {
-        gameController.setScreen(sceneMap.get("start"));
-    }
-
-    // Get Scene Map
-    public Map<String, Screen> getSceneMap() {
-        return sceneMap;
-    }
-
-    // Set Scene Map
-    public void setSceneMap(Map<String, Screen> sceneMap) {
-        this.sceneMap = sceneMap;
+        getSceneMap().put("start", new StartScene(this));
+        getSceneMap().put("game", new GameScene(this));
+        getSceneMap().put("end", new EndScene(this));
+        transitionScenes("start");
     }
 }

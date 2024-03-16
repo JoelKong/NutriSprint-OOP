@@ -5,7 +5,8 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.utils.viewport.Viewport;
-import com.mygdx.game.Main;
+import com.mygdx.game.GameLayer.Scenes.SceneManager;
+import com.badlogic.gdx.Game;
 
 // Manager to handle all forms of UI
 public class UiManager {
@@ -38,16 +39,16 @@ public class UiManager {
     }
 
     // Create the UI for start scene
-    public void createStartSceneUI(Main gameController) {
-        createStartButton(gameController);
+    public void createStartSceneUI(SceneManager sceneManager) {
+        createStartButton(sceneManager);
         uiTable.row();
         createEndButton();
     }
 
-    public void createEndSceneUI(Main gameController) {
-        createRestartButton(gameController);
+    public void createEndSceneUI(SceneManager sceneManager) {
+        createRestartButton(sceneManager);
         uiTable.row();
-        createMainMenuButton(gameController);
+        createMainMenuButton(sceneManager);
         uiTable.row();
         createEndButton();
     }
@@ -57,9 +58,9 @@ public class UiManager {
     };
 
     // Creating start button
-    private void createStartButton(Main gameController) {
+    private void createStartButton(SceneManager sceneManager) {
         WindowButton startButton = new WindowButton("Start Game", () -> {
-            gameController.setScreen(gameController.getSceneManager().getSceneMap().get("game"));
+            sceneManager.transitionScenes("game");
         });
 
         uiTable.add(startButton).padBottom(10).center();
@@ -74,17 +75,17 @@ public class UiManager {
         uiTable.add(quitButton).padTop(10).center();
     }
 
-    private void createRestartButton(Main gameController) {
+    private void createRestartButton(SceneManager sceneManager) {
         WindowButton restartButton = new WindowButton("Restart from first level", () -> {
-            gameController.setScreen(gameController.getSceneManager().getSceneMap().get("game"));
+            sceneManager.transitionScenes("game");
         });
 
         uiTable.add(restartButton).padBottom(10).center();
     }
 
-    private void createMainMenuButton(Main gameController) {
+    private void createMainMenuButton(SceneManager sceneManager) {
         WindowButton mainMenuButton = new WindowButton("Return to main menu", () -> {
-            gameController.setScreen(gameController.getSceneManager().getSceneMap().get("start"));
+            sceneManager.transitionScenes("start");
         });
 
         uiTable.add(mainMenuButton).padTop(10).center();

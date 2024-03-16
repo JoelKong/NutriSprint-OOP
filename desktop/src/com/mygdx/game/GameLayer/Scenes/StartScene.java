@@ -1,29 +1,26 @@
 package com.mygdx.game.GameLayer.Scenes;
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.mygdx.game.GameLayer.InputOutput.Inputs;
-import com.mygdx.game.Main;
 import com.mygdx.game.GameLayer.UI.UiManager;
 
 // Start Scene class inherited from Scenes
 public class StartScene extends Scenes {
     private UiManager uiManager;
+    private SceneManager sceneManager;
 
     // Parameterized Constructor setting start scene details
-    protected StartScene(Main gameController) {
-        super(1, "start", gameController);
+    protected StartScene(SceneManager sceneManager) {
+        this.sceneManager = sceneManager;
     }
 
     // Load resources
     @Override
     public void show() {
-        uiManager = new UiManager(getGameController().getBatch(), getCamera().getUiViewport());
-        uiManager.createStartSceneUI(getGameController());
+        uiManager = new UiManager(sceneManager.getBatch(), getCamera().getUiViewport());
+        uiManager.createStartSceneUI(sceneManager);
         getSoundManager().loadSoundEffect(new String[]{"BUTTONCLICK"});
         getSoundManager().loadBackgroundMusic("MENU");
         getSoundManager().playBackgroundMusic("MENU", true);
-        setSceneBackgroundTexture(new Texture(Gdx.files.internal("Scenes/nutrisprint-startscene.png")));
     }
 
     // Render start scene
@@ -31,28 +28,21 @@ public class StartScene extends Scenes {
     public void render(float delta) {
         // Get necessary data
         Inputs preferredControls = getInputOutputManager().getPreferredControls();
-        SceneManager sceneManager = getGameController().getSceneManager();
-        SpriteBatch batch = getGameController().getBatch();
 
         // Update camera
-        getCamera().updateCamera(batch);
+        getCamera().updateCamera(sceneManager.getBatch());
 
-        // Upon starting, change scene to game
+        // Upon starting, change scene to game (will change this when ui clicks)
         if (preferredControls.getStartKey()) {
             getSoundManager().stopBackgroundMusic("MENU");
-            getGameController().setScreen(sceneManager.getSceneMap().get("game"));
+            sceneManager.transitionScenes("game");
         }
 
         // Background
-        drawScene(batch, getSceneBackgroundTexture());
+        drawScene(sceneManager.getBatch(), getSceneBackgroundTexture());
 
         // UI
         uiManager.getUiStage().act(Math.min(Gdx.graphics.getDeltaTime(), 1 / 30f));
         uiManager.getUiStage().draw();
-    }
-
-    // Get UI manager
-    public UiManager uiManager() {
-        return uiManager;
     }
 }

@@ -1,38 +1,20 @@
 package com.mygdx.game;
 import com.badlogic.gdx.Game;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.mygdx.game.GameLayer.Scenes.SceneManager;
-import com.mygdx.game.GameLayer.Simulation.SimulationManager;
 
-// Declaring of singletons
+// Singleton scenemanager starting off with initialising our start scene, the gamecontroller is being passed to it
 public class Main extends Game {
-    private SimulationManager simulationManager;
     private SceneManager sceneManager;
-    private SpriteBatch batch;
 
     @Override
     public void create() {
-        this.simulationManager = new SimulationManager();
-        this.batch = new SpriteBatch();
         this.sceneManager = new SceneManager(this);
-        this.simulationManager.startSimulation(sceneManager);
+        sceneManager.initializeScenes();
     }
 
     @Override
     public void render() {
+        // Render starting from start screen
         super.render();
-    }
-
-    @Override
-    public void dispose() {
-        simulationManager.endSimulation(batch);
-    }
-
-    public SpriteBatch getBatch() {
-        return batch;
-    }
-
-    public SceneManager getSceneManager() {
-        return sceneManager;
     }
 }

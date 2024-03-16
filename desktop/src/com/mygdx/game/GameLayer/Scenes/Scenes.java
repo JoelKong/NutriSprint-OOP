@@ -8,28 +8,20 @@ import com.mygdx.game.GameLayer.Effects.EffectManager;
 import com.mygdx.game.GameLayer.Entity.EntityManager;
 import com.mygdx.game.GameLayer.InputOutput.InputOutputManager;
 import com.mygdx.game.GameLayer.Sound.SoundManager;
-import com.mygdx.game.Main;
-
+import com.mygdx.game.GameLayer.UI.UiManager;
 
 // Abstract class Scene implementing LibGDX Screen interface
 public abstract class Scenes implements Screen {
-    // Declare variables
-    private int sceneId;
-    private String sceneName;
     private Texture sceneBackgroundTexture;
-    private Main gameController;
     private CameraManager camera;
-    private InputOutputManager inputOutputManager;
     private SoundManager soundManager;
+    private static InputOutputManager inputOutputManager = new InputOutputManager(); // This manager will be shared across all scenes since its static
 
-    // Parameterized constructor to specify details of scenes
-    protected Scenes(int sceneId, String sceneName, Main gameController) {
-        this.gameController = gameController;
-        this.inputOutputManager = new InputOutputManager();
+    // Every scene should have a new camera and sound system independent for their scenes
+    protected Scenes() {
         this.soundManager = new SoundManager();
         this.camera = new CameraManager();
-        this.sceneId = sceneId;
-        this.sceneName = sceneName;
+        this.sceneBackgroundTexture = new Texture(Gdx.files.internal("Scenes/nutrisprint-startscene.png"));
     }
 
     // Draw Background on scene
@@ -53,6 +45,7 @@ public abstract class Scenes implements Screen {
 
     abstract public void render(float delta);
 
+    // Maintain camera on resizing
     public void resize(int width, int height) {
         getCamera().resetCameraOnResize(width, height);
         getCamera().getUiViewport().update(width, height, true);
@@ -79,43 +72,18 @@ public abstract class Scenes implements Screen {
         this.sceneBackgroundTexture = sceneBackgroundTexture;
     }
 
-    // Get Scene ID
-    public int getSceneId() {
-        return sceneId;
-    }
-
-    // Set Scene ID
-    public void setSceneId(int sceneId) {
-        this.sceneId = sceneId;
-    }
-
-    // Get Scene Name
-    public String getSceneName() {
-        return sceneName;
-    }
-
-    // Set Scene Name
-    public void setSceneName(String sceneName) {
-        this.sceneName = sceneName;
-    }
-
-    // Get game controller
-    public Main getGameController() {
-        return gameController;
-    }
-
     // Get Camera
     public CameraManager getCamera() {
         return camera;
     }
 
-    // Get Input Output Manager
-    public InputOutputManager getInputOutputManager() {
-        return inputOutputManager;
-    }
-
     // Get Sound Manager
     public SoundManager getSoundManager() {
         return soundManager;
+    }
+
+    // Get shared inputoutput manager
+    public static InputOutputManager getInputOutputManager() {
+        return inputOutputManager;
     }
 }

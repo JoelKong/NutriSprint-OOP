@@ -1,29 +1,28 @@
 package com.mygdx.game.GameLayer.Scenes;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.mygdx.game.GameLayer.InputOutput.Inputs;
 import com.mygdx.game.GameLayer.UI.UiManager;
-import com.mygdx.game.Main;
 
 // End scene class inherited from scenes
 public class EndScene extends Scenes {
     private UiManager uiManager;
+    private SceneManager sceneManager;
 
     // Parameterized Constructor specifying details of end scene
-    protected EndScene(Main gameController) {
-        super(3, "end", gameController);
+    protected EndScene(SceneManager sceneManager) {
+        this.sceneManager = sceneManager;
     }
 
     // First run of end scene
     @Override
     public void show() {
-        this.uiManager = new UiManager(getGameController().getBatch(), getCamera().getUiViewport());
-        uiManager.createEndSceneUI(getGameController());
+        this.uiManager = new UiManager(sceneManager.getBatch(), getCamera().getUiViewport());
+        uiManager.createEndSceneUI(sceneManager);
         getSoundManager().loadSoundEffect(new String[]{"BUTTONCLICK"});
         getSoundManager().loadBackgroundMusic("GAMEOVER");
         getSoundManager().playBackgroundMusic("GAMEOVER", true);
-        setSceneBackgroundTexture(new Texture(Gdx.files.internal("Scenes/endscenee.png")));
+        setSceneBackgroundTexture(new Texture(Gdx.files.internal("Scenes/endscene.png")));
     }
 
     // Render end scene
@@ -31,26 +30,23 @@ public class EndScene extends Scenes {
     public void render(float delta) {
         // Get necessary data
         Inputs preferredControls = getInputOutputManager().getPreferredControls();
-        SceneManager sceneManager = getGameController().getSceneManager();
-        SpriteBatch batch = getGameController().getBatch();
 
         // Update camera
-        getCamera().updateCamera(batch);
+        getCamera().updateCamera(sceneManager.getBatch());
 
-        // Restart back to game scene
+        // Restart back to game scene (will change on button click)
         if (preferredControls.getRestartKey()) {
             getSoundManager().stopBackgroundMusic("GAMEOVER");
-            getGameController().setScreen(sceneManager.getSceneMap().get("game"));
+            sceneManager.transitionScenes("game");
 
-        // Go back to menu
+        // Go back to menu (will change on button click)
         } else if (preferredControls.getMenuKey()) {
             getSoundManager().stopBackgroundMusic("GAMEOVER");
-            getGameController().setScreen(sceneManager.getSceneMap().get("start"));
+            sceneManager.transitionScenes("start");
         }
 
-        // Background
         // Draw our game scene
-        drawScene(batch, getSceneBackgroundTexture());
+        drawScene(sceneManager.getBatch(), getSceneBackgroundTexture());
 
         // UI
         uiManager.getUiStage().act(Math.min(Gdx.graphics.getDeltaTime(), 1 / 30f));

@@ -5,14 +5,15 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import java.util.HashMap;
 import java.util.Map;
 
+// Every scene engine should contain a batch, a map of scenes and also a gamecontroller to switch scenes, will be singleton together will scenemanager
 public abstract class EngineSceneManager {
-    protected SpriteBatch batch;
-    protected Map<String, Screen> sceneMap;
-    protected Game gameController;
+    private SpriteBatch batch;
+    private Map<String, Screen> sceneMap;
+    private Game gameController;
 
     public EngineSceneManager(Game gameController) {
         this.gameController = gameController;
-        this.batch = new SpriteBatch(); // Singleton Spritebatch
+        this.batch = new SpriteBatch();
         this.sceneMap = new HashMap<>();
     }
 
@@ -20,10 +21,16 @@ public abstract class EngineSceneManager {
     // SceneManager subclass will provide implementation.
     public abstract void initializeScenes();
 
-    // Concrete methods that subclasses can use without overriding
+    // Every scene engine should have the ability to transition scenes based off what scene we want
+    public void transitionScenes(String scene) {
+        gameController.setScreen(sceneMap.get(scene));
+    }
+
+    // Necessary getters or setters
     public Game getGameController() {
         return gameController;
     }
+
     public SpriteBatch getBatch() {
         return batch;
     }
