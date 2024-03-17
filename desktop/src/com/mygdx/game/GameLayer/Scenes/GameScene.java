@@ -64,7 +64,7 @@ public class GameScene extends Scenes {
     public void render(float delta) {
         // Get necessary data for ease of access
         Inputs preferredControls = getInputOutputManager().getPreferredControls();
-        Player player = (Player) entityManager.getPlayersList().get(0);
+        Player player = (Player) entityManager.getPlayerEntityList().get(0);
         SpriteBatch batch = getSceneManager().getBatch();
 
         // Set up listeners on the player
@@ -98,7 +98,7 @@ public class GameScene extends Scenes {
         entityManager.checkPlayerEntityStatus(sceneLevelAssets, getSoundManager());
 
         // Advance to next level
-        if (levelManager.levelCleared(entityManager.getPlayersList())) {
+        if (levelManager.levelCleared(entityManager.getPlayerEntityList())) {
             getSoundManager().stopBackgroundMusic(sceneLevelAssets.getLevelTitle());
             levelManager.setLevelNumber(levelManager.getLevelNumber() + 1);
             getSceneManager().transitionScenes("game");

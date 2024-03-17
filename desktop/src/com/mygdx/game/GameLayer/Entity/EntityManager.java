@@ -4,81 +4,70 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
+import com.mygdx.game.EngineLayer.EngineEntityManager;
 import com.mygdx.game.GameLayer.Effects.EffectManager;
 import com.mygdx.game.GameLayer.InputOutput.Inputs;
 import com.mygdx.game.GameLayer.Levels.Levels;
 import com.mygdx.game.GameLayer.Sound.SoundManager;
-import com.mygdx.game.GameLayer.Entity.EntityCreator;
 import java.util.*;
 
 // Entity Manager Class
-public class EntityManager {
-    // Declare Maps and Lists of entities
-    private Map<String, List<GameEntity>> entityMap;
-    private List<GameEntity> aiEntityList;
-    private List<GameEntity> playerEntityList;
+public class EntityManager extends EngineEntityManager {
     private List<GameEntity> propEntityList;
     private float timeSinceLastSpawn;
-    private EntityCreator entityCreator;
-//    private enum EntityType {
-//        ISAAC, FRENCHFRIES, ROCK, APPLE, BANANA, BURGER, CHICKEN, CHERRY, VEGETABLE
-//    }
+    private EntityFactory entityFactory;
 
-    // Default Constructor class to initialise entities
+    // Initialise all forms of entity lists as well as its factory
     public EntityManager() {
-        this.entityMap = new HashMap<>();
-        this.playerEntityList = new ArrayList<>();
-        this.aiEntityList = new ArrayList<>();
+        super();
         this.propEntityList = new ArrayList<>();
-        this.entityCreator = new EntityCreator();
-        entityMap.put("ai", aiEntityList);
-        entityMap.put("player", playerEntityList);
-        entityMap.put("props", propEntityList);
+        this.entityFactory = new EntityFactory();
+        getEntityMap().put("props", propEntityList);
     }
 
-    // Clear all entity lists
-    public void clearEntityLists() {
-        playerEntityList.clear();
-        aiEntityList.clear();
+    // Reset all entities
+    @Override
+    public void resetEntities() {
+        super.resetEntities();
         propEntityList.clear();
     }
 
     // Populate entities based off level specification
     public void populateEntities(Levels level) throws CloneNotSupportedException {
-        playerEntityList.add(entityCreator.createEntity("ISAAC", level));
+        getPlayerEntityList().add(entityFactory.createEntity("ISAAC", level));
 
         for (int i = 0; i < level.getNumberOfFries(); i++) {
-            GameEntity entity = randomiseEntityPosition(Objects.requireNonNull(entityCreator.createEntity("FRENCHFRIES", level)).clone(), entityMap);
-            aiEntityList.add(entity);
+            GameEntity entity = randomiseEntityPosition(entityFactory.createEntity("FRENCHFRIES", level).clone(), getEntityMap());
+            getAiEntityList().add(entity);
         }
 
         for (int i = 0; i < level.getNumberOfBurgers(); i++) {
-            GameEntity entity = randomiseEntityPosition(Objects.requireNonNull(entityCreator.createEntity("BURGER", level)).clone(), entityMap);
-            aiEntityList.add(entity);
+            GameEntity entity = randomiseEntityPosition(entityFactory.createEntity("BURGER", level).clone(), getEntityMap());
+            getAiEntityList().add(entity);
         }
 
         for (int i = 0; i < level.getNumberOfRocks(); i++) {
-            GameEntity rock = randomiseEntityPosition(Objects.requireNonNull(entityCreator.createEntity("ROCK", level)).clone(), entityMap);
+            GameEntity rock = randomiseEntityPosition(entityFactory.createEntity("ROCK", level).clone(), getEntityMap());
             propEntityList.add(rock);
         }
 
         for (int i = 0; i < level.getNumberOfApples(); i++) {
-            GameEntity apple = randomiseEntityPosition(Objects.requireNonNull(entityCreator.createEntity("APPLE", level)).clone(), entityMap);
+            GameEntity apple = randomiseEntityPosition(entityFactory.createEntity("APPLE", level).clone(), getEntityMap());
             propEntityList.add(apple);
         }
 
         for (int i = 0; i < level.getNumberOfVegetables(); i++) {
-            GameEntity vegetable = randomiseEntityPosition(Objects.requireNonNull(entityCreator.createEntity("VEGETABLE", level)).clone(), entityMap);
+            GameEntity vegetable = randomiseEntityPosition(entityFactory.createEntity("VEGETABLE", level).clone(), getEntityMap());
             propEntityList.add(vegetable);
         }
 
         for (int i = 0; i < level.getNumberOfBananas(); i++) {
-            GameEntity banana = randomiseEntityPosition(Objects.requireNonNull(entityCreator.createEntity("BANANA", level)).clone(), entityMap);
+            GameEntity banana = randomiseEntityPosition(entityFactory.createEntity("BANANA", level).clone(), getEntityMap());
             propEntityList.add(banana);
         }
 
         for (int i = 0; i < level.getNumberOfCherries(); i++) {
-            GameEntity banana = randomiseEntityPosition(Objects.requireNonNull(entityCreator.createEntity("CHERRY", level)).clone(), entityMap);
+            GameEntity banana = randomiseEntityPosition(entityFactory.createEntity("CHERRY", level).clone(), getEntityMap());
             propEntityList.add(banana);
         }
     }
@@ -86,13 +75,13 @@ public class EntityManager {
     /* Default Initialization of Entities
     1) clear all lists. 2) Create GameEntities based on level specification 3) Put them into EntityMap.*/
     public void initializeEntities(Levels level) throws CloneNotSupportedException {
-        clearEntityLists();
+        resetEntities();
         populateEntities(level);
     }
 
     // Drawing of Entities
     public void drawEntities(SpriteBatch sb) {
-        for (List<GameEntity> entities: entityMap.values()) {
+        for (List<GameEntity> entities: getEntityMap().values()) {
             for (GameEntity entity: entities) {
                 entity.draw(sb);
                 entity.updateEntityHitbox();
@@ -111,7 +100,7 @@ public class EntityManager {
                 int maxCount = getMaxCountForEntity(entityType, sceneLevelAssets);
                 GameEntity entity = null;
                 try {
-                    entity = randomiseEntityPosition(Objects.requireNonNull(entityCreator.createEntity(entityType, sceneLevelAssets)).clone(), entityMap);
+                    entity = randomiseEntityPosition(entityFactory.createEntity(entityType, sceneLevelAssets).clone(), getEntityMap());
                 } catch (CloneNotSupportedException e) {
                     throw new RuntimeException(e);
                 }
@@ -119,7 +108,7 @@ public class EntityManager {
                 // If not endless, add entities without checking count
                 if (sceneLevelAssets.getLevelNumber() != 4) {
                     if (entity instanceof AI) {
-                        aiEntityList.add(entity);
+                        getAiEntityList().add(entity);
                     } else {
                         propEntityList.add(entity);
                     }
@@ -129,7 +118,7 @@ public class EntityManager {
                 // For level 4, check counts before adding
                 if (currentCount < maxCount) {
                     if (entity instanceof AI) {
-                        aiEntityList.add(entity);
+                        getAiEntityList().add(entity);
                     } else {
                         propEntityList.add(entity);
                     }
@@ -143,7 +132,7 @@ public class EntityManager {
         int count = 0;
         // Combine both lists to simplify iteration
         List<GameEntity> allEntities = new ArrayList<>();
-        allEntities.addAll(aiEntityList);
+        allEntities.addAll(getAiEntityList());
         allEntities.addAll(propEntityList);
 
         for (GameEntity entity : allEntities) {
@@ -177,10 +166,9 @@ public class EntityManager {
         }
     }
 
-
     // Checking player entity status
     public void checkPlayerEntityStatus(Levels sceneLevelAssets, SoundManager soundManager) {
-        for (GameEntity entity: playerEntityList) {
+        for (GameEntity entity: getPlayerEntityList()) {
             Player player = (Player) entity;
             player.checkWinCondition(sceneLevelAssets);
             player.checkLoseCondition(soundManager);
@@ -208,14 +196,14 @@ public class EntityManager {
                 positionValid = false;
             }
 
-////          Check distance from AI entities
-            for (GameEntity aiEntity : aiEntityList) {
+            // Check distance from AI entities
+            for (GameEntity aiEntity : getAiEntityList()) {
                 if (new Vector2(aiEntity.getPosX(), aiEntity.getPosY()).dst(randomPosition) < MIN_DISTANCE) {
                     positionValid = false;
                     break;
                 }
             }
-//
+
             // Check distance from rock entities
             for (GameEntity prop : propEntityList) {
                 if (new Vector2(prop.getPosX(), prop.getPosY()).dst(randomPosition) < MIN_DISTANCE) {
@@ -237,49 +225,19 @@ public class EntityManager {
 
     // Initialising of entity actions
     public void initialiseEntityActions(Inputs commandInput, EffectManager effectManager, SoundManager soundManager) {
-        for (GameEntity entity: playerEntityList) {
+        for (GameEntity entity: getPlayerEntityList()) {
             Player player = (Player) entity;
-            player.playerActions(commandInput, entityMap, effectManager, soundManager);
+            player.playerActions(commandInput, getEntityMap(), effectManager, soundManager);
         }
     }
 
     // Disposing of Entities
     public void disposeEntities() {
-        for (List<GameEntity> entities: entityMap.values()) {
+        for (List<GameEntity> entities: getEntityMap().values()) {
             for (GameEntity entity: entities) {
                 entity.getTexture().dispose();
             }
         }
-    }
-
-    // Get Entity Map
-    public Map<String, List<GameEntity>> getEntityMap() {
-        return entityMap;
-    }
-
-    // Set Entity Map
-    public void setEntityMap(Map<String, List<GameEntity>> entityMap) {
-        this.entityMap = entityMap;
-    }
-
-    // Get Player Entity List
-    public List<GameEntity> getPlayersList() {
-        return playerEntityList;
-    }
-
-    // Set Player Entity List
-    public void setPlayersList(List<GameEntity> playerEntityList) {
-        this.playerEntityList = playerEntityList;
-    }
-
-    // Get AI Entity List
-    public List<GameEntity> getAiEntityList() {
-        return aiEntityList;
-    }
-
-    // Set AI Entity List
-    public void setAiEntityList(List<GameEntity> aiEntityList) {
-        this.aiEntityList = aiEntityList;
     }
 
     // Get time since last spawn
@@ -290,6 +248,22 @@ public class EntityManager {
     // Set time since last spawn
     public void setTimeSinceLastSpawn(float timeSinceLastSpawn) {
         this.timeSinceLastSpawn = timeSinceLastSpawn;
+    }
+
+    public List<GameEntity> getPropEntityList() {
+        return propEntityList;
+    }
+
+    public void setPropEntityList(List<GameEntity> propEntityList) {
+        this.propEntityList = propEntityList;
+    }
+
+    public EntityFactory getEntityFactory() {
+        return entityFactory;
+    }
+
+    public void setEntityFactory(EntityFactory entityFactory) {
+        this.entityFactory = entityFactory;
     }
 
 }

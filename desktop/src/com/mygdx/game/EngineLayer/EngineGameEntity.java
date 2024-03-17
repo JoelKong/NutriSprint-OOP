@@ -1,10 +1,9 @@
-
 package com.mygdx.game.EngineLayer;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.Rectangle;
 
+// What all game entities have in common throughout all types of games
 public abstract class EngineGameEntity {
-    // Declare Attributes
     private String entityType;
     private float xPosition;
     private float yPosition;

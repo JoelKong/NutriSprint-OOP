@@ -62,7 +62,7 @@ public class Player extends GameEntity {
     // Player Lose Condition (if health 0 then die)
     protected void checkLoseCondition(SoundManager soundManager) {
         if (health == 0) {
-            soundManager.playSoundEffect("playerdeath");
+            soundManager.playSoundEffect("PLAYERDEATH");
             loseStatus = true;
         }
     }

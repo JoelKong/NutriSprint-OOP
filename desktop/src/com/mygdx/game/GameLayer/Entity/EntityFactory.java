@@ -1,8 +1,7 @@
 package com.mygdx.game.GameLayer.Entity;
-
 import com.mygdx.game.GameLayer.Levels.Levels;
 
-public class EntityCreator {
+public class EntityFactory {
     private enum EntityType {
         ISAAC, FRENCHFRIES, ROCK, APPLE, BANANA, BURGER, CHICKEN, CHERRY, VEGETABLE
     }
