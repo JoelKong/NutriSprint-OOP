@@ -1,9 +1,11 @@
 package com.mygdx.game.GameLayer.Entity;
+import com.mygdx.game.EngineLayer.EngineAIControlManager;
+
 import java.util.ArrayList;
 import java.util.List;
 
 // AI Control Manager Class
-public class AIControlManager {
+public class AIControlManager extends EngineAIControlManager {
     public AIControlManager() {}
 
     public void initializeAIBehavior(List<GameEntity> AIList, GameEntity player) {

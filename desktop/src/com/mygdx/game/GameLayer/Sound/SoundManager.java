@@ -10,46 +10,22 @@ import java.util.Map;
 public class SoundManager {
     private Map<String, Sound> soundEffects;
     private Map<String, Music> backgroundMusic;
+    private SoundFactory soundFactory;
 
     public SoundManager() {
-        soundEffects = new HashMap<>();
-        backgroundMusic = new HashMap<>();
+        this.soundEffects = new HashMap<>();
+        this.backgroundMusic = new HashMap<>();
+        this.soundFactory = new SoundFactory();
     }
 
     // Factory method to retrieve sound effects
     public String getSoundEffect(String soundEffect) {
-        switch (soundEffect) {
-            case "EXPLOSION":
-                return SoundEffects.EXPLOSION;
-            case "TELEPORT":
-                return SoundEffects.TELEPORT;
-            case "PLAYERHIT":
-                return SoundEffects.PLAYERHIT;
-            case "PLAYERDEATH":
-                return SoundEffects.PLAYERDEATH;
-            case "COLLECTCHERRY":
-                return SoundEffects.COLLECTCHERRY;
-            case "GAINHEALTH":
-                return SoundEffects.GAINHEALTH;
-            case "BUTTONCLICK":
-                return SoundEffects.BUTTONCLICK;
-            case "COLLECTPOINTS":
-                return SoundEffects.COLLECTPOINTS;
-            default:
-                return null;
-        }
+        return soundFactory.generateSoundEffect(soundEffect);
     }
 
     // Factory method to retrieve background music
     public String getBackgroundMusic(String backgroundMusic) {
-        switch (backgroundMusic) {
-            case "MENU":
-                return BackgroundSounds.MENU;
-            case "GAMEOVER":
-                return BackgroundSounds.GAMEOVER;
-            default:
-                return null;
-        }
+        return soundFactory.generateBackgroundMusic(backgroundMusic);
     }
 
     // Load sound effect resources
@@ -126,5 +102,9 @@ public class SoundManager {
 
     public void setBackgroundMusic(Map<String, Music> backgroundMusic) {
         this.backgroundMusic = backgroundMusic;
+    }
+
+    public SoundFactory getSoundFactory() {
+        return soundFactory;
     }
 }

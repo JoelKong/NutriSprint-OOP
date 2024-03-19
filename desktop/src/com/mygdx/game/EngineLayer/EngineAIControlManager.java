@@ -1,4 +1,5 @@
 package com.mygdx.game.EngineLayer;
 
-public class EngineAIControlManager {
+public abstract class EngineAIControlManager {
+    public void initializeAIBehavior() {};
 }
