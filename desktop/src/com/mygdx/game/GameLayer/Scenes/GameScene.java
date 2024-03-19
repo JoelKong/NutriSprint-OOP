@@ -7,6 +7,7 @@ import com.mygdx.game.GameLayer.Collisions.CollisionManager;
 import com.mygdx.game.GameLayer.Effects.EffectManager;
 import com.mygdx.game.GameLayer.Entity.AIControlManager;
 import com.mygdx.game.GameLayer.Entity.EntityManager;
+import com.mygdx.game.GameLayer.Entity.Isaac;
 import com.mygdx.game.GameLayer.Entity.Player;
 import com.mygdx.game.GameLayer.InputOutput.Inputs;
 import com.mygdx.game.GameLayer.Levels.LevelManager;
@@ -64,12 +65,14 @@ public class GameScene extends Scenes {
     public void render(float delta) {
         // Get necessary data for ease of access
         Inputs preferredControls = getInputOutputManager().getPreferredControls();
-        Player player = (Player) entityManager.getPlayerEntityList().get(0);
+        Isaac player = (Isaac) entityManager.getPlayerEntityList().get(0);
         SpriteBatch batch = getSceneManager().getBatch();
 
         // Set up listeners on the player
         player.setHealthChangeListener(newHealth -> uiManager.getUiGameHUD().updateHudHealth(newHealth));
         player.setScoreChangeListener(newScore -> uiManager.getUiGameHUD().updateHudScore(newScore));
+        player.setTeleportCooldownListener(newTeleportCooldown -> uiManager.getUiGameHUD().updateHudTeleportCooldown(newTeleportCooldown, 5000));
+        player.notifyTeleportCooldownChange();
 
         // Clear the screen
         ScreenUtils.clear(0, 0, 0.2f, 1);
@@ -79,6 +82,9 @@ public class GameScene extends Scenes {
 
         // Draw our game scene along with its entities
         drawScene(batch, getSceneBackgroundTexture(), entityManager, effectManager);
+
+
+
 
         // Pause and Resume Game
         if (preferredControls.getPauseKey()) {

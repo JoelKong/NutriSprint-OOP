@@ -18,9 +18,6 @@ public class UiManager {
         this.uiStage = new Stage(uiViewport, spriteBatch);
         this.uiTable = new Table();
 
-        // new start button lmao will be refactored again
-        Skin startButtonSkin = new Skin(Gdx.files.internal("UI/terra-mother/skin/terra-mother-ui.json"));
-
         uiTable.setFillParent(true);
         uiTable.center();
         uiStage.addActor(uiTable);
@@ -35,7 +32,6 @@ public class UiManager {
         }
 
         uiStage.addActor(uiGameHUD.getHudTable());
-        // uiStage.addActor(uiGameHUD.getHealthbar());
     }
 
     // Create the UI for start scene
@@ -55,7 +51,7 @@ public class UiManager {
 
     public void updateGameHUDLevel(int level) {
         uiGameHUD.updateHudLevel(level);
-    };
+    }
 
     // Creating start button
     private void createStartButton(SceneManager sceneManager, SoundManager soundManager) {

@@ -13,6 +13,7 @@ public class HUD {
     private Stage uiStage;
     private Table hudTable;
     private Healthbar healthbar;
+    private TeleportCooldownBar teleportCooldownBar;
 
     public HUD() {
         this.uiStage = new Stage(new ScreenViewport());
@@ -27,12 +28,20 @@ public class HUD {
         this.scoreLabel = new StyledLabel("Score: 0");
         this.levelLabel = new StyledLabel("Level: 1");
 
-        // Initialize the health bar with the maximum health
+        // Initialize the health bar with the maximum health and teleportCooldownBar
         this.healthbar = new Healthbar(10);
+        this.teleportCooldownBar = new TeleportCooldownBar(skin, 5000f);
 
-        hudTable.add(levelLabel).align(Align.left).padTop(10).padLeft(20).expandX();
-        hudTable.add(scoreLabel).align(Align.center).padTop(10).expandX();
-        hudTable.add(healthbar).align(Align.right).padTop(30).padRight(300).size(240, 24);
+        // Adding existing elements to the hudTable
+        hudTable.add(levelLabel).align(Align.left).padTop(10).padLeft(20);
+        hudTable.add(scoreLabel).align(Align.center).padTop(10).expandX(); // Expand to use extra horizontal space
+        hudTable.add(healthbar).align(Align.right).padTop(10).padRight(300).size(240, 24); // Fixed size for health bar
+        hudTable.row(); // Move to the next row
+
+        // Span the progress bar under the health bar by using colspan(2) to skip the first two columns
+        hudTable.add(); // This empty cell will take the place of the level label column
+        hudTable.add(); // This empty cell will take the place of the score label column
+        hudTable.add(teleportCooldownBar.getProgressBar()).align(Align.right).padTop(4).padRight(20).size(240, 24); // Set size to match health bar
 
         // Add the hudTable to the uiStage
         uiStage.addActor(hudTable);
@@ -49,6 +58,10 @@ public class HUD {
 
     public void updateHudLevel(int level) {
         levelLabel.setText("Level: " + level);
+    }
+
+    public void updateHudTeleportCooldown(int teleportCooldown, int maxTeleportCooldown) {
+        teleportCooldownBar.updateCooldownValue(teleportCooldown);
     }
 
     public void draw() {

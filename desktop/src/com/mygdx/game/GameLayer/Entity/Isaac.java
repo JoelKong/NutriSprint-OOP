@@ -3,6 +3,8 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.utils.TimeUtils;
+import com.badlogic.gdx.utils.Timer;
 import com.mygdx.game.GameLayer.Effects.EffectManager;
 import com.mygdx.game.GameLayer.InputOutput.Inputs;
 import com.mygdx.game.GameLayer.Levels.Levels;
@@ -20,6 +22,7 @@ public class Isaac extends Player {
     private int teleportCooldown;
     private long lastTeleportTime;
     private int explodeMeter;
+    private TeleportCooldownListener teleportCooldownListener;
 
     // Default Constructor
     protected Isaac() {
@@ -126,5 +129,15 @@ public class Isaac extends Player {
 
     public void setExplodeMeter(int explodeMeter) {
         this.explodeMeter = explodeMeter;
+    }
+
+    public void setTeleportCooldownListener(TeleportCooldownListener listener) {
+        this.teleportCooldownListener = listener;
+    }
+
+    public void notifyTeleportCooldownChange() {
+        if (teleportCooldownListener != null) {
+            teleportCooldownListener.onTeleportCooldownChange((int) (TimeUtils.millis() - lastTeleportTime));
+        }
     }
 }
