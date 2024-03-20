@@ -22,11 +22,11 @@ public class TeleportCooldownBar {
         // Create the style for the progress bar
         ProgressBar.ProgressBarStyle progressBarStyle = new ProgressBar.ProgressBarStyle();
         Drawable backgroundDrawable = skin.newDrawable("white", Color.GRAY);
-        backgroundDrawable.setMinHeight(20f); // Adjust the height as needed
+        backgroundDrawable.setMinHeight(30f); // Adjust the height as needed
         progressBarStyle.background = backgroundDrawable;
 
         Drawable knobBeforeDrawable = skin.newDrawable("white", Color.BLUE);
-        knobBeforeDrawable.setMinHeight(20f); // Adjust the height as needed
+        knobBeforeDrawable.setMinHeight(30f); // Adjust the height as needed
         progressBarStyle.knobBefore = knobBeforeDrawable;
 
         // Create the progress bar

@@ -49,7 +49,7 @@ public class UiManager {
         createEndButton();
     }
 
-    public void updateGameHUDLevel(int level) {
+    public void updateGameHUDLevel(String level) {
         uiGameHUD.updateHudLevel(level);
     }
 

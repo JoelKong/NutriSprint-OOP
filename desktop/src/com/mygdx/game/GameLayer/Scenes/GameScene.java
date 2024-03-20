@@ -52,7 +52,7 @@ public class GameScene extends Scenes {
                 getSoundManager().playBackgroundMusic(sceneLevelAssets.getLevelTitle(), true);
                 this.uiManager = new UiManager(getSceneManager().getBatch(), getCamera().getUiViewport());
                 uiManager.startGameHUD();
-                uiManager.updateGameHUDLevel(levelManager.getLevelNumber());
+                uiManager.updateGameHUDLevel(sceneLevelAssets.getLevelTitle());
                 entityManager.initializeEntities(sceneLevelAssets);
             } catch (CloneNotSupportedException e) {
                 throw new RuntimeException(e);
@@ -82,9 +82,6 @@ public class GameScene extends Scenes {
 
         // Draw our game scene along with its entities
         drawScene(batch, getSceneBackgroundTexture(), entityManager, effectManager);
-
-
-
 
         // Pause and Resume Game
         if (preferredControls.getPauseKey()) {

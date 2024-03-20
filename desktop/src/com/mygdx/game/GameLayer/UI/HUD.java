@@ -26,22 +26,22 @@ public class HUD {
 
         // Initialize the score and level labels
         this.scoreLabel = new StyledLabel("Score: 0");
-        this.levelLabel = new StyledLabel("Level: 1");
+        this.levelLabel = new StyledLabel("");
 
         // Initialize the health bar with the maximum health and teleportCooldownBar
         this.healthbar = new Healthbar(10);
         this.teleportCooldownBar = new TeleportCooldownBar(skin, 5000f);
 
         // Adding existing elements to the hudTable
-        hudTable.add(levelLabel).align(Align.left).padTop(10).padLeft(20);
-        hudTable.add(scoreLabel).align(Align.center).padTop(10).expandX(); // Expand to use extra horizontal space
+        hudTable.add(levelLabel).align(Align.left).padTop(10).padLeft(20).expandX();
+        hudTable.add(scoreLabel).expandX().align(Align.center).padTop(10); // Expand to use extra horizontal space
         hudTable.add(healthbar).align(Align.right).padTop(10).padRight(300).size(240, 24); // Fixed size for health bar
         hudTable.row(); // Move to the next row
 
         // Span the progress bar under the health bar by using colspan(2) to skip the first two columns
         hudTable.add(); // This empty cell will take the place of the level label column
         hudTable.add(); // This empty cell will take the place of the score label column
-        hudTable.add(teleportCooldownBar.getProgressBar()).align(Align.right).padTop(4).padRight(20).size(300, 24); // Set size to match health bar
+        hudTable.add(teleportCooldownBar.getProgressBar()).align(Align.right).padTop(4).padRight(20).size(400, 24); // Set size to match health bar
 
         // Add the hudTable to the uiStage
         uiStage.addActor(hudTable);
@@ -56,8 +56,8 @@ public class HUD {
         healthbar.updateHealth(health);
     }
 
-    public void updateHudLevel(int level) {
-        levelLabel.setText("Level: " + level);
+    public void updateHudLevel(String level) {
+        levelLabel.setText(level);
     }
 
     public void updateHudTeleportCooldown(int teleportCooldown, int maxTeleportCooldown) {
