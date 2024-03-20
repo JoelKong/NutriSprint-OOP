@@ -46,6 +46,9 @@ public class Player extends GameEntity {
         sb.draw(this.getTexture(), this.getPosX(), this.getPosY(), this.getWidth(), this.getHeight());
     }
 
+    // Reset Player
+    protected void resetPlayer() {};
+
     // Actions of Player
     protected void playerActions(Inputs preferredInput, Map<String, List<GameEntity>> entityMap, EffectManager effectManager, SoundManager soundManager) {};
 

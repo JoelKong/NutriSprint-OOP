@@ -25,16 +25,21 @@ public class EntityManager extends EngineEntityManager {
         getEntityMap().put("props", propEntityList);
     }
 
-    // Reset all entities
-    @Override
-    public void resetEntities() {
-        super.resetEntities();
+    // Reset all entities and reset player state
+    public void resetEntities(Levels level) {
+        getAiEntityList().clear();
         propEntityList.clear();
+        for (GameEntity playerEntity: getPlayerEntityList()) {
+            Isaac player = (Isaac) playerEntity;
+            player.resetPlayer(level);
+        }
     }
 
     // Populate entities based off level specification
     public void populateEntities(Levels level) throws CloneNotSupportedException {
-        getPlayerEntityList().add(entityFactory.createEntity("ISAAC", level));
+        if (getPlayerEntityList().isEmpty()) {
+            getPlayerEntityList().add(entityFactory.createEntity("ISAAC", level));
+        }
 
         for (int i = 0; i < level.getNumberOfFries(); i++) {
             GameEntity entity = randomiseEntityPosition(entityFactory.createEntity("FRENCHFRIES", level).clone(), getEntityMap());
@@ -75,7 +80,7 @@ public class EntityManager extends EngineEntityManager {
     /* Default Initialization of Entities
     1) clear all lists. 2) Create GameEntities based on level specification 3) Put them into EntityMap.*/
     public void initializeEntities(Levels level) throws CloneNotSupportedException {
-        resetEntities();
+        resetEntities(level);
         populateEntities(level);
     }
 

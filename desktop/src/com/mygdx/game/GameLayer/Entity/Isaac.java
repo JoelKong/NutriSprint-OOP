@@ -56,6 +56,17 @@ public class Isaac extends Player {
         sb.draw(bodyRegion, getPosX(), getPosY());
     }
 
+    // Reset Player
+    protected void resetPlayer(Levels sceneLevelAssets) {
+        setTexture(new Texture(Gdx.files.internal(sceneLevelAssets.getPlayerTexture().get(0))));
+        setHeadRegion(new TextureRegion(this.getTexture(), 10, 20, this.getWidth(), this.getHeight()));
+        setBodyRegion(new TextureRegion(this.getTexture(), 10, 70, this.getWidth(), this.getHeight()));
+        setPosX((Gdx.graphics.getWidth() - getWidth()) / 2f);
+        setPosY((Gdx.graphics.getHeight() - getHeight()) / 2f);
+        setWinStatus(false);
+        setLoseStatus(false);
+    };
+
     // Action of Isaac
     protected void playerActions(Inputs preferredInput, Map<String, List<GameEntity>> entityMap, EffectManager effectManager, SoundManager soundManager) {
         if (preferredInput.getUpKey()) {

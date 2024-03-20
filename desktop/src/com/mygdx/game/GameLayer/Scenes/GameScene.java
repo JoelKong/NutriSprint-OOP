@@ -109,6 +109,7 @@ public class GameScene extends Scenes {
 
         // End game if player loses
         if (player.getLoseStatus()) {
+            entityManager.removeEntity(player);
             getSoundManager().stopBackgroundMusic(sceneLevelAssets.getLevelTitle());
             levelManager.setLevelNumber(1);
             getSceneManager().transitionScenes("end");

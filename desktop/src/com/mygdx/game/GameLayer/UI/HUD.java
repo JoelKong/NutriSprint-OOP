@@ -29,7 +29,7 @@ public class HUD {
         this.levelLabel = new StyledLabel("");
 
         // Initialize the health bar with the maximum health and teleportCooldownBar
-        this.healthbar = new Healthbar(10);
+        this.healthbar = new Healthbar(0);
         this.teleportCooldownBar = new TeleportCooldownBar(skin, 5000f);
 
         // Adding existing elements to the hudTable
