@@ -8,6 +8,7 @@ public class Levels {
     private String levelTitle;
     private String levelMusic;
     private String levelBackground;
+    private List<String> dialogue;
     private int numberOfFries;
     private int numberOfBurgers;
     private int numberOfRocks;
@@ -44,6 +45,11 @@ public class Levels {
     // Get Level Background
     public String getLevelBackground() {
         return levelBackground;
+    }
+
+    // Get dialogue
+    public List<String> getDialogue() {
+        return dialogue;
     }
 
     // Get Number of Fries
