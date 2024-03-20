@@ -5,6 +5,8 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.utils.viewport.Viewport;
+import com.mygdx.game.GameLayer.Entity.Player;
+import com.mygdx.game.GameLayer.Levels.Levels;
 import com.mygdx.game.GameLayer.Scenes.SceneManager;
 import com.mygdx.game.GameLayer.Sound.SoundManager;
 
@@ -42,6 +44,22 @@ public class UiManager {
     }
 
     public void createEndSceneUI(SceneManager sceneManager, SoundManager soundManager) {
+        uiTable.padTop(Gdx.graphics.getHeight() / 4);
+
+        // Game Over message label
+        StyledLabel gameOverLabel = new StyledLabel("The cholesterol has finally gotten a hold of you...");
+        uiTable.add(gameOverLabel).colspan(3).padBottom(20).center();
+        uiTable.row(); // Move to the next row
+
+        // Level reached and score labels
+//        StyledLabel levelLabel = new StyledLabel("Made it to: " + sceneLevelAssets.getLevelTitle());
+//        StyledLabel scoreLabel = new StyledLabel("Total fruits collected: " + player.getScore());
+//        uiTable.add(levelLabel).colspan(3).padBottom(20).center();
+//        uiTable.row(); // Move to the next row
+//        uiTable.add(scoreLabel).colspan(3).padBottom(50).center();
+//        uiTable.row(); // Move to the next row
+
+        // Add buttons
         createRestartButton(sceneManager, soundManager);
         uiTable.row();
         createMainMenuButton(sceneManager, soundManager);
@@ -70,7 +88,7 @@ public class UiManager {
             Gdx.app.exit();
         });
 
-        uiTable.add(quitButton).padTop(10).center();
+        uiTable.add(quitButton).colspan(3).center();
     }
 
     private void createRestartButton(SceneManager sceneManager, SoundManager soundManager) {
@@ -80,7 +98,7 @@ public class UiManager {
             sceneManager.transitionScenes("game");
         });
 
-        uiTable.add(restartButton).padBottom(10).center();
+        uiTable.add(restartButton).colspan(3).padBottom(10).center();
     }
 
     private void createMainMenuButton(SceneManager sceneManager, SoundManager soundManager) {
@@ -90,7 +108,7 @@ public class UiManager {
             sceneManager.transitionScenes("start");
         });
 
-        uiTable.add(mainMenuButton).padTop(10).center();
+        uiTable.add(mainMenuButton).colspan(3).padBottom(10).center();
     }
 
     // Get UI Stage
