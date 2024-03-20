@@ -1,6 +1,7 @@
 package com.mygdx.game.GameLayer.UI;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.ProgressBar;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.utils.Align;
@@ -14,7 +15,8 @@ public class HUD {
     private Table hudTable;
     private Healthbar healthbar;
     private TeleportCooldownBar teleportCooldownBar;
-    private StyledLabel explodeMeterCount;
+    private ExplodeMeterBar explodeMeterBar;
+    private ScoreTable scoreTable;
 
     public HUD() {
         this.uiStage = new Stage(new ScreenViewport());
@@ -26,17 +28,19 @@ public class HUD {
         hudTable.top();
 
         // Initialize the score and level labels
-        this.scoreLabel = new StyledLabel("Score: 0");
         this.levelLabel = new StyledLabel("");
-        this.explodeMeterCount = new StyledLabel("Explode Meter: ");
 
         // Initialize the health bar with the maximum health and teleportCooldownBar
         this.healthbar = new Healthbar();
         this.teleportCooldownBar = new TeleportCooldownBar(skin, 5000f);
+        this.explodeMeterBar = new ExplodeMeterBar(skin);
+
+        // Initialise the score + objective table
+        this.scoreTable = new ScoreTable(skin);
 
         // Adding existing elements to the hudTable
         hudTable.add(levelLabel).align(Align.left).padTop(10).padLeft(20).expandX();
-        hudTable.add(scoreLabel).expandX().align(Align.center).padTop(10); // Expand to use extra horizontal space
+        hudTable.add(scoreTable).expandX().align(Align.center).padTop(0); // Expand to use extra horizontal space
         hudTable.add(healthbar).align(Align.right).padTop(10).padRight(300).size(240, 24); // Fixed size for health bar
         hudTable.row(); // Move to the next row
 
@@ -44,17 +48,22 @@ public class HUD {
         hudTable.add(); // This empty cell will take the place of the level label column
         hudTable.add(); // This empty cell will take the place of the score label column
         hudTable.add(teleportCooldownBar.getProgressBar()).align(Align.right).padTop(4).padRight(20).size(400, 24); // Set size to match health bar
+        hudTable.row();
 
         hudTable.add();
         hudTable.add();
-        hudTable.add(explodeMeterCount);
+        hudTable.add(explodeMeterBar.getExplodeMeterBar()).align(Align.right).padTop(20).padRight(20).size(400, 24);
 
         // Add the hudTable to the uiStage
         uiStage.addActor(hudTable);
     }
 
     public void updateHudScore (int score) {
-        scoreLabel.setText("Score: " + score);
+        scoreTable.updateScore(score);
+    }
+
+    public void updateHudObjective(String newObjective) {
+        scoreTable.updateObjective(newObjective);
     }
 
     public void updateHudHealth(int health) {
@@ -63,7 +72,7 @@ public class HUD {
     }
 
     public void updateHudExplodeMeterCount(int explodeMeterCount) {
-        this.explodeMeterCount.setText("Explode Meter: " + explodeMeterCount);
+        this.explodeMeterBar.updateExplodeMeterValue(explodeMeterCount);
     }
 
     public void updateHudLevel(String level) {
@@ -79,17 +88,10 @@ public class HUD {
         uiStage.draw();
     }
 
-    public void dispose() {
-        healthbar.dispose();
-        uiStage.dispose();
-        skin.dispose();
-    }
-
     // Getters and Setters
     public StyledLabel getScoreLabel() {
         return scoreLabel;
     }
-
     public void setScoreLabel(StyledLabel scoreLabel) {
         this.scoreLabel = scoreLabel;
     }
@@ -132,6 +134,12 @@ public class HUD {
 
     public void setHealthbar(Healthbar healthbar) {
         this.healthbar = healthbar;
+    }
+
+    public void dispose() {
+        healthbar.dispose();
+        uiStage.dispose();
+        skin.dispose();
     }
 
 }

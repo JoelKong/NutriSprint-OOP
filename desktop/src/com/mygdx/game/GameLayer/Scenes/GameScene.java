@@ -50,6 +50,7 @@ public class GameScene extends Scenes {
                 this.uiManager = new UiManager(getSceneManager().getBatch(), getCamera().getUiViewport());
                 uiManager.startGameHUD();
                 uiManager.updateGameHUDLevel(sceneLevelAssets.getLevelTitle());
+                uiManager.updateGameHudObjective(sceneLevelAssets.getScoreNeeded());
                 entityManager.initializeEntities(sceneLevelAssets);
             } catch (CloneNotSupportedException e) {
                 throw new RuntimeException(e);
