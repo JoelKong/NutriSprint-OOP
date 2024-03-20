@@ -163,4 +163,10 @@ public class Isaac extends Player {
             entityAttributeListener.onTeleportCooldownChange((int) (TimeUtils.millis() - this.getLastTeleportTime()));
         }
     }
+
+    public void notifyExplodeMeterChange() {
+        if (entityAttributeListener != null) {
+            entityAttributeListener.onExplodeMeterChange(this.getExplodeMeter());
+        }
+    }
 }

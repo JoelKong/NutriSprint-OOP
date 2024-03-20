@@ -81,9 +81,14 @@ public class GameScene extends Scenes {
             public void onHealthChange(int newHealth) {
                 uiManager.getUiGameHUD().updateHudHealth(newHealth);
             }
+
+            public void onExplodeMeterChange(int newExplodeMeterCount) {
+                uiManager.getUiGameHUD().updateHudExplodeMeterCount(newExplodeMeterCount);
+            }
         });
 
         player.notifyTeleportCooldownChange();
+        player.notifyExplodeMeterChange();
         player.notifyHealthChange();
         player.notifyScoreChange();
 
