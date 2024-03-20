@@ -7,12 +7,11 @@ import com.badlogic.gdx.scenes.scene2d.ui.Image;
 // Our player health system
 public class Healthbar extends Group {
     private Texture heartTexture;
-    private final int maxHealth;
+    private final int maxHealth = 10;
     private int currentHealth;
 
     // Initialising our current and max health, texture and also updating it
-    public Healthbar(int maxHealth) {
-        this.maxHealth = maxHealth;
+    public Healthbar() {
         this.currentHealth = maxHealth;
         heartTexture = new Texture(Gdx.files.internal("heart.png"));
         updateHealthDisplay();

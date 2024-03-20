@@ -73,6 +73,7 @@ public class GameScene extends Scenes {
         player.setScoreChangeListener(newScore -> uiManager.getUiGameHUD().updateHudScore(newScore));
         player.setTeleportCooldownListener(newTeleportCooldown -> uiManager.getUiGameHUD().updateHudTeleportCooldown(newTeleportCooldown, 5000));
         player.notifyTeleportCooldownChange();
+        player.notifyHealthChange();
 
         // Clear the screen
         ScreenUtils.clear(0, 0, 0.2f, 1);

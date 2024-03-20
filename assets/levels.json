@@ -37,7 +37,7 @@
     "numberOfBananas": 5,
     "numberOfCherries": 0,
     "respawnables": ["FRENCHFRIES"],
-    "scoreNeeded": "10"
+    "scoreNeeded": "15"
   },
   {
     "levelNumber": 3,
@@ -57,7 +57,7 @@
     "numberOfBananas": 12,
     "numberOfCherries": 6,
     "respawnables": ["FRENCHFRIES", "APPLE", "VEGETABLE"],
-    "scoreNeeded": "15"
+    "scoreNeeded": "25"
   },
   {
     "levelNumber": 4,
