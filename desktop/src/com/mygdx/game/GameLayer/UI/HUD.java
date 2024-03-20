@@ -41,7 +41,7 @@ public class HUD {
         // Span the progress bar under the health bar by using colspan(2) to skip the first two columns
         hudTable.add(); // This empty cell will take the place of the level label column
         hudTable.add(); // This empty cell will take the place of the score label column
-        hudTable.add(teleportCooldownBar.getProgressBar()).align(Align.right).padTop(4).padRight(20).size(240, 24); // Set size to match health bar
+        hudTable.add(teleportCooldownBar.getProgressBar()).align(Align.right).padTop(4).padRight(20).size(300, 24); // Set size to match health bar
 
         // Add the hudTable to the uiStage
         uiStage.addActor(hudTable);
