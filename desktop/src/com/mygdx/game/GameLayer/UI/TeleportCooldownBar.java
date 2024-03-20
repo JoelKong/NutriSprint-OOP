@@ -1,7 +1,4 @@
 package com.mygdx.game.GameLayer.UI;
-
-// TeleportCooldownBar.java
-
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.scenes.scene2d.ui.ProgressBar;
 import com.badlogic.gdx.scenes.scene2d.utils.Drawable;

@@ -70,6 +70,10 @@ public class UiManager {
         uiGameHUD.updateHudLevel(level);
     }
 
+    public void updateGameHudObjective(String objective) {
+        uiGameHUD.updateHudObjective(objective);
+    }
+
     // Get UI Stage
     public Stage getUiStage() {
         return uiStage;
