@@ -14,6 +14,7 @@ public class HUD {
     private Table hudTable;
     private Healthbar healthbar;
     private TeleportCooldownBar teleportCooldownBar;
+    private StyledLabel explodeMeterCount;
 
     public HUD() {
         this.uiStage = new Stage(new ScreenViewport());
@@ -27,6 +28,7 @@ public class HUD {
         // Initialize the score and level labels
         this.scoreLabel = new StyledLabel("Score: 0");
         this.levelLabel = new StyledLabel("");
+        this.explodeMeterCount = new StyledLabel("Explode Meter: ");
 
         // Initialize the health bar with the maximum health and teleportCooldownBar
         this.healthbar = new Healthbar();
@@ -43,6 +45,10 @@ public class HUD {
         hudTable.add(); // This empty cell will take the place of the score label column
         hudTable.add(teleportCooldownBar.getProgressBar()).align(Align.right).padTop(4).padRight(20).size(400, 24); // Set size to match health bar
 
+        hudTable.add();
+        hudTable.add();
+        hudTable.add(explodeMeterCount);
+
         // Add the hudTable to the uiStage
         uiStage.addActor(hudTable);
     }
@@ -53,7 +59,11 @@ public class HUD {
 
     public void updateHudHealth(int health) {
         // Directly update the healthbar which is now part of the HUD
-        healthbar.updateHealth(health);
+        this.healthbar.updateHealth(health);
+    }
+
+    public void updateHudExplodeMeterCount(int explodeMeterCount) {
+        this.explodeMeterCount.setText("Explode Meter: " + explodeMeterCount);
     }
 
     public void updateHudLevel(String level) {
@@ -61,7 +71,7 @@ public class HUD {
     }
 
     public void updateHudTeleportCooldown(int teleportCooldown, int maxTeleportCooldown) {
-        teleportCooldownBar.updateCooldownValue(teleportCooldown);
+        this.teleportCooldownBar.updateCooldownValue(teleportCooldown);
     }
 
     public void draw() {
