@@ -24,15 +24,29 @@ public class Collision {
         List<GameEntity> propEntities = entityManager.getPropEntityList();
 
         // Check for collision between AI and other AI
-
         for (GameEntity ai : aiEntities) {
+
+            // Skip collision detection for chicken
+            if (ai instanceof Chicken) {
+                continue;
+            }
+
+            // Check collisions with AI and rocks
+            for (GameEntity prop : propEntities) {
+                if (collisionDetected(ai, prop)) {
+                    if (prop instanceof Rock) {
+                        resolveRockCollision(ai, prop);
+                    }
+                }
+            }
+
             Vector2 avoidance = new Vector2();
 
             // Check for collision between AI and other AI for avoidance
             for (GameEntity otherAi : aiEntities) {
 
                 // Skip collision detection for chicken with other ai
-                if (ai instanceof Chicken || otherAi instanceof Chicken) {
+                if (otherAi instanceof Chicken) {
                     continue;
                 }
 
@@ -42,15 +56,6 @@ public class Collision {
                         avoidance.add(between.nor());
                     }
                 }
-
-                // Check collisions with AI and rocks
-//                for (GameEntity prop : propEntities) {
-//                    if (collisionDetected(ai, prop)) {
-//                        if (prop instanceof Rock) {
-//                            resolveRockCollision(ai, prop);
-//                        }
-//                    }
-//                }
             }
 
             // Apply avoidance if needed
@@ -72,29 +77,10 @@ public class Collision {
         }
     }
 
-    // Collision Handling for props
-    protected void handlePropCollisions(EntityManager entityManager, SoundManager soundManager) {
+    // Collision Handling for players
+    protected void handlePlayerCollisions(EntityManager entityManager, SoundManager soundManager) {
         List<GameEntity> props = entityManager.getPropEntityList();
         List<GameEntity> players = entityManager.getPlayerEntityList();
-        List<GameEntity> ais = entityManager.getAiEntityList();
-
-        // Handle collision for AI entities
-        for (GameEntity ai : ais) {
-
-            // Skip collision detection for chicken
-            if (ai instanceof Chicken) {
-                continue;
-            }
-
-            // Check collisions with rocks
-            for (GameEntity prop : props) {
-                if (collisionDetected(ai, prop)) {
-                    if (prop instanceof Rock) {
-                        resolveRockCollision(ai, prop);
-                    }
-                }
-            }
-        }
 
         // Handle collision for Player entities
         for (GameEntity entity : players) {
