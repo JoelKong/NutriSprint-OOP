@@ -22,7 +22,7 @@ public class Isaac extends Player {
     private int teleportCooldown;
     private long lastTeleportTime;
     private int explodeMeter;
-    private TeleportCooldownListener teleportCooldownListener;
+    private EntityAttributeListener entityAttributeListener;
 
     // Default Constructor
     protected Isaac() {
@@ -142,13 +142,25 @@ public class Isaac extends Player {
         this.explodeMeter = explodeMeter;
     }
 
-    public void setTeleportCooldownListener(TeleportCooldownListener listener) {
-        this.teleportCooldownListener = listener;
+    public void setEntityAttributeListener(EntityAttributeListener listener) {
+        this.entityAttributeListener = listener;
+    }
+
+    public void notifyHealthChange() {
+        if (entityAttributeListener != null) {
+            entityAttributeListener.onHealthChange(this.getHealth());
+        }
+    }
+
+    public void notifyScoreChange() {
+        if (entityAttributeListener != null) {
+            entityAttributeListener.onScoreChange(this.getScore());
+        }
     }
 
     public void notifyTeleportCooldownChange() {
-        if (teleportCooldownListener != null) {
-            teleportCooldownListener.onTeleportCooldownChange((int) (TimeUtils.millis() - lastTeleportTime));
+        if (entityAttributeListener != null) {
+            entityAttributeListener.onTeleportCooldownChange((int) (TimeUtils.millis() - this.getLastTeleportTime()));
         }
     }
 }

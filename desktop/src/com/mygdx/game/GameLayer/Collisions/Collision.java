@@ -71,7 +71,6 @@ public class Collision {
                 entityManager.removeEntity(ai);
                 soundManager.playSoundEffect("PLAYERHIT");
                 player.setHealth(player.getHealth() - 1);
-                player.notifyHealthChange();
                 break;
             }
         }
@@ -96,7 +95,6 @@ public class Collision {
                         iterator.remove();
                         soundManager.playSoundEffect("COLLECTPOINTS");
                         player.setScore(player.getScore() + 1);
-                        player.notifyScoreChange();
                     } else if (prop instanceof Banana) {
                         iterator.remove();
                         soundManager.playSoundEffect("GAINHEALTH");
