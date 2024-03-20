@@ -21,7 +21,7 @@ public abstract class EngineEntityManager {
         entityMap.put("player", playerEntityList);
     }
 
-    // All games should have the ability to reset, initialize, draw and dispose entities and enabling the entity action
+    // All games should have the ability to reset, initialize, draw, remove and dispose entities and enabling the entity action
     public void resetEntities() {
         aiEntityList.clear();
         playerEntityList.clear();
@@ -30,6 +30,8 @@ public abstract class EngineEntityManager {
     public void initializeEntities() {};
 
     public abstract void drawEntities(SpriteBatch batch);
+
+    public abstract void removeEntity(GameEntity entity);
 
     public abstract void disposeEntities();
 

@@ -1,4 +1,5 @@
 package com.mygdx.game.GameLayer.Collisions;
+import com.mygdx.game.GameLayer.Entity.EntityManager;
 import com.mygdx.game.GameLayer.Entity.GameEntity;
 import com.mygdx.game.GameLayer.Entity.Player;
 import com.mygdx.game.GameLayer.Sound.SoundManager;
@@ -14,14 +15,10 @@ public class CollisionManager {
     }
 
     // Initialize all forms of collisions
-    public void initializeCollisions(Map<String, List<GameEntity>> entityMap, SoundManager soundManager) {
-        List<GameEntity> playerEntityList = entityMap.get("player");
-        List<GameEntity> aiEntityList = entityMap.get("ai");
+    public void initializeCollisions(EntityManager entityManager, SoundManager soundManager) {
+        collision.gameWindowCollision(entityManager.getPlayerEntityList());
+        collision.handleAICollision(entityManager, soundManager);
+        collision.handlePropCollisions(entityManager, soundManager);
 
-        for (GameEntity player: playerEntityList) {
-            collision.gameWindowCollision(player);
-            collision.handleAICollision(aiEntityList, (Player) player, soundManager);
-            collision.handlePropCollisions(entityMap, soundManager);
-        }
     }
 }

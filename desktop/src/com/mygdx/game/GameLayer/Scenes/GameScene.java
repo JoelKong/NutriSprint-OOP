@@ -92,7 +92,7 @@ public class GameScene extends Scenes {
         if (!pauseSceneState) {
             entityManager.initialiseEntityActions(preferredControls, effectManager, getSoundManager());
             aiControlManager.initializeAIBehavior(entityManager.getAiEntityList(), player);
-            collisionManager.initializeCollisions(entityManager.getEntityMap(), getSoundManager());
+            collisionManager.initializeCollisions(entityManager, getSoundManager());
             entityManager.respawnEntities(sceneLevelAssets);
             effectManager.updateEffects();
         }

@@ -18,8 +18,13 @@ public class Collision {
     }
 
     // Collision handling for AI
-    protected void handleAICollision(List<GameEntity> aiEntities, Player player, SoundManager soundManager) {
+    protected void handleAICollision(EntityManager entityManager, SoundManager soundManager) {
+        List<GameEntity> aiEntities = entityManager.getAiEntityList();
+        List<GameEntity> playerEntities = entityManager.getPlayerEntityList();
+        List<GameEntity> propEntities = entityManager.getPropEntityList();
+
         // Check for collision between AI and other AI
+
         for (GameEntity ai : aiEntities) {
             Vector2 avoidance = new Vector2();
 
@@ -37,6 +42,15 @@ public class Collision {
                         avoidance.add(between.nor());
                     }
                 }
+
+                // Check collisions with AI and rocks
+//                for (GameEntity prop : propEntities) {
+//                    if (collisionDetected(ai, prop)) {
+//                        if (prop instanceof Rock) {
+//                            resolveRockCollision(ai, prop);
+//                        }
+//                    }
+//                }
             }
 
             // Apply avoidance if needed
@@ -44,12 +58,12 @@ public class Collision {
                 avoidance.scl(30);
                 ai.setPosX(ai.getPosX() + avoidance.x * Gdx.graphics.getDeltaTime());
                 ai.setPosY(ai.getPosY() + avoidance.y * Gdx.graphics.getDeltaTime());
-                gameWindowCollision(ai);
             }
 
-            // Check for collision between AI and player
+            // Check for collision between AI and players
+            Player player = (Player) playerEntities.get(0);
             if (collisionDetected(ai, player)) {
-                aiEntities.remove(ai);
+                entityManager.removeEntity(ai);
                 soundManager.playSoundEffect("PLAYERHIT");
                 player.setHealth(player.getHealth() - 1);
                 player.notifyHealthChange();
@@ -59,10 +73,10 @@ public class Collision {
     }
 
     // Collision Handling for props
-    protected void handlePropCollisions(Map<String, List<GameEntity>> entityMap, SoundManager soundManager) {
-        List<GameEntity> props = entityMap.get("props");
-        List<GameEntity> players = entityMap.get("player");
-        List<GameEntity> ais = entityMap.get("ai");
+    protected void handlePropCollisions(EntityManager entityManager, SoundManager soundManager) {
+        List<GameEntity> props = entityManager.getPropEntityList();
+        List<GameEntity> players = entityManager.getPlayerEntityList();
+        List<GameEntity> ais = entityManager.getAiEntityList();
 
         // Handle collision for AI entities
         for (GameEntity ai : ais) {
@@ -117,19 +131,21 @@ public class Collision {
     }
 
     // Collision of entity with game window
-    protected void gameWindowCollision (GameEntity entity) {
-        // Left Boundary
-        if (entity.getPosX() < 0) {
-            entity.setPosX(0);
-        // Right Boundary
-        } else if (entity.getPosX() + entity.getWidth() > Gdx.graphics.getWidth()) {
-            entity.setPosX(Gdx.graphics.getWidth() - entity.getWidth());
-        // Bottom Boundary
-        } else if (entity.getPosY() < 0) {
-            entity.setPosY(0);
-        // Top Boundary
-        } else if (entity.getPosY() + entity.getHeight() > Gdx.graphics.getHeight() - 30) {
-            entity.setPosY(Gdx.graphics.getHeight() - 30 - entity.getHeight());
+    protected void gameWindowCollision (List<GameEntity> playerEntities) {
+        for (GameEntity entity: playerEntities) {
+            // Left Boundary
+            if (entity.getPosX() < 0) {
+                entity.setPosX(0);
+                // Right Boundary
+            } else if (entity.getPosX() + entity.getWidth() > Gdx.graphics.getWidth()) {
+                entity.setPosX(Gdx.graphics.getWidth() - entity.getWidth());
+                // Bottom Boundary
+            } else if (entity.getPosY() < 0) {
+                entity.setPosY(0);
+                // Top Boundary
+            } else if (entity.getPosY() + entity.getHeight() > Gdx.graphics.getHeight() - 30) {
+                entity.setPosY(Gdx.graphics.getHeight() - 30 - entity.getHeight());
+            }
         }
     }
 

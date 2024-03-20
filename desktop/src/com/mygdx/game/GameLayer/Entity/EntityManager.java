@@ -89,6 +89,18 @@ public class EntityManager extends EngineEntityManager {
         }
     }
 
+    @Override
+    // Removing of Entities
+    public void removeEntity(GameEntity entity) {
+        if (entity instanceof AI) {
+            getAiEntityList().remove(entity);
+        } else if (entity instanceof Player) {
+            getPlayerEntityList().remove(entity);
+        } else {
+            propEntityList.remove(entity);
+        }
+    }
+
     // Respawning of Entities
     public void respawnEntities(Levels sceneLevelAssets) {
         timeSinceLastSpawn += 1;
