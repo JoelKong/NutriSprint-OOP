@@ -5,10 +5,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.mygdx.game.GameLayer.Collisions.CollisionManager;
 import com.mygdx.game.GameLayer.Effects.EffectManager;
-import com.mygdx.game.GameLayer.Entity.AIControlManager;
-import com.mygdx.game.GameLayer.Entity.EntityManager;
-import com.mygdx.game.GameLayer.Entity.Isaac;
-import com.mygdx.game.GameLayer.Entity.Player;
+import com.mygdx.game.GameLayer.Entity.*;
 import com.mygdx.game.GameLayer.InputOutput.Inputs;
 import com.mygdx.game.GameLayer.Levels.LevelManager;
 import com.mygdx.game.GameLayer.Levels.Levels;
@@ -69,11 +66,26 @@ public class GameScene extends Scenes {
         SpriteBatch batch = getSceneManager().getBatch();
 
         // Set up listeners on the player
-        player.setHealthChangeListener(newHealth -> uiManager.getUiGameHUD().updateHudHealth(newHealth));
-        player.setScoreChangeListener(newScore -> uiManager.getUiGameHUD().updateHudScore(newScore));
-        player.setTeleportCooldownListener(newTeleportCooldown -> uiManager.getUiGameHUD().updateHudTeleportCooldown(newTeleportCooldown, 5000));
+        player.setEntityAttributeListener(new EntityAttributeListener() {
+            @Override
+            public void onTeleportCooldownChange(int newTeleportCooldown) {
+                uiManager.getUiGameHUD().updateHudTeleportCooldown(newTeleportCooldown, player.getTeleportCooldown());
+            }
+
+            @Override
+            public void onScoreChange(int newScore) {
+                uiManager.getUiGameHUD().updateHudScore(newScore);
+            }
+
+            @Override
+            public void onHealthChange(int newHealth) {
+                uiManager.getUiGameHUD().updateHudHealth(newHealth);
+            }
+        });
+
         player.notifyTeleportCooldownChange();
         player.notifyHealthChange();
+        player.notifyScoreChange();
 
         // Clear the screen
         ScreenUtils.clear(0, 0, 0.2f, 1);

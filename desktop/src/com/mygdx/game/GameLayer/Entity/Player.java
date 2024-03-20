@@ -17,8 +17,6 @@ public class Player extends GameEntity {
     private boolean winStatus;
     private boolean loseStatus;
     private PlayerControlManager playerControlManager;
-    private HealthChangeListener healthChangeListener;
-    private ScoreChangeListener scoreChangeListener;
 
     // Default Constructor
     protected Player() {
@@ -70,20 +68,6 @@ public class Player extends GameEntity {
         }
     }
 
-    // Check for health change
-    public void notifyHealthChange() {
-        if (healthChangeListener != null) {
-            healthChangeListener.onHealthChange(health);
-        }
-    }
-
-    // Check for score change
-    public void notifyScoreChange() {
-        if (scoreChangeListener != null) {
-            scoreChangeListener.onScoreChange(score);
-        }
-    }
-
     // Get Player Health
     public int getHealth() {
         return health;
@@ -127,13 +111,5 @@ public class Player extends GameEntity {
     // Get Player Control Manager
     public PlayerControlManager getPlayerControlManager() {
         return playerControlManager;
-    }
-
-    public void setHealthChangeListener(HealthChangeListener listener) {
-        this.healthChangeListener = listener;
-    }
-
-    public void setScoreChangeListener(ScoreChangeListener listener) {
-        this.scoreChangeListener = listener;
     }
 }
