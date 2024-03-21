@@ -22,7 +22,7 @@
     "numberOfBananas": 0,
     "numberOfCherries": 0,
     "respawnables": ["FRENCHFRIES"],
-    "scoreNeeded": 5
+    "scoreNeeded": "5"
   },
   {
     "levelNumber": 2,

@@ -7,6 +7,7 @@ import com.mygdx.game.GameLayer.Camera.CameraManager;
 import com.mygdx.game.GameLayer.Effects.EffectManager;
 import com.mygdx.game.GameLayer.Entity.EntityManager;
 import com.mygdx.game.GameLayer.InputOutput.InputOutputManager;
+import com.mygdx.game.GameLayer.Levels.LevelManager;
 import com.mygdx.game.GameLayer.Sound.SoundManager;
 
 // Abstract class Scene implementing LibGDX Screen interface
