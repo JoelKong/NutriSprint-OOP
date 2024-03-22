@@ -26,13 +26,12 @@ public class Collision {
         // Check for collision between AI and other AI
         for (GameEntity ai : aiEntities) {
 
-            // Skip collision detection for chicken
-            if (ai instanceof Chicken) {
-                continue;
-            }
-
             // Check collisions with AI and rocks
             for (GameEntity prop : propEntities) {
+                // Skip collision detection of rock for chicken
+                if (ai instanceof Chicken) {
+                    continue;
+                }
                 if (collisionDetected(ai, prop)) {
                     if (prop instanceof Rock) {
                         resolveRockCollision(ai, prop);
