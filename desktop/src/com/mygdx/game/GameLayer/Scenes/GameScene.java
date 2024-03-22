@@ -35,6 +35,33 @@ public class GameScene extends Scenes {
         this.effectManager = new EffectManager();
     }
 
+
+    @Override
+    public void show() {
+        sceneLevelAssets = levelManager.retrieveLevelAssets();
+        // Check if level assets available for selected level, if not game ends
+        if (sceneLevelAssets == null) {
+            levelManager.setLevelNumber(1);
+            getSceneManager().transitionScenes("end");
+        } else {
+            try {
+                setSceneBackgroundTexture(new Texture(Gdx.files.internal(sceneLevelAssets.getLevelBackground())));
+                getSoundManager().loadSoundEffect(new String[]{"COLLECTCHERRY", "COLLECTPOINTS", "GAINHEALTH", "EXPLOSION", "TELEPORT", "PLAYERHIT", "PLAYERDEATH"});
+                getSoundManager().loadBackgroundMusic(sceneLevelAssets);
+                getSoundManager().playBackgroundMusic(sceneLevelAssets.getLevelTitle(), true);
+                this.uiManager = new UiManager(getSceneManager().getBatch(), getCamera().getUiViewport());
+                uiManager.startGameHUD();
+                uiManager.updateGameHUDLevel(sceneLevelAssets.getLevelTitle());
+                uiManager.updateGameHudObjective(sceneLevelAssets.getScoreNeeded());
+                entityManager.initializeEntities(sceneLevelAssets);
+                showInstructions();
+            } catch (CloneNotSupportedException e) {
+                throw new RuntimeException(e);
+            }
+        }
+    }
+
+    // Render game screen
     @Override
     public void render(float delta) {
         // Get necessary data for ease of access
@@ -114,33 +141,6 @@ public class GameScene extends Scenes {
         uiManager.getUiStage().act(Math.min(Gdx.graphics.getDeltaTime(), 1 / 30f));
         uiManager.getUiStage().draw();
     }
-    // Check if level assets available for selected level, if not game ends
-
-    @Override
-    public void show() {
-        sceneLevelAssets = levelManager.retrieveLevelAssets();
-
-        if (sceneLevelAssets == null) {
-            levelManager.setLevelNumber(1);
-            getSceneManager().transitionScenes("end");
-        } else {
-            try {
-                setSceneBackgroundTexture(new Texture(Gdx.files.internal(sceneLevelAssets.getLevelBackground())));
-                getSoundManager().loadSoundEffect(new String[]{"COLLECTCHERRY", "COLLECTPOINTS", "GAINHEALTH", "EXPLOSION", "TELEPORT", "PLAYERHIT", "PLAYERDEATH"});
-                getSoundManager().loadBackgroundMusic(sceneLevelAssets);
-                getSoundManager().playBackgroundMusic(sceneLevelAssets.getLevelTitle(), true);
-                this.uiManager = new UiManager(getSceneManager().getBatch(), getCamera().getUiViewport());
-                uiManager.startGameHUD();
-                uiManager.updateGameHUDLevel(sceneLevelAssets.getLevelTitle());
-                uiManager.updateGameHudObjective(sceneLevelAssets.getScoreNeeded());
-                entityManager.initializeEntities(sceneLevelAssets);
-                showInstructions();
-            } catch (CloneNotSupportedException e) {
-                throw new RuntimeException(e);
-            }
-        }
-    }
-    // Render game screen
 
     // Upon switching screens dispose all stuff on the screen
     public void dispose() {
