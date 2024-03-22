@@ -50,7 +50,7 @@ public class GameScene extends Scenes {
                 getSoundManager().loadBackgroundMusic(sceneLevelAssets);
                 getSoundManager().playBackgroundMusic(sceneLevelAssets.getLevelTitle(), true);
                 this.uiManager = new UiManager(getSceneManager().getBatch(), getCamera().getUiViewport());
-                uiManager.startGameHUD();
+                uiManager.startGameHUD(sceneLevelAssets.getDialogue());
                 uiManager.updateGameHUDLevel(sceneLevelAssets.getLevelTitle());
                 uiManager.updateGameHudObjective(sceneLevelAssets.getScoreNeeded());
                 entityManager.initializeEntities(sceneLevelAssets);

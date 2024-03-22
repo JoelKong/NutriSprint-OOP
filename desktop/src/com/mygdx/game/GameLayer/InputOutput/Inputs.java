@@ -16,4 +16,6 @@ public interface Inputs {
     void setTeleportKey(int teleportKey);
     boolean getExplodeKey();
     void setExplodeKey(int explodeKey);
+    boolean getProgressDialogueKey();
+    void setProgressDialogueKey(int progressDialogueKey);
 }

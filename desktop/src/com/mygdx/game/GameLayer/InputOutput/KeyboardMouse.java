@@ -12,6 +12,8 @@ public class KeyboardMouse implements Inputs {
     private int pauseKey;
     private int teleportKey;
     private int explodeKey;
+    private int progressDialogueKey;
+
 
     // Default Constructor for all key bindings
     protected KeyboardMouse() {
@@ -22,6 +24,7 @@ public class KeyboardMouse implements Inputs {
         this.pauseKey = Input.Keys.ESCAPE;
         this.teleportKey = Input.Keys.SHIFT_LEFT;
         this.explodeKey = Input.Keys.SPACE;
+        this.progressDialogueKey = Input.Keys.ENTER;
     }
 
     // Get Left Key
@@ -88,5 +91,13 @@ public class KeyboardMouse implements Inputs {
     // Set Explode Key
     public void setExplodeKey(int explodeKey) {
         this.explodeKey = explodeKey;
+    }
+
+    public boolean getProgressDialogueKey() {
+        return Gdx.input.isKeyJustPressed(progressDialogueKey);
+    }
+
+    public void setProgressDialogueKey(int progressDialogueKey) {
+        this.progressDialogueKey = progressDialogueKey;
     }
 }

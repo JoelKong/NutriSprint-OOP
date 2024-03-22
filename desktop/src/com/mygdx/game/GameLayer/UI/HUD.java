@@ -24,7 +24,7 @@ public class HUD {
     private ScoreTable scoreTable;
     private InstructionDialog dialogue;
 
-    public HUD(Stage uiStage) {
+    public HUD(Stage uiStage, String[] dialogue) {
         this.uiStage = uiStage;
         this.skin = new Skin(Gdx.files.internal("UI/libgdx/uiskin.json"));
 
@@ -34,7 +34,7 @@ public class HUD {
         this.hudTable.top();
 
         // Initialize the dialogue
-        this.dialogue = new InstructionDialog(new String[]{"text"});
+        this.dialogue = new InstructionDialog(dialogue);
 
         // Initialize the score and level labels
         this.levelLabel = new StyledLabel("");

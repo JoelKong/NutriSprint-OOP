@@ -8,7 +8,7 @@ public class Levels {
     private String levelTitle;
     private String levelMusic;
     private String levelBackground;
-    private List<String> dialogue;
+    private String[] dialogue;
     private int numberOfFries;
     private int numberOfBurgers;
     private int numberOfRocks;
@@ -48,7 +48,7 @@ public class Levels {
     }
 
     // Get dialogue
-    public List<String> getDialogue() {
+    public String[] getDialogue() {
         return dialogue;
     }
 

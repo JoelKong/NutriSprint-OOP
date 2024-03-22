@@ -27,9 +27,9 @@ public class UiManager {
     }
 
     // Start the game HUD
-    public void startGameHUD() {
+    public void startGameHUD(String[] dialogue) {
         if (uiGameHUD == null) {
-            uiGameHUD = new HUD(this.uiStage);
+            uiGameHUD = new HUD(this.uiStage, dialogue);
         }
 
         uiStage.addActor(uiGameHUD.getHudTable());
