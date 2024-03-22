@@ -22,7 +22,7 @@ public class HUD {
     private TeleportCooldownBar teleportCooldownBar;
     private ExplodeMeterBar explodeMeterBar;
     private ScoreTable scoreTable;
-    private InstructionDialog dialogue;
+    private Dialogue dialogue;
 
     public HUD(Stage uiStage, String[] dialogue) {
         this.uiStage = uiStage;
@@ -34,7 +34,10 @@ public class HUD {
         this.hudTable.top();
 
         // Initialize the dialogue
-        this.dialogue = new InstructionDialog(dialogue);
+        // this.dialogue = new InstructionDialog(dialogue);
+        this.dialogue = new Dialogue("");
+        this.dialogue.setPosition(Gdx.graphics.getWidth() / 2f - 150, Gdx.graphics.getHeight() / 2f - 75); // Center the dialogue on the screen
+        this.dialogue.setLabelPadding(50, 400, 50, 400); // Optional: Adjust the label padding within the dialogue
 
         // Initialize the score and level labels
         this.levelLabel = new StyledLabel("");
@@ -65,7 +68,7 @@ public class HUD {
         hudTable.row();
 
         hudTable.add();
-        hudTable.add(this.dialogue).expand().bottom();
+        hudTable.add(this.dialogue).expand().align(Align.bottom);
         hudTable.add();
         hudTable.row();
 
@@ -96,6 +99,18 @@ public class HUD {
 
     public void updateHudTeleportCooldown(int teleportCooldown, int maxTeleportCooldown) {
         this.teleportCooldownBar.updateCooldownValue(teleportCooldown);
+    }
+
+    public void updateHudDialogue(String text) {
+        this.dialogue.setText(text);
+    }
+
+    public void updateHudDialogueVisible() {
+        this.dialogue.setDialogueVisible();
+    }
+
+    public void updateHudDialogueInvisible() {
+        this.dialogue.setDialogueInvisible();
     }
 
     public void draw() {
