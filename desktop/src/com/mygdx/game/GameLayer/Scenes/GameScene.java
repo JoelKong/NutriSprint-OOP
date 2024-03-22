@@ -9,6 +9,7 @@ import com.mygdx.game.GameLayer.Entity.*;
 import com.mygdx.game.GameLayer.InputOutput.Inputs;
 import com.mygdx.game.GameLayer.Levels.LevelManager;
 import com.mygdx.game.GameLayer.Levels.Levels;
+import com.mygdx.game.GameLayer.UI.InstructionDialog;
 import com.mygdx.game.GameLayer.UI.UiManager;
 
 // GameScene class inherited from scenes, only contain managers which belong in gamescene
@@ -21,6 +22,7 @@ public class GameScene extends Scenes {
     private EntityManager entityManager;
     private EffectManager effectManager;
     private UiManager uiManager;
+    private InstructionDialog instructionsDialog;
 
     // Parameterized Constructor getting scene manager reference and passing it to our parent scenes
     protected GameScene(SceneManager sceneManager) {
@@ -33,32 +35,6 @@ public class GameScene extends Scenes {
         this.effectManager = new EffectManager();
     }
 
-    // Check if level assets available for selected level, if not game ends
-    @Override
-    public void show() {
-        sceneLevelAssets = levelManager.retrieveLevelAssets();
-
-        if (sceneLevelAssets == null) {
-            levelManager.setLevelNumber(1);
-            getSceneManager().transitionScenes("end");
-        } else {
-            try {
-                setSceneBackgroundTexture(new Texture(Gdx.files.internal(sceneLevelAssets.getLevelBackground())));
-                getSoundManager().loadSoundEffect(new String[]{"COLLECTCHERRY", "COLLECTPOINTS", "GAINHEALTH", "EXPLOSION", "TELEPORT", "PLAYERHIT", "PLAYERDEATH"});
-                getSoundManager().loadBackgroundMusic(sceneLevelAssets);
-                getSoundManager().playBackgroundMusic(sceneLevelAssets.getLevelTitle(), true);
-                this.uiManager = new UiManager(getSceneManager().getBatch(), getCamera().getUiViewport());
-                uiManager.startGameHUD();
-                uiManager.updateGameHUDLevel(sceneLevelAssets.getLevelTitle());
-                uiManager.updateGameHudObjective(sceneLevelAssets.getScoreNeeded());
-                entityManager.initializeEntities(sceneLevelAssets);
-            } catch (CloneNotSupportedException e) {
-                throw new RuntimeException(e);
-            }
-        }
-    }
-
-    // Render game screen
     @Override
     public void render(float delta) {
         // Get necessary data for ease of access
@@ -138,6 +114,33 @@ public class GameScene extends Scenes {
         uiManager.getUiStage().act(Math.min(Gdx.graphics.getDeltaTime(), 1 / 30f));
         uiManager.getUiStage().draw();
     }
+    // Check if level assets available for selected level, if not game ends
+
+    @Override
+    public void show() {
+        sceneLevelAssets = levelManager.retrieveLevelAssets();
+
+        if (sceneLevelAssets == null) {
+            levelManager.setLevelNumber(1);
+            getSceneManager().transitionScenes("end");
+        } else {
+            try {
+                setSceneBackgroundTexture(new Texture(Gdx.files.internal(sceneLevelAssets.getLevelBackground())));
+                getSoundManager().loadSoundEffect(new String[]{"COLLECTCHERRY", "COLLECTPOINTS", "GAINHEALTH", "EXPLOSION", "TELEPORT", "PLAYERHIT", "PLAYERDEATH"});
+                getSoundManager().loadBackgroundMusic(sceneLevelAssets);
+                getSoundManager().playBackgroundMusic(sceneLevelAssets.getLevelTitle(), true);
+                this.uiManager = new UiManager(getSceneManager().getBatch(), getCamera().getUiViewport());
+                uiManager.startGameHUD();
+                uiManager.updateGameHUDLevel(sceneLevelAssets.getLevelTitle());
+                uiManager.updateGameHudObjective(sceneLevelAssets.getScoreNeeded());
+                entityManager.initializeEntities(sceneLevelAssets);
+                showInstructions();
+            } catch (CloneNotSupportedException e) {
+                throw new RuntimeException(e);
+            }
+        }
+    }
+    // Render game screen
 
     // Upon switching screens dispose all stuff on the screen
     public void dispose() {
@@ -154,5 +157,14 @@ public class GameScene extends Scenes {
     // Set Pause Scene State
     public void setPauseSceneState(boolean pauseSceneState) {
         this.pauseSceneState = pauseSceneState;
+    }
+
+    public void showInstructions() {
+        if (instructionsDialog == null) {
+            this.setPauseSceneState(true);
+            instructionsDialog = new InstructionDialog("Instructions", uiManager.getUiGameHUD().getSkin(), uiManager.getUiStage(), 0.6f, 0.2f);
+            this.setPauseSceneState(false);
+        }
+        instructionsDialog.show(uiManager.getUiStage());
     }
 }
