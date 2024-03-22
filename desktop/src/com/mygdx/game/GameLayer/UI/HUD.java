@@ -13,19 +13,26 @@ public class HUD {
     private Skin skin;
     private Stage uiStage;
     private Table hudTable;
+    private Table dialogueTable;
     private Healthbar healthbar;
     private TeleportCooldownBar teleportCooldownBar;
     private ExplodeMeterBar explodeMeterBar;
     private ScoreTable scoreTable;
+    private InstructionDialog dialogue;
 
     public HUD() {
         this.uiStage = new Stage(new ScreenViewport());
         this.skin = new Skin(Gdx.files.internal("UI/libgdx/uiskin.json"));
 
+        this.dialogue = new InstructionDialog(new String[]{"testjfiojfjfjriovrofoirhfiorfiwenfphfi"});
+
         // Initialize the hudTable
         this.hudTable = new Table();
-        hudTable.setFillParent(true);
-        hudTable.top();
+        this.hudTable.setFillParent(true);
+        this.hudTable.top();
+
+        this.dialogueTable = new Table();
+        this.dialogueTable.setPosition(0, 0);
 
         // Initialize the score and level labels
         this.levelLabel = new StyledLabel("");
@@ -53,9 +60,20 @@ public class HUD {
         hudTable.add();
         hudTable.add();
         hudTable.add(explodeMeterBar.getExplodeMeterBar()).align(Align.right).padTop(20).padRight(20).size(400, 24);
+        hudTable.row();
+
+//        hudTable.add();
+//        hudTable.add(this.dialogue);
+//        hudTable.add();
+//        hudTable.row();
+
+        this.dialogueTable.add(dialogue);
+
+
 
         // Add the hudTable to the uiStage
         uiStage.addActor(hudTable);
+        uiStage.addActor(dialogueTable);
     }
 
     public void updateHudScore (int score) {
