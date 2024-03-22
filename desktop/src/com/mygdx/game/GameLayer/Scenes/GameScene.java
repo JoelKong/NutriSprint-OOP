@@ -54,7 +54,6 @@ public class GameScene extends Scenes {
                 uiManager.updateGameHUDLevel(sceneLevelAssets.getLevelTitle());
                 uiManager.updateGameHudObjective(sceneLevelAssets.getScoreNeeded());
                 entityManager.initializeEntities(sceneLevelAssets);
-                showInstructions();
             } catch (CloneNotSupportedException e) {
                 throw new RuntimeException(e);
             }
@@ -142,13 +141,6 @@ public class GameScene extends Scenes {
         uiManager.getUiStage().draw();
     }
 
-    // Upon switching screens dispose all stuff on the screen
-    public void dispose() {
-        entityManager.disposeEntities();
-        effectManager.disposeEffects();
-        getSoundManager().disposeSounds();
-    };
-
     // Get Pause Scene State
     public boolean isPauseSceneState() {
         return pauseSceneState;
@@ -157,14 +149,5 @@ public class GameScene extends Scenes {
     // Set Pause Scene State
     public void setPauseSceneState(boolean pauseSceneState) {
         this.pauseSceneState = pauseSceneState;
-    }
-
-    public void showInstructions() {
-        if (instructionsDialog == null) {
-            this.setPauseSceneState(true);
-            instructionsDialog = new InstructionDialog("Instructions", uiManager.getUiGameHUD().getSkin(), uiManager.getUiStage(), 0.6f, 0.2f);
-            this.setPauseSceneState(false);
-        }
-        instructionsDialog.show(uiManager.getUiStage());
     }
 }
