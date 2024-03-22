@@ -1,9 +1,13 @@
 package com.mygdx.game.GameLayer.UI;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.Pixmap;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.ProgressBar;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
+import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 
@@ -20,19 +24,17 @@ public class HUD {
     private ScoreTable scoreTable;
     private InstructionDialog dialogue;
 
-    public HUD() {
-        this.uiStage = new Stage(new ScreenViewport());
+    public HUD(Stage uiStage) {
+        this.uiStage = uiStage;
         this.skin = new Skin(Gdx.files.internal("UI/libgdx/uiskin.json"));
-
-        this.dialogue = new InstructionDialog(new String[]{"testjfiojfjfjriovrofoirhfiorfiwenfphfi"});
 
         // Initialize the hudTable
         this.hudTable = new Table();
         this.hudTable.setFillParent(true);
         this.hudTable.top();
 
-        this.dialogueTable = new Table();
-        this.dialogueTable.setPosition(0, 0);
+        // Initialize the dialogue
+        this.dialogue = new InstructionDialog(new String[]{"text"});
 
         // Initialize the score and level labels
         this.levelLabel = new StyledLabel("");
@@ -62,18 +64,13 @@ public class HUD {
         hudTable.add(explodeMeterBar.getExplodeMeterBar()).align(Align.right).padTop(20).padRight(20).size(400, 24);
         hudTable.row();
 
-//        hudTable.add();
-//        hudTable.add(this.dialogue);
-//        hudTable.add();
-//        hudTable.row();
-
-        this.dialogueTable.add(dialogue);
-
-
+        hudTable.add();
+        hudTable.add(this.dialogue).expand().bottom();
+        hudTable.add();
+        hudTable.row();
 
         // Add the hudTable to the uiStage
         uiStage.addActor(hudTable);
-        uiStage.addActor(dialogueTable);
     }
 
     public void updateHudScore (int score) {
