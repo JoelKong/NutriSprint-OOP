@@ -2,25 +2,31 @@ package com.mygdx.game.GameLayer.Sound;
 
 public class SoundFactory {
     // Factory method to retrieve sound effects
+    private enum SoundType {
+        EXPLOSION, TELEPORT, PLAYERHIT, PLAYERDEATH, COLLECTCHERRY, GAINHEALTH,
+        BUTTONCLICK, COLLECTPOINTS
+    }
     public String generateSoundEffect(String soundEffect) {
-        switch (soundEffect) {
-            case "EXPLOSION":
+        SoundType soundType = getSoundType(soundEffect);
+        switch (soundType) {
+            case EXPLOSION:
                 return SoundEffects.EXPLOSION;
-            case "TELEPORT":
+            case TELEPORT:
                 return SoundEffects.TELEPORT;
-            case "PLAYERHIT":
+            case PLAYERHIT:
                 return SoundEffects.PLAYERHIT;
-            case "PLAYERDEATH":
+            case PLAYERDEATH:
                 return SoundEffects.PLAYERDEATH;
-            case "COLLECTCHERRY":
+            case COLLECTCHERRY:
                 return SoundEffects.COLLECTCHERRY;
-            case "GAINHEALTH":
+            case GAINHEALTH:
                 return SoundEffects.GAINHEALTH;
-            case "BUTTONCLICK":
+            case BUTTONCLICK:
                 return SoundEffects.BUTTONCLICK;
-            case "COLLECTPOINTS":
+            case COLLECTPOINTS:
                 return SoundEffects.COLLECTPOINTS;
             default:
+                System.out.println("Warning: Unknown soundType when creating a new sound object.");
                 return null;
         }
     }
@@ -34,6 +40,21 @@ public class SoundFactory {
                 return BackgroundSounds.GAMEOVER;
             default:
                 return null;
+        }
+    }
+
+    // Takes in string, returns Enum value
+    private SoundType getSoundType(String soundString) {
+        // Convert the provided string to uppercase to match enum values
+        soundString = soundString.toUpperCase();
+
+        // Check if the provided type matches any of the enum values
+        try {
+            return SoundType.valueOf(soundString);
+        } catch (IllegalArgumentException e) {
+            // Handle the case where the provided type is not a valid enum value
+            System.out.println("Invalid Button type: " + soundString);
+            return null;
         }
     }
 }

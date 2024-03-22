@@ -50,4 +50,5 @@ public class WindowButton extends ImageTextButton {
         this.padLeft(25);
         this.padRight(25);
     }
+
 }
