@@ -74,6 +74,18 @@ public class UiManager {
         uiGameHUD.updateHudObjective(objective);
     }
 
+    public void updateGameHudDialogue(String text) {
+        uiGameHUD.updateHudDialogue(text);
+    }
+
+    public void updateGameHudDialogueVisible() {
+        uiGameHUD.updateHudDialogueVisible();
+    }
+
+    public void updateGameHudDialogueInvisible() {
+        uiGameHUD.updateHudDialogueInvisible();
+    }
+
     // Get UI Stage
     public Stage getUiStage() {
         return uiStage;

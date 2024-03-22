@@ -6,11 +6,13 @@ import com.badlogic.gdx.utils.ScreenUtils;
 import com.mygdx.game.GameLayer.Collisions.CollisionManager;
 import com.mygdx.game.GameLayer.Effects.EffectManager;
 import com.mygdx.game.GameLayer.Entity.*;
+import com.mygdx.game.GameLayer.InputOutput.InputOutputManager;
 import com.mygdx.game.GameLayer.InputOutput.Inputs;
 import com.mygdx.game.GameLayer.Levels.LevelManager;
 import com.mygdx.game.GameLayer.Levels.Levels;
-import com.mygdx.game.GameLayer.UI.InstructionDialog;
 import com.mygdx.game.GameLayer.UI.UiManager;
+
+import java.util.Arrays;
 
 // GameScene class inherited from scenes, only contain managers which belong in gamescene
 public class GameScene extends Scenes {
@@ -22,7 +24,7 @@ public class GameScene extends Scenes {
     private EntityManager entityManager;
     private EffectManager effectManager;
     private UiManager uiManager;
-    private InstructionDialog instructionsDialog;
+    private String sceneDialogues[];
 
     // Parameterized Constructor getting scene manager reference and passing it to our parent scenes
     protected GameScene(SceneManager sceneManager) {
@@ -50,10 +52,12 @@ public class GameScene extends Scenes {
                 getSoundManager().loadBackgroundMusic(sceneLevelAssets);
                 getSoundManager().playBackgroundMusic(sceneLevelAssets.getLevelTitle(), true);
                 this.uiManager = new UiManager(getSceneManager().getBatch(), getCamera().getUiViewport());
+
                 uiManager.startGameHUD(sceneLevelAssets.getDialogue());
                 uiManager.updateGameHUDLevel(sceneLevelAssets.getLevelTitle());
                 uiManager.updateGameHudObjective(sceneLevelAssets.getScoreNeeded());
                 entityManager.initializeEntities(sceneLevelAssets);
+                this.sceneDialogues = sceneLevelAssets.getDialogue();
             } catch (CloneNotSupportedException e) {
                 throw new RuntimeException(e);
             }
@@ -67,6 +71,18 @@ public class GameScene extends Scenes {
         Inputs preferredControls = getInputOutputManager().getPreferredControls();
         Isaac player = (Isaac) entityManager.getPlayerEntityList().get(0);
         SpriteBatch batch = getSceneManager().getBatch();
+
+        // Assuming sceneDialogues is not empty and has elements to remove
+        if (sceneDialogues.length > 0) {
+            this.pauseSceneState = false;
+            uiManager.updateGameHudDialogue(sceneDialogues[0]); // Update HUD with the first dialogue
+            if (preferredControls.getProgressDialogueKey()) {
+                // Shift the rest of the elements to the left by one position and create a new array
+                sceneDialogues = Arrays.copyOfRange(sceneDialogues, 1, sceneDialogues.length);
+            }
+        } else {
+            uiManager.updateGameHudDialogueInvisible();
+        }
 
         // Set up listeners on the player
         player.setEntityAttributeListener(new EntityAttributeListener() {
@@ -110,7 +126,7 @@ public class GameScene extends Scenes {
         }
 
         // If not paused, initialise all forms of behavior and movement and timers
-        if (!pauseSceneState) {
+        if (!pauseSceneState && sceneDialogues.length == 0) {
             entityManager.initialiseEntityActions(preferredControls, effectManager, getSoundManager());
             aiControlManager.initializeAIBehavior(entityManager.getAiEntityList(), player);
             collisionManager.initializeCollisions(entityManager, getSoundManager());
