@@ -37,7 +37,7 @@ public class HUD {
         // this.dialogue = new InstructionDialog(dialogue);
         this.dialogue = new Dialogue("");
         this.dialogue.setPosition(Gdx.graphics.getWidth() / 2f - 150, Gdx.graphics.getHeight() / 2f - 75); // Center the dialogue on the screen
-        this.dialogue.setLabelPadding(50, 400, 50, 400); // Optional: Adjust the label padding within the dialogue
+        this.dialogue.setLabelPadding(50, 175, 50, 175); // Optional: Adjust the label padding within the dialogue
 
         // Initialize the score and level labels
         this.levelLabel = new StyledLabel("");
