@@ -87,7 +87,7 @@
                  "How convenient. Well, let's see how much food you can eat. Time doesn't pass here as well so try your best to eat as much fruits and veggies as possible",
                  "This is the great yapper applin signing out. And remember, an apple a day keeps the fatties away."],
     "playerSpeed": 330,
-    "enemySpeed": 240,
+    "enemySpeed": 260,
     "numberOfFries": 10,
     "numberOfBurgers": 6,
     "numberOfRocks": 40,

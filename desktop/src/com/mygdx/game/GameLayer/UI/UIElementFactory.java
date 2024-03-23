@@ -6,7 +6,7 @@ import com.mygdx.game.GameLayer.Sound.SoundManager;
 
 public class UIElementFactory {
     private enum ButtonType {
-        START, QUIT, RESTART, MAINMENU
+        START, INSTRUCTION, BACK, QUIT, RESTART, MAINMENU
     }
 
     public WindowButton createButton(String buttonName, SceneManager sceneManager, SoundManager soundManager) {
@@ -17,6 +17,18 @@ public class UIElementFactory {
                     soundManager.playSoundEffect("BUTTONCLICK");
                     soundManager.stopBackgroundMusic("MENU");
                     sceneManager.transitionScenes("game");
+                });
+
+            case INSTRUCTION:
+                return new WindowButton("How to Play", () -> {
+                    soundManager.playSoundEffect("BUTTONCLICK");
+                    sceneManager.transitionScenes("instruction");
+                });
+
+            case BACK:
+                return new WindowButton("Back", () -> {
+                    soundManager.playSoundEffect("BUTTONCLICK");
+                    sceneManager.transitionScenes("start");
                 });
 
             case QUIT:

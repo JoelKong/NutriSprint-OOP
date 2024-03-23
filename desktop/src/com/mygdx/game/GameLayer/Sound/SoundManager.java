@@ -49,7 +49,7 @@ public class SoundManager {
     // Load BG music resources
     public void loadBackgroundMusic(String bgType) {
         Music bgMusic = Gdx.audio.newMusic(Gdx.files.internal(getBackgroundMusic(bgType)));
-        if (bgMusic != null) {
+        if (bgMusic != null && !backgroundMusic.containsKey(bgType)) {
             backgroundMusic.put(bgType, bgMusic);
         }
     }
@@ -60,12 +60,12 @@ public class SoundManager {
         backgroundMusic.put(levelAssets.getLevelTitle(), music);
     }
 
-    // Play bg music
+    // Play bg music only if it's not already playing
     public void playBackgroundMusic(String bg, boolean loop) {
         Music music = backgroundMusic.get(bg);
-        if (music != null) {
-        music.setLooping(loop);
-        music.play();
+        if (music != null && !music.isPlaying()) {
+            music.setLooping(loop);
+            music.play();
         }
     }
 

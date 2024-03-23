@@ -14,6 +14,7 @@ public class SceneManager extends EngineSceneManager {
         getSceneMap().put("start", new StartScene(this));
         getSceneMap().put("game", new GameScene(this));
         getSceneMap().put("end", new EndScene(this));
+        getSceneMap().put("instruction", new InstructionScene(this));
         transitionScenes("start");
     }
 }

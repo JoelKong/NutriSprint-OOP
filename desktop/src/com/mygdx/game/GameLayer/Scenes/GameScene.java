@@ -12,6 +12,9 @@ import com.mygdx.game.GameLayer.Levels.LevelManager;
 import com.mygdx.game.GameLayer.Levels.Levels;
 import com.mygdx.game.GameLayer.UI.UiManager;
 
+import java.io.DataOutputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.util.Arrays;
 
 // GameScene class inherited from scenes, only contain managers which belong in gamescene
@@ -149,6 +152,25 @@ public class GameScene extends Scenes {
             entityManager.removeEntity(player);
             getSoundManager().stopBackgroundMusic(sceneLevelAssets.getLevelTitle());
             levelManager.setLevelNumber(1);
+
+            // Store game data state in bin file
+            String filename = "game_data.bin"; // Choose a filename
+            String levelTitle = sceneLevelAssets.getLevelTitle();
+            int playerScore = player.getScore();
+            try {
+                // Open file in binary mode
+                DataOutputStream outputStream = new DataOutputStream(new FileOutputStream(filename));
+
+                // Write level title and player score
+                outputStream.writeUTF(levelTitle);
+                outputStream.writeInt(playerScore);
+
+                // Close the output stream
+                outputStream.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
             getSceneManager().transitionScenes("end");
         }
 

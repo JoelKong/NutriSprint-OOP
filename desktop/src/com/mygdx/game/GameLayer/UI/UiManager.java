@@ -3,9 +3,14 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
+import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.mygdx.game.GameLayer.Scenes.SceneManager;
 import com.mygdx.game.GameLayer.Sound.SoundManager;
+
+import java.io.DataInputStream;
+import java.io.FileInputStream;
+import java.io.IOException;
 
 // Manager to handle all forms of UI
 public class UiManager {
@@ -41,10 +46,46 @@ public class UiManager {
         uiTable.add(startButton).padBottom(10).center();
         uiTable.row();
 
+        WindowButton instructionButton = uiElementFactory.createButton("INSTRUCTION", sceneManager, soundManager);
+        uiTable.add(instructionButton).padBottom(10).center();
+        uiTable.row();
+
         WindowButton quitButton = uiElementFactory.createButton("QUIT", sceneManager, soundManager);
         uiTable.add(quitButton).colspan(3).center();
     }
 
+    // Create the UI for instruction scene
+    public void createInstructionSceneUI(SceneManager sceneManager, SoundManager soundManager) {
+        WindowButton backButton = uiElementFactory.createButton("BACK", sceneManager, soundManager);
+        uiTable.add(backButton).align(Align.topLeft).padTop(10).padLeft(20).expandX();
+        uiTable.row();
+
+        StyledLabel instructionLabel = new StyledLabel("Avoid the junkies that are chasing you and collect all the fruits and vegetables!");
+        uiTable.add(instructionLabel).colspan(3).padBottom(20).center();
+        uiTable.row(); // Move to the next row
+
+        StyledLabel movementLabel = new StyledLabel("Press WASD to move");
+        uiTable.add(movementLabel).colspan(3).padBottom(20).center();
+        uiTable.row(); // Move to the next row
+
+        StyledLabel teleportLabel = new StyledLabel("Press SHIFT to teleport");
+        uiTable.add(teleportLabel).colspan(3).padBottom(20).center();
+        uiTable.row(); // Move to the next row
+
+        StyledLabel explodeLabel = new StyledLabel("Press SPACE to explode");
+        uiTable.add(explodeLabel).colspan(3).padBottom(20).center();
+        uiTable.row(); // Move to the next row
+
+        StyledLabel pauseLabel = new StyledLabel("Press ESC to pause/unpause");
+        uiTable.add(pauseLabel).colspan(3).padBottom(20).center();
+        uiTable.row(); // Move to the next row
+
+        StyledLabel progressLabel = new StyledLabel("Press ENTER to interact");
+        uiTable.add(progressLabel).colspan(3).padBottom(20).center();
+        uiTable.row(); // Move to the next row
+    }
+
+    // Create the UI for end scene
     public void createEndSceneUI(SceneManager sceneManager, SoundManager soundManager) {
         uiTable.padTop(Gdx.graphics.getHeight() / 4);
 
@@ -52,6 +93,27 @@ public class UiManager {
         StyledLabel gameOverLabel = new StyledLabel("The cholesterol has finally gotten a hold of you...");
         uiTable.add(gameOverLabel).colspan(3).padBottom(20).center();
         uiTable.row(); // Move to the next row
+
+        // Read data from binary file
+        String filename = "game_data.bin"; // Filename used to store game data
+        try {
+            // Open file in binary mode
+            DataInputStream inputStream = new DataInputStream(new FileInputStream(filename));
+
+            // Read data from the file
+            String levelTitle = inputStream.readUTF();
+            int playerScore = inputStream.readInt();
+
+            // Close the input stream
+            inputStream.close();
+
+            // Create a label to display the retrieved data
+            StyledLabel dataLabel = new StyledLabel("Made it to: " + levelTitle + "\n\nTotal fruits collected: " + playerScore);
+            uiTable.add(dataLabel).colspan(3).padBottom(20).center();
+            uiTable.row(); // Move to the next row
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
         // Add buttons
         WindowButton restartButton = uiElementFactory.createButton("RESTART", sceneManager, soundManager);
