@@ -9,33 +9,39 @@ import com.badlogic.gdx.graphics.g2d.NinePatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
+import com.badlogic.gdx.scenes.scene2d.ui.ScrollPane;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 import com.badlogic.gdx.scenes.scene2d.utils.NinePatchDrawable;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
-import org.w3c.dom.Text;
 
 public class Dialogue extends Table {
     private Label label;
+    private ScrollPane scrollPane;
+    private float maxWidth = 800;
+    private float maxHeight = 200;
 
     public Dialogue(String text) {
-//        super();
-//        setBackground(createBackgroundDrawable());
-//        label = new Label(text, new Label.LabelStyle(new BitmapFont(Gdx.files.internal("UI/terra-mother/raw/font-export.fnt")), null));
-//        this.add(label).expand().fill();
-//        // Call this method after adding to stage if you want to set sizes based on stage size or other components
-
         super();
-        setBackground(createSolidColorBackgroundDrawable(Color.DARK_GRAY)); // Use any color you like
-        label = new Label(text, new Label.LabelStyle(new BitmapFont(Gdx.files.internal("UI/terra-mother/raw/font-export.fnt")), Color.WHITE));
-        this.add(label).expand().fill();
-    }
+        setBackground(createSolidColorBackgroundDrawable(Color.DARK_GRAY));
 
-    private Drawable createBackgroundDrawable() {
-        Texture texture = new Texture(Gdx.files.internal("UI/terra-mother/raw/window.9.png"), true);
-        texture.setFilter(Texture.TextureFilter.MipMapLinearNearest, Texture.TextureFilter.Linear);
-        NinePatch patch = new NinePatch(new TextureRegion(texture), 1, 1, 1, 1);
-        return new NinePatchDrawable(patch);
+        // Label initialization with text wrapping
+        Label.LabelStyle labelStyle = new Label.LabelStyle(new BitmapFont(Gdx.files.internal("UI/terra-mother/raw/font-export.fnt")), Color.WHITE);
+        label = new Label(text, labelStyle);
+        label.setWrap(true);
+
+        // Wrap the label in a scroll pane
+        scrollPane = new ScrollPane(label);
+        scrollPane.setScrollingDisabled(true, false); // Disable horizontal scrolling, enable vertical
+        scrollPane.setFadeScrollBars(false); // Always show scroll bars
+        scrollPane.setForceScroll(false, true); // Force vertical scroll if needed
+
+        // Add the ScrollPane to the table, NOT the label directly
+        clear(); // Clear any existing actors from the table
+        add(scrollPane).size(maxWidth, maxHeight).expand().fill();
+
+        // Ensuring the table respects the maximum size constraints
+        setSize(maxWidth, maxHeight);
     }
 
     private Drawable createSolidColorBackgroundDrawable(Color color) {
@@ -54,18 +60,34 @@ public class Dialogue extends Table {
         label.setText(newText);
     }
 
-    // Use this method to dynamically adjust the padding around the label
+    // Method to dynamically set the padding of the dialogues
     public void setLabelPadding(float top, float left, float bottom, float right) {
-        clearChildren(); // Clear the previous label (and any other actors)
-        add(label).pad(top, left, bottom, right).expand().fill();
-        invalidateHierarchy(); // Important to update the layout after changes
+        // Create a new background drawable with padding for the label
+        Pixmap pixmap = new Pixmap(1, 1, Pixmap.Format.RGBA8888);
+        pixmap.setColor(Color.CLEAR); // Transparent color
+        pixmap.fill();
+
+        TextureRegionDrawable backgroundDrawable = new TextureRegionDrawable(new TextureRegion(new Texture(pixmap)));
+        pixmap.dispose();
+
+        // Set the padding on the background drawable
+        backgroundDrawable.setLeftWidth(left);
+        backgroundDrawable.setRightWidth(right);
+        backgroundDrawable.setTopHeight(top);
+        backgroundDrawable.setBottomHeight(bottom);
+
+        // Apply the padded background to the label's style
+        Label.LabelStyle labelStyle = label.getStyle();
+        labelStyle.background = backgroundDrawable;
+
+        // Apply the new style to the label
+        label.setStyle(labelStyle);
+
+        // You may need to call invalidate() to ensure the layout updates
+        label.invalidate();
+        scrollPane.invalidate();
     }
 
-    // Example method to set the width and height separately
-    public void setDialogueSize(float width, float height) {
-        setSize(width, height); // Set the table size
-        // You might want to call pack() to apply the size changes based on the contents, or adjust layout policies accordingly
-    }
 
     public void setDialogueInvisible() {
         this.setVisible(false);
