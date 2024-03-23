@@ -2,6 +2,7 @@ package com.mygdx.game.GameLayer.UI;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.viewport.Viewport;
@@ -18,11 +19,13 @@ public class UiManager {
     private Table uiTable;
     private HUD uiGameHUD;
     private UIElementFactory uiElementFactory;
+    private Skin skin;
 
     public UiManager(SpriteBatch spriteBatch, Viewport uiViewport) {
         this.uiStage = new Stage(uiViewport, spriteBatch);
         this.uiTable = new Table();
         this.uiElementFactory = new UIElementFactory();
+        this.skin = new Skin(Gdx.files.internal("UI/libgdx/uiskin.json"));
 
         uiTable.setFillParent(true);
         uiTable.center();

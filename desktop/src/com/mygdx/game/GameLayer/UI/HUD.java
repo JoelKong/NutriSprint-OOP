@@ -17,7 +17,6 @@ public class HUD {
     private Skin skin;
     private Stage uiStage;
     private Table hudTable;
-    private Table dialogueTable;
     private Healthbar healthbar;
     private TeleportCooldownBar teleportCooldownBar;
     private ExplodeMeterBar explodeMeterBar;
@@ -30,14 +29,14 @@ public class HUD {
 
         // Initialize the hudTable
         this.hudTable = new Table();
+        // this.hudTable.setVisible(false);
         this.hudTable.setFillParent(true);
         this.hudTable.top();
 
         // Initialize the dialogue
-        // this.dialogue = new InstructionDialog(dialogue);
         this.dialogue = new Dialogue("");
         this.dialogue.setPosition(Gdx.graphics.getWidth() / 2f - 150, Gdx.graphics.getHeight() / 2f - 75); // Center the dialogue on the screen
-        this.dialogue.setLabelPadding(50, 175, 50, 175); // Optional: Adjust the label padding within the dialogue
+        this.dialogue.setLabelPadding(20, 20, 20, 20); // Optional: Adjust the label padding within the dialogue
 
         // Initialize the score and level labels
         this.levelLabel = new StyledLabel("");
