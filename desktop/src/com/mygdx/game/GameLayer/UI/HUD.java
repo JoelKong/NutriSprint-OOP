@@ -18,6 +18,7 @@ public class HUD {
     private Stage uiStage;
     private Table hudTable;
     private Healthbar healthbar;
+    private DebugHealthBar debugHealthBar;
     private TeleportCooldownBar teleportCooldownBar;
     private ExplodeMeterBar explodeMeterBar;
     private ScoreTable scoreTable;
@@ -25,13 +26,18 @@ public class HUD {
 
     protected HUD(Stage uiStage, String[] dialogue) {
         this.uiStage = uiStage;
+        // this.uiStage.setDebugAll(true);
         this.skin = new Skin(Gdx.files.internal("UI/libgdx/uiskin.json"));
 
         // Initialize the hudTable
         this.hudTable = new Table();
-        // this.hudTable.setVisible(false);
+        this.hudTable.setDebug(true);
         this.hudTable.setFillParent(true);
         this.hudTable.top();
+
+        Table dialogueTable = new Table();
+        dialogueTable.setFillParent(true);
+        dialogueTable.bottom();
 
         // Initialize the dialogue
         this.dialogue = new Dialogue("");
@@ -43,36 +49,45 @@ public class HUD {
 
         // Initialize the health bar with the maximum health and teleportCooldownBar
         this.healthbar = new Healthbar();
+        this.debugHealthBar = new DebugHealthBar(skin, 10);
         this.teleportCooldownBar = new TeleportCooldownBar(skin, 5000f);
         this.explodeMeterBar = new ExplodeMeterBar(skin);
 
         // Initialise the score + objective table
         this.scoreTable = new ScoreTable(skin);
 
-        // Adding existing elements to the hudTable
-        hudTable.add(levelLabel).align(Align.left).padTop(10).padLeft(20).expandX();
-        hudTable.add(scoreTable).expandX().align(Align.center).padTop(0); // Expand to use extra horizontal space
-        hudTable.add(healthbar).align(Align.right).padTop(10).padRight(300).size(240, 24); // Fixed size for health bar
-        hudTable.row(); // Move to the next row
+        Table groupTable = new Table();
+        groupTable.add(debugHealthBar.getProgressBar()).width(500).padBottom(50);
+        groupTable.row();
+        groupTable.add(teleportCooldownBar.getProgressBar()).width(500).padBottom(50);
+        groupTable.row();
+        groupTable.add(explodeMeterBar.getExplodeMeterBar()).width(500);
+
+        // HudTable for Level Label, ScoreTable & Healthbar
+        hudTable.add(levelLabel).uniform().align(Align.topLeft).expandX();
+        hudTable.add(scoreTable).uniform().expandX();
+        hudTable.add(groupTable).uniform().align(Align.topRight).expandX();
+        hudTable.row();
 
         // Span the progress bar under the health bar by using colspan(2) to skip the first two columns
-        hudTable.add(); // This empty cell will take the place of the level label column
-        hudTable.add(); // This empty cell will take the place of the score label column
-        hudTable.add(teleportCooldownBar.getProgressBar()).align(Align.right).padTop(4).padRight(20).size(400, 24); // Set size to match health bar
-        hudTable.row();
+//
+//        hudTable.add();
+//        hudTable.add();
+//        hudTable.add(explodeMeterBar.getExplodeMeterBar()).align(Align.right).padTop(20).padRight(20).size(400, 24);
+//        hudTable.row();
 
-        hudTable.add();
-        hudTable.add();
-        hudTable.add(explodeMeterBar.getExplodeMeterBar()).align(Align.right).padTop(20).padRight(20).size(400, 24);
-        hudTable.row();
+//        hudTable.add();
+//        hudTable.add(this.dialogue).expand().align(Align.bottom);
+//        hudTable.add();
+//        hudTable.row();
 
-        hudTable.add();
-        hudTable.add(this.dialogue).expand().align(Align.bottom);
-        hudTable.add();
-        hudTable.row();
+        dialogueTable.add().uniform().expandX();
+        dialogueTable.add(this.dialogue).uniform().expandX();
+        dialogueTable.add().uniform().expandX();
 
         // Add the hudTable to the uiStage
         uiStage.addActor(hudTable);
+        uiStage.addActor(dialogueTable);
     }
 
     public void updateHudScore(int score) {
@@ -86,6 +101,10 @@ public class HUD {
     public void updateHudHealth(int health) {
         // Directly update the healthbar which is now part of the HUD
         this.healthbar.updateHealth(health);
+    }
+
+    public void updateDebugHealthBar(int health) {
+        this.debugHealthBar.updateHealthValue(health);
     }
 
     public void updateHudExplodeMeterCount(int explodeMeterCount) {

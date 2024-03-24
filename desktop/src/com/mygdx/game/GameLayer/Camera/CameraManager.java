@@ -19,12 +19,13 @@ public class CameraManager {
     public CameraManager() {
         // UI Camera
         this.uiCamera = new OrthographicCamera();
-        this.uiViewport = new ScreenViewport(uiCamera);
+        this.uiViewport = new FitViewport(1980, 1080, uiCamera);
 
         // Game Camera
         this.gameCamera = new OrthographicCamera();
         this.cameraViewport = new FitViewport(1980, 1080);
         this.cameraStage = new Stage(cameraViewport);
+        this.cameraStage.setDebugAll(true);
         gameCamera.setToOrtho(false, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
     }
 
@@ -40,6 +41,11 @@ public class CameraManager {
         gameCamera.viewportHeight = height;
         gameCamera.position.set(width / 2f, height / 2f, 0);
         gameCamera.update();
+
+        // Update UI viewport to maintain aspect ratio and center elements
+        /*uiViewport.update(width, height, true); // True to center the camera
+        uiCamera.position.set(uiViewport.getWorldWidth() / 2, uiViewport.getWorldHeight() / 2, 0);
+        uiCamera.update();*/
 
         cameraStage.getViewport().update(width, height, true);
     }
