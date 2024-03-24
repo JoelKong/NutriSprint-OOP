@@ -31,7 +31,6 @@ public class HUD {
 
         // Initialize the hudTable
         this.hudTable = new Table();
-        this.hudTable.setDebug(true);
         this.hudTable.setFillParent(true);
         this.hudTable.top();
 
