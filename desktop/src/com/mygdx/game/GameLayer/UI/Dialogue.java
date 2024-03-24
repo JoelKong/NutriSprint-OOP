@@ -17,31 +17,46 @@ import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 
 public class Dialogue extends Table {
     private Label label;
+    private Label instructionLabel;
+    private Texture texture;
+    private Image image;
+    private Table leftTable;
+    private Table rightTable;
     private ScrollPane scrollPane;
     private float maxWidth = 800;
-    private float maxHeight = 200;
+    private float maxHeight = 150;
 
     public Dialogue(String text) {
         super();
         setBackground(createSolidColorBackgroundDrawable(Color.DARK_GRAY));
+        this.leftTable = new Table();
+        this.rightTable = new Table();
+
+        // Adding an image
+        this.texture = new Texture(Gdx.files.internal("high_apple.png"));
+        this.image = new Image(texture);
+        this.leftTable.add(image).size(300, 300);
 
         // Label initialization with text wrapping
         Label.LabelStyle labelStyle = new Label.LabelStyle(new BitmapFont(Gdx.files.internal("UI/terra-mother/raw/font-export.fnt")), Color.WHITE);
-        label = new Label(text, labelStyle);
-        label.setWrap(true);
+        this.label = new Label(text, labelStyle);
+        this.label.setWrap(true);
+
+        // Instruction label
+        this.instructionLabel = new Label("Press 'Enter' key to continue...", labelStyle);
 
         // Wrap the label in a scroll pane
-        scrollPane = new ScrollPane(label);
-        scrollPane.setScrollingDisabled(true, false); // Disable horizontal scrolling, enable vertical
-        scrollPane.setFadeScrollBars(false); // Always show scroll bars
-        scrollPane.setForceScroll(false, true); // Force vertical scroll if needed
+        this.scrollPane = new ScrollPane(label);
 
         // Add the ScrollPane to the table, NOT the label directly
-        clear(); // Clear any existing actors from the table
-        add(scrollPane).size(maxWidth, maxHeight).expand().fill();
+        this.rightTable.add(scrollPane).size(maxWidth, maxHeight).expand().fill();
+        this.rightTable.row();
+        this.rightTable.add(instructionLabel).expandX().bottom().right();
+        this.add(leftTable);
+        this.add(rightTable);
 
         // Ensuring the table respects the maximum size constraints
-        setSize(maxWidth, maxHeight);
+        this.setSize(maxWidth, maxHeight + instructionLabel.getHeight());
     }
 
     private Drawable createSolidColorBackgroundDrawable(Color color) {
