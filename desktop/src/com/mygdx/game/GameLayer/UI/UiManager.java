@@ -1,9 +1,16 @@
 package com.mygdx.game.GameLayer.UI;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.Pixmap;
+import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
+import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.mygdx.game.GameLayer.Scenes.SceneManager;
@@ -61,38 +68,82 @@ public class UiManager {
 
     // Create the UI for instruction scene
     public void createInstructionSceneUI(SceneManager sceneManager, SoundManager soundManager) {
+        float maxWidth = 600;
+        float maxHeight = 400;
+
+        // Creating new table and 'Back' button and aligning it to the top left
+        Table backButtonTable = new Table();
+        backButtonTable.setFillParent(true);
+        backButtonTable.top().left().pad(10);
         WindowButton backButton = uiElementFactory.createButton("BACK", sceneManager, soundManager);
-        uiTable.add(backButton).align(Align.topLeft).padTop(10).padLeft(20).expandX();
-        uiTable.row();
+        backButtonTable.add(backButton).align(Align.topLeft);
+        this.getUiStage().addActor(backButtonTable);
 
-        StyledLabel instructionLabel = new StyledLabel("Avoid the junkies that are chasing you and collect all the fruits and vegetables!");
-        uiTable.add(instructionLabel).colspan(3).padBottom(20).center();
-        uiTable.row(); // Move to the next row
+        // Setting grey background color
+        Pixmap pixmap = new Pixmap(1, 1, Pixmap.Format.RGBA8888); // Using Pixmap to paint and fill the color
+        pixmap.setColor(Color.DARK_GRAY); // Set the color for the Pixmap
+        pixmap.fill(); // Fill the pixmap with the selected color
 
-        StyledLabel movementLabel = new StyledLabel("Press WASD to move");
-        uiTable.add(movementLabel).colspan(3).padBottom(20).center();
-        uiTable.row(); // Move to the next row
+        // Create a Texture from Pixmap
+        TextureRegionDrawable grayBackground = new TextureRegionDrawable(new TextureRegion(new Texture(pixmap)));
+        pixmap.dispose(); // It's important to dispose of the Pixmap to avoid memory leaks
 
-        StyledLabel teleportLabel = new StyledLabel("Press SHIFT to teleport");
-        uiTable.add(teleportLabel).colspan(3).padBottom(20).center();
-        uiTable.row(); // Move to the next row
+        // Initialize the table for instructions and set its background to the grey drawable
+        Table instructionTable = new Table();
+        instructionTable.setBackground(grayBackground); // Set the background to the dark grey drawable
+        instructionTable.setSize(maxWidth, maxHeight); // Set the size of the table to the maximum values
+        instructionTable.setPosition(Gdx.graphics.getWidth() / 2f - maxWidth / 2f, Gdx.graphics.getHeight() / 2f - maxHeight / 2f); // Center the table on the screen
 
-        StyledLabel explodeLabel = new StyledLabel("Press SPACE to explode");
-        uiTable.add(explodeLabel).colspan(3).padBottom(20).center();
-        uiTable.row(); // Move to the next row
+        // Initialize the label for instructions
+        Label.LabelStyle labelStyle = new Label.LabelStyle(new BitmapFont(Gdx.files.internal("UI/terra-mother/raw/font-export.fnt")), Color.WHITE);
 
-        StyledLabel pauseLabel = new StyledLabel("Press ESC to pause/unpause");
-        uiTable.add(pauseLabel).colspan(3).padBottom(20).center();
-        uiTable.row(); // Move to the next row
+        Label instructionLabel = new Label("Avoid the junkies that are chasing you and collect all the fruits and vegetables!", labelStyle);
+        instructionLabel.setWrap(true); // Enable text wrapping for the label
+        instructionLabel.setAlignment(Align.center); // Center the text within the label
 
-        StyledLabel progressLabel = new StyledLabel("Press ENTER to interact");
-        uiTable.add(progressLabel).colspan(3).padBottom(20).center();
-        uiTable.row(); // Move to the next row
+        Label movementLabel = new Label("Press 'WASD' to move", labelStyle);
+        movementLabel.setWrap(true); // Enable text wrapping for the label
+        movementLabel.setAlignment(Align.center); // Center the text within the label
+
+        Label teleportLabel = new Label("Press 'SHIFT' to teleport", labelStyle);
+        teleportLabel.setWrap(true); // Enable text wrapping for the label
+        teleportLabel.setAlignment(Align.center); // Center the text within the label
+
+        Label explodeLabel = new Label("Press 'SPACE' to explode", labelStyle);
+        explodeLabel.setWrap(true); // Enable text wrapping for the label
+        explodeLabel.setAlignment(Align.center); // Center the text within the label
+
+        Label escapeLabel = new Label("Press 'ESC' to pause/unpause", labelStyle);
+        escapeLabel.setWrap(true); // Enable text wrapping for the label
+        escapeLabel.setAlignment(Align.center); // Center the text within the label
+
+        Label interactLabel = new Label("Press 'Enter' to interact", labelStyle);
+        interactLabel.setWrap(true); // Enable text wrapping for the label
+        interactLabel.setAlignment(Align.center); // Center the text within the label
+
+        // Add the label to the instruction table and configure it to wrap within the max width
+        instructionTable.add(instructionLabel).width(maxWidth).pad(10);
+        instructionTable.row();
+        instructionTable.add(movementLabel).width(maxWidth).pad(10);
+        instructionTable.row();
+        instructionTable.add(teleportLabel).width(maxWidth).pad(10);
+        instructionTable.row();
+        instructionTable.add(explodeLabel).width(maxWidth).pad(10);
+        instructionTable.row();
+        instructionTable.add(escapeLabel).width(maxWidth).pad(10);
+        instructionTable.row();
+        instructionTable.add(interactLabel).width(maxWidth).pad(10);
+
+        this.getUiStage().addActor(instructionTable); // Add the instruction table to the stage
     }
 
     // Create the UI for end scene
-    public void createEndSceneUI(SceneManager sceneManager, SoundManager soundManager) {
-        uiTable.padTop(Gdx.graphics.getHeight() / 4);
+    public void createEndSceneUIHehe(SceneManager sceneManager, SoundManager soundManager) {
+        this.getUiStage().setDebugAll(true);
+        float maxWidth = 600;
+        float maxHeight = 400;
+
+        // uiTable.padTop(Gdx.graphics.getHeight() / 4);
 
         // Game Over message label
         StyledLabel gameOverLabel = new StyledLabel("The cholesterol has finally gotten a hold of you...");
@@ -131,6 +182,71 @@ public class UiManager {
 
         WindowButton quitButton = uiElementFactory.createButton("QUIT", sceneManager, soundManager);
         uiTable.add(quitButton).colspan(3).center();
+    }
+
+    public void createEndSceneUI(SceneManager sceneManager, SoundManager soundManager) {
+        this.getUiStage().setDebugAll(true);
+        float maxWidth = 400;
+        float maxHeight = 400;
+
+        // Setting grey background color
+        Pixmap pixmap = new Pixmap(1, 1, Pixmap.Format.RGBA8888); // Using Pixmap to paint and fill the color
+        pixmap.setColor(Color.DARK_GRAY); // Set the color for the Pixmap
+        pixmap.fill(); // Fill the pixmap with the selected color
+
+        // Create a Texture from Pixmap
+        TextureRegionDrawable grayBackground = new TextureRegionDrawable(new TextureRegion(new Texture(pixmap)));
+        pixmap.dispose(); // It's important to dispose of the Pixmap to avoid memory leaks
+
+        // Initialize the table for instructions and set its background to the grey drawable
+        Table endScoreTable = new Table();
+        endScoreTable.setBackground(grayBackground); // Set the background to the dark grey drawable
+        endScoreTable.setSize(maxWidth, maxHeight); // Set the size of the table to the maximum values
+        endScoreTable.setPosition(Gdx.graphics.getWidth() / 2f - maxWidth / 2f, Gdx.graphics.getHeight() / 2f - maxHeight / 2f - 160); // Center the table on the screen
+
+        Label.LabelStyle labelStyle = new Label.LabelStyle(new BitmapFont(Gdx.files.internal("UI/terra-mother/raw/font-export.fnt")), Color.WHITE);
+
+        Label gameOverLabel = new Label("The cholesteral has finally gotten a hold of you!", labelStyle);
+        endScoreTable.add(gameOverLabel).padBottom(20);
+        endScoreTable.row();
+
+        String filename = "game_data.bin"; // Filename used to store game data
+
+        try {
+            // Open file in binary mode
+            DataInputStream inputStream = new DataInputStream(new FileInputStream(filename));
+
+            // Read data from the file
+            String levelTitle = inputStream.readUTF();
+            int playerScore = inputStream.readInt();
+
+            // Close the input stream
+            inputStream.close();
+
+            // Create a label to display the retrieved data
+            Label dataLabel = new Label("Made it to: " + levelTitle + "\n\nTotal fruits collected: " + playerScore, labelStyle);
+            endScoreTable.add(dataLabel);
+            endScoreTable.row(); // Move to the next row
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        endScoreTable.row().padTop(20);
+        WindowButton restartButton = uiElementFactory.createButton("RESTART", sceneManager, soundManager);
+        endScoreTable.add(restartButton);
+        endScoreTable.row();
+
+        endScoreTable.row().padTop(20);
+        WindowButton mainMenuButton = uiElementFactory.createButton("MAINMENU", sceneManager, soundManager);
+        endScoreTable.add(mainMenuButton);
+        endScoreTable.row();
+
+        endScoreTable.row().padTop(20);
+        WindowButton quitButton = uiElementFactory.createButton("QUIT", sceneManager, soundManager);
+        endScoreTable.add(quitButton);
+        endScoreTable.row();
+
+        this.getUiStage().addActor(endScoreTable);
     }
 
     public void updateGameHUDLevel(String level) {
