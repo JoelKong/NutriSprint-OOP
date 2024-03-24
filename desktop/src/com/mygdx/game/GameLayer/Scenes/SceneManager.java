@@ -10,11 +10,11 @@ public class SceneManager extends EngineSceneManager {
     }
 
     // Initialize all types of scenes and start off with the start scene
-    public void initializeScenes() {
+    public void initializeScenes(String scene) {
         getSceneMap().put("start", new StartScene(this));
         getSceneMap().put("game", new GameScene(this));
         getSceneMap().put("end", new EndScene(this));
         getSceneMap().put("instruction", new InstructionScene(this));
-        transitionScenes("start");
+        transitionScenes(scene);
     }
 }

@@ -40,14 +40,14 @@ public class UIElementFactory {
                 return new WindowButton("Restart from first level", () -> {
                     soundManager.playSoundEffect("BUTTONCLICK");
                     soundManager.stopBackgroundMusic("GAMEOVER");
-                    sceneManager.transitionScenes("game");
+                    sceneManager.initializeScenes("game");
                 });
 
             case MAINMENU:
                 return new WindowButton("Return to main menu", () -> {
                     soundManager.playSoundEffect("BUTTONCLICK");
                     soundManager.stopBackgroundMusic("GAMEOVER");
-                    sceneManager.transitionScenes("start");
+                    sceneManager.initializeScenes("start");
                 });
             default:
                 System.out.println("Warning: Unknown buttonType when creating a new button object.");

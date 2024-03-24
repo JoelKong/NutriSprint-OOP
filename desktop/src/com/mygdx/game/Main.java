@@ -9,7 +9,7 @@ public class Main extends Game {
     @Override
     public void create() {
         this.sceneManager = new SceneManager(this);
-        sceneManager.initializeScenes();
+        sceneManager.initializeScenes("start");
     }
 
     @Override

@@ -19,7 +19,7 @@ public abstract class EngineSceneManager {
 
     // Abstract method to initialize scenes.
     // SceneManager subclass will provide implementation.
-    public abstract void initializeScenes();
+    public void initializeScenes() {};
 
     // Every scene engine should have the ability to transition scenes based off what scene we want
     public void transitionScenes(String scene) {
