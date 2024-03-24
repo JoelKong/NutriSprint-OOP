@@ -13,7 +13,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.NinePatchDrawable;
 
 public class WindowButton extends ImageTextButton {
 
-    public WindowButton(String text, Runnable onClickAction) {
+    protected WindowButton(String text, Runnable onClickAction) {
         super(text, createStyle());
         initializeButton(onClickAction);
     }

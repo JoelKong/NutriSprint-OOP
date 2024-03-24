@@ -10,7 +10,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.NinePatchDrawable;
 
 public class StyledLabel extends ImageTextButton {
 
-    public StyledLabel(String text) {
+    protected StyledLabel(String text) {
         super(text, createButtonStyle());
         this.pad(20);
     }

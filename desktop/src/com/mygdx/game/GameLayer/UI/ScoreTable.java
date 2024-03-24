@@ -8,7 +8,7 @@ public class ScoreTable extends Table {
     private StyledLabel scoreLabel;
     private StyledLabel objectiveLabel;
 
-    public ScoreTable(Skin skin) {
+    protected ScoreTable(Skin skin) {
         super(skin);
         this.setBackground("default-window"); // Make sure your skin has this drawable
 
@@ -24,11 +24,11 @@ public class ScoreTable extends Table {
         this.pack(); // Automatically size the table based on its contents
     }
 
-    public void updateScore(int score) {
+    protected void updateScore(int score) {
         scoreLabel.setText("Score: " + score);
     }
 
-    public void updateObjective(String objective) {
+    protected void updateObjective(String objective) {
         objectiveLabel.setText("Objective: " + objective);
     }
 }

@@ -6,7 +6,8 @@ public class SoundFactory {
         EXPLOSION, TELEPORT, PLAYERHIT, PLAYERDEATH, COLLECTCHERRY, GAINHEALTH,
         BUTTONCLICK, COLLECTPOINTS
     }
-    public String generateSoundEffect(String soundEffect) {
+
+    protected String generateSoundEffect(String soundEffect) {
         SoundType soundType = getSoundType(soundEffect);
         switch (soundType) {
             case EXPLOSION:
@@ -32,7 +33,7 @@ public class SoundFactory {
     }
 
     // Factory method to retrieve background music
-    public String generateBackgroundMusic(String backgroundMusic) {
+    protected String generateBackgroundMusic(String backgroundMusic) {
         switch (backgroundMusic) {
             case "MENU":
                 return BackgroundSounds.MENU;
@@ -44,7 +45,7 @@ public class SoundFactory {
     }
 
     // Takes in string, returns Enum value
-    private SoundType getSoundType(String soundString) {
+    protected SoundType getSoundType(String soundString) {
         // Convert the provided string to uppercase to match enum values
         soundString = soundString.toUpperCase();
 

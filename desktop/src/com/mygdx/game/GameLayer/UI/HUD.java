@@ -23,7 +23,7 @@ public class HUD {
     private ScoreTable scoreTable;
     private Dialogue dialogue;
 
-    public HUD(Stage uiStage, String[] dialogue) {
+    protected HUD(Stage uiStage, String[] dialogue) {
         this.uiStage = uiStage;
         this.skin = new Skin(Gdx.files.internal("UI/libgdx/uiskin.json"));
 
@@ -75,11 +75,11 @@ public class HUD {
         uiStage.addActor(hudTable);
     }
 
-    public void updateHudScore (int score) {
+    public void updateHudScore(int score) {
         scoreTable.updateScore(score);
     }
 
-    public void updateHudObjective(String newObjective) {
+    protected void updateHudObjective(String newObjective) {
         scoreTable.updateObjective(newObjective);
     }
 
@@ -92,7 +92,7 @@ public class HUD {
         this.explodeMeterBar.updateExplodeMeterValue(explodeMeterCount);
     }
 
-    public void updateHudLevel(String level) {
+    protected void updateHudLevel(String level) {
         levelLabel.setText(level);
     }
 
@@ -100,19 +100,19 @@ public class HUD {
         this.teleportCooldownBar.updateCooldownValue(teleportCooldown);
     }
 
-    public void updateHudDialogue(String text) {
+    protected void updateHudDialogue(String text) {
         this.dialogue.setText(text);
     }
 
-    public void updateHudDialogueVisible() {
+    protected void updateHudDialogueVisible() {
         this.dialogue.setDialogueVisible();
     }
 
-    public void updateHudDialogueInvisible() {
+    protected void updateHudDialogueInvisible() {
         this.dialogue.setDialogueInvisible();
     }
 
-    public void draw() {
+    protected void draw() {
         uiStage.act(Gdx.graphics.getDeltaTime());
         uiStage.draw();
     }
@@ -121,6 +121,7 @@ public class HUD {
     public StyledLabel getScoreLabel() {
         return scoreLabel;
     }
+
     public void setScoreLabel(StyledLabel scoreLabel) {
         this.scoreLabel = scoreLabel;
     }

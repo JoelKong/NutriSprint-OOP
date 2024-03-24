@@ -11,19 +11,19 @@ public class Healthbar extends Group {
     private int currentHealth;
 
     // Initialising our current and max health, texture and also updating it
-    public Healthbar() {
+    protected Healthbar() {
         this.currentHealth = maxHealth;
         heartTexture = new Texture(Gdx.files.internal("heart.png"));
         updateHealthDisplay();
     }
 
     // Update the health based off the new health
-    public void updateHealth(int newHealth) {
+    protected void updateHealth(int newHealth) {
         this.currentHealth = newHealth;
         updateHealthDisplay();
     }
 
-    private void updateHealthDisplay() {
+    protected void updateHealthDisplay() {
         this.clearChildren(); // Remove all existing heart images
         float heartWidth = 48;
         float padding = 5;
@@ -45,7 +45,7 @@ public class Healthbar extends Group {
         // Here you could add any logic that needs to run each frame
     }
 
-    public void dispose() {
+    protected void dispose() {
         heartTexture.dispose(); // Dispose of the heart texture
     }
 }

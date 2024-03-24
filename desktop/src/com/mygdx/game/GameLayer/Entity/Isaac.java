@@ -93,6 +93,31 @@ public class Isaac extends Player {
         }
     }
 
+    // Listeners
+    public void notifyHealthChange() {
+        if (entityAttributeListener != null) {
+            entityAttributeListener.onHealthChange(this.getHealth());
+        }
+    }
+
+    public void notifyScoreChange() {
+        if (entityAttributeListener != null) {
+            entityAttributeListener.onScoreChange(this.getScore());
+        }
+    }
+
+    public void notifyTeleportCooldownChange() {
+        if (entityAttributeListener != null) {
+            entityAttributeListener.onTeleportCooldownChange((int) (TimeUtils.millis() - this.getLastTeleportTime()));
+        }
+    }
+
+    public void notifyExplodeMeterChange() {
+        if (entityAttributeListener != null) {
+            entityAttributeListener.onExplodeMeterChange(this.getExplodeMeter());
+        }
+    }
+
     // Getters and Setters
     public TextureRegion getHeadRegion() {
         return headRegion;
@@ -144,29 +169,5 @@ public class Isaac extends Player {
 
     public void setEntityAttributeListener(EntityAttributeListener listener) {
         this.entityAttributeListener = listener;
-    }
-
-    public void notifyHealthChange() {
-        if (entityAttributeListener != null) {
-            entityAttributeListener.onHealthChange(this.getHealth());
-        }
-    }
-
-    public void notifyScoreChange() {
-        if (entityAttributeListener != null) {
-            entityAttributeListener.onScoreChange(this.getScore());
-        }
-    }
-
-    public void notifyTeleportCooldownChange() {
-        if (entityAttributeListener != null) {
-            entityAttributeListener.onTeleportCooldownChange((int) (TimeUtils.millis() - this.getLastTeleportTime()));
-        }
-    }
-
-    public void notifyExplodeMeterChange() {
-        if (entityAttributeListener != null) {
-            entityAttributeListener.onExplodeMeterChange(this.getExplodeMeter());
-        }
     }
 }

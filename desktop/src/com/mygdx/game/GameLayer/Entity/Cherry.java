@@ -17,7 +17,6 @@ public class Cherry extends GameEntity {
         setEntityType("CHERRY");
     }
 
-    // Drawing of apple
     protected void draw(SpriteBatch sb) {
         sb.draw(this.getTexture(), this.getPosX(), this.getPosY(), this.getWidth(), this.getHeight());
     }

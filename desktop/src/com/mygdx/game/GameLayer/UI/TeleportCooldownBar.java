@@ -9,7 +9,7 @@ public class TeleportCooldownBar {
     private Skin skin;
     private float maxTeleportCooldown;
 
-    public TeleportCooldownBar(Skin skin, float maxTeleportCooldown) {
+    protected TeleportCooldownBar(Skin skin, float maxTeleportCooldown) {
         this.skin = skin;
         this.maxTeleportCooldown = maxTeleportCooldown;
         createProgressBar();

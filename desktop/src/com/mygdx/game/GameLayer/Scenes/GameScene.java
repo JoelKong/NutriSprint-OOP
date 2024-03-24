@@ -87,6 +87,7 @@ public class GameScene extends Scenes {
             uiManager.updateGameHudDialogueInvisible();
         }
 
+
         // Set up listeners on the player
         player.setEntityAttributeListener(new EntityAttributeListener() {
             @Override

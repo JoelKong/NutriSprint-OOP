@@ -10,13 +10,13 @@ public class ExplodeMeterBar {
     private Skin skin;
     private int maxExplodeMeter;
 
-    public ExplodeMeterBar(Skin skin) {
+    protected ExplodeMeterBar(Skin skin) {
         this.maxExplodeMeter = 3;
         this.skin = skin;
         createExplodeMeterBar();
     }
 
-    private void createExplodeMeterBar() {
+    protected void createExplodeMeterBar() {
         ProgressBar.ProgressBarStyle progressBarStyle = new ProgressBar.ProgressBarStyle();
         Drawable backgroundDrawable = skin.newDrawable("white", Color.GRAY);
         backgroundDrawable.setMinHeight(30f);

@@ -7,7 +7,7 @@ public class EntityFactory {
     }
 
     // Getter for EntityType enum
-    private EntityType getEntityType(String type) {
+    protected EntityType getEntityType(String type) {
         // Convert the provided string to uppercase to match enum values
         type = type.toUpperCase();
 
@@ -22,7 +22,7 @@ public class EntityFactory {
     }
 
     // Factory function to create GameEntity objects
-    public GameEntity createEntity(String entityName, Levels level) {
+    protected GameEntity createEntity(String entityName, Levels level) {
         EntityType entityType = getEntityType(entityName);
 
         switch (entityType) {

@@ -26,7 +26,7 @@ public class Dialogue extends Table {
     private float maxWidth = 800;
     private float maxHeight = 150;
 
-    public Dialogue(String text) {
+    protected Dialogue(String text) {
         super();
         setBackground(createSolidColorBackgroundDrawable(Color.DARK_GRAY));
         this.leftTable = new Table();
@@ -59,7 +59,7 @@ public class Dialogue extends Table {
         this.setSize(maxWidth, maxHeight + instructionLabel.getHeight());
     }
 
-    private Drawable createSolidColorBackgroundDrawable(Color color) {
+    protected Drawable createSolidColorBackgroundDrawable(Color color) {
         Pixmap pixmap = new Pixmap(1, 1, Pixmap.Format.RGBA8888); // Create a 1x1 Pixmap
         pixmap.setColor(color); // Set the color
         pixmap.fill(); // Fill the pixmap with the selected color
@@ -71,12 +71,12 @@ public class Dialogue extends Table {
     }
 
     // Method to update the text
-    public void setText(String newText) {
+    protected void setText(String newText) {
         label.setText(newText);
     }
 
     // Method to dynamically set the padding of the dialogues
-    public void setLabelPadding(float top, float left, float bottom, float right) {
+    protected void setLabelPadding(float top, float left, float bottom, float right) {
         // Create a new background drawable with padding for the label
         Pixmap pixmap = new Pixmap(1, 1, Pixmap.Format.RGBA8888);
         pixmap.setColor(Color.CLEAR); // Transparent color

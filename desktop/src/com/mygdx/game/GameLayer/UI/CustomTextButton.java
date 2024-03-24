@@ -14,7 +14,7 @@ public class CustomTextButton extends TextButton {
     }
 
     // Add event listener to button with a functionality mapped to the button
-    private void initializeButton(Runnable onClickAction) {
+    protected void initializeButton(Runnable onClickAction) {
         this.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {

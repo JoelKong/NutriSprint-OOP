@@ -9,7 +9,7 @@ public class UIElementFactory {
         START, INSTRUCTION, BACK, QUIT, RESTART, MAINMENU
     }
 
-    public WindowButton createButton(String buttonName, SceneManager sceneManager, SoundManager soundManager) {
+    protected WindowButton createButton(String buttonName, SceneManager sceneManager, SoundManager soundManager) {
         ButtonType buttonType = getButtonType(buttonName);
         switch (buttonType) {
             case START:
@@ -57,7 +57,7 @@ public class UIElementFactory {
     }
 
     // Takes in string, returns Enum value
-    private ButtonType getButtonType(String buttonString) {
+    protected ButtonType getButtonType(String buttonString) {
         // Convert the provided string to uppercase to match enum values
         buttonString = buttonString.toUpperCase();
 

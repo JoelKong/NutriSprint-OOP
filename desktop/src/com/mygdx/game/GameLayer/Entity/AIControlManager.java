@@ -8,6 +8,7 @@ import java.util.List;
 public class AIControlManager extends EngineAIControlManager {
     public AIControlManager() {}
 
+    // Initialise all AI behavior
     public void initializeAIBehavior(List<GameEntity> AIList, GameEntity player) {
         List<GameEntity> newEntities = new ArrayList<>();
         for (GameEntity entity : AIList) {
