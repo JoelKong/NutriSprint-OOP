@@ -6,7 +6,6 @@ import com.badlogic.gdx.utils.ScreenUtils;
 import com.mygdx.game.GameLayer.Collisions.CollisionManager;
 import com.mygdx.game.GameLayer.Effects.EffectManager;
 import com.mygdx.game.GameLayer.Entity.*;
-import com.mygdx.game.GameLayer.InputOutput.InputOutputManager;
 import com.mygdx.game.GameLayer.InputOutput.Inputs;
 import com.mygdx.game.GameLayer.Levels.LevelManager;
 import com.mygdx.game.GameLayer.Levels.Levels;
@@ -102,7 +101,8 @@ public class GameScene extends Scenes {
 
             @Override
             public void onHealthChange(int newHealth) {
-                uiManager.getUiGameHUD().updateHudHealth(newHealth);
+                // uiManager.getUiGameHUD().updateHudHealth(newHealth);
+                uiManager.getUiGameHUD().updateDebugHealthBar(newHealth);
             }
 
             public void onExplodeMeterChange(int newExplodeMeterCount) {

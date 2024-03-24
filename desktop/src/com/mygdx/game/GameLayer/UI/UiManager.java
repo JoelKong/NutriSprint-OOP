@@ -31,6 +31,8 @@ public class UiManager {
         uiTable.center();
         uiStage.addActor(uiTable);
 
+        // uiStage.setDebugAll(true);
+
         Gdx.input.setInputProcessor(uiStage);
     }
 

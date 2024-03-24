@@ -15,6 +15,7 @@ public class Healthbar extends Group {
         this.currentHealth = maxHealth;
         heartTexture = new Texture(Gdx.files.internal("heart.png"));
         updateHealthDisplay();
+        this.setDebug(true);
     }
 
     // Update the health based off the new health
@@ -25,13 +26,13 @@ public class Healthbar extends Group {
 
     protected void updateHealthDisplay() {
         this.clearChildren(); // Remove all existing heart images
-        float heartWidth = 48;
-        float padding = 5;
+        float heartWidth = 40;
+        float padding = 16;
         float startX = maxHealth * (heartWidth + padding); // Start at the rightmost position
 
         for (int i = 0; i < currentHealth; i++) {
             Image heart = new Image(heartTexture);
-            heart.setSize(heartWidth, heartWidth); // Set the size of the heart icon
+            // heart.setSize(heartWidth, heartWidth); // Set the size of the heart icon
             // Position hearts from the right to the left
             float xPosition = startX - ((i + 1) * (heartWidth + padding));
             heart.setPosition(xPosition, 0);
