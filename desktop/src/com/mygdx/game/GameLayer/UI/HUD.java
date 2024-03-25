@@ -17,8 +17,9 @@ public class HUD {
     private Skin skin;
     private Stage uiStage;
     private Table hudTable;
-    private Healthbar healthbar;
-    private DebugHealthBar debugHealthBar;
+    private Table dialogueTable;
+    private Table progressBarsTable;
+    private HealthBar healthBar;
     private TeleportCooldownBar teleportCooldownBar;
     private ExplodeMeterBar explodeMeterBar;
     private ScoreTable scoreTable;
@@ -26,7 +27,6 @@ public class HUD {
 
     protected HUD(Stage uiStage, String[] dialogue) {
         this.uiStage = uiStage;
-        // this.uiStage.setDebugAll(true);
         this.skin = new Skin(Gdx.files.internal("UI/libgdx/uiskin.json"));
 
         // Initialize the hudTable
@@ -34,76 +34,56 @@ public class HUD {
         this.hudTable.setFillParent(true);
         this.hudTable.top();
 
-        Table dialogueTable = new Table();
-        dialogueTable.setFillParent(true);
-        dialogueTable.bottom();
+        this.dialogueTable = new Table();
+        this.dialogueTable.setFillParent(true);
+        this.dialogueTable.bottom();
 
         // Initialize the dialogue
         this.dialogue = new Dialogue("");
-        this.dialogue.setPosition(Gdx.graphics.getWidth() / 2f - 150, Gdx.graphics.getHeight() / 2f - 75); // Center the dialogue on the screen
-        this.dialogue.setLabelPadding(20, 20, 20, 20); // Optional: Adjust the label padding within the dialogue
+        this.dialogue.setLabelPadding(20, 20, 20, 20);
 
         // Initialize the score and level labels
         this.levelLabel = new StyledLabel("");
 
         // Initialize the health bar with the maximum health and teleportCooldownBar
-        this.healthbar = new Healthbar();
-        this.debugHealthBar = new DebugHealthBar(skin, 10);
+        this.healthBar = new HealthBar(skin, 10);
         this.teleportCooldownBar = new TeleportCooldownBar(skin, 5000f);
         this.explodeMeterBar = new ExplodeMeterBar(skin);
 
         // Initialise the score + objective table
         this.scoreTable = new ScoreTable(skin);
 
-        Table groupTable = new Table();
-        groupTable.add(debugHealthBar.getProgressBar()).width(500).padBottom(50);
-        groupTable.row();
-        groupTable.add(teleportCooldownBar.getProgressBar()).width(500).padBottom(50);
-        groupTable.row();
-        groupTable.add(explodeMeterBar.getExplodeMeterBar()).width(500);
+        this.progressBarsTable = new Table();
+        this.progressBarsTable.add(this.healthBar.getProgressBar()).width(500).padBottom(50);
+        this.progressBarsTable.row();
+        this.progressBarsTable.add(this.teleportCooldownBar.getProgressBar()).width(500).padBottom(50);
+        this.progressBarsTable.row();
+        this.progressBarsTable.add(this.explodeMeterBar.getExplodeMeterBar()).width(500);
 
         // HudTable for Level Label, ScoreTable & Healthbar
-        hudTable.add(levelLabel).uniform().align(Align.topLeft).expandX();
-        hudTable.add(scoreTable).uniform().expandX();
-        hudTable.add(groupTable).uniform().align(Align.topRight).expandX();
-        hudTable.row();
+        this.hudTable.add(this.levelLabel).uniform().align(Align.topLeft).expandX();
+        this.hudTable.add(this.scoreTable).uniform().expandX();
+        this.hudTable.add(this.progressBarsTable).uniform().align(Align.topRight).expandX();
+        this.hudTable.row();
 
-        // Span the progress bar under the health bar by using colspan(2) to skip the first two columns
-//
-//        hudTable.add();
-//        hudTable.add();
-//        hudTable.add(explodeMeterBar.getExplodeMeterBar()).align(Align.right).padTop(20).padRight(20).size(400, 24);
-//        hudTable.row();
+        this.dialogueTable.add().uniform().expandX();
+        this.dialogueTable.add(this.dialogue).uniform().expandX();
+        this.dialogueTable.add().uniform().expandX();
 
-//        hudTable.add();
-//        hudTable.add(this.dialogue).expand().align(Align.bottom);
-//        hudTable.add();
-//        hudTable.row();
-
-        dialogueTable.add().uniform().expandX();
-        dialogueTable.add(this.dialogue).uniform().expandX();
-        dialogueTable.add().uniform().expandX();
-
-        // Add the hudTable to the uiStage
-        uiStage.addActor(hudTable);
-        uiStage.addActor(dialogueTable);
+        this.uiStage.addActor(this.hudTable);
+        this.uiStage.addActor(this.dialogueTable);
     }
 
     public void updateHudScore(int score) {
-        scoreTable.updateScore(score);
+        this.scoreTable.updateScore(score);
     }
 
     protected void updateHudObjective(String newObjective) {
-        scoreTable.updateObjective(newObjective);
+        this.scoreTable.updateObjective(newObjective);
     }
 
-    public void updateHudHealth(int health) {
-        // Directly update the healthbar which is now part of the HUD
-        this.healthbar.updateHealth(health);
-    }
-
-    public void updateDebugHealthBar(int health) {
-        this.debugHealthBar.updateHealthValue(health);
+    public void updateHealthBar(int health) {
+        this.healthBar.updateHealthValue(health);
     }
 
     public void updateHudExplodeMeterCount(int explodeMeterCount) {
@@ -131,13 +111,13 @@ public class HUD {
     }
 
     protected void draw() {
-        uiStage.act(Gdx.graphics.getDeltaTime());
-        uiStage.draw();
+        this.uiStage.act(Gdx.graphics.getDeltaTime());
+        this.uiStage.draw();
     }
 
     // Getters and Setters
     public StyledLabel getScoreLabel() {
-        return scoreLabel;
+        return this.scoreLabel;
     }
 
     public void setScoreLabel(StyledLabel scoreLabel) {
@@ -152,42 +132,33 @@ public class HUD {
         this.levelLabel = levelLabel;
     }
 
-    public Skin getSkin() {
-        return skin;
-    }
-
-    public void setSkin(Skin skin) {
-        this.skin = skin;
-    }
-
-    public Stage getUiStage() {
-        return uiStage;
-    }
-
-    public void setUiStage(Stage uiStage) {
-        this.uiStage = uiStage;
-    }
-
     public Table getHudTable() {
-        return hudTable;
+        return this.hudTable;
     }
 
     public void setHudTable(Table hudTable) {
         this.hudTable = hudTable;
     }
 
-    public Healthbar getHealthbar() {
-        return healthbar;
+    public Table getDialogueTable() {
+        return this.dialogueTable;
     }
 
-    public void setHealthbar(Healthbar healthbar) {
-        this.healthbar = healthbar;
+    public void setDialogueTable(Table dialogueTable) {
+        this.dialogueTable = dialogueTable;
+    }
+
+    public HealthBar getHealthbar() {
+        return this.healthBar;
+    }
+
+    public void setHealthbar(HealthBar healthbar) {
+        this.healthBar = healthbar;
     }
 
     public void dispose() {
-        healthbar.dispose();
-        uiStage.dispose();
-        skin.dispose();
+        this.uiStage.dispose();
+        this.skin.dispose();
     }
 
 }

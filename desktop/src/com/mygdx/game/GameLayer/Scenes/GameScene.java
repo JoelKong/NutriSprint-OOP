@@ -101,8 +101,7 @@ public class GameScene extends Scenes {
 
             @Override
             public void onHealthChange(int newHealth) {
-                // uiManager.getUiGameHUD().updateHudHealth(newHealth);
-                uiManager.getUiGameHUD().updateDebugHealthBar(newHealth);
+                uiManager.getUiGameHUD().updateHealthBar(newHealth);
             }
 
             public void onExplodeMeterChange(int newExplodeMeterCount) {

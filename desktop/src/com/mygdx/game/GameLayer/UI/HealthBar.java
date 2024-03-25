@@ -4,12 +4,12 @@ import com.badlogic.gdx.scenes.scene2d.ui.ProgressBar;
 import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 
-public class DebugHealthBar {
+public class HealthBar {
     private ProgressBar progressBar;
     private Skin skin;
     private float maxHealth;
 
-    protected DebugHealthBar(Skin skin, float maxHealth) {
+    protected HealthBar(Skin skin, float maxHealth) {
         this.skin = skin;
         this.maxHealth = maxHealth;
         createProgressBar();
@@ -22,7 +22,7 @@ public class DebugHealthBar {
         backgroundDrawable.setMinHeight(30f); // Adjust the height as needed
         progressBarStyle.background = backgroundDrawable;
 
-        Drawable knobBeforeDrawable = skin.newDrawable("white", Color.PINK);
+        Drawable knobBeforeDrawable = skin.newDrawable("white", Color.RED);
         knobBeforeDrawable.setMinHeight(30f); // Adjust the height as needed
         progressBarStyle.knobBefore = knobBeforeDrawable;
 

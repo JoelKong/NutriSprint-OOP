@@ -22,7 +22,7 @@ public class ExplodeMeterBar {
         backgroundDrawable.setMinHeight(30f);
         progressBarStyle.background = backgroundDrawable;
 
-        Drawable knobBeforeDrawable = skin.newDrawable("white", Color.RED);
+        Drawable knobBeforeDrawable = skin.newDrawable("white", Color.ORANGE);
         knobBeforeDrawable.setMinHeight(30f);
         progressBarStyle.knobBefore = knobBeforeDrawable;
 
