@@ -123,7 +123,7 @@ public class EntityManager extends EngineEntityManager {
                 }
 
                 // If not endless, add entities without checking count
-                if (sceneLevelAssets.getLevelNumber() != 4) {
+                if (!sceneLevelAssets.getLastLevel()) {
                     if (entity instanceof AI) {
                         getAiEntityList().add(entity);
                     } else {
@@ -132,7 +132,7 @@ public class EntityManager extends EngineEntityManager {
                     continue;
                 }
 
-                // For level 4, check counts before adding
+                // For endless, check counts before adding
                 if (currentCount < maxCount) {
                     if (entity instanceof AI) {
                         getAiEntityList().add(entity);

@@ -52,7 +52,7 @@ public class Player extends GameEntity {
 
     // Player Win Condition (if not endless mode and score meets requirement then player wins level)
     protected void checkWinCondition(Levels sceneLevelAssets) {
-        if (sceneLevelAssets.getLevelNumber() != 4) {
+        if (!sceneLevelAssets.getLastLevel()) {
             int scoreNeeded = Integer.parseInt(sceneLevelAssets.getScoreNeeded());
             if (score == scoreNeeded) {
                 winStatus = true;

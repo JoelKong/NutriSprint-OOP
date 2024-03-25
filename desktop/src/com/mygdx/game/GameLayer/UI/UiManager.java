@@ -7,6 +7,7 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
@@ -139,7 +140,6 @@ public class UiManager {
 
     // Create the UI for end scene
     public void createEndSceneUIHehe(SceneManager sceneManager, SoundManager soundManager) {
-        this.getUiStage().setDebugAll(true);
         float maxWidth = 600;
         float maxHeight = 400;
 
@@ -185,7 +185,6 @@ public class UiManager {
     }
 
     public void createEndSceneUI(SceneManager sceneManager, SoundManager soundManager) {
-        this.getUiStage().setDebugAll(true);
         float maxWidth = 400;
         float maxHeight = 400;
 

@@ -1,6 +1,7 @@
 [
   {
     "levelNumber": 1,
+    "lastLevel": false,
     "levelTitle": "Level 1",
     "levelMusic": "Sounds/level1.mp3",
     "levelBackground": "Scenes/gamescene1.png",
@@ -27,6 +28,7 @@
   },
   {
     "levelNumber": 2,
+    "lastLevel": false,
     "levelTitle": "Level 2",
     "levelMusic": "Sounds/level2.mp3",
     "levelBackground": "Scenes/gamescene2.jpg",
@@ -50,6 +52,7 @@
   },
   {
     "levelNumber": 3,
+    "lastLevel": false,
     "levelTitle": "Level 3",
     "levelMusic": "Sounds/level3.mp3",
     "levelBackground": "Scenes/gamescene3.jpg",
@@ -77,6 +80,7 @@
   },
   {
     "levelNumber": 4,
+    "lastLevel": true,
     "levelTitle": "Endless",
     "levelMusic": "Sounds/level4.mp3",
     "levelBackground": "Scenes/gamescene4.jpg",

@@ -5,6 +5,7 @@ import java.util.List;
 public class Levels {
     // Declare attributes
     private int levelNumber;
+    private boolean lastLevel;
     private String levelTitle;
     private String levelMusic;
     private String levelBackground;
@@ -30,6 +31,11 @@ public class Levels {
     // Get Level Number
     public int getLevelNumber() {
         return levelNumber;
+    }
+
+    // Get whether it is last level
+    public boolean getLastLevel() {
+        return lastLevel;
     }
 
     // Get Level Title
