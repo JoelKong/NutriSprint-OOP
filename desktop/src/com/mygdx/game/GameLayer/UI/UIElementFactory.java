@@ -3,6 +3,9 @@ package com.mygdx.game.GameLayer.UI;
 import com.badlogic.gdx.Gdx;
 import com.mygdx.game.GameLayer.Scenes.SceneManager;
 import com.mygdx.game.GameLayer.Sound.SoundManager;
+import com.badlogic.gdx.scenes.scene2d.ui.Label;
+import com.badlogic.gdx.scenes.scene2d.ui.Label.LabelStyle;
+
 
 public class UIElementFactory {
     private enum ButtonType {
@@ -70,4 +73,11 @@ public class UIElementFactory {
             return null;
         }
     }
+
+    protected Label createLabel(String labelText, LabelStyle style) {
+        return new Label(labelText, style);
+    }
+
+
+
 }
