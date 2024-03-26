@@ -5,7 +5,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import java.util.HashMap;
 import java.util.Map;
 
-// Every scene engine should contain a batch, a map of scenes and also a gamecontroller to switch scenes, will be singleton together will scenemanager
+// Every scene engine should contain a batch, a map of scenes and also a gamecontroller to switch scenes.
 public abstract class EngineSceneManager {
     private SpriteBatch batch;
     private Map<String, Screen> sceneMap;

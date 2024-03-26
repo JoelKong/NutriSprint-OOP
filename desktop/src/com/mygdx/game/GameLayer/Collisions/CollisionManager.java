@@ -19,6 +19,5 @@ public class CollisionManager {
         collision.gameWindowCollision(entityManager.getPlayerEntityList());
         collision.handleAICollision(entityManager, soundManager);
         collision.handlePlayerCollisions(entityManager, soundManager);
-
     }
 }
