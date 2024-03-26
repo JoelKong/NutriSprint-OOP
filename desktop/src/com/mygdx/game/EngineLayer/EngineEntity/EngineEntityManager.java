@@ -1,4 +1,4 @@
-package com.mygdx.game.EngineLayer;
+package com.mygdx.game.EngineLayer.EngineEntity;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.mygdx.game.GameLayer.Entity.GameEntity;
 import java.util.ArrayList;

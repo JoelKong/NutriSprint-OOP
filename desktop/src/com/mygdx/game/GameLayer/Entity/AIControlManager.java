@@ -1,5 +1,5 @@
 package com.mygdx.game.GameLayer.Entity;
-import com.mygdx.game.EngineLayer.EngineAIControlManager;
+import com.mygdx.game.EngineLayer.EngineEntity.EngineAIControlManager;
 
 import java.util.ArrayList;
 import java.util.List;

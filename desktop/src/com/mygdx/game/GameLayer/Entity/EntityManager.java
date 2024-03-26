@@ -4,7 +4,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
-import com.mygdx.game.EngineLayer.EngineEntityManager;
+import com.mygdx.game.EngineLayer.EngineEntity.EngineEntityManager;
 import com.mygdx.game.GameLayer.Effects.EffectManager;
 import com.mygdx.game.GameLayer.InputOutput.Inputs;
 import com.mygdx.game.GameLayer.Levels.Levels;
@@ -109,7 +109,6 @@ public class EntityManager extends EngineEntityManager {
     // Respawning of Entities
     public void respawnEntities(Levels sceneLevelAssets) {
         timeSinceLastSpawn += 1;
-
         if (timeSinceLastSpawn >= 100f) {
             timeSinceLastSpawn = 0; // Reset the timer
             for (String entityType : sceneLevelAssets.getRespawnables()) {
@@ -157,7 +156,6 @@ public class EntityManager extends EngineEntityManager {
                 count++;
             }
         }
-
         return count;
     }
 

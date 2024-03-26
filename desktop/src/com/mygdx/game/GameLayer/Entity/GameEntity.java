@@ -3,7 +3,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Rectangle;
-import com.mygdx.game.EngineLayer.EngineGameEntity;
+import com.mygdx.game.EngineLayer.EngineEntity.EngineGameEntity;
 import com.mygdx.game.GameLayer.Levels.Levels;
 import java.util.Random;
 

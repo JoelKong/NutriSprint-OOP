@@ -1,5 +1,5 @@
 package com.mygdx.game.GameLayer.Scenes;
-import com.mygdx.game.EngineLayer.EngineSceneManager;
+import com.mygdx.game.EngineLayer.EngineScene.EngineSceneManager;
 import com.badlogic.gdx.Game;
 
 // SceneManager class taking common methods from its engine

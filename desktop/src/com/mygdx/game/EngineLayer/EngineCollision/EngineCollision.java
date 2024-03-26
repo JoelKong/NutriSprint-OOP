@@ -1,4 +1,6 @@
-package com.mygdx.game.EngineLayer;
+package com.mygdx.game.EngineLayer.EngineCollision;
+
+import com.mygdx.game.EngineLayer.EngineEntity.EngineGameEntity;
 
 public class EngineCollision {
     protected EngineCollision() {}

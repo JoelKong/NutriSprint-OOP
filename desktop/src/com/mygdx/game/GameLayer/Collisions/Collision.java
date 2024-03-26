@@ -2,12 +2,11 @@ package com.mygdx.game.GameLayer.Collisions;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
-import com.mygdx.game.EngineLayer.EngineCollision;
+import com.mygdx.game.EngineLayer.EngineCollision.EngineCollision;
 import com.mygdx.game.GameLayer.Entity.*;
 import com.mygdx.game.GameLayer.Sound.SoundManager;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Map;
 
 // Collision class for all kinds of collisions
 public class Collision extends EngineCollision {

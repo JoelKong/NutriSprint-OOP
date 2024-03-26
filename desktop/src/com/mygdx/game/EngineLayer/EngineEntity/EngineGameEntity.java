@@ -1,4 +1,4 @@
-package com.mygdx.game.EngineLayer;
+package com.mygdx.game.EngineLayer.EngineEntity;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.Rectangle;
 

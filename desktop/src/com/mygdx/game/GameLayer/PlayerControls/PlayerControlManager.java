@@ -6,7 +6,6 @@ import com.mygdx.game.GameLayer.Entity.Isaac;
 import com.mygdx.game.GameLayer.Entity.Player;
 import com.mygdx.game.GameLayer.InputOutput.Inputs;
 import com.mygdx.game.GameLayer.Sound.SoundManager;
-
 import java.util.List;
 import java.util.Map;
 
