@@ -1,11 +1,11 @@
 package com.mygdx.game.GameLayer.Levels;
+import com.mygdx.game.EngineLayer.EngineLevels.EngineLevel;
+
 import java.util.List;
 
 // Levels class containing the assets for each level object (will be deserialized from our levels.json)
-public class Levels {
+public class Levels extends EngineLevel {
     // Declare attributes
-    private int levelNumber;
-    private boolean lastLevel;
     private String levelTitle;
     private String levelMusic;
     private String levelBackground;
@@ -27,16 +27,6 @@ public class Levels {
 
     // Default Constructor
     protected Levels() {};
-
-    // Get Level Number
-    public int getLevelNumber() {
-        return levelNumber;
-    }
-
-    // Get whether it is last level
-    public boolean getLastLevel() {
-        return lastLevel;
-    }
 
     // Get Level Title
     public String getLevelTitle() {

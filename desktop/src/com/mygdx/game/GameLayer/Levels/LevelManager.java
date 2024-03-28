@@ -1,13 +1,13 @@
 package com.mygdx.game.GameLayer.Levels;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.utils.Json;
+import com.mygdx.game.EngineLayer.EngineLevels.EngineLevelManager;
 import com.mygdx.game.GameLayer.Entity.GameEntity;
 import com.mygdx.game.GameLayer.Entity.Player;
 import java.util.List;
 
 // Manage all of our level tracker needs
-public class LevelManager {
-    private int levelNumber;
+public class LevelManager extends EngineLevelManager {
     private List<Levels> levelsList;
 
     // Constructor to initialise level to 1 and load all the raw data from our levels.json
@@ -34,11 +34,6 @@ public class LevelManager {
             return player.getWinStatus();
         }
         return false;
-    }
-
-    // Get Level Number
-    public int getLevelNumber() {
-        return levelNumber;
     }
 
     // Set Level Number
