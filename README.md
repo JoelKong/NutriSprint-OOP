@@ -4,6 +4,10 @@ View full report here: (https://docs.google.com/document/d/1TX0IZU3Te0VXxRRu-O1w
 
 ![NutriSprint](/assets/nutrisprint.png)
 
+## Contributors
+[Ethan Leow Cheng Hong](https://github.com/EthanLeow)  
+[Dinie Zikry Bin Rudi](https://github.com/diniezikryy)  
+
 ## Application Code
 ### Technology Stack
 Language: Java  
