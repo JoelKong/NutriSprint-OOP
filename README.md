@@ -1,5 +1,5 @@
 # NutriSprint-OOP
-Applying Object Oriented principles into game development 
+Applying Object Oriented principles into game development  
 View full report here: (https://docs.google.com/document/d/1TX0IZU3Te0VXxRRu-O1w7n8g4z7jQlgmWvDc0e23c9U/edit?usp=sharing)
 
 ![NutriSprint](/assets/nutrisprint.png)
