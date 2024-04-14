@@ -6,7 +6,7 @@ View full report here: (https://docs.google.com/document/d/1TX0IZU3Te0VXxRRu-O1w
 
 ## Application Code
 ### Technology Stack
-Language: Java 
+Language: Java  
 Tools used: LibGDX    
 
 ## Encapsulation
